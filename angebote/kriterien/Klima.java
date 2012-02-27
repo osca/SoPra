@@ -2,17 +2,15 @@ package angebote.kriterien;
 
 import java.util.Vector;
 
-public class Klima extends Kriterium{
+public class Klima extends Kriterium {
 	
-	String[] klimata = {"Tropisch","Mediteran","Gemäßigt","Kalt"};
+	protected static String[] wertebereich = {"Tropisch","Mediteran","Gemäßigt","Kalt"};
 	
-	Klima(Vector<String> pwerte) {
+	public Klima(Vector<String> pwerte) {
 		super(pwerte);
-		
-		erlaubteWerte = klimata;
 	}
 	
-	public boolean isValid() {
-		return true;
+	public String[] getWertebereich() {
+		return wertebereich;
 	}
 }

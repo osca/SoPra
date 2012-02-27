@@ -1,17 +1,19 @@
 package accounts;
 //@author stephan
+//@edit R
 import java.util.Vector;
 
 import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
 	private Vector<Angebot> Angebote; 
+	private int anzahlWertungen;
 	private double wertung;
 	private String agb;
 	public Anbieter(String em, String nm, String pw) {
 		super(em, nm, pw);
 		gesperrt = true;
-		// TODO Auto-generated constructor stub
+		anzahlWertungen=0;
 	}
 	public void addAngebot(Angebot offer){
 		Angebote.add(offer);
@@ -26,12 +28,12 @@ public class Anbieter extends Account{
 	
 	//---------------------------------------
 	//Triviale GETTER und SETTER
-//	public double getWertung() {
-//		return wertung;
-//	}
-//	public void setWertung(double wertung) {
-//		this.wertung = wertung;
-//	}
+	public double getWertung() {
+		return wertung;
+	}
+	public void addWertung(double wertung) {
+		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
+	}
 	public String getAgb() {
 		return agb;
 	}

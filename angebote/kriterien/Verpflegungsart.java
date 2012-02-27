@@ -1,13 +1,17 @@
 package angebote.kriterien;
+//@author stephan
 
 import java.util.Vector;
 
 public class Verpflegungsart extends Kriterium{
-	String[] verpflegungsarten = {"All Inclusive","Vollpension","Halbpension","Nur Frühstück","Ohne Verpflegung"};
-	Verpflegungsart(Vector<String> pwerte) {
+	Verpflegungsart(Vector<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
-		erlaubteWerte = verpflegungsarten;
+	}
+
+	private static String[] wertebereich = {"All Inclusive","Vollpension","Halbpension","Nur Frühstück","Ohne Verpflegung"};
+
+	public static String[] getWertebereich() {
+		return wertebereich;
 	}
 	
-
 }

@@ -1,11 +1,17 @@
+//wertebereich waere echt groß
+
 package angebote.kriterien;
 
+import java.util.Vector;
+
+//@author stephan
+
 public class Ort extends Kriterium{
-	erlaubteWerte
-	
-	Ort(String[] pwerte) {
+
+	Ort(Vector<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
-		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 }
