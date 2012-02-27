@@ -1,7 +1,7 @@
 package angebote;
 
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.Vector;
 
 public class Angebot {
 	
@@ -11,7 +11,7 @@ public class Angebot {
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
-	LinkedList<Kommentar> kommentare;
+	Vector<Kommentar> kommentare;
 	
 	public Angebot(String pname, int ptyp, double ppreis, Date[] pdaten) {
 		angebotsNummer = 1000+anzahl++;

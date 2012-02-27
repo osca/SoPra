@@ -1,12 +1,12 @@
 package angebote;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 public class Angebotsverwaltung {
 
-	private LinkedList<Angebot> angebote;
+	private Vector<Angebot> angebote;
 	
-	private LinkedList<Kommentar> getKommentare(Angebot angebot) {
+	private Vector<Kommentar> getKommentare(Angebot angebot) {
 		return angebot.kommentare;
 	}
 }
