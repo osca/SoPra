@@ -26,12 +26,12 @@ public class Anbieter extends Account{
 	
 	//---------------------------------------
 	//Triviale GETTER und SETTER
-	public double getWertung() {
-		return wertung;
-	}
-	public void setWertung(double wertung) {
-		this.wertung = wertung;
-	}
+//	public double getWertung() {
+//		return wertung;
+//	}
+//	public void setWertung(double wertung) {
+//		this.wertung = wertung;
+//	}
 	public String getAgb() {
 		return agb;
 	}
