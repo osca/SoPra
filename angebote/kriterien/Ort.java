@@ -8,10 +8,8 @@ import java.util.Vector;
 
 public class Ort extends Kriterium{
 
-	Ort(Vector<String> pwerte) throws IllegalArgumentException {
+	public Ort(Vector<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
 	}
 	
-	
-
 }

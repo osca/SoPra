@@ -6,7 +6,7 @@ public abstract class Kriterium {
 	
 	protected Vector<String> werte;
 	
-	Kriterium(Vector<String> pwerte) throws IllegalArgumentException{
+	public Kriterium(Vector<String> pwerte) throws IllegalArgumentException{
 		if(isValid(pwerte)){
 			werte = pwerte;
 		} else {

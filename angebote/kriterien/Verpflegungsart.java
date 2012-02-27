@@ -4,7 +4,8 @@ package angebote.kriterien;
 import java.util.Vector;
 
 public class Verpflegungsart extends Kriterium{
-	Verpflegungsart(Vector<String> pwerte) throws IllegalArgumentException {
+	
+	public Verpflegungsart(Vector<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
 	}
 
