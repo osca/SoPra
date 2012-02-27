@@ -1,4 +1,4 @@
-package bin;
+package main;
 
 public class System {
 

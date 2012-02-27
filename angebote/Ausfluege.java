@@ -1,5 +1,5 @@
 package angebote;
 
-public class Ausluege {
+public class Ausfluege {
 
 }
