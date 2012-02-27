@@ -1,16 +1,19 @@
 package accounts;
 //@author stephan
+//@edit R
 import java.util.Vector;
 
 import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
 	private Vector<Angebot> Angebote; 
+	private int anzahlWertungen;
 	private double wertung;
 	private String agb;
 	public Anbieter(String em, String nm, String pw) {
 		super(em, nm, pw);
 		gesperrt = true;
+		anzahlWertungen=0;
 		// TODO Auto-generated constructor stub
 	}
 	public void addAngebot(Angebot offer){
@@ -30,7 +33,10 @@ public class Anbieter extends Account{
 		return wertung;
 	}
 	public void setWertung(double wertung) {
-		this.wertung = wertung;
+		if(anzahlWertungen>0){
+		this.wertung = (wertung+this.wertung)/anzahlWertungen;
+		}
+		else return;
 	}
 	public String getAgb() {
 		return agb;
