@@ -14,7 +14,6 @@ public class Anbieter extends Account{
 		super(em, nm, pw);
 		gesperrt = true;
 		anzahlWertungen=0;
-		// TODO Auto-generated constructor stub
 	}
 	public void addAngebot(Angebot offer){
 		Angebote.add(offer);
