@@ -1,4 +1,4 @@
-package angebot;
+package angebote;
 
 public class Angebot {
 
