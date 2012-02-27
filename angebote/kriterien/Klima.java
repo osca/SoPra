@@ -4,14 +4,15 @@ import java.util.Vector;
 
 public class Klima extends Kriterium{
 	
-	Vector<String> klimata = new Vector<String>();
+	String[] klimata = {"Tropisch","Mediteran","Gemäßigt","Kalt"};
 	
 	Klima(Vector<String> pwerte) {
 		super(pwerte);
 		
-		klimata.add("Sonnig");
-		klimata.add("");
-		
 		erlaubteWerte = klimata;
+	}
+	
+	public boolean isValid() {
+		return true;
 	}
 }
