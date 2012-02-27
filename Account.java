@@ -1,4 +1,5 @@
 
-public abstract class Account 
-{
+public abstract class Account {
+	String email, name, password;
+	
 }
