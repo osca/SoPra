@@ -1,0 +1,410 @@
+commit 0bb878140a299fca1e69fe697dd4c376a85c4450
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:28:40 2012 +0100
+
+    Auto Update
+
+commit b0b962768c4e5321e43f7089e469911caf2f4cb3
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:27:54 2012 +0100
+
+    Auto Update
+
+commit 3a59285ee34310993d8e683440ca9def7423803d
+Merge: 2fad5b2 851cf37
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 13:25:22 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 2fad5b259a23df36c3b76435807cddfce56c9ad8
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 13:24:58 2012 +0100
+
+    Auto Update
+
+commit 851cf3785923fc31ceef7319dd378ce57bff1923
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:24:50 2012 +0100
+
+    Auto Update
+
+commit 0f1b8395805c35f03dffac257812ccc469192726
+Merge: 13e3497 6ff2def
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:23:37 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit 6ff2defe71121b92d765746a4b469b7e9bfbb425
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:23:27 2012 +0100
+
+    Auto Update
+
+commit af738cac3893f7fe6d2f902707c5e5651de7fdda
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:20:31 2012 +0100
+
+    Fu
+
+commit cbf660aa02ecc70911387d240e9da275bf55f7bc
+Merge: 94fc861 d6eee16
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:20:02 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 13e3497539f70949d9428ee153344800815da5e7
+Merge: c377f3d d6eee16
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:19:40 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit d6eee16a7628ac0e4c56a5bdbcdfc6c1c66e6714
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 13:19:04 2012 +0100
+
+    emtpy
+
+commit 94fc861beb1c14fa8463404557bf634a8fe7db81
+Merge: b970afc 90033a5
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:18:42 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit c377f3deeb0e9526ba16d880ab2b5162998ef26d
+Merge: 468a2b8 90033a5
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:18:28 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit 90033a5d8af2fcec1db02a935417d21a9ddb529d
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:18:19 2012 +0100
+
+    E
+
+commit a6725f8efd93dbb5cb1cf8cf07fbd14d1d541063
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:17:37 2012 +0100
+
+    e
+
+commit b970afc35cca76de0af7b766769a18ed4fa37fa5
+Merge: 28d1aeb 757300c
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:16:55 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 468a2b826f761db2d1d6144d6b0e0c99f02d9672
+Merge: 7624539 757300c
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:16:45 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit 762453979685273598d61167b4f785df191247ce
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 13:16:25 2012 +0100
+
+    readme
+
+commit 757300c492bb55f99ecbeed05b2bace6791b7b2a
+Merge: 2398476 ea8bd45
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:16:17 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 28d1aebc7ab1421b783098b894324be5e9a8ac70
+Merge: 7ce7307 ea8bd45
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:16:16 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 7ce7307379ef89d00a8ce79f89c39cd52a211fc7
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:15:55 2012 +0100
+
+    attributesAcc
+
+commit 23984760c2339c39258b00f5ba252eeb2d3fc1b9
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:15:51 2012 +0100
+
+    RE
+
+commit ea8bd45ce646e826a4552bce388ee9ed92c7dc6c
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 13:14:58 2012 +0100
+
+    logfile name
+
+commit 9dbcbcb4872aa4018cb942e20b6e4ef220f1d35b
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:12:02 2012 +0100
+
+    RE
+
+commit 25d5c26d0dac0186a649ed6ba1d589f32f542adb
+Merge: d89fa97 b2f6ee4
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:11:10 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit d89fa973bb27db1c498ccedf97a4a1c3691049e7
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 13:10:37 2012 +0100
+
+    re
+
+commit b2f6ee445b17b69f6f05b7273d0ef57f9be55658
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:10:06 2012 +0100
+
+    Account_constructor_del
+
+commit b8284d7e74edfe77395d31d86895793ca453212e
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 13:08:31 2012 +0100
+
+    text
+
+commit 56a0096a5e882e0a266c848bbc4024fc7a7a62ce
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 13:05:16 2012 +0100
+
+    newfile
+
+commit 31a5a16cfbdb7788d751bc6a54e08f2d346f5da6
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 12:58:51 2012 +0100
+
+    delete
+
+commit 129c0874007910c221a8a04cf0d6fee487f36759
+Author: RudiX <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:57:15 2012 +0100
+
+    RE
+
+commit 198d4c62788ad9fa010a720dbdf48d35bdf8d5d3
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:47:51 2012 +0100
+
+    fu alles weg
+
+commit 2651058bcb08a9470f0db202b9d18d5c6187b93c
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:35:31 2012 +0100
+
+    RE
+
+commit 4321d021da7ba53d63da2e7db71eda9fdc2350ac
+Merge: 6f1825f 845ac66
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:34:28 2012 +0100
+
+    Merge branch 'master' of github.com:osca/SoPra
+
+commit 845ac6669ac6eebac21eb20fc6ef80856b8614d8
+Author: schlange <b4tt0@gmx.de>
+Date:   Mon Feb 27 12:29:53 2012 +0100
+
+    Update test.txt
+
+commit 5cec32646d187fc194a13de9f1044437eb6df3eb
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 12:28:43 2012 +0100
+
+    bla
+
+commit fb1f1356f140097bb184ba8c643124bd5ca9c565
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:27:18 2012 +0100
+
+    asdfa
+
+commit 6f1825f704d672eb83b438659ba8ca5f19b6cd29
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:23:27 2012 +0100
+
+    xD
+
+commit 7b931c62890fbcd1c269c40f19a924fdccd57e7e
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:22:15 2012 +0100
+
+    asfa
+
+commit e6e90d32bb2f396e707a6fa334fd0b753d59fc78
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:20:46 2012 +0100
+
+    asdfa
+
+commit 4fa88b0b05c27cc5404e763c55ecb5d384c90c68
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:10:20 2012 +0100
+
+    R
+
+commit 572f9c9911a9b1e65ed6d4d42ca6e48850ac96a9
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:09:18 2012 +0100
+
+    sadfs
+
+commit f479d4a33950bc42deb4472243bcbca26db32b96
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:08:17 2012 +0100
+
+    asd
+
+commit 855f5bbadd404d64c05b1fe9bee76296735cb692
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:07:39 2012 +0100
+
+    asdas
+
+commit ba84e6b83d9f32703653938a4add8d813fd80956
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:05:03 2012 +0100
+
+    asdf
+
+commit b1a8c80a47e426cefdbb437eb1c540934a18ad0c
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 12:03:47 2012 +0100
+
+    HDF
+
+commit d5cd34c2a294d87b4b6fa3c0d33d6c75bef289ef
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 12:00:21 2012 +0100
+
+    ghts
+
+commit be852abab9bbd9a4af0152cca6f7ff0c361b8ec9
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 11:54:10 2012 +0100
+
+    ksdfhk
+
+commit 757c819a1a9df69b88bf6af64328c7bf85635ea9
+Author: R <ermantraut.rudolf@googlemail.com>
+Date:   Mon Feb 27 11:53:29 2012 +0100
+
+    asdasd
+
+commit f62e5149efa058f73b66f8031ba7911cd7baa5c2
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 11:29:54 2012 +0100
+
+    asda
+
+commit bb12741d0b515cfcec083457e39b3c48de646ca9
+Merge: 4d2d635 fec412e
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 11:28:42 2012 +0100
+
+    afd
+
+commit 4d2d6357c62f84042618bfcf83957afa1a3576b0
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 11:27:40 2012 +0100
+
+    a
+
+commit fec412e7b81318469a80de065423a16161340c4a
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 11:10:38 2012 +0100
+
+    alsdkas
+
+commit 02c989c3baa8c61d4c739cadff7f4bb2391c774f
+Merge: 34d5761 7c48c54
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 11:09:51 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit 34d576173d7a14d7a0651a6286da305afa2ca44d
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 11:08:14 2012 +0100
+
+    update
+
+commit 7c48c5458c71fd2af4039e4c00afb82d94772462
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 11:06:36 2012 +0100
+
+    aaaaaa
+
+commit 259b77f54f5cfaab03efa48387e60837f63c05e5
+Merge: e50d3cd 230c46b
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 10:59:30 2012 +0100
+
+    Merge branch 'master' of https://github.com/osca/SoPra
+
+commit 230c46bc8bfb2066669b5e7e1fbc1b1d7f08d3f4
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 10:57:54 2012 +0100
+
+    delete
+
+commit bba8fd1c082fe6f74e8060c1d24df8df578c476a
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 10:55:56 2012 +0100
+
+    aaa
+
+commit 56c097d4dabb6ea5ab83629e06d0b6a609ff0f07
+Author: osca <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 10:54:40 2012 +0100
+
+    Update uni.pub
+
+commit 8b2c694a8a8dbe3681dcaad0dc44f09b816a8b84
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 10:51:03 2012 +0100
+
+    try
+
+commit 83c67816c2f6ae55b9071917449743edcc9cd214
+Author: O <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 10:42:27 2012 +0100
+
+    fuuuuu
+
+commit e50d3cddbf0324b1116d01da97725f401f921204
+Author: J <Jay.Schneider@uni-muenster.de>
+Date:   Mon Feb 27 10:33:04 2012 +0100
+
+    blubb
+
+commit 8fb6ecba515b4ad3b907711828e81fab680afc55
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 02:15:18 2012 +0100
+
+    third
+
+commit c8911f8aa4e9e98edf68ccc2b94d37586d71599b
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 02:13:39 2012 +0100
+
+    second
+
+commit 0527bca60baacc57c671a35211a16470a8c0d007
+Author: Dennis Wiosna <dennis.wiosna@googlemail.com>
+Date:   Mon Feb 27 02:09:50 2012 +0100
+
+    first
