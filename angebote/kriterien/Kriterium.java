@@ -7,9 +7,11 @@ public abstract class Kriterium {
 	protected static String[] erlaubteWerte;
 	private Vector<String> werte;
 	
-	Kriterium(Vector<String> pwerte) {
+	Kriterium(Vector<String> pwerte) throws IllegalArgumentException{
 		if(isValid(pwerte)){
 			werte = pwerte;
+		} else {
+			throw new IllegalArgumentException();
 		}
 	}
 	public boolean isValid(Vector<String> pwerte){
