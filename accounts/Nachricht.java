@@ -1,4 +1,4 @@
-package nachrichten;
+package accounts;
 
 public class Nachricht {
 
