@@ -3,13 +3,18 @@ package angebote.kriterien;
 public abstract class Kriterium {
 	
 	@SuppressWarnings("unused")
-	private String[] erlaubteWerte,werte;
+	protected String[] erlaubteWerte;
+	@SuppressWarnings("unused")
+	private String[] werte;
 	
-	Kriterium(String[] perlaubteWerte,String[] pwerte) {
-		erlaubteWerte = perlaubteWerte;
-		werte = pwerte;
+	Kriterium(String[] pwerte) {
+		if(isValid(pwerte)){
+			werte = pwerte;
+		}
 	}
-
+	public boolean isValid(String[] pwerte){
+		return true;
+	}
 	public String[] getWerte() {
 		return werte;
 	}
