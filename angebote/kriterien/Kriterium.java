@@ -1,25 +1,30 @@
 package angebote.kriterien;
 
+import java.util.Vector;
+
 public abstract class Kriterium {
 	
 	@SuppressWarnings("unused")
-	protected String[] erlaubteWerte;
+	protected Vector<String> erlaubteWerte;
 	@SuppressWarnings("unused")
-	private String[] werte;
+	private Vector<String> werte;
 	
-	Kriterium(String[] pwerte) {
+	Kriterium(Vector<String> pwerte) {
 		if(isValid(pwerte)){
 			werte = pwerte;
 		}
 	}
-	public boolean isValid(String[] pwerte){
+	public boolean isValid(Vector<String> pwerte){
+		for(int i=0;i<pwerte.size();i++){
+			erlaubteWerte.contains(pwerte.get(i));
+		}
 		return true;
 	}
-	public String[] getWerte() {
+	public Vector<String> getWerte() {
 		return werte;
 	}
 
-	public void setWerte(String[] werte) {
+	public void setWerte(Vector<String> werte) {
 		this.werte = werte;
 	}
 	
