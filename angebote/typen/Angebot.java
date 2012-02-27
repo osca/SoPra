@@ -5,14 +5,22 @@ import java.util.Vector;
 
 import angebote.Kommentar;
 
-public class Angebot {
+public abstract class Angebot {
+	
+	//FLAGS
+	public static final int FLUG = 1,
+							AUTOVERMIETUNG = 2,
+							AUSFLUG = 3,
+							HOTEL = 4;
 	
 	private static int anzahl = 0;
-	private int angebotsNummer,typ;
+	
 	private String name;
+	private int angebotsNummer,typ;
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
+	
 	Vector<Kommentar> kommentare;
 	
 	public Angebot(String pname, int ptyp, double ppreis, Date[] pdaten) {
