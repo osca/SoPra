@@ -31,11 +31,8 @@ public class Anbieter extends Account{
 	public double getWertung() {
 		return wertung;
 	}
-	public void setWertung(double wertung) {
-		if(anzahlWertungen>0){
-		this.wertung = (wertung+this.wertung)/anzahlWertungen;
-		}
-		else return;
+	public void addWertung(double wertung) {
+		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
 	}
 	public String getAgb() {
 		return agb;
