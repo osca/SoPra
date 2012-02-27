@@ -19,10 +19,6 @@ public class Buchung {
 		return anzahl;
 	}
 
-	public static void setAnzahl(int anzahl) {
-		Buchung.anzahl = anzahl;
-	}
-
 	public int getBuchungsnummer() {
 		return buchungsNummer;
 	}

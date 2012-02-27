@@ -11,4 +11,8 @@ public class Angebot {
 	private double preis;
 	private Date[] daten;
 	
+	public Angebot(String name, int typ) {
+		
+	}
+	
 }
