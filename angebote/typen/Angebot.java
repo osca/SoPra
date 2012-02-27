@@ -1,7 +1,9 @@
-package angebote;
+package angebote.typen;
 
 import java.util.Date;
 import java.util.Vector;
+
+import angebote.Kommentar;
 
 public class Angebot {
 	

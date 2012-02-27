@@ -1,4 +1,4 @@
-package angebote;
+package angebote.kriterien;
 
 public abstract class Kriterium {
 	

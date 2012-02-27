@@ -2,7 +2,7 @@ package accounts;
 
 import java.util.Vector;
 
-import angebote.Angebot;
+import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
 	private Vector<Angebot> Angebote; 
