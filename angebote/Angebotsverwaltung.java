@@ -6,7 +6,7 @@ public class Angebotsverwaltung {
 
 	private Vector<Angebot> angebote;
 	
-	private Vector<Kommentar> getKommentare(Angebot angebot) {
+	public Vector<Kommentar> getKommentare(Angebot angebot) {
 		return angebot.kommentare;
 	}
 }
