@@ -1,5 +1,5 @@
 package accounts;
-
+//@author stephan
 import java.util.Vector;
 
 import angebote.typen.Angebot;

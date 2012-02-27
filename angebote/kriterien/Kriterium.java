@@ -4,7 +4,6 @@ import java.util.Vector;
 
 public abstract class Kriterium {
 	
-	protected static String[] erlaubteWerte;
 	private Vector<String> werte;
 	
 	Kriterium(Vector<String> pwerte) throws IllegalArgumentException{
