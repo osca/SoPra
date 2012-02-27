@@ -9,4 +9,8 @@ public class Sterne extends Kriterium {
 	public Sterne(Vector<String> pwerte) {
 		super(pwerte);
 	}
+	
+	public String[] getWertebereich() {
+		return wertebereich;
+	}
 }
