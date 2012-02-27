@@ -23,9 +23,6 @@ public class Buchung {
 		return buchungsNummer;
 	}
 
-	public void setBuchungsnummer(int buchungsnummer) {
-		this.buchungsNummer = buchungsnummer;
-	}
 
 	public Bestaetigung getBestaetigt() {
 		return bestaetigt;
