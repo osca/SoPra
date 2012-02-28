@@ -2,6 +2,8 @@ package angebote.typen;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import buchungen.Buchung;
 import graphic.Listable;
 
 import angebote.Kommentar;
@@ -29,7 +31,9 @@ public abstract class Angebot implements Listable {
 	private Date[] daten;
 	Kriterium[] erlaubteKriterien;
 	
-	ArrayList<Kommentar> kommentare;
+	ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
+	
+	ArrayList<Buchung> buchungen  = new ArrayList<Buchung>();
 	
 	/**
 	 * Konstruktor
@@ -105,6 +109,14 @@ public abstract class Angebot implements Listable {
 		return angebotsNummer;
 	}
 	
+	public ArrayList<Kommentar> getKommentare() {
+		return kommentare;
+	}
+
+	public ArrayList<Buchung> getBuchungen() {
+		return buchungen;
+	}
+
 	public abstract Kriterium[] getErlaubteKriterien();
 	
 	public String convertTypToName(int type) {
