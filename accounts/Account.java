@@ -1,12 +1,12 @@
 package accounts;
 //@author stephan
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public abstract class Account {
 	private String email, name, password;
 	protected boolean gesperrt = false;
-	private Vector<Nachricht> Posteingang;
+	private ArrayList<Nachricht> Posteingang;
 	
 
 	public Account(String em, String nm, String pw){
@@ -22,7 +22,10 @@ public abstract class Account {
 		Posteingang.remove(msg);
 	}
 	
-	
+	public ArrayList<Nachricht> getPosteingang() {
+		return Posteingang;
+	}
+
 	//-----------------------------------------------------------------------------
 	// GETTER und SETTER
 	public String getEmail() {
