@@ -36,6 +36,17 @@ public class Angebotsverarbeitung {
 		return suchErgebnisse;
 	}
 	
+//	public ArrayList<Angebot> getTopAngebote(){
+//		ArrayList<Angebot> aktAngebote = getAktuelleAngebote();
+//		ArrayList<Angebot> topAngebote = new ArrayList<Angebot>();
+//		
+//		for(Angebot a:aktAngebote){
+//			a.getBuchungen().length;
+//		}
+//		
+//		return topAngebote;
+//	}
+	
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Date now = new Date();
