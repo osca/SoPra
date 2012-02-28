@@ -66,7 +66,7 @@ public class Ausfluege extends Angebot {
 	public Bierpreis getBierpreis() {
 		return bierpreis;
 	}
-
+	
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
