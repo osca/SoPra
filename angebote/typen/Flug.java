@@ -2,7 +2,6 @@ package angebote.typen;
 
 import java.util.Date;
 
-import angebote.kriterien.Beschreibung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Kriterium;
@@ -10,48 +9,48 @@ import angebote.kriterien.Ort;
 import angebote.kriterien.Plaetze;
 
 public class Flug extends Angebot {
-	
-	private static final int BESCHREIBUNG = 0,
-			 				 START = 1,
-			 				 ZIEL = 2,
-			 				 PLAETZE = 3,
-			 				 KLASSE = 4,
-			 				 BIERPREIS = 5;
 
-	Kriterium[] erlaubteKriterien = new Kriterium[6];
+	/*public static final int START = 0,
+			 				ZIEL = 1,
+			 				PLAETZE = 2,
+			 				KLASSE = 3,
+			 				BIERPREIS = 4;*/
+
+	private Ort start = null;
+	private Ort ziel = null;
+	private Plaetze plaetze = null;
+	private Klasse klasse = null;
+	private Bierpreis bierpreis = null;
 	
-	public Flug(String pname, double ppreis, Date[] pdaten, String beschreibung, String start, String ziel, String plaetze, String klasse, String bierpreis) {
-		super(pname, Angebot.FLUG, ppreis, pdaten);
-		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
-		erlaubteKriterien[START] = new Ort(start);
-		erlaubteKriterien[ZIEL] = new Ort(ziel);
-		erlaubteKriterien[PLAETZE] = new Plaetze(plaetze);
-		erlaubteKriterien[KLASSE] = new Klasse(klasse);
-		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis);
-	}
+	Kriterium[] erlaubteKriterien = {start,ziel,plaetze,klasse,bierpreis};
 	
-	public void setBeschreibung(String wert) {
-		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
+	public Flug(String pname, String beschreibung, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
+		super(pname, beschreibung, Angebot.FLUG, ppreis, pdaten);
+		start = new Ort(pstart);
+		ziel = new Ort(pziel);
+		plaetze = new Plaetze(pplaetze);
+		klasse = new Klasse(pklasse);
+		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
 	public void setStart(String wert) {
-		erlaubteKriterien[START].setWert(wert);
+		start.setWert(wert);
 	}
 	
 	public void setZiel(String wert) {
-		erlaubteKriterien[ZIEL].setWert(wert);
+		ziel.setWert(wert);
 	}
 	
 	public void setPlaetze(String wert) {
-		erlaubteKriterien[PLAETZE].setWert(wert);
+		plaetze.setWert(wert);
 	}
 	
 	public void setKlasse(String wert) {
-		erlaubteKriterien[KLASSE].setWert(wert);
+		klasse.setWert(wert);
 	}
 	
 	public void setBierpreis(String wert) {
-		erlaubteKriterien[BIERPREIS].setWert(wert);
+		bierpreis.setWert(wert);
 	}
 	
 }

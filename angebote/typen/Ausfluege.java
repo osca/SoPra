@@ -2,7 +2,6 @@ package angebote.typen;
 
 import java.util.Date;
 
-import angebote.kriterien.Beschreibung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
@@ -10,35 +9,33 @@ import angebote.kriterien.Plaetze;
 
 public class Ausfluege extends Angebot {
 	
-	private static final int BESCHREIBUNG = 0,
-							 ORT = 1,
-							 PLAETZE = 2,
-							 BIERPREIS = 3;
+	/*public static final int ORT = 0,
+							PLAETZE = 1,
+							BIERPREIS = 2;*/
 	
-	Kriterium[] erlaubteKriterien = new Kriterium[4];
+	private Ort ort = null;
+	private Plaetze plaetze = null;
+	private Bierpreis bierpreis = null;
 	
-	public Ausfluege(String pname, double ppreis, Date[] pdaten, String beschreibung, String ort, String plaetze, String bierpreis) {
-		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
-		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
-		erlaubteKriterien[ORT] = new Ort(ort); 
-		erlaubteKriterien[PLAETZE] = new Plaetze(plaetze); 
-		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis);
-	}
+	Kriterium[] erlaubteKriterien = {ort,plaetze,bierpreis};
 	
-	public void setBeschreibung(String wert) {
-		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
+	public Ausfluege(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pplaetze, String pbierpreis) {
+		super(pname, pbeschreibung, Angebot.AUSFLUG, ppreis, pdaten);
+		ort = new Ort(port); 
+		plaetze = new Plaetze(pplaetze); 
+		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
 	public void setOrt(String wert) {
-		erlaubteKriterien[ORT].setWert(wert);
+		ort.setWert(wert);
 	}
 	
 	public void setPlaetze(String wert) {
-		erlaubteKriterien[PLAETZE].setWert(wert);
+		plaetze.setWert(wert);
 	}
 	
 	public void setBierpreis(String wert) {
-		erlaubteKriterien[BIERPREIS].setWert(wert);
+		bierpreis.setWert(wert);
 	}
 	
 }
