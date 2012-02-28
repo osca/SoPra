@@ -7,13 +7,13 @@ package angebote.kriterien;
 
 public class Ort extends Kriterium{
 	
-	private final String name = "Ort";
+	private final static String name = "Ort";
 
 	public Ort(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
 
-	public String getName() {
+	public static String getName() {
 		return name;
 	}
 	
