@@ -15,10 +15,14 @@ public class Ausfluege extends Angebot {
 							 PLAETZE = 2,
 							 BIERPREIS = 3;
 	
-	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Plaetze(null),new Bierpreis(null)};
+	Kriterium[] erlaubteKriterien = new Kriterium[4];
 	
-	public Ausfluege(String pname, double ppreis, Date[] pdaten) {
+	public Ausfluege(String pname, double ppreis, Date[] pdaten, String beschreibung, String ort, String plaetze, String bierpreis) {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
+		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
+		erlaubteKriterien[ORT] = new Ort(ort); 
+		erlaubteKriterien[PLAETZE] = new Plaetze(plaetze); 
+		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis); 
 	}
 	
 	public void setBeschreibung(String wert) {

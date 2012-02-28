@@ -18,10 +18,16 @@ public class Flug extends Angebot {
 			 				 KLASSE = 4,
 			 				 BIERPREIS = 5;
 
-	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Ort(null),new Plaetze(null),new Klasse(null),new Bierpreis(null)};
+	Kriterium[] erlaubteKriterien = new Kriterium[6];
 	
-	public Flug(String pname, double ppreis, Date[] pdaten) {
+	public Flug(String pname, double ppreis, Date[] pdaten, String beschreibung, String start, String ziel, String plaetze, String klasse, String bierpreis) {
 		super(pname, Angebot.FLUG, ppreis, pdaten);
+		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
+		erlaubteKriterien[START] = new Ort(start);
+		erlaubteKriterien[ZIEL] = new Ort(ziel);
+		erlaubteKriterien[PLAETZE] = new Plaetze(plaetze);
+		erlaubteKriterien[KLASSE] = new Klasse(klasse);
+		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis);
 	}
 	
 	public void setBeschreibung(String wert) {
