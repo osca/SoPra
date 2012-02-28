@@ -2,9 +2,9 @@ package accounts;
 
 public class Nachrichtenverwaltung {
 	
-	public void sendeNachricht(Account absender, Account empfänger, String betreff, String text){
+	public void sendeNachricht(Account absender, Account empfaegner, String betreff, String text){
 		Nachricht msg = new Nachricht(betreff, text);
-		empfänger.addNachricht(msg);
+		empfaegner.addNachricht(msg);
 		//absender.addNachricht(msg);	//TODO Postausgang??
 	}
 }

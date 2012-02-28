@@ -1,7 +1,6 @@
 package buchungen;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import accounts.Kunde;
 import angebote.typen.Angebot;
 
@@ -27,7 +26,7 @@ public class Buchungsverwaltung {
 		buchung.setBis(bis);
 		buchung.setVon(von);
 		
-		//TODO: parameter angebot verarbeiten, evtl. in buchung als parameter einfügen, da buchung auf angebot verweist
+		//TODO: parameter angebot verarbeiten, evtl. in buchung als attribut einfügen, da buchung auf angebot verweist
 		
 		kunde.addBuchung(buchung);
 	}
