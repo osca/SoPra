@@ -45,5 +45,16 @@ public class Autovermietung extends Angebot {
 	public void setPlaetze(String wert) {
 		plaetze.setWert(wert);
 	}
-	
+
+	public Ort getOrt() {
+		return ort;
+	}
+
+	public Plaetze getPlaetze() {
+		return plaetze;
+	}
+
+	public Kriterium[] getErlaubteKriterien() {
+		return erlaubteKriterien;
+	}
 }

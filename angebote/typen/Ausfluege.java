@@ -21,7 +21,7 @@ public class Ausfluege extends Angebot {
 	private Ort ort = null;
 	private Plaetze plaetze = null;
 	private Bierpreis bierpreis = null;
-	
+
 	Kriterium[] erlaubteKriterien = {ort,plaetze,bierpreis};
 	
 	/**
@@ -55,4 +55,19 @@ public class Ausfluege extends Angebot {
 		bierpreis.setWert(wert);
 	}
 	
+	public Ort getOrt() {
+		return ort;
+	}
+
+	public Plaetze getPlaetze() {
+		return plaetze;
+	}
+
+	public Bierpreis getBierpreis() {
+		return bierpreis;
+	}
+
+	public Kriterium[] getErlaubteKriterien() {
+		return erlaubteKriterien;
+	}
 }

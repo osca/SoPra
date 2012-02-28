@@ -71,4 +71,24 @@ public class Flug extends Angebot {
 		bierpreis.setWert(wert);
 	}
 	
+	public Ort getStart() {
+		return start;
+	}
+	
+	public Ort getZiel() {
+		return ziel;
+	}
+
+	public Plaetze getPlaetze() {
+		return plaetze;
+	}
+
+	public Bierpreis getBierpreis() {
+		return bierpreis;
+	}
+
+	public Kriterium[] getErlaubteKriterien() {
+		return erlaubteKriterien;
+	}
+	
 }

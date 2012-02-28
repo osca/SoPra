@@ -82,5 +82,32 @@ public class Hoteluebernachtung extends Angebot {
 	public void setBierpreis(String wert) {
 		bierpreis.setWert(wert);
 	}
-	
+
+	public Ort getOrt() {
+		return ort;
+	}
+
+	public Klima getKlima() {
+		return klima;
+	}
+
+	public Plaetze getBetten() {
+		return betten;
+	}
+
+	public Sterne getSterne() {
+		return sterne;
+	}
+
+	public Verpflegungsart getVerpflegungsart() {
+		return verpflegungsart;
+	}
+
+	public Bierpreis getBierpreis() {
+		return bierpreis;
+	}
+
+	public Kriterium[] getErlaubteKriterien() {
+		return erlaubteKriterien;
+	}
 }
