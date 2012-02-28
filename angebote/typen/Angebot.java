@@ -104,4 +104,6 @@ public abstract class Angebot {
 		return angebotsNummer;
 	}
 	
+	abstract Kriterium[] getErlaubteKriterien();
+	
 }
