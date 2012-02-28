@@ -7,18 +7,19 @@ import angebote.kriterien.Ort;
 
 public class Ausfluege extends Angebot {
 	
-	Kriterium[] erlaubteKriterien = {new Ort(null),new };
+	private static final int BESCHREIBUNG = 0,
+							 ORT = 1,
+							 PLAETZE = 2,
+							 BIERPREIS = 3;
+	
+	Kriterium[] erlaubteKriterien = {new Ort(null) };
 	
 	public Ausfluege(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
 	}
 	
-	private void main(String[] args) {
-		erlaubteKriterien[0].setWerte(werte);
-	}
-	
-	public void setOrt(ArrayList<String> werte) {
-		erlaubteKriterien[0].setWerte(werte);
+	public void setBeschreibung(ArrayList<String> werte) {
+		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
 	}
 	
 }
