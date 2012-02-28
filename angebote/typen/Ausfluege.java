@@ -3,8 +3,11 @@ package angebote.typen;
 import java.util.ArrayList;
 import java.util.Date;
 
+import angebote.kriterien.Beschreibung;
+import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
+import angebote.kriterien.Plaetze;
 
 public class Ausfluege extends Angebot {
 	
@@ -13,7 +16,7 @@ public class Ausfluege extends Angebot {
 							 PLAETZE = 2,
 							 BIERPREIS = 3;
 	
-	Kriterium[] erlaubteKriterien = {new Ort(null) };
+	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Plaetze(null),new Bierpreis(null)};
 	
 	public Ausfluege(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
@@ -22,5 +25,7 @@ public class Ausfluege extends Angebot {
 	public void setBeschreibung(ArrayList<String> werte) {
 		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
 	}
+	
+	
 	
 }
