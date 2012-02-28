@@ -2,6 +2,7 @@ package angebote.typen;
 
 import java.util.ArrayList;
 import java.util.Date;
+import graphic.Listable;
 
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
@@ -106,4 +107,32 @@ public abstract class Angebot implements Listable {
 	
 	public abstract Kriterium[] getErlaubteKriterien();
 	
+	public String convertTypToName(int type) {
+		switch(type) {
+			case 1:
+				return "Flug";
+			case 2:
+				return "Autovermietung";
+			case 3:
+				return "Ausflug";
+			case 4:
+				return "Hotel";
+		}
+		return "Not a Type";
+	}
+	
+	@Override
+	public String getIdetifier() {
+		return Integer.toString(angebotsNummer);
+	}
+
+	@Override
+	public String getAdditionalInfo() {
+		return convertTypToName(typ);
+	}
+
+	@Override
+	public String getStatus() {
+		return "STATUS HERE :)";
+	}
 }
