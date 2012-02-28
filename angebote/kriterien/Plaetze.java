@@ -5,6 +5,8 @@ public class Plaetze extends Kriterium {
 	
 	private final static String name = "Plaetze";
 	
+	String[] wertebereich = null;
+	
 	public Plaetze(String pwert) {
 		super(pwert);
 	}
