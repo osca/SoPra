@@ -26,6 +26,16 @@ public class Ausfluege extends Angebot {
 		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
 	}
 	
+	public void setOrt(ArrayList<String> werte) {
+		erlaubteKriterien[ORT].setWerte(werte);
+	}
 	
+	public void setPlaetze(ArrayList<String> werte) {
+		erlaubteKriterien[PLAETZE].setWerte(werte);
+	}
+	
+	public void setBierpreis(ArrayList<String> werte) {
+		erlaubteKriterien[BIERPREIS].setWerte(werte);
+	}
 	
 }
