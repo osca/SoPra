@@ -31,7 +31,7 @@ public class AngDetailScreen extends JPanel{
 		down = new JPanel(new BorderLayout(5,5));
 		
 		name = new JLabel(a.getIdetifier());
-		typ = new JLabel (a.getTyp());		//GUCKEN BITTE
+		typ = new JLabel (""+a.getTyp());		//GUCKEN BITTE
 		datum = new JLabel(a.getDaten().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
