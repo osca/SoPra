@@ -3,6 +3,7 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +21,15 @@ public class AngDetailScreen extends JPanel{
 	private JLabel anbieter;
 	
 	private JLabel fullinfo;
+	private JButton buchen;
+	private JButton melden;
+	//private JButton agb;
+	private JButton kommentieren;
 	
+	private JButton loschen;
+	private JButton editieren;
+	
+	private JButton kontaktieren;
 	
 	
 	public AngDetailScreen(angebote.typen.Angebot a){
