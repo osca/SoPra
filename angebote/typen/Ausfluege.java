@@ -7,7 +7,7 @@ import angebote.kriterien.Ort;
 
 public class Ausfluege extends Angebot {
 	
-	Kriterium[] erlaubteKriterien = {new Ort(null)};
+	Kriterium[] erlaubteKriterien;
 	
 	public Ausfluege(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
