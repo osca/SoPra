@@ -2,17 +2,31 @@ import accounts.Accountverwaltung;
 import accounts.Nachrichtenverwaltung;
 import angebote.Angebotsverwaltung;
 import buchungen.Buchungsverwaltung;
-import angebot.Angebotsverarbeitung;
+import angebote.Angebotsverarbeitung;
 
 
 public class Portal {
 
-	private Accountverwaltung accverw = new Accountverwaltung();
-	private Angebotsverwaltung angebverw = new Angebotsverwaltung();
-	private Buchungsverwaltung buchverw = new Buchungsverwaltung();
-	private Nachrichtenverwaltung nachrverw = new Nachrichtenverwaltung();
-	private Datenhaltung daha = new Datenhaltung();
-	private Angebotsverarbeitung angebverar = new Angebotsverarbeitung();
+	private Datenhaltung daha;
+	private Accountverwaltung accverw;
+	private Angebotsverwaltung angebverw;
+	private Buchungsverwaltung buchverw;
+	private Nachrichtenverwaltung nachrverw;
+	private Angebotsverarbeitung angebverar;
+	private static Portal single = new Portal();
+	
+	private Portal(){
+		daha = new Datenhaltung();
+		accverw = new Accountverwaltung(daha.getAnbieter(), daha.getBetreiber(), daha.getKunde());
+		angebverw = new Angebotsverwaltung();
+		buchverw = new Buchungsverwaltung();
+		nachrverw = new Nachrichtenverwaltung();
+		angebverar = new Angebotsverarbeitung();
+	}
+	
+	public static Portal getSingletonObject(){
+		return single;
+	}
 	
 	public Accountverwaltung getAccountverwaltung(){
 		return accverw;
