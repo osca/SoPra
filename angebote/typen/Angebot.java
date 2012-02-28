@@ -135,4 +135,9 @@ public abstract class Angebot implements Listable {
 	public String getStatus() {
 		return "STATUS HERE :)";
 	}
+	
+	@Override
+	public String getFullInfo() {
+		return beschreibung;
+	}
 }
