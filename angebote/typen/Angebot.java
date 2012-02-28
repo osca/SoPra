@@ -6,8 +6,11 @@ import java.util.Date;
 import buchungen.Buchung;
 import graphic.Listable;
 
+import accounts.Anbieter;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
+
+//TODO ANBIETER IN KONSTRUKTOR EINFUEGEN
 
 /**
  * Abstrakte Angebotsklasse mit Typenflags (Flug, Autovermietung, Ausflug, Hotel)
@@ -29,11 +32,12 @@ public abstract class Angebot implements Listable {
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
+	private Anbieter anbieter;
 	Kriterium[] erlaubteKriterien;
 	
 	ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
 	
-	ArrayList<Buchung> buchungen  = new ArrayList<Buchung>();
+	ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	
 	/**
 	 * Konstruktor
@@ -115,6 +119,10 @@ public abstract class Angebot implements Listable {
 
 	public ArrayList<Buchung> getBuchungen() {
 		return buchungen;
+	}
+	
+	public Anbieter getAnbieter() {
+		return anbieter;
 	}
 
 	public abstract Kriterium[] getErlaubteKriterien();

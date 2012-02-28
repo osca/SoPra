@@ -1,7 +1,12 @@
 package buchungen;
 
+import graphic.Listable;
+
+//TODO ANGEBOT IN KONSTRUKTOR EINFUEGEN
+
 import java.util.Date;
 
+import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
 
 /**
@@ -10,12 +15,13 @@ import buchungen.Bestaetigung;
  * 
  * @author osca
  */
-public class Buchung {
+public class Buchung implements Listable {
 	
 	private static int anzahl = 0;
 	private int buchungsNummer;
 	private Bestaetigung bestaetigt;
 	private Date von,bis;
+	private Angebot angebot;
 	
 	public Buchung() {
 		buchungsNummer = anzahl++;
@@ -52,5 +58,25 @@ public class Buchung {
 
 	public void setBis(Date bis) {
 		this.bis = bis;
+	}
+
+	@Override
+	public String getIdetifier() {
+		return Integer.toString(buchungsNummer);
+	}
+
+	@Override
+	public String getAdditionalInfo() {
+		return ""+angebot.getAnbieter().getName()+", "+von+" - "+bis+", "+angebot.getAdditionalInfo();
+	}
+
+	@Override
+	public String getFullInfo() {
+		return angebot.getFullInfo();
+	}
+
+	@Override
+	public String getStatus() {
+		return "STATUS HIERE :)";
 	}
 }
