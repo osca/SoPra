@@ -1,6 +1,5 @@
 package angebote.typen;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import angebote.kriterien.Beschreibung;
