@@ -1,5 +1,6 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import angebote.kriterien.Beschreibung;
@@ -22,6 +23,30 @@ public class Flug extends Angebot {
 	
 	public Flug(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.FLUG, ppreis, pdaten);
+	}
+	
+	public void setBeschreibung(ArrayList<String> werte) {
+		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
+	}
+	
+	public void setStart(ArrayList<String> werte) {
+		erlaubteKriterien[START].setWerte(werte);
+	}
+	
+	public void setZiel(ArrayList<String> werte) {
+		erlaubteKriterien[ZIEL].setWerte(werte);
+	}
+	
+	public void setPlaetze(ArrayList<String> werte) {
+		erlaubteKriterien[PLAETZE].setWerte(werte);
+	}
+	
+	public void setKlasse(ArrayList<String> werte) {
+		erlaubteKriterien[KLASSE].setWerte(werte);
+	}
+	
+	public void setBierpreis(ArrayList<String> werte) {
+		erlaubteKriterien[BIERPREIS].setWerte(werte);
 	}
 	
 }
