@@ -1,1 +1,1 @@
-git pull && git add -A && git commit -m "Auto Update" && git push
+git pull && git add -A && git commit -m $1 && git push
