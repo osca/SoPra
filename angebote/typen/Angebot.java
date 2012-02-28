@@ -133,6 +133,7 @@ public abstract class Angebot implements Listable {
 
 	@Override
 	public String getStatus() {
+		//TODO Was kommt hier hin?!
 		return "STATUS HERE :)";
 	}
 	
