@@ -7,6 +7,8 @@ public interface  Listable {
 	
 	public String getAdditionalInfo();
 	
+	public String getFullInfo();
+	
 	public String getStatus(); // vllt. 
 	
 }

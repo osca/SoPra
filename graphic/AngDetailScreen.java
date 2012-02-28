@@ -19,6 +19,8 @@ public class AngDetailScreen extends JPanel{
 	private JLabel datum;
 	private JLabel anbieter;
 	
+	private JLabel fullinfo;
+	
 	
 	
 	public AngDetailScreen(angebote.typen.Angebot a){
@@ -33,8 +35,12 @@ public class AngDetailScreen extends JPanel{
 		datum = new JLabel(a.getDaten().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
+		up.add(name);
+		up.add(typ);
+		up.add(datum);
+		up.add(anbieter);
 		
-		
+		fullinfo = new JLabel(a.getFullInfo());
 		dPanel.add(BorderLayout.NORTH, up);
 		dPanel.add(BorderLayout.CENTER, mid);
 		dPanel.add(BorderLayout.SOUTH, down);
