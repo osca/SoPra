@@ -1,3 +1,5 @@
+package graphic;
+
 import javax.swing.JFrame;
 
 
@@ -5,7 +7,7 @@ public class Mainframe extends JFrame{
 	
 	
 	public <T extends Listable> void showDetail(T obj){
-		if(obj.getClass().equals(Angebot.class)){
+		if(obj.getClass().equals(angebote.typen.Angebot.class)){
 		
 			
 			/*ListeScreen.scroll.remove(ListeScreen.sPanel);

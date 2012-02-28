@@ -1,3 +1,5 @@
+package graphic;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
@@ -19,7 +21,7 @@ public class AngDetailScreen extends JPanel{
 	
 	
 	
-	public AngDetailScreen(Angebot a){
+	public AngDetailScreen(angebote.typen.Angebot a){
 		dscroll = new JScrollPane();
 		dPanel = new JPanel(new BorderLayout(5,5));
 		up = new JPanel(new GridLayout(4,0));
@@ -28,7 +30,10 @@ public class AngDetailScreen extends JPanel{
 		
 		name = new JLabel(a.getIdetifier());
 		typ = new JLabel (a.getTyp());		//GUCKEN BITTE
-		datum = new JLabel(a.getDaten());
+		datum = new JLabel(a.getDaten().toString());	// DATE
+		anbieter = new JLabel(); // edit  wenn implementiert
+		
+		
 		
 		dPanel.add(BorderLayout.NORTH, up);
 		dPanel.add(BorderLayout.CENTER, mid);

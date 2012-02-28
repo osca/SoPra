@@ -1,3 +1,5 @@
+package graphic;
+
 
 public interface  Listable {
 	
@@ -5,6 +7,6 @@ public interface  Listable {
 	
 	public String getAdditionalInfo();
 	
-	public String getStatus();
+	public String getStatus(); // vllt. 
 	
 }

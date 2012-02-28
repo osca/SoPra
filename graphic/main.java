@@ -1,9 +1,13 @@
+package graphic;
+
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import angebote.typen.Angebot;
 
 
 public class main {
