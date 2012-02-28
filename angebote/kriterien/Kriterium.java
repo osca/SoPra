@@ -1,29 +1,28 @@
 package angebote.kriterien;
 //@author stephan
-import java.util.ArrayList;
 
 public abstract class Kriterium {
 	
-	protected ArrayList<String> werte;
+	protected String wert;
 	
-	public Kriterium(ArrayList<String> pwerte) throws IllegalArgumentException{
+	public Kriterium(String pwerte) throws IllegalArgumentException{
 		if(isValid(pwerte)){
-			werte = pwerte;
+			wert = pwerte;
 		} else {
 			throw new IllegalArgumentException();
 		}
 	}
 	
-	public boolean isValid(ArrayList<String> pwerte) {
+	public boolean isValid(String pwerte) {
 		return true;
 	}
 	
-	public ArrayList<String> getWerte() {
-		return werte;
+	public String getWert() {
+		return wert;
 	}
 
-	public void setWerte(ArrayList<String> werte) {
-		this.werte = werte;
+	public void setWert(String wert) {
+		this.wert = wert;
 	}
 	
 }
