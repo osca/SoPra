@@ -10,9 +10,9 @@ import angebote.kriterien.Plaetze;
 
 public class Autovermietung extends Angebot {
 	
-	private static final int BESCHREIBUNG = 0,
-			 ORT = 1,
-			 PLAETZE = 2;
+	private static final int 	BESCHREIBUNG = 0,
+								ORT = 1,
+								PLAETZE = 2;
 
 	
 	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Plaetze(null)};
@@ -21,7 +21,7 @@ public class Autovermietung extends Angebot {
 		super(pname, Angebot.AUTOVERMIETUNG, ppreis, pdaten);
 	}
 	
-	//SETTERo
+	//SETTER
 	public void setBeschreibung(ArrayList<String> werte) {
 		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
 	}
