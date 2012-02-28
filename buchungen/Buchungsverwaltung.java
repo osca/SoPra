@@ -14,16 +14,18 @@ public class Buchungsverwaltung {
 	 * @param angebot		Gebuchtes Angebot.
 	 * @param von			Start (Datum).
 	 * @param bis			Ende (Datum).
+	 * @throws InvalidDateException 
 	 */
-	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) {
+	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung();
 		
-		if (bis.after(von)) return; //TODO: Exception??
+		if (bis.after(von))
+			throw new InvalidDateException();
 		
 		buchung.setBis(bis);
 		buchung.setVon(von);
 		
-		//TODO: angebot verarbeiten, evtl. in buchung als parameter einfügen, da buchung auf angebot verweist
+		//TODO: parameter angebot verarbeiten, evtl. in buchung als parameter einfügen, da buchung auf angebot verweist
 		
 		kunde.addBuchung(buchung);
 	}
@@ -33,7 +35,7 @@ public class Buchungsverwaltung {
 	 * @param buchung 		zu beartbeitende Buchung.
 	 */
 	public void cancelBuchung(Buchung buchung) {
-		buchung.setBestaetigt(Bestaetigung.NEIN);					// ?????
+		buchung.setBestaetigt(Bestaetigung.NEIN);
 	}
 	
 	/**
@@ -43,7 +45,7 @@ public class Buchungsverwaltung {
 	 */
 	public Buchung[] getBuchungen(Kunde kunde) {
 		Buchung[] buchungen = null;
-
+		
 		// TODO: Kunde fehlt buchung-auslesen-methode (sinn??)
 		return null;
 	}
@@ -54,7 +56,7 @@ public class Buchungsverwaltung {
 	 * @param bestaetigt	Art der Bestätigung.
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
-		buchung.setBestaetigt(bestaetigt);							// ?????
+		buchung.setBestaetigt(bestaetigt);
 	}
 	
 	/**
@@ -63,6 +65,6 @@ public class Buchungsverwaltung {
 	 * @return				Art der Bestaetigung wird ausgegeben.
 	 */
 	public Bestaetigung getBestaetigt(Buchung buchung) {
-		return buchung.getBestaetigt();								// ?????
+		return buchung.getBestaetigt();
 	}
 }
