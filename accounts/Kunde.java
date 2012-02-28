@@ -19,5 +19,5 @@ public class Kunde extends Account{
 		Buchungen.remove(entry);
 	}
 	
-
+	
 }

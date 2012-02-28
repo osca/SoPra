@@ -43,7 +43,7 @@ public class Buchungsverwaltung {
 	 */
 	public Buchung[] getBuchungen(Kunde kunde) {
 		Buchung[] buchungen = null;
-		
+
 		// TODO: Kunde fehlt buchung-auslesen-methode (sinn??)
 		return null;
 	}
