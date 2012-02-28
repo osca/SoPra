@@ -25,31 +25,52 @@ public class Portal {
 		angebverar = new Angebotsverarbeitung();
 	}
 	
+	/** Gibt das Portalobjekt zurück
+	 * @return PortalSingleton
+	 */
 	public static Portal getSingletonObject(){
 		return single;
 	}
 	
+	/** gibt das Accountverwaltungsobjekt zurück
+	 * @return Accountverwaltungsobjekt
+	 */
 	public Accountverwaltung getAccountverwaltung(){
 		return accverw;
 	}
-
-	public Angebotsverwaltung getAngebverw() {
+	
+	/**
+	 * @return Angebotsverwaltungsobjekt
+	 */
+	public Angebotsverwaltung getAngebotsverwaltung() {
 		return angebverw;
 	}
 
-	public Buchungsverwaltung getBuchverw() {
+	/**
+	 * @return Buchungsverwaltungsobjekt
+	 */
+	public Buchungsverwaltung getBuchungsverwaltung() {
 		return buchverw;
 	}
 
-	public Nachrichtenverwaltung getNachrverw() {
+	/**
+	 * @return Nachrichtenverwaltungsobjekt
+	 */
+	public Nachrichtenverwaltung getNachrichtenverwaltung() {
 		return nachrverw;
 	}
 
-	public Datenhaltung getDaha() {
+	/**
+	 * @return Datenhaltungsobjekt
+	 */
+	public Datenhaltung getDatenhaltung() {
 		return daha;
 	}
 
-	public Angebotsverarbeitung getAngebverar() {
+	/**
+	 * @return Angebotsverarbeitungsobjekt
+	 */
+	public Angebotsverarbeitung getAngebotsverarbeitung() {
 		return angebverar;
 	}
 }
