@@ -1,7 +1,7 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
@@ -23,7 +23,7 @@ public abstract class Angebot {
 	private Date[] daten;
 	Kriterium[] erlaubteKriterien;
 	
-	Vector<Kommentar> kommentare;
+	ArrayList<Kommentar> kommentare;
 	
 	public Angebot(String pname, int ptyp, double ppreis, Date[] pdaten) {
 		angebotsNummer = 1000+anzahl++;

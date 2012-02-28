@@ -15,38 +15,38 @@ public class Flug extends Angebot {
 	private static final int BESCHREIBUNG = 0,
 			 				 START = 1,
 			 				 ZIEL = 2,
-			 				 PLAETZE = 2,
-			 				 KLASSE = 3,
-			 				 BIERPREIS = 4;
+			 				 PLAETZE = 3,
+			 				 KLASSE = 4,
+			 				 BIERPREIS = 5;
 
 	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Ort(null),new Plaetze(null),new Klasse(null),new Bierpreis(null)};
 	
-	public Flug(String pname, double ppreis, Date[] pdaten) {
+	public Flug(String pname, double ppreis, Date[] pdaten, String beschreibung) {
 		super(pname, Angebot.FLUG, ppreis, pdaten);
 	}
 	
-	public void setBeschreibung(ArrayList<String> werte) {
-		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
+	public void setBeschreibung(String wert) {
+		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
 	}
 	
-	public void setStart(ArrayList<String> werte) {
-		erlaubteKriterien[START].setWerte(werte);
+	public void setStart(String wert) {
+		erlaubteKriterien[START].setWert(wert);
 	}
 	
-	public void setZiel(ArrayList<String> werte) {
-		erlaubteKriterien[ZIEL].setWerte(werte);
+	public void setZiel(String wert) {
+		erlaubteKriterien[ZIEL].setWert(wert);
 	}
 	
-	public void setPlaetze(ArrayList<String> werte) {
-		erlaubteKriterien[PLAETZE].setWerte(werte);
+	public void setPlaetze(String wert) {
+		erlaubteKriterien[PLAETZE].setWert(wert);
 	}
 	
-	public void setKlasse(ArrayList<String> werte) {
-		erlaubteKriterien[KLASSE].setWerte(werte);
+	public void setKlasse(String wert) {
+		erlaubteKriterien[KLASSE].setWert(wert);
 	}
 	
-	public void setBierpreis(ArrayList<String> werte) {
-		erlaubteKriterien[BIERPREIS].setWerte(werte);
+	public void setBierpreis(String wert) {
+		erlaubteKriterien[BIERPREIS].setWert(wert);
 	}
 	
 }

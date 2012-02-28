@@ -22,20 +22,20 @@ public class Ausfluege extends Angebot {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
 	}
 	
-	public void setBeschreibung(ArrayList<String> werte) {
-		erlaubteKriterien[BESCHREIBUNG].setWerte(werte);
+	public void setBeschreibung(String wert) {
+		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
 	}
 	
-	public void setOrt(ArrayList<String> werte) {
-		erlaubteKriterien[ORT].setWerte(werte);
+	public void setOrt(String wert) {
+		erlaubteKriterien[ORT].setWert(wert);
 	}
 	
-	public void setPlaetze(ArrayList<String> werte) {
-		erlaubteKriterien[PLAETZE].setWerte(werte);
+	public void setPlaetze(String wert) {
+		erlaubteKriterien[PLAETZE].setWert(wert);
 	}
 	
-	public void setBierpreis(ArrayList<String> werte) {
-		erlaubteKriterien[BIERPREIS].setWerte(werte);
+	public void setBierpreis(String wert) {
+		erlaubteKriterien[BIERPREIS].setWert(wert);
 	}
 	
 }
