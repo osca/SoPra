@@ -16,7 +16,7 @@ public abstract class Angebot {
 	
 	private static int anzahl = 0;
 	
-	private String name;
+	private String name,beschreibung;
 	private int angebotsNummer,typ;
 	private boolean auffindbar;
 	private double preis;
@@ -25,12 +25,21 @@ public abstract class Angebot {
 	
 	ArrayList<Kommentar> kommentare;
 	
-	public Angebot(String pname, int ptyp, double ppreis, Date[] pdaten) {
+	public Angebot(String pname, String pbeschreibung, int ptyp, double ppreis, Date[] pdaten) {
 		angebotsNummer = 1000+anzahl++;
 		name = pname;
+		setBeschreibung(pbeschreibung);
 		typ = ptyp;
 		preis = ppreis;
 		daten = pdaten;
+	}
+	
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
 	}
 
 	public int getTyp() {

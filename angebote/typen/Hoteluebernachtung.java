@@ -2,7 +2,6 @@ package angebote.typen;
 
 import java.util.Date;
 
-import angebote.kriterien.Beschreibung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
@@ -13,53 +12,54 @@ import angebote.kriterien.Verpflegungsart;
 
 public class Hoteluebernachtung extends Angebot {
 
-	private static final int BESCHREIBUNG = 0,
-			 				 ORT = 1,
-			 				 KLIMA = 2,
-			 				 BETTEN = 3,
-			 				 STERNE = 4,
-			 				 VERPFLEGUNGSART = 5,
-			 				 BIERPREIS = 6;
+	/*public static final int ORT = 1,
+			 				KLIMA = 2,
+			 				BETTEN = 3,
+			 				STERNE = 4,
+			 				VERPFLEGUNGSART = 5,
+			 				BIERPREIS = 6;*/
 	
-	Kriterium[] erlaubteKriterien = new Kriterium[7];
+	private Ort ort = null;
+	private Klima klima = null;
+	private Plaetze betten = null;
+	private Sterne sterne = null;
+	private Verpflegungsart verpflegungsart = null;
+	private Bierpreis bierpreis = null;
 	
-	public Hoteluebernachtung(String pname, double ppreis, Date[] pdaten, String beschreibung, String ort, String klima, String betten, String sterne, String verpflegungsart, String bierpreis) {
-		super(pname, Angebot.HOTEL, ppreis, pdaten);
-		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
-		erlaubteKriterien[ORT] = new Ort(ort);
-		erlaubteKriterien[KLIMA] = new Klima(klima);
-		erlaubteKriterien[BETTEN] = new Plaetze(betten);
-		erlaubteKriterien[STERNE] = new Sterne(sterne);
-		erlaubteKriterien[VERPFLEGUNGSART] = new Verpflegungsart(verpflegungsart);
-		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis);
-	}
+	Kriterium[] erlaubteKriterien = {ort,klima,betten,sterne,verpflegungsart,bierpreis};
 	
-	public void setBeschreibung(String wert) {
-		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
+	public Hoteluebernachtung(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pklima, String pbetten, String psterne, String pverpflegungsart, String pbierpreis) {
+		super(pname, pbeschreibung, Angebot.HOTEL, ppreis, pdaten);
+		ort = new Ort(port);
+		klima = new Klima(pklima);
+		betten = new Plaetze(pbetten);
+		sterne = new Sterne(psterne);
+		verpflegungsart = new Verpflegungsart(pverpflegungsart);
+		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
 	public void setOrt(String wert) {
-		erlaubteKriterien[ORT].setWert(wert);
+		ort.setWert(wert);
 	}
 	
 	public void setKlima(String wert) {
-		erlaubteKriterien[KLIMA].setWert(wert);
+		klima.setWert(wert);
 	}
 	
 	public void setBetten(String wert) {
-		erlaubteKriterien[BETTEN].setWert(wert);
+		betten.setWert(wert);
 	}
 	
 	public void setSterne(String wert) {
-		erlaubteKriterien[STERNE].setWert(wert);
+		sterne.setWert(wert);
 	}
 	
 	public void setVerpflegungsart(String wert) {
-		erlaubteKriterien[VERPFLEGUNGSART].setWert(wert);
+		verpflegungsart.setWert(wert);
 	}
 	
 	public void setBierpreis(String wert) {
-		erlaubteKriterien[BIERPREIS].setWert(wert);
+		bierpreis.setWert(wert);
 	}
 	
 }

@@ -2,33 +2,32 @@ package angebote.typen;
 
 import java.util.Date;
 
-import angebote.kriterien.Beschreibung;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Plaetze;
 
 public class Autovermietung extends Angebot {
 	
-	private static final int 	BESCHREIBUNG = 0,
-								ORT = 1,
-								PLAETZE = 2;
-
+	/*public static final int ORT = 1,
+							PLAETZE = 2;*/
 	
-	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Plaetze(null)};
+	private Ort ort = null;
+	private Plaetze plaetze = null;
+	
+	Kriterium[] erlaubteKriterien = {ort,plaetze};
 
-	public Autovermietung(String pname, double ppreis, Date[] pdaten) {
-		super(pname, Angebot.AUTOVERMIETUNG, ppreis, pdaten);
+	public Autovermietung(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pplaetze) {
+		super(pname, pbeschreibung, Angebot.AUTOVERMIETUNG, ppreis, pdaten);
+		ort = new Ort(port);
+		plaetze = new Plaetze(pplaetze);
 	}
 	
-	//SETTER
-	public void setBeschreibung(String wert) {
-		erlaubteKriterien[BESCHREIBUNG].setWert(wert);
-	}
 	public void setOrt(String wert) {
-		erlaubteKriterien[ORT].setWert(wert);
+		ort.setWert(wert);
 	}
+	
 	public void setPlaetze(String wert) {
-		erlaubteKriterien[PLAETZE].setWert(wert);
+		plaetze.setWert(wert);
 	}
 	
 }
