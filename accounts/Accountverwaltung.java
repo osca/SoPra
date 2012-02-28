@@ -2,12 +2,21 @@ package accounts;
 
 import java.util.ArrayList;
 
+import main.Portal;
+
 public class Accountverwaltung {
 
 	private ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 	private ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 	private ArrayList<Kunde> kunden = new ArrayList<Kunde>();
 
+	public Accountverwaltung(ArrayList<Anbieter> anb, ArrayList<Betreiber> betr, ArrayList<Kunde> kund){
+		anbieter = anb;
+		betreiber = betr;
+		kunden = kund;
+		Portal.getSingletonObject();
+	}
+	
 	public void createKunde(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();

@@ -1,3 +1,4 @@
+package main;
 import accounts.Accountverwaltung;
 import accounts.Nachrichtenverwaltung;
 import angebote.Angebotsverwaltung;
