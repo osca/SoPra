@@ -1,12 +1,13 @@
 package accounts;
 //@author stephan
 //@edit R
-import java.util.Vector;
+
+import java.util.ArrayList;
 
 import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
-	private Vector<Angebot> Angebote; 
+	private ArrayList<Angebot> Angebote; 
 	private int anzahlWertungen;
 	private double wertung;
 	private String agb;
@@ -21,18 +22,17 @@ public class Anbieter extends Account{
 	public void delAngebot(Angebot offer){
 		Angebote.remove(offer);
 	}
-	public Vector<Angebot> getAngebote(){
+	public ArrayList<Angebot> getAngebote(){
 		return Angebote;
 	}
-	
+	public void addWertung(double wertung) {
+		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
+	}
 	
 	//---------------------------------------
 	//Triviale GETTER und SETTER
 	public double getWertung() {
 		return wertung;
-	}
-	public void addWertung(double wertung) {
-		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
 	}
 	public String getAgb() {
 		return agb;
