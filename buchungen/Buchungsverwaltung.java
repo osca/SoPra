@@ -1,5 +1,6 @@
 package buchungen;
 
+import java.util.ArrayList;
 import java.util.Date;
 import accounts.Kunde;
 import angebote.typen.Angebot;
@@ -9,6 +10,7 @@ import angebote.typen.Angebot;
  */
 public class Buchungsverwaltung {
 	/**
+	 * Erstellt eine Buchung und weist sie einem Kunden zu.
 	 * 
 	 * @param kunde			Dem Kunden wird die Buchung zugewiesen.
 	 * @param angebot		Gebuchtes Angebot.
@@ -31,6 +33,7 @@ public class Buchungsverwaltung {
 	}
 	
 	/**
+	 * Cancelt eine Buchung (im Fall von stornieren etc. relevant)
 	 * 
 	 * @param buchung 		zu beartbeitende Buchung.
 	 */
@@ -39,18 +42,22 @@ public class Buchungsverwaltung {
 	}
 	
 	/**
+	 * Gibt alle Buchungen eines Kunden aus.
 	 * 
 	 * @param kunde			DU KUNDE JUNGE!!!!!
 	 * @return				Liste seiner Buchungen.
 	 */
 	public Buchung[] getBuchungen(Kunde kunde) {
-		Buchung[] buchungen = null;
+		ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+		buchungen.clear();
 		
 		// TODO: Kunde fehlt buchung-auslesen-methode (sinn??)
+		//		 Nicht nur Kunden haben Buchungen, sondern auch Anbieter? Besprechen?
 		return null;
 	}
 	
 	/**
+	 * Setter.
 	 * 
 	 * @param buchung		zu bestätigenede Buchung.
 	 * @param bestaetigt	Art der Bestätigung.
@@ -60,6 +67,7 @@ public class Buchungsverwaltung {
 	}
 	
 	/**
+	 * Getter.
 	 * 
 	 * @param buchung		zu bestätigenede Buchung.
 	 * @return				Art der Bestaetigung wird ausgegeben.
