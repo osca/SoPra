@@ -42,7 +42,7 @@ public abstract class Angebot {
 	public Angebot(String pname, String pbeschreibung, int ptyp, double ppreis, Date[] pdaten) {
 		angebotsNummer = anzahl++;
 		name = pname;
-		setBeschreibung(pbeschreibung);
+		beschreibung = pbeschreibung;
 		typ = ptyp;
 		preis = ppreis;
 		daten = pdaten;
