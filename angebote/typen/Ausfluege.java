@@ -2,10 +2,13 @@ package angebote.typen;
 
 import java.util.Date;
 
+import angebote.kriterien.Kriterium;
+import angebote.kriterien.Ort;
+
 public class Ausfluege extends Angebot {
 	
-	//TODO erlaubte Kriterien hier rein?
-
+	Kriterium[] erlaubteKriterien = {new Ort(null)};
+	
 	public Ausfluege(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.AUSFLUG, ppreis, pdaten);
 	}

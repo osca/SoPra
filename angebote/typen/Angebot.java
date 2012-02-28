@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import angebote.Kommentar;
+import angebote.kriterien.Kriterium;
 
 public abstract class Angebot {
 	
@@ -20,6 +21,7 @@ public abstract class Angebot {
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
+	Kriterium[] erlaubteKriterien;
 	
 	Vector<Kommentar> kommentare;
 	
