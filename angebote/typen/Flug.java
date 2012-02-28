@@ -20,7 +20,7 @@ public class Flug extends Angebot {
 
 	Kriterium[] erlaubteKriterien = {new Beschreibung(null),new Ort(null),new Ort(null),new Plaetze(null),new Klasse(null),new Bierpreis(null)};
 	
-	public Flug(String pname, double ppreis, Date[] pdaten, String beschreibung) {
+	public Flug(String pname, double ppreis, Date[] pdaten) {
 		super(pname, Angebot.FLUG, ppreis, pdaten);
 	}
 	
