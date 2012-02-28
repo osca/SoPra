@@ -1,5 +1,8 @@
 package accounts;
-//@author stephan
+/**
+ * @author stephan
+ * @edit 	Jay
+ */
 
 import java.util.ArrayList;
 
@@ -7,6 +10,10 @@ public abstract class Account {
 	private String email, name, password;
 	protected boolean gesperrt = false;
 	private ArrayList<Nachricht> Posteingang;
+	public static final int //NONE = 0,
+							KUNDE = 1,
+							ANBIETER = 2,
+							BETREIBER = 3;
 	
 
 	public Account(String em, String nm, String pw){
@@ -25,6 +32,11 @@ public abstract class Account {
 	public ArrayList<Nachricht> getPosteingang() {
 		return Posteingang;
 	}
+	
+	/** Gibt in Flag aus von welchem Typ der jeweilige Account ist
+	 * @return Flag des AccountTyps
+	 */
+	public abstract int getTyp();
 
 	//-----------------------------------------------------------------------------
 	// GETTER und SETTER

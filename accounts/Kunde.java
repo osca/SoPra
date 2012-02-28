@@ -19,5 +19,10 @@ public class Kunde extends Account{
 		Buchungen.remove(entry);
 	}
 	
+	@Override
+	public int getTyp(){
+		return Account.KUNDE;
+	}
+	
 	
 }

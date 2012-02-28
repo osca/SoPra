@@ -6,5 +6,9 @@ public class Betreiber extends Account{
 		super(em, nm, pw);
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public int getTyp(){
+		return Account.BETREIBER;
+	}
 
 }

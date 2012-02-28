@@ -29,6 +29,11 @@ public class Anbieter extends Account{
 		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
 	}
 	
+	@Override
+	public int getTyp(){
+		return Account.ANBIETER;
+	}
+	
 	//---------------------------------------
 	//Triviale GETTER und SETTER
 	public double getWertung() {
