@@ -4,6 +4,12 @@ import java.util.Date;
 
 import buchungen.Bestaetigung;
 
+/**
+ * Entitaetsklasse Buchung mit einem Anzahlcounter, einer Buchungsnummer,
+ * Bestaetigung und einem Datum von wann bis wann die Buchung dauert
+ * 
+ * @author osca
+ */
 public class Buchung {
 	
 	private static int anzahl = 0;
@@ -12,7 +18,7 @@ public class Buchung {
 	private Date von,bis;
 	
 	public Buchung() {
-		buchungsNummer = 1000+anzahl++;
+		buchungsNummer = anzahl++;
 	}
 
 	public static int getAnzahl() {

@@ -6,6 +6,11 @@ import java.util.Date;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 
+/**
+ * Abstrakte Angebotsklasse mit Typenflags
+ * 
+ * @author osca
+ */
 public abstract class Angebot {
 	
 	//FLAGS
@@ -25,8 +30,17 @@ public abstract class Angebot {
 	
 	ArrayList<Kommentar> kommentare;
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param ptyp Angebotstyp
+	 * @param ppreis Preis
+	 * @param pdaten Daten
+	 */
 	public Angebot(String pname, String pbeschreibung, int ptyp, double ppreis, Date[] pdaten) {
-		angebotsNummer = 1000+anzahl++;
+		angebotsNummer = anzahl++;
 		name = pname;
 		setBeschreibung(pbeschreibung);
 		typ = ptyp;

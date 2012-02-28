@@ -6,13 +6,13 @@ public class Kommentar {
 	
 	private String absender, text;
 	private int bewertung;
-	private Date erstellungsDatum;
+	private Date zeitstempel;
 	
 	public Kommentar(String pabsender, String ptext, int pbewertung) {
 		absender = pabsender;
 		text = ptext;
 		bewertung = pbewertung;
-		erstellungsDatum = new Date();
+		zeitstempel = new Date();
 	}
 
 	public String getAbsender() {
@@ -27,8 +27,8 @@ public class Kommentar {
 		return bewertung;
 	}
 
-	public Date getErstellungsDatum() {
-		return erstellungsDatum;
+	public Date getZeitstempel() {
+		return zeitstempel;
 	}
 	
 }

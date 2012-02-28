@@ -8,6 +8,11 @@ import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Plaetze;
 
+/**
+ * Flug erbt von Angebot. Enthaelt Start, Ziel, Plaetze, Klasse und Bierpreis.
+ * 
+ * @author osca
+ */
 public class Flug extends Angebot {
 
 	/*public static final int START = 0,
@@ -16,16 +21,29 @@ public class Flug extends Angebot {
 			 				KLASSE = 3,
 			 				BIERPREIS = 4;*/
 
-	private Ort start = null;
-	private Ort ziel = null;
+	private Ort start,ziel = null;
 	private Plaetze plaetze = null;
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
 	
 	Kriterium[] erlaubteKriterien = {start,ziel,plaetze,klasse,bierpreis};
 	
-	public Flug(String pname, String beschreibung, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
-		super(pname, beschreibung, Angebot.FLUG, ppreis, pdaten);
+	/**
+	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
+	 * den entsprechenden Werten
+	 * 
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param ppreis Preis
+	 * @param pdaten Daten
+	 * @param pstart Abflugort
+	 * @param pziel Zielort
+	 * @param pplaetze Anzahl der Plaetze
+	 * @param pklasse Welche Klasse?
+	 * @param pbierpreis Bierpreis
+	 */
+	public Flug(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
+		super(pname, pbeschreibung, Angebot.FLUG, ppreis, pdaten);
 		start = new Ort(pstart);
 		ziel = new Ort(pziel);
 		plaetze = new Plaetze(pplaetze);

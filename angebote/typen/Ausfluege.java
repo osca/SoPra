@@ -7,6 +7,11 @@ import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Plaetze;
 
+/**
+ * Ausfluege erbt von Angebot. Enthaelt Ort, Plaetze und Bierpreis.
+ * 
+ * @author osca
+ */
 public class Ausfluege extends Angebot {
 	
 	/*public static final int ORT = 0,
@@ -19,6 +24,18 @@ public class Ausfluege extends Angebot {
 	
 	Kriterium[] erlaubteKriterien = {ort,plaetze,bierpreis};
 	
+	/**
+	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
+	 * den entsprechenden Werten
+	 * 
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param ppreis Preis
+	 * @param pdaten Daten
+	 * @param port Ort des Ausflugs
+	 * @param pplaetze Anzahl der Plaetze
+	 * @param pbierpreis Bierpreis
+	 */
 	public Ausfluege(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pplaetze, String pbierpreis) {
 		super(pname, pbeschreibung, Angebot.AUSFLUG, ppreis, pdaten);
 		ort = new Ort(port); 

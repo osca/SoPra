@@ -10,6 +10,12 @@ import angebote.kriterien.Plaetze;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
 
+/**
+ * Hoteluebernachtung erbt von Angebot. Enthaelt Ort, Klima, Betten, 
+ * Sterne Verpflegungsart und Bierpreis.
+ * 
+ * @author osca
+ */
 public class Hoteluebernachtung extends Angebot {
 
 	/*public static final int ORT = 1,
@@ -28,6 +34,21 @@ public class Hoteluebernachtung extends Angebot {
 	
 	Kriterium[] erlaubteKriterien = {ort,klima,betten,sterne,verpflegungsart,bierpreis};
 	
+	/**
+	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
+	 * den entsprechenden Werten
+	 * 
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param ppreis Preis
+	 * @param pdaten Daten
+	 * @param port Ort des Hotels
+	 * @param pklima Klima an dem Ort des Hotels
+	 * @param pbetten Buchbare Betten
+	 * @param psterne Sterne des Hotels
+	 * @param pverpflegungsart Verpflegungsart
+	 * @param pbierpreis Bierpreis
+	 */
 	public Hoteluebernachtung(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pklima, String pbetten, String psterne, String pverpflegungsart, String pbierpreis) {
 		super(pname, pbeschreibung, Angebot.HOTEL, ppreis, pdaten);
 		ort = new Ort(port);
