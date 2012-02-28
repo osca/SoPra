@@ -22,7 +22,7 @@ public class Ausfluege extends Angebot {
 		erlaubteKriterien[BESCHREIBUNG] = new Beschreibung(beschreibung);
 		erlaubteKriterien[ORT] = new Ort(ort); 
 		erlaubteKriterien[PLAETZE] = new Plaetze(plaetze); 
-		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis); 
+		erlaubteKriterien[BIERPREIS] = new Bierpreis(bierpreis);
 	}
 	
 	public void setBeschreibung(String wert) {
