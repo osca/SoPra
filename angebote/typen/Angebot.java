@@ -7,7 +7,7 @@ import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 
 /**
- * Abstrakte Angebotsklasse mit Typenflags
+ * Abstrakte Angebotsklasse mit Typenflags (Flug, Autovermietung, Ausflug, Hotel)
  * 
  * @author osca
  */
