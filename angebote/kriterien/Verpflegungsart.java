@@ -1,11 +1,11 @@
 package angebote.kriterien;
 //@author stephan
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Verpflegungsart extends Kriterium{
 	
-	public Verpflegungsart(Vector<String> pwerte) throws IllegalArgumentException {
+	public Verpflegungsart(ArrayList<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
 	}
 

@@ -2,13 +2,13 @@
 
 package angebote.kriterien;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 //@author stephan
 
 public class Ort extends Kriterium{
 
-	public Ort(Vector<String> pwerte) throws IllegalArgumentException {
+	public Ort(ArrayList<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
 	}
 	

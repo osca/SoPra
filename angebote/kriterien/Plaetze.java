@@ -1,15 +1,15 @@
 package angebote.kriterien;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Plaetze extends Kriterium {
 
-	public Plaetze(Vector<String> pwerte) {
+	public Plaetze(ArrayList<String> pwerte) {
 		super(pwerte);
 	}
 	
 	@Override
-	public boolean isValid(Vector<String> pwerte) {
+	public boolean isValid(ArrayList<String> pwerte) {
 		if(pwerte.size() != 1)
 			return false;
 		

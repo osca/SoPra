@@ -1,10 +1,10 @@
 package angebote.kriterien;
 //@author stephan
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Beschreibung extends Kriterium{
 
-	public Beschreibung(Vector<String> pwerte) throws IllegalArgumentException {
+	public Beschreibung(ArrayList<String> pwerte) throws IllegalArgumentException {
 		super(pwerte);
 	}
 

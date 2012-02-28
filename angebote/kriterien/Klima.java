@@ -1,12 +1,12 @@
 package angebote.kriterien;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Klima extends Kriterium {
 	
-	protected static String[] wertebereich = {"Tropisch","Mediteran","GemŠ§igt","Kalt"};
+	protected static String[] wertebereich = {"Tropisch","Mediteran","Gemï¿½ï¿½igt","Kalt"};
 	
-	public Klima(Vector<String> pwerte) {
+	public Klima(ArrayList<String> pwerte) {
 		super(pwerte);
 	}
 	

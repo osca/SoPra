@@ -1,12 +1,12 @@
 package angebote.kriterien;
 //@author stephan
-import java.util.Vector;
+import java.util.ArrayList;
 
 public abstract class Kriterium {
 	
-	protected Vector<String> werte;
+	protected ArrayList<String> werte;
 	
-	public Kriterium(Vector<String> pwerte) throws IllegalArgumentException{
+	public Kriterium(ArrayList<String> pwerte) throws IllegalArgumentException{
 		if(isValid(pwerte)){
 			werte = pwerte;
 		} else {
@@ -14,15 +14,15 @@ public abstract class Kriterium {
 		}
 	}
 	
-	public boolean isValid(Vector<String> pwerte) {
+	public boolean isValid(ArrayList<String> pwerte) {
 		return true;
 	}
 	
-	public Vector<String> getWerte() {
+	public ArrayList<String> getWerte() {
 		return werte;
 	}
 
-	public void setWerte(Vector<String> werte) {
+	public void setWerte(ArrayList<String> werte) {
 		this.werte = werte;
 	}
 	

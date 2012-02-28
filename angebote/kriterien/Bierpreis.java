@@ -1,12 +1,12 @@
 package angebote.kriterien;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Bierpreis extends Kriterium {
 	
-	protected static String[] wertebereich = {"GŸnstig","Normal","Teuer","Unbezahlbar"};
+	protected static String[] wertebereich = {"Gï¿½nstig","Normal","Teuer","Unbezahlbar"};
 	
-	public Bierpreis(Vector<String> pwerte) {
+	public Bierpreis(ArrayList<String> pwerte) {
 		super(pwerte);
 	}
 	
