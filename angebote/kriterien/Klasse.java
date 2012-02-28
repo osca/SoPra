@@ -3,7 +3,7 @@ package angebote.kriterien;
 
 public class Klasse extends Kriterium{
 	
-	public final String name = "Klasse";
+	private final String name = "Klasse";
 	
 	protected static String[] wertebereich = {"First class","Business","Economy"};
 
@@ -12,6 +12,9 @@ public class Klasse extends Kriterium{
 	}
 	public String[] getWertebereich() {
 		return wertebereich;
+	}
+	public String getName() {
+		return name;
 	}
 
 }

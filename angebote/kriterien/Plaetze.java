@@ -3,7 +3,7 @@ package angebote.kriterien;
 
 public class Plaetze extends Kriterium {
 	
-	public final String name = "Plaetze";
+	private final String name = "Plaetze";
 	
 	public Plaetze(String pwert) {
 		super(pwert);
@@ -19,6 +19,10 @@ public class Plaetze extends Kriterium {
 		}
 		
 		return true;
+	}
+
+	public String getName() {
+		return name;
 	}
 	
 }

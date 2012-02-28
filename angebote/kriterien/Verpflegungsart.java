@@ -3,7 +3,7 @@ package angebote.kriterien;
 
 public class Verpflegungsart extends Kriterium{
 	
-	public final String name = "Verpflegungsart";
+	private final String name = "Verpflegungsart";
 	
 	public Verpflegungsart(String pwert) throws IllegalArgumentException {
 		super(pwert);
@@ -13,6 +13,10 @@ public class Verpflegungsart extends Kriterium{
 
 	public static String[] getWertebereich() {
 		return wertebereich;
+	}
+
+	public String getName() {
+		return name;
 	}
 	
 }

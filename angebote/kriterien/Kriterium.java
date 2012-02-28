@@ -24,5 +24,4 @@ public abstract class Kriterium {
 	public void setWert(String wert) {
 		this.wert = wert;
 	}
-	
 }
