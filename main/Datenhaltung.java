@@ -23,16 +23,21 @@ public class Datenhaltung {
 		xs.toXML(av.getBetreiber(), new FileWriter(betrFile));
 		xs.toXML(av.getKunden(), new FileWriter(kundFile));
 	}
-	/**
-	 * 
-	 * @return
+	/** Liest die aktuell in XML gespeicherte Liste an Anbietern aus
+	 * @return Anbieter-Liste
 	 */
 	public ArrayList<Anbieter> getAnbieter(){
 		return (ArrayList<Anbieter>) xs.fromXML(anbFile);
 	}
+	/** Liest die aktuell in XML gespeicherte Liste an Betreiber aus
+	 * @return Betreiber-Liste
+	 */
 	public ArrayList<Betreiber> getBetreiber(){
 		return (ArrayList<Betreiber>) xs.fromXML(betrFile);
 	}
+	/** Liest die aktuell in XML gespeicherte Liste an Kunden aus
+	 * @return Kunden-Liste
+	 */
 	public ArrayList<Kunde> getKunde(){
 		return (ArrayList<Kunde>) xs.fromXML(kundFile);
 	}
