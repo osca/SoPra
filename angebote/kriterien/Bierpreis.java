@@ -3,7 +3,9 @@ package angebote.kriterien;
 
 public class Bierpreis extends Kriterium {
 	
-	protected static String[] wertebereich = {"G�nstig","Normal","Teuer","Unbezahlbar"};
+	public final String name = "Bierpreis";
+	
+	protected static String[] wertebereich = {"Guenstig","Normal","Teuer","Unbezahlbar"};
 	
 	public Bierpreis(String pwert) {
 		super(pwert);
