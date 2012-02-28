@@ -12,13 +12,9 @@ import angebote.typen.Angebot;
 public class Angebotsverarbeitung {
 	public ArrayList<Angebot> sucheAngebote(Kriterium[] kriterien){
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>();
-		ArrayList<Angebot> erstellteAngebote = new ArrayList<Angebot>();
-		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
+		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote();
 		int treffer=0;
 		
-		for(Anbieter a:anbieterListe){
-			erstellteAngebote.addAll(a.getAngebote());
-		}
 		//Alle Angebote ausgelsen
 		
 		/*
@@ -52,6 +48,24 @@ public class Angebotsverarbeitung {
 		
 		for(Angebot ang:erstellteAngebote) {
 			if(ang.getDaten()[ang.getDaten().length-1].before(now)) {
+				result.add(ang);
+			}
+		}
+		
+		return result;
+	}
+	public ArrayList<Angebot> getAktuelleAngebote() {
+		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		Date now = new Date();
+		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
+		ArrayList<Angebot> erstellteAngebote = new ArrayList<Angebot>();
+		
+		for(Anbieter a:anbieterListe){
+			erstellteAngebote.addAll(a.getAngebote());
+		}
+		
+		for(Angebot ang:erstellteAngebote) {
+			if(!(ang.getDaten()[ang.getDaten().length-1].before(now))) {
 				result.add(ang);
 			}
 		}
