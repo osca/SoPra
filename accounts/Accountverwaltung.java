@@ -15,7 +15,7 @@ public class Accountverwaltung {
 	public void createAnbieter(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
-		accounts.add(new Kunde(email, name, password));
+		accounts.add(new Anbieter(email, name, password));
 	}
 	
 	public void createBetreiber(String email, String name, String password) throws AlreadyInUseException{
