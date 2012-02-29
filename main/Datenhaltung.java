@@ -1,10 +1,16 @@
 package main;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-import accounts.*;
+import accounts.Accountverwaltung;
+import accounts.Anbieter;
+import accounts.Betreiber;
+import accounts.Kunde;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -46,8 +52,19 @@ public class Datenhaltung {
 	 * @param laenderFile
 	 * @return
 	 */
-	public String[] getStringArrayFromFile(File laenderFile) {
-		//TODO blabla
-		return null;
+	public String[] getStringArrayFromFile(File f) {
+		ArrayList<String> reslist = new ArrayList<String>();
+		RandomAccessFile raf;
+			try {
+				raf = new RandomAccessFile(f, "r");
+				while(true) 	// Wirft am Ende eine EOFException
+					reslist.add(raf.readLine().trim());
+			} catch (FileNotFoundException e) {
+				//This is not supposed to happen
+				e.printStackTrace();
+			} catch (IOException e) {
+				//Do nothing. This was supposed to happen someday...^^
+			}
+		return (String[]) reslist.toArray();
 	}
 }
