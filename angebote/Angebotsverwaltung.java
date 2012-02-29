@@ -1,6 +1,7 @@
 package angebote;
 
-import main.Portal;
+import buchungen.Bestaetigung;
+import buchungen.Buchung;
 import accounts.Anbieter;
 import angebote.typen.*;
 
@@ -25,7 +26,7 @@ public class Angebotsverwaltung {
 		Angebot offer = null;
 		
 		// werte array.. was da los? ich geh jetzt einfach mal davon aus, dass die Reihenfolge der Kriterien-Werte im werte[] in der Reihenfolge das Konstruktor stehen.
-		// streng genommen wäre es jetzt noch nötig zu checken ob werte.length() = die Länge der maximialen Anzanl an erlaubten Kriterien entspricht
+		// streng genommen waere es jetzt noch noetig zu checken ob werte.length() = die Laenge der maximialen Anzanl an erlaubten Kriterien entspricht
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
 			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0]);
@@ -45,14 +46,31 @@ public class Angebotsverwaltung {
 	 * 
 	 * @param angebot			das zu löschende Angebot
 	 */
-	public void delAngebot(Angebot angebot) {		
-		int nAnbieter = Portal.getSingletonObject().getAccountverwaltung().getAnbieter().size();
-		Anbieter[] anbieter = (Anbieter[])Portal.getSingletonObject().getAccountverwaltung().getAnbieter().toArray();
+	public void delAngebot(Angebot angebot) throws UnbearbeiteteBuchungException{
+		Kommentar[] kommentare = (Kommentar[])angebot.getKommentare().toArray();
+		Buchung[] buchungen = (Buchung[])angebot.getBuchungen().toArray();
 		
-		for(int i = 0; i < nAnbieter; i++) {
-			if (anbieter[i].getAngebote().contains(angebot)) anbieter[i].delAngebot(angebot);
+		// Erstmal checken, ob offene buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
+		for(int i = 0; i < buchungen.length; i++) {
+			if (buchungen[i].getBestaetigt() == Bestaetigung.UNBEARBEITET) 
+				throw new UnbearbeiteteBuchungException();
 		}
-		// das löschen in den Dateien übernimmt XStream durch das Streamen der Entititätsklassen
+		
+		// Loeschen ist erlaubt, wir entfernen das Angebot vom Anbieter
+		angebot.getAnbieter().delAngebot(angebot);
+		
+		// Loeschen ist erlaubt, wir entfernen die Kommentare aus dem Angebot
+		for(int i = 0; i < kommentare.length; i++) {
+			angebot.delKommentar(kommentare[i]);
+		}
+		
+		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
+		for(int i = 0; i < buchungen.length; i++) {
+			angebot.delBuchung(buchungen[i]);
+		}
+		
+		// zugriff auf Nachrichten is nicht möglich
+		// das loeschen in den Dateien übernimmt XStream durch das Streamen der Entititaetsklassen
 	}
 	
 	/**
