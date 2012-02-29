@@ -23,10 +23,11 @@ public class Buchung implements Listable {
 	private Angebot angebot;
 	private Kunde kunde;
 	
-	public Buchung(Angebot pangebot,Kunde pkunde) {
+	public Buchung(Angebot pangebot, Kunde pkunde, Date pvon, Date pbis) {
 		buchungsNummer = anzahl++;
 		angebot = pangebot;
 		kunde = pkunde;
+		bestaetigt = Bestaetigung.UNBEARBEITET;
 	}
 
 	public static int getAnzahl() {
