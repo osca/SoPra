@@ -3,9 +3,11 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import buchungen.Buchung;
 
 public class BuchDetailScreen extends JPanel {
@@ -20,6 +22,9 @@ public class BuchDetailScreen extends JPanel {
 	private JLabel anbieter;
 	
 	private JLabel fullinfo;
+	
+	private JButton aenderungsanfrage;
+	private JButton stornieren;
 	
 	public BuchDetailScreen(Mainframe m,Buchung b){
 		dscroll = new JScrollPane();
@@ -40,6 +45,19 @@ public class BuchDetailScreen extends JPanel {
 		
 		fullinfo = new JLabel(b.getAngebot().getFullInfo());
 		mid.add(fullinfo);
+		
+		aenderungsanfrage = new JButton("Aenderungsanfrage");
+		stornieren = new JButton("Stronieren");
+		down.add(BorderLayout.EAST, aenderungsanfrage);
+		down.add(BorderLayout.WEST, stornieren);
+		
+		dPanel.add(BorderLayout.NORTH, up);
+		dPanel.add(BorderLayout.CENTER, mid);
+		dPanel.add(BorderLayout.SOUTH,down);
+		
+		dscroll.add(dPanel);
+		add(dscroll);
+		setVisible(true);
 
 	}
 }
