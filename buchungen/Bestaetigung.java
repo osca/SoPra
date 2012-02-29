@@ -1,5 +1,5 @@
 package buchungen;
 
 public enum Bestaetigung {
-	JA, NEIN, VIELLEICHT
+	JA, NEIN, UNBEARBEITET
 }
