@@ -168,7 +168,7 @@ public class Accountverwaltung {
 		for(Nachricht n:nachrichtenVerwaltung.getGesendeteNachrichten(acc))
 			nachrichtenVerwaltung.delNachricht(n);
 		
-		boolean success = anbieter.remove((Anbieter) acc) || betreiber.remove((Betreiber) acc) || kunden.remove((Kunde) acc);
+		boolean success = anbieter.remove(acc) || betreiber.remove(acc) || kunden.remove(acc);
 		//Ist der Account sicher aus der Liste geloescht?
 		if(!success)
 			throw new LoeschenNichtMoeglichException("Der Account wurde nicht gefunden!");
