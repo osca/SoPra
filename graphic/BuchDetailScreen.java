@@ -73,7 +73,5 @@ public class BuchDetailScreen extends JPanel {
 		
 		dscroll.add(dPanel);
 		add(dscroll);
-		setVisible(true);
-
 	}
 }
