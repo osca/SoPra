@@ -6,7 +6,7 @@ import main.Portal;
 
 public class Land extends Kriterium{
 	
-	private final static String name = "Land";
+	public final static String name = "Land";
 	private static File laenderFile = new File("laender");
 	private static String[] wertebereich = Portal.getSingletonObject().getDatenhaltung().getStringArrayFromFile(laenderFile);
 

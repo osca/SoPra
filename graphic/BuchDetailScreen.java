@@ -40,7 +40,8 @@ public class BuchDetailScreen extends JPanel {
 		
 		name = new JLabel(b.getIdetifier());
 		typ = new JLabel (""+b.getAngebot().getTyp());		//GUCKEN BITTE
-		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
+//		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
+		datum = new JLabel(""); //test
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
 		sub_a = new JPanel(new GridLayout(6,0));
@@ -50,9 +51,9 @@ public class BuchDetailScreen extends JPanel {
 		sub_a.add(anbieter);
 		
 		sub_b = new JPanel(new GridLayout(6,0));
-		Kriterium k[] = b.getAngebot().getErlaubteKriterien(); 
+		String k[] = b.getAngebot().getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
-			JLabel krit = new JLabel(k[i].getName());
+			JLabel krit = new JLabel(k[i]);
 			sub_b.add(krit);
 		}
 		up.add(sub_a);

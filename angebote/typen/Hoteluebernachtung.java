@@ -4,7 +4,6 @@ import java.util.Date;
 
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
-import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
@@ -29,7 +28,7 @@ public class Hoteluebernachtung extends Angebot {
 	private Verpflegungsart verpflegungsart = null;
 	private Bierpreis bierpreis = null;
 	
-	private Kriterium[] erlaubteKriterien = {ort,klima,sterne,verpflegungsart,bierpreis};
+	private String[] erlaubteKriterien = {Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -149,7 +148,7 @@ public class Hoteluebernachtung extends Angebot {
 	 * 
 	 * @return Erlaubte Kriterienarray
 	 */
-	public Kriterium[] getErlaubteKriterien() {
+	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 }

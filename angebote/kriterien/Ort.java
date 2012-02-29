@@ -9,8 +9,7 @@ package angebote.kriterien;
  */
 public class Ort extends Kriterium{
 	
-	@SuppressWarnings("unused")
-	private final static String name = "Ort";
+	public final static String name = "Ort";
 
 	/**
 	 * Konstruktor

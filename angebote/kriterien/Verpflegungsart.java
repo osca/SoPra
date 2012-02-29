@@ -7,8 +7,7 @@ package angebote.kriterien;
  */
 public class Verpflegungsart extends Kriterium{
 	
-	@SuppressWarnings("unused")
-	private final static String name = "Verpflegungsart";
+	public final static String name = "Verpflegungsart";
 	
 	private static String[] wertebereich = {"All Inclusive","Bierflatrate","Vollpension","Halbpension","Nur Frühstück","Ohne Verpflegung"};
 	

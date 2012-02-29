@@ -7,8 +7,7 @@ package angebote.kriterien;
  */
 public class Klima extends Kriterium {
 	
-	@SuppressWarnings("unused")
-	private final static String name = "Klima";
+	public final static String name = "Klima";
 	
 	private static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
 	

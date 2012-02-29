@@ -14,7 +14,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 	static JScrollPane lscroll;
 	static JPanel sPanel;
 	
-	public ListeScreen(final Mainframe mainframe, final ArrayList<T> list){
+	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
 		
 		setLayout(new GridLayout(1,0));

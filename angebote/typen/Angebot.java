@@ -1,14 +1,13 @@
 package angebote.typen;
 
+import graphic.Listable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-import buchungen.Buchung;
-import graphic.Listable;
-
 import accounts.Anbieter;
 import angebote.Kommentar;
-import angebote.kriterien.Kriterium;
+import buchungen.Buchung;
 
 /**
  * Abstrakte Angebotsklasse mit Typenflags (Flug, Autovermietung, Ausflug, Hotel)
@@ -33,8 +32,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private Date[] daten;
 	private Anbieter anbieter;
 	private int kapazitaet;
-	
-	private Kriterium[] erlaubteKriterien;
 	
 	private ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
 	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
@@ -282,9 +279,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @return erlaubte Kriterien Array
 	 */
-	public Kriterium[] getErlaubteKriterien() {
-		return erlaubteKriterien;
-	}
+	public abstract String[] getErlaubteKriterien();
 	
 	/**
 	 * Konvertiere Typnummer in Typnamen

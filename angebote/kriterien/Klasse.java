@@ -7,8 +7,7 @@ package angebote.kriterien;
  */
 public class Klasse extends Kriterium{
 	
-	@SuppressWarnings("unused")
-	private final static String name = "Klasse";
+	public final static String name = "Klasse";
 	
 	private static String[] wertebereich = {"First Class","Business","Economy"};
 

@@ -3,7 +3,6 @@ package angebote.typen;
 import java.util.Date;
 
 import angebote.kriterien.Bierpreis;
-import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 
 /**
@@ -19,7 +18,7 @@ public class Ausfluege extends Angebot {
 	private Ort ort = null;
 	private Bierpreis bierpreis = null;
 
-	private Kriterium[] erlaubteKriterien = {ort,bierpreis};
+	private String[] erlaubteKriterien = {Ort.name,Bierpreis.name};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -78,7 +77,7 @@ public class Ausfluege extends Angebot {
 	/**
 	 * Get erlaubte Kriterien (Array)
 	 */
-	public Kriterium[] getErlaubteKriterien() {
+	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 }

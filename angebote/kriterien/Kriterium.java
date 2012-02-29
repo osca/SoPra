@@ -8,7 +8,7 @@ package angebote.kriterien;
 public abstract class Kriterium {
 	
 	protected String wert;
-	private static String name;
+	public static String name;
 	
 	/**
 	 * Abstrakter Konstruktor mit einer Wertevalidierung (IllegalArgumentException)
@@ -50,14 +50,5 @@ public abstract class Kriterium {
 	 */
 	public void setWert(String wert) {
 		this.wert = wert;
-	}
-	
-	/**
-	 * Get Kriteriumname
-	 * 
-	 * @return Name
-	 */
-	public String getName() {
-		return name;
 	}
 }

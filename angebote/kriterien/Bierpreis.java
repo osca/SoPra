@@ -7,8 +7,7 @@ package angebote.kriterien;
  */
 public class Bierpreis extends Kriterium {
 	
-	@SuppressWarnings("unused")
-	private final static String name = "Bierpreis";
+	public final static String name = "Bierpreis";
 
 	private static String[] wertebereich = {"Guenstig","Normal","Teuer","Unbezahlbar"};
 	
