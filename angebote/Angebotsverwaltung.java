@@ -18,23 +18,22 @@ public class Angebotsverwaltung {
 	 * @param werte				erlaubte Werte für die Suche
 	 * @param kriterien			Kriterien.
 	 */
-	public void createAngebot(Anbieter anbieter, String name, int typ, double preis, String[] werte, Kriterium[] kriterien) {
+	//NOTE: String beschr geaddet
+	//		int kapazitaet geaddet
+	//		Kriterium[] kriterien entfernt
+	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, String[] werte) {
 		Angebot offer = null;
 		
-		// kriterium array.. was da los? nicht nötig = doppelt, wegen werte?
 		// werte array.. was da los?
-		
-		//TODO: Angebote haben beschreibungen, createAngebot hat aber kein "Beschreibung"-Parameter
-		// 		
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			offer = new Autovermietung(name, null, 10, preis, null, werte[0], werte[1]);					// 10 isn troll-wert..ich geh jetzt einfach mal davon aus das die werte in der reihenfolge stehen -_-
+			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
 		case Angebot.AUSFLUG:
-			offer = new Ausfluege(name, null, 10, preis, null, null, null, null);
+			offer = new Ausfluege(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2]);
 		case Angebot.HOTEL:
-			offer = new Hoteluebernachtung(name, null, 10, preis, null, null, null, null, null, null, null);		// hauptsache alles ist null!
+			offer = new Hoteluebernachtung(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4], werte[5]);
 		case Angebot.FLUG:
-			offer = new Flug(name, null, 10, preis, null, null, null, null, null, null);
+			offer = new Flug(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4]);
 		}
 		
 		anbieter.addAngebot(offer);
