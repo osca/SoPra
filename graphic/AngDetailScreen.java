@@ -40,7 +40,7 @@ public class AngDetailScreen extends JPanel{
 	private JButton kontaktieren;
 	
 	
-	public AngDetailScreen(Mainframe m, angebote.typen.Angebot a){
+	public AngDetailScreen(int usertype, angebote.typen.Angebot a){
 		dscroll = new JScrollPane();
 		dPanel = new JPanel(new BorderLayout(5,5));
 		up = new JPanel(new GridLayout(0,2));
@@ -69,11 +69,11 @@ public class AngDetailScreen extends JPanel{
 		fullinfo = new JLabel(a.getFullInfo());
 		mid.add(fullinfo);
 		
-		if(m.getUser()==null){
+		if(usertype==0){
 			nullAcc = new JLabel("Sie müssen sich einlogen um weitere Aktionen durchzuführen");
 			down.add(BorderLayout.CENTER, nullAcc);
 		}
-		else switch (m.getUser().getTyp()){
+		else switch (usertype){
 		case Account.KUNDE :{
 			kommentieren = new JButton("Kommentieren");
 			buchen = new JButton("Buchen");
