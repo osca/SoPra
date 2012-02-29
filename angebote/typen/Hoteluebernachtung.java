@@ -32,7 +32,7 @@ public class Hoteluebernachtung extends Angebot {
 	private Verpflegungsart verpflegungsart = null;
 	private Bierpreis bierpreis = null;
 	
-	Kriterium[] erlaubteKriterien = {ort,klima,betten,sterne,verpflegungsart,bierpreis};
+	private Kriterium[] erlaubteKriterien = {ort,klima,betten,sterne,verpflegungsart,bierpreis};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit

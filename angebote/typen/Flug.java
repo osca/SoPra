@@ -26,7 +26,7 @@ public class Flug extends Angebot {
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
 	
-	Kriterium[] erlaubteKriterien = {start,ziel,plaetze,klasse,bierpreis};
+	private Kriterium[] erlaubteKriterien = {start,ziel,plaetze,klasse,bierpreis};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit

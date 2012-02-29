@@ -22,7 +22,7 @@ public class Ausfluege extends Angebot {
 	private Plaetze plaetze = null;
 	private Bierpreis bierpreis = null;
 
-	Kriterium[] erlaubteKriterien = {ort,plaetze,bierpreis};
+	private Kriterium[] erlaubteKriterien = {ort,plaetze,bierpreis};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit

@@ -10,8 +10,6 @@ import accounts.Anbieter;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 
-//TODO ANBIETER IN KONSTRUKTOR EINFUEGEN
-
 /**
  * Abstrakte Angebotsklasse mit Typenflags (Flug, Autovermietung, Ausflug, Hotel)
  * 
@@ -33,11 +31,12 @@ public abstract class Angebot implements Listable {
 	private double preis;
 	private Date[] daten;
 	private Anbieter anbieter;
-	Kriterium[] erlaubteKriterien;
 	
-	ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
+	private Kriterium[] erlaubteKriterien;
 	
-	ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	private ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
+	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	
 	
 	/**
 	 * Konstruktor
@@ -124,8 +123,18 @@ public abstract class Angebot implements Listable {
 	public Anbieter getAnbieter() {
 		return anbieter;
 	}
+	
+	public void addKommentar(Kommentar kommentar) {
+		kommentare.add(kommentar);
+	}
+	
+	public void delKommentar(Kommentar kommentar) {
+		kommentare.remove(kommentar);
+	}
 
-	public abstract Kriterium[] getErlaubteKriterien();
+	public Kriterium[] getErlaubteKriterien() {
+		return erlaubteKriterien;
+	}
 	
 	public String convertTypToName(int type) {
 		switch(type) {

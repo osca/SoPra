@@ -19,7 +19,7 @@ public class Autovermietung extends Angebot {
 	private Ort ort = null;
 	private Plaetze plaetze = null;
 	
-	Kriterium[] erlaubteKriterien = {ort,plaetze};
+	private Kriterium[] erlaubteKriterien = {ort,plaetze};
 
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit

@@ -7,9 +7,11 @@ package accounts;
 import java.util.ArrayList;
 
 public abstract class Account {
+	
 	private String email, name, password;
 	protected boolean gesperrt = false;
 	private ArrayList<Nachricht> Posteingang;
+	
 	public static final int //NONE = 0,
 							KUNDE = 1,
 							ANBIETER = 2,
@@ -25,6 +27,7 @@ public abstract class Account {
 	public void addNachricht(Nachricht msg){
 		Posteingang.add(msg);
 	}
+	
 	public void delNachricht(Nachricht msg){
 		Posteingang.remove(msg);
 	}

@@ -2,13 +2,17 @@ package angebote;
 
 import java.util.Date;
 
+import angebote.typen.Angebot;
+
 public class Kommentar {
 	
 	private String absender, text;
 	private int bewertung;
 	private Date zeitstempel;
+	private Angebot angebot;
 	
-	public Kommentar(String pabsender, String ptext, int pbewertung) {
+	public Kommentar(Angebot pangebot, String pabsender, String ptext, int pbewertung) {
+		angebot = pangebot;
 		absender = pabsender;
 		text = ptext;
 		bewertung = pbewertung;
@@ -29,6 +33,10 @@ public class Kommentar {
 
 	public Date getZeitstempel() {
 		return zeitstempel;
+	}
+	
+	public Angebot getAngebot() {
+		return angebot;
 	}
 	
 }

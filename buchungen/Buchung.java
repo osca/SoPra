@@ -2,10 +2,9 @@ package buchungen;
 
 import graphic.Listable;
 
-//TODO ANGEBOT IN KONSTRUKTOR EINFUEGEN
-
 import java.util.Date;
 
+import accounts.Kunde;
 import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
 
@@ -22,9 +21,12 @@ public class Buchung implements Listable {
 	private Bestaetigung bestaetigt;
 	private Date von,bis;
 	private Angebot angebot;
+	private Kunde kunde;
 	
-	public Buchung() {
+	public Buchung(Angebot pangebot,Kunde pkunde) {
 		buchungsNummer = anzahl++;
+		angebot = pangebot;
+		kunde = pkunde;
 	}
 
 	public static int getAnzahl() {
@@ -34,7 +36,6 @@ public class Buchung implements Listable {
 	public int getBuchungsnummer() {
 		return buchungsNummer;
 	}
-
 
 	public Bestaetigung getBestaetigt() {
 		return bestaetigt;
@@ -58,6 +59,14 @@ public class Buchung implements Listable {
 
 	public void setBis(Date bis) {
 		this.bis = bis;
+	}
+
+	public Angebot getAngebot() {
+		return angebot;
+	}
+	
+	public Kunde getKunde() {
+		return kunde;
 	}
 
 	@Override
