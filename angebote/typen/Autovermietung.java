@@ -12,7 +12,7 @@ import angebote.kriterien.Ort;
  */
 public class Autovermietung extends Angebot {
 	
-	/*public static final int ORT = 1;*/
+	/*public static final int ORT = 0;*/
 	
 	private Ort ort = null;
 	
