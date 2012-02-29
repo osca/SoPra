@@ -11,7 +11,7 @@ import accounts.LoeschenNichtMoeglichException;
 import angebote.typen.*;
 
 /**
- * @author Benjamin
+ * @author Benjamin, stephan	
  */
 public class Angebotsverwaltung {
 	/**
