@@ -57,7 +57,6 @@ public class Accountverwaltung {
 			throw new LoeschenNichtMoeglichException("Der Account wurde nicht gefunden!");
 		
 		Date heute = new Date();
-		boolean success = false;
 		
 		switch(acc.getTyp()){
 			case(Account.ANBIETER):{
@@ -90,8 +89,6 @@ public class Accountverwaltung {
 					
 					angebotsVerwaltung.delAngebot(a);
 				}
-				
-				success = anbieter.remove(anbieteracc);
 			}
 			
 			case(Account.KUNDE):{
@@ -110,16 +107,12 @@ public class Accountverwaltung {
 					
 				for(Buchung b:buchungsVerwaltung.getBuchungen(kundenacc))
 					buchungsVerwaltung.delBuchung(b);
-				
-				success = kunden.remove(kundenacc);	
 			}
 			
 			case(Account.BETREIBER):{
 				//Ist er der letzte Betreiber? Hoffentlich nicht...
 				if(getBetreiber().size() < 2)
 					throw new LoeschenNichtMoeglichException("You're the last unicorn!");
-				
-				success = betreiber.remove((Betreiber) acc);
 			}
 		}
 		
@@ -132,6 +125,7 @@ public class Accountverwaltung {
 		for(Nachricht n:nachrichtenVerwaltung.getGesendeteNachrichten(acc))
 			nachrichtenVerwaltung.delNachricht(n);
 		
+		boolean success = anbieter.remove((Anbieter) acc) || betreiber.remove((Betreiber) acc) || kunden.remove((Kunde) acc);
 		//Ist der Account sicher aus der Liste geloescht?
 		if(!success)
 			throw new LoeschenNichtMoeglichException("Der Account wurde nicht gefunden!");
