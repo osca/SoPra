@@ -31,10 +31,10 @@ Burkina Faso
 Burundi
 Chile
 Republik China
-"Volksrepublik China mit Hongkong (HK) und Macao (MO)"
+Volksrepublik China mit Hongkong (HK) und Macao (MO)
 Cookinseln
 Costa Rica
-"Daenemark mit Faeroeer (FO) und Groenland (GL)"
+Daenemark mit Faeroeer (FO) und Groenland (GL)
 Deutschland
 Dominica
 Dominikanische Republik
@@ -46,10 +46,10 @@ Eritrea
 Estland
 Fidschi
 Finnland
-"Frankreich (ohne Franzoesische ueberseegebiete)"
+Frankreich (ohne Franzoesische ueberseegebiete)
 Gabun
 Gambia
-"Georgien (mit Abchasien und Suedossetien)"
+Georgien (mit Abchasien und Suedossetien)
 Ghana
 Grenada
 Griechenland
@@ -59,13 +59,13 @@ Guinea-Bissau
 Guyana
 Haiti
 Honduras
-"Indien (mit Kaschmir)"
+Indien (mit Kaschmir)
 Indonesien
 Irak
 Iran
 Irland
 Island
-"Israel (ohne Gazastreifen, Golanhoehen und Westjordanland)"
+Israel (ohne Gazastreifen, Golanhoehen und Westjordanland)
 Italien
 Jamaika
 Japan
@@ -105,14 +105,14 @@ Malaysia
 Malediven
 Mali
 Malta
-"Marokko (ohne Westsahara)"
+Marokko (ohne Westsahara)
 Marshallinseln
 Mauretanien
 Mauritius
 Mazedonien
 Mexiko
 Mikronesien
-"Moldawien (mit Transnistrien)"
+Moldawien (mit Transnistrien)
 Monaco
 Mongolei
 Montenegro
@@ -123,17 +123,16 @@ Nauru
 Nepal
 Neuseeland
 Nicaragua
-"Koenigreich der Niederlande (ohne Curaçao, Sint Maarten und Aruba)"
+Koenigreich der Niederlande (ohne Curaçao, Sint Maarten und Aruba)
 Niger
 Nigeria
 Niue
 Nordzypern
-"Norwegen (ohne Svalbard)"
+Norwegen (ohne Svalbard)
 Oman
 Oesterreich
 Osttimor / Timor-Leste
-"Pakistan
-(ohne Kaschmir)"
+Pakistan(ohne Kaschmir)
 Palau
 Panama
 Papua-Neuguinea
@@ -154,14 +153,14 @@ Saudi-Arabien
 Schweden
 Schweiz
 Senegal
-"Serbien (ohne Kosovo)"
+Serbien (ohne Kosovo)
 Seychellen
 Sierra Leone
 Simbabwe
 Singapur
 Slowakei
 Slowenien
-"Somalia (mit Somaliland)"
+Somalia (mit Somaliland)
 Somaliland
 Spanien
 Sri Lanka
@@ -174,8 +173,7 @@ Suedossetien
 Suedsudan
 Suriname
 Swasiland
-"Syrien
-(mit Golanhoehen)"
+Syrien(mit Golanhoehen)
 Tadschikistan
 Tansania
 Thailand
@@ -198,14 +196,10 @@ Vanuatu
 Vatikanstadt
 Venezuela
 Vereinigte Arabische Emirate
-"Vereinigte Staaten
-(ohne Außengebiete)"
-"Vereinigtes Koenigreich
-(ohne ueberseegebiete und Kronbesitz)"
+Vereinigte Staaten (ohne Außengebiete)
+Vereinigtes Koenigreich (ohne ueberseegebiete und Kronbesitz)
 Vietnam
 Weißrussland (Belarus)
 Westsahara
 Zentralafrikanische Republik
-"Zypern
-(mit Nordzypern)"
-
+Zypern (mit Nordzypern)

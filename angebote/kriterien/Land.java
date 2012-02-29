@@ -2,13 +2,14 @@ package angebote.kriterien;
 
 import java.io.File;
 
-import main.Portal;
+import main.Datenhaltung;
 
 public class Land extends Kriterium{
 	
+	@SuppressWarnings("unused")
 	private final static String name = "Land";
 	private static File laenderFile = new File("laender");
-	private static String[] wertebereich ;//= Portal.getSingletonObject().getDatenhaltung().getStringArrayFromFile(laenderFile);
+	private static String[] wertebereich = Datenhaltung.getStringArrayFromFile(laenderFile);
 
 	public Land(String pwert) throws IllegalArgumentException {
 		super(pwert);

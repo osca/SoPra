@@ -8,7 +8,6 @@ import angebote.Angebotsverarbeitung;
 
 public class Portal {
 
-	private Datenhaltung daha;
 	private Accountverwaltung accverw;
 	private Angebotsverwaltung angebverw;
 	private Buchungsverwaltung buchverw;
@@ -17,8 +16,7 @@ public class Portal {
 	private static Portal single = new Portal();
 	
 	private Portal(){
-		daha = new Datenhaltung();
-		accverw = new Accountverwaltung(daha.getAnbieter(), daha.getBetreiber(), daha.getKunde());
+		accverw = new Accountverwaltung(Datenhaltung.getAnbieter(), Datenhaltung.getBetreiber(), Datenhaltung.getKunde());
 		angebverw = new Angebotsverwaltung();
 		buchverw = new Buchungsverwaltung();
 		nachrverw = new Nachrichtenverwaltung();
@@ -58,13 +56,6 @@ public class Portal {
 	 */
 	public Nachrichtenverwaltung getNachrichtenverwaltung() {
 		return nachrverw;
-	}
-
-	/**
-	 * @return Datenhaltungsobjekt
-	 */
-	public Datenhaltung getDatenhaltung() {
-		return daha;
 	}
 
 	/**
