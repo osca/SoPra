@@ -9,12 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import accounts.Account;
+import angebote.kriterien.Kriterium;
 
 
 public class AngDetailScreen extends JPanel{
 	private JScrollPane dscroll;
 	private JPanel dPanel;
 	private JPanel up;
+	private JPanel sub_a;
+	private JPanel sub_b;
 	private JPanel mid;
 	private JPanel down;
 	private JLabel name;
@@ -40,7 +43,7 @@ public class AngDetailScreen extends JPanel{
 	public AngDetailScreen(Mainframe m, angebote.typen.Angebot a){
 		dscroll = new JScrollPane();
 		dPanel = new JPanel(new BorderLayout(5,5));
-		up = new JPanel(new GridLayout(4,0));
+		up = new JPanel(new GridLayout(0,2));
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new BorderLayout(5,5));
 		
@@ -49,10 +52,19 @@ public class AngDetailScreen extends JPanel{
 		datum = new JLabel(a.getDaten().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
-		up.add(name);
-		up.add(typ);
-		up.add(datum);
-		up.add(anbieter);
+		sub_a = new JPanel(new GridLayout(6,0));
+		sub_a.add(name);
+		sub_a.add(typ);
+		sub_a.add(datum);
+		sub_a.add(anbieter);
+		sub_b = new JPanel(new GridLayout(6,0));
+		Kriterium k[] = a.getErlaubteKriterien(); 
+		for (int i =0;i<k.length;i++){
+			JLabel krit = new JLabel(k[i].getName());
+			sub_b.add(krit);
+		}
+		up.add(sub_a);
+		up.add(sub_b);
 		
 		fullinfo = new JLabel(a.getFullInfo());
 		mid.add(fullinfo);

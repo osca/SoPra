@@ -50,7 +50,6 @@ public class BuchDetailScreen extends JPanel {
 		sub_a.add(anbieter);
 		
 		sub_b = new JPanel(new GridLayout(6,0));
-		;
 		Kriterium k[] = b.getAngebot().getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
 			JLabel krit = new JLabel(k[i].getName());
