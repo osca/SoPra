@@ -43,5 +43,7 @@ public class Msg extends JDialog{
 		add(BorderLayout.NORTH, up);
 		add(BorderLayout.CENTER, mid);
 		add(BorderLayout.SOUTH, down);
+		setVisible(true);
+		setAlwaysOnTop(true);
 	}
 }
