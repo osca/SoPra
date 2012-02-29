@@ -1,8 +1,13 @@
 package angebote;
 
+import java.util.Date;
+
+import main.Portal;
+
 import buchungen.Bestaetigung;
 import buchungen.Buchung;
 import accounts.Anbieter;
+import accounts.LoeschenNichtMoeglichException;
 import angebote.typen.*;
 
 /**
@@ -14,9 +19,9 @@ public class Angebotsverwaltung {
 	 * 
 	 * @param anbieter			Dem Anbieter wird das Angebot zugeordnet.
 	 * @param name				Name, den das Angebot haben wird.
-	 * @param typ				Typ, entweder: Ausflug, Autovermietung, Hotelübernachtung, Ausflug
+	 * @param typ				Typ, entweder: Ausflug, Autovermietung, Hotelï¿½bernachtung, Ausflug
 	 * @param preis				Preis des Angebots.
-	 * @param werte				erlaubte Werte für die Suche
+	 * @param werte				erlaubte Werte fï¿½r die Suche
 	 * @param kriterien			Kriterien.
 	 */
 	// NOTE: String beschr geaddet
@@ -44,16 +49,16 @@ public class Angebotsverwaltung {
 	/**
 	 * Loescht ein Angebot eines Anbieters.
 	 * 
-	 * @param angebot			das zu löschende Angebot
+	 * @param angebot			das zu lï¿½schende Angebot
 	 */
-	public void delAngebot(Angebot angebot) throws UnbearbeiteteBuchungException{
+	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
 		Kommentar[] kommentare = (Kommentar[])angebot.getKommentare().toArray();
 		Buchung[] buchungen = (Buchung[])angebot.getBuchungen().toArray();
 		
 		// Erstmal checken, ob offene buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
 		for(int i = 0; i < buchungen.length; i++) {
-			if (buchungen[i].getBestaetigt() == Bestaetigung.UNBEARBEITET) 
-				throw new UnbearbeiteteBuchungException();
+			if (buchungen[i].getBestaetigt() == Bestaetigung.JA && buchungen[i].getBis().after(new Date())) 
+				throw new LoeschenNichtMoeglichException("Es existieren noch zu erfuellende Buchungen auf dem Angebot.");
 		}
 		
 		// Loeschen ist erlaubt, wir entfernen das Angebot vom Anbieter
@@ -68,9 +73,9 @@ public class Angebotsverwaltung {
 		for(int i = 0; i < buchungen.length; i++) {
 			angebot.delBuchung(buchungen[i]);
 		}
-		
-		// zugriff auf Nachrichten is nicht möglich
-		// das loeschen in den Dateien übernimmt XStream durch das Streamen der Entititaetsklassen
+		Portal.getSingletonObject().getNachrichtenverwaltung().delAllNachrichten(angebot);
+		// zugriff auf Nachrichten is nicht mï¿½glich
+		// das loeschen in den Dateien ï¿½bernimmt XStream durch das Streamen der Entititaetsklassen
 	}
 	
 	/**
@@ -80,7 +85,7 @@ public class Angebotsverwaltung {
 	 */
 	// NOTE: Anbieter anbieter geaddet
 	public void editAngebot(Angebot neues, Anbieter anbieter) {
-		// TODO: angebot suchen (ist übergebene Angebot 100% anders als das Ursprungsangebot????)???
+		// TODO: angebot suchen (ist ï¿½bergebene Angebot 100% anders als das Ursprungsangebot????)???
 		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?????
 		
 		anbieter.addAngebot(neues);
