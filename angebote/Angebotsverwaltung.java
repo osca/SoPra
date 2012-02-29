@@ -28,13 +28,13 @@ public class Angebotsverwaltung {
 		// streng genommen wäre es jetzt noch nötig zu checken ob werte.length() = die Länge der maximialen Anzanl an erlaubten Kriterien entspricht
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
+			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0]);
 		case Angebot.AUSFLUG:
-			offer = new Ausfluege(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2]);
+			offer = new Ausfluege(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
 		case Angebot.HOTEL:
-			offer = new Hoteluebernachtung(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4], werte[5]);
+			offer = new Hoteluebernachtung(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4]);
 		case Angebot.FLUG:
-			offer = new Flug(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4]);
+			offer = new Flug(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3]);
 		}
 		
 		anbieter.addAngebot(offer);
