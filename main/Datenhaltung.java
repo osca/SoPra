@@ -41,4 +41,13 @@ public class Datenhaltung {
 	public ArrayList<Kunde> getKunde(){
 		return (ArrayList<Kunde>) xs.fromXML(kundFile);
 	}
+	/**
+	 * Liest ein NICHT-XML-File ein und gibt die einzelnen Zeilen als String-Array aus
+	 * @param laenderFile
+	 * @return
+	 */
+	public String[] getStringArrayFromFile(File laenderFile) {
+		//TODO blabla
+		return null;
+	}
 }

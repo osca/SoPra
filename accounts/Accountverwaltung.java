@@ -162,11 +162,7 @@ public class Accountverwaltung {
 		//Loesche saemtliche mit dem Account verbundenen Nachrichten
 		Nachrichtenverwaltung nachrichtenVerwaltung = Portal.getSingletonObject().getNachrichtenverwaltung();
 		
-		for(Nachricht n:nachrichtenVerwaltung.getErhalteneNachrichten(acc))
-			nachrichtenVerwaltung.delNachricht(n);
-
-		for(Nachricht n:nachrichtenVerwaltung.getGesendeteNachrichten(acc))
-			nachrichtenVerwaltung.delNachricht(n);
+		nachrichtenVerwaltung.delAllNachrichten(acc);
 		
 		boolean success = anbieter.remove(acc) || betreiber.remove(acc) || kunden.remove(acc);
 		//Ist der Account sicher aus der Liste geloescht?

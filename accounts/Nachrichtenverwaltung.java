@@ -2,6 +2,8 @@ package accounts;
 
 import java.util.ArrayList;
 
+import main.Portal;
+
 import angebote.typen.Angebot;
 /**
  * 
@@ -38,6 +40,31 @@ public class Nachrichtenverwaltung {
 	public void delNachricht(Nachricht msg){
 		msg.getAbsender().delGeschriebeneNachricht(msg);
 		msg.getEmpfaenger().delErhalteneNachricht(msg);
+	}
+	
+	/**
+	 * Loescht alle Nachrichten, die auf das spezifizierte Angebot verweisen
+	 * @param ang Angebot dessen Verweise hinfaellig sind
+	 */
+	public void delAllNachrichten(Angebot ang){
+		Accountverwaltung av = Portal.getSingletonObject().getAccountverwaltung();
+		for(Account acc : av.getAccounts()){
+			for(Nachricht n : getErhalteneNachrichten(acc))
+				delNachricht(n);
+			for(Nachricht n : getGesendeteNachrichten(acc))
+				delNachricht(n);
+		}
+	}
+	
+	/**
+	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder -ausgang hat
+	 * @param acc spezielles Accountobjekt
+	 */
+	public void delAllNachrichten(Account acc){
+		for(Nachricht n : getErhalteneNachrichten(acc))
+			delNachricht(n);
+		for(Nachricht n : getGesendeteNachrichten(acc))
+			delNachricht(n);
 	}
 	
 	/** Gibt den Postausgang eines Accounts aus
