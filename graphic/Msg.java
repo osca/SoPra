@@ -21,6 +21,7 @@ public class Msg extends JDialog{
 	
 	public Msg(){
 		// to do set size
+		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout (5,5));
 		up = new JPanel(new GridLayout (2,0));
 		mid = new JPanel(new BorderLayout (5,5));
@@ -38,9 +39,6 @@ public class Msg extends JDialog{
 		verwerfen = new JButton ("Verwerfen");
 		down.add(BorderLayout.EAST, senden);
 		down.add(BorderLayout.WEST, verwerfen);
-		
-		
-		
 		
 	}
 }
