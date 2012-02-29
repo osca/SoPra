@@ -19,7 +19,7 @@ public class Msg extends JDialog{
 	private JButton senden;
 	private JButton verwerfen;
 	
-	public Msg(){
+	public Msg(String anbieter, String b){
 		// to do set size
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout (5,5));
@@ -27,9 +27,9 @@ public class Msg extends JDialog{
 		mid = new JPanel(new BorderLayout (5,5));
 		down = new JPanel(new BorderLayout (5,5));
 		
-		empfaenger = new JLabel();
+		empfaenger = new JLabel(anbieter);
 		up.add(empfaenger);
-		betreff = new JLabel();
+		betreff = new JLabel(b);
 		up.add(betreff);
 		
 		m = new JTextField();
