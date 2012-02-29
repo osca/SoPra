@@ -111,6 +111,5 @@ public class AngDetailScreen extends JPanel{
 		dPanel.add(BorderLayout.SOUTH, down);
 		dscroll.add(dPanel);
 		add(dscroll);
-		setVisible(true);
 	}
 }

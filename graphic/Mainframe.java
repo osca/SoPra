@@ -84,6 +84,8 @@ public class MainFrame extends JFrame
 		screen.add(new AngDetailScreen(1,f));
 		screen.add(new BuchDetailScreen(new Buchung(new Flug("name", "beschreibung", 23, 23.5, new Date[]{new Date()}, "hier", "ziel", "7", "unbezahlbar"), new Kunde("name","email","password"))));
 		
+		
+		this.pack();
 		this.setVisible(true);
 	}
 	
