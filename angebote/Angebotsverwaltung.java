@@ -9,6 +9,7 @@ import angebote.typen.*;
  */
 public class Angebotsverwaltung {
 	/**
+	 * Es wird ein spezifisches Angebot erstellt und einem Anbieter zugeordnet. 
 	 * 
 	 * @param anbieter			Dem Anbieter wird das Angebot zugeordnet.
 	 * @param name				Name, den das Angebot haben wird.
@@ -17,13 +18,14 @@ public class Angebotsverwaltung {
 	 * @param werte				erlaubte Werte für die Suche
 	 * @param kriterien			Kriterien.
 	 */
-	//NOTE: String beschr geaddet
-	//		int kapazitaet geaddet
-	//		Kriterium[] kriterien entfernt
+	// NOTE: String beschr geaddet
+	//		 int kapazitaet geaddet
+	//		 Kriterium[] kriterien entfernt
 	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, String[] werte) {
 		Angebot offer = null;
 		
 		// werte array.. was da los? ich geh jetzt einfach mal davon aus, dass die Reihenfolge der Kriterien-Werte im werte[] in der Reihenfolge das Konstruktor stehen.
+		// streng genommen wäre es jetzt noch nötig zu checken ob werte.length() = die Länge der maximialen Anzanl an erlaubten Kriterien entspricht
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
 			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
@@ -39,7 +41,7 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * Löscht ein Angebot eines Anbieters.
+	 * Loescht ein Angebot eines Anbieters.
 	 * 
 	 * @param angebot			das zu löschende Angebot
 	 */
@@ -58,6 +60,7 @@ public class Angebotsverwaltung {
 	 * 
 	 * @param angebot			?
 	 */
+	// NOTE: Anbieter anbieter geaddet
 	public void editAngebot(Angebot neues, Anbieter anbieter) {
 		// TODO: angebot suchen (ist übergebene Angebot 100% anders als das Ursprungsangebot????)???
 		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?????
