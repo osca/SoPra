@@ -19,23 +19,40 @@ public class Nachrichtenverwaltung {
 	 */
 	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot){
 		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
-		empfaenger.addNachricht(msg);
-		//absender.addNachricht(msg);	//TODO Postausgang??
+		empfaenger.addErhalteneNachricht(msg);
+		absender.addGeschriebeneNachricht(msg);
+		//Angebot kennt nicht alle Nachrichten.
 	}
 	
-	/**
+	/** Entfernt eine Nachricht aus dem Posteingang eines Accounts
 	 * @param acc Account mit zu löschender Nachricht
 	 * @param msg zu löschende Nachricht
 	 */
-	public void delNachricht(Account acc, Nachricht msg){
-		acc.delNachricht(msg);
+	public void delErhalteneNachricht(Account acc, Nachricht msg){
+		acc.delErhalteneNachricht(msg);
 	}
 	
-	/**
+	/** Gibt den Posteingang eines Accounts aus
 	 * @param acc ausgewählter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
-	public ArrayList<Nachricht> getNachrichten(Account acc){
+	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc){
 		return acc.getPosteingang();
+	}
+	
+	/** Entfernt eine Nachricht aus dem Postausgang eines Accounts
+	 * @param acc Account mit zu löschender Nachricht
+	 * @param msg zu löschende Nachricht
+	 */
+	public void delGeschriebeneNachricht(Account acc, Nachricht msg){
+		acc.delGeschriebeneNachricht(msg);
+	}
+	
+	/** Gibt den Postausgang eines Accounts aus
+	 * @param acc ausgewählter Account
+	 * @return ArrayList von Nachrichten des Accounts
+	 */
+	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc){
+		return acc.getPostausgang();
 	}
 }
