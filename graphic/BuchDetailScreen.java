@@ -23,12 +23,7 @@ public class BuchDetailScreen extends JPanel {
 	private JLabel typ;
 	private JLabel datum;
 	private JLabel anbieter;
-//	private JLabel krit1;
-//	private JLabel krit2;
-//	private JLabel krit3;
-//	private JLabel krit4;
-//	private JLabel krit5;
-//	private JLabel krit6;
+
 
 
 	private JLabel fullinfo;
@@ -58,7 +53,7 @@ public class BuchDetailScreen extends JPanel {
 		;
 		Kriterium k[] = b.getAngebot().getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
-			JLabel krit = new JLabel(k[i].);
+			JLabel krit = new JLabel(k[i].getName());
 			sub_b.add(krit);
 		}
 		up.add(sub_a);
