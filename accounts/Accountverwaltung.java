@@ -39,6 +39,7 @@ public class Accountverwaltung {
 		acc.setGesperrt(enable);
 	}
 	
+	//TODO Darf Accountgelöscht werden? --> Buchungen, Angebote etc. in der Zukunft?, Aufruf von GarbageCollector!
 	public boolean delAccount(Account acc){
 		boolean success[] = new boolean[3];
 		success[0] = getAnbieter().remove(acc);

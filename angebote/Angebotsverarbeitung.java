@@ -1,6 +1,7 @@
 package angebote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import main.Portal;
@@ -36,26 +37,26 @@ public class Angebotsverarbeitung {
 		return suchErgebnisse;
 	}
 	
-//	public ArrayList<Angebot> getTopAngebote(){
-//		ArrayList<Angebot> aktAngebote = getAktuelleAngebote();
-//		ArrayList<Angebot> topAngebote = new ArrayList<Angebot>();
-//		
-//		for(Angebot a:aktAngebote){
-//			a.getBuchungen().length;
-//		}
-//		
-//		return topAngebote;
-//	}
+	public ArrayList<Angebot> getTopAngebote(){
+		ArrayList<Angebot> aktAngebote = getAktuelleAngebote();
+		ArrayList<Angebot> topAngebote = new ArrayList<Angebot>();
+		final int numberOfEntries=10;
+		
+		for(Angebot a:aktAngebote){
+			int curBuchungen = a.getBuchungen().size();
+			topAngebote.add(a);
+			Collections.sort(topAngebote);
+			topAngebote.remove(0);
+			
+		}
+		
+		return topAngebote;
+	}
 	
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Date now = new Date();
-		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
-		ArrayList<Angebot> erstellteAngebote = new ArrayList<Angebot>();
-		
-		for(Anbieter a:anbieterListe){
-			erstellteAngebote.addAll(a.getAngebote());
-		}
+		ArrayList<Angebot> erstellteAngebote = getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
 			if(ang.getDaten()[ang.getDaten().length-1].before(now)) {
@@ -68,12 +69,7 @@ public class Angebotsverarbeitung {
 	public ArrayList<Angebot> getAktuelleAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Date now = new Date();
-		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
-		ArrayList<Angebot> erstellteAngebote = new ArrayList<Angebot>();
-		
-		for(Anbieter a:anbieterListe){
-			erstellteAngebote.addAll(a.getAngebote());
-		}
+		ArrayList<Angebot> erstellteAngebote = getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
 			if(!(ang.getDaten()[ang.getDaten().length-1].before(now))) {
@@ -82,5 +78,24 @@ public class Angebotsverarbeitung {
 		}
 		
 		return result;
+	}
+	public ArrayList<Angebot> getAllAngebote(){
+		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
+		ArrayList<Angebot> alleAngebote = new ArrayList<Angebot>();
+		for(Anbieter a:anbieterListe){
+			alleAngebote.addAll(a.getAngebote());
+		}
+		return alleAngebote;
+	}
+	public ArrayList<Angebot> getAngebote(Anbieter anbieter){
+		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
+		ArrayList<Angebot> anbieterAngebote=new ArrayList<Angebot>();
+		for(Anbieter a:anbieterListe){
+			if(a==anbieter){
+				anbieterAngebote.addAll(a.getAngebote());
+				return anbieterAngebote;
+			}
+		}
+		return anbieterAngebote;
 	}
 }

@@ -53,8 +53,8 @@ public class Buchungsverwaltung {
 	/**
 	 * Setter.
 	 * 
-	 * @param buchung		zu bestätigenede Buchung.
-	 * @param bestaetigt	Art der Bestätigung.
+	 * @param buchung		zu bestaetigenede Buchung.
+	 * @param bestaetigt	Art der Bestaetigung.
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
 		buchung.setBestaetigt(bestaetigt);
@@ -63,7 +63,7 @@ public class Buchungsverwaltung {
 	/**
 	 * Getter.
 	 * 
-	 * @param buchung		zu bestätigenede Buchung.
+	 * @param buchung		zu bestaetigenede Buchung.
 	 * @return				Art der Bestaetigung wird ausgegeben.
 	 */
 	public Bestaetigung getBestaetigt(Buchung buchung) {
