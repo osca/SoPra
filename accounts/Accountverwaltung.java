@@ -12,12 +12,25 @@ import angebote.typen.Angebot;
 
 import main.Portal;
 
+/**
+ * Verwaltet alle drei Accounttypen. Fuehrt saemtliche nicht-triviale Methoden 
+ * fuer Accounts aus.
+ * 
+ * @author jay, stephan, osca
+ */
 public class Accountverwaltung {
 
 	private ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 	private ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 	private ArrayList<Kunde> kunden = new ArrayList<Kunde>();
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @param anb Anbieter
+	 * @param betr Betreiber
+	 * @param kund Kunde
+	 */
 	public Accountverwaltung(ArrayList<Anbieter> anb, ArrayList<Betreiber> betr, ArrayList<Kunde> kund){
 		anbieter = anb;
 		betreiber = betr;
@@ -25,24 +38,54 @@ public class Accountverwaltung {
 		Portal.getSingletonObject();
 	}
 	
+	/**
+	 * Erstelle Kunde
+	 * 
+	 * @param email E-Mail Adresse
+	 * @param name Username
+	 * @param password Password
+	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
+	 */
 	public void createKunde(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		kunden.add(new Kunde(email, name, password));
 	}
 
+	/**
+	 * Erstelle Anbieter
+	 * 
+	 * @param email E-Mail Adresse
+	 * @param name Username
+	 * @param password Password
+	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
+	 */
 	public void createAnbieter(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		anbieter.add(new Anbieter(email, name, password));
 	}
 	
+	/**
+	 * Erstelle Betreiber
+	 * 
+	 * @param email E-Mail Adresse
+	 * @param name Username
+	 * @param password Password
+	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
+	 */
 	public void createBetreiber(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		betreiber.add(new Betreiber(email, name, password));
 	}
 	
+	/**
+	 * Account (de)aktivieren
+	 * 
+	 * @param acc Freizuschaltender Account
+	 * @param enable Aktiv oder nicht
+	 */
 	public void setEnableAccount(Account acc, boolean enable){
 		acc.setGesperrt(enable);
 	}
@@ -138,15 +181,38 @@ public class Accountverwaltung {
 			throw new LoeschenNichtMoeglichException("Der Account wurde nicht gefunden!");
 	}
 
+	/**
+	 * Get Anbieterliste
+	 * 
+	 * @return Anbieterliste
+	 */
 	public ArrayList<Anbieter> getAnbieter(){
 		return anbieter;
 	}
+	
+	/**
+	 * Get Betreiberliste
+	 * 
+	 * @return Betreiberliste
+	 */
 	public ArrayList<Betreiber> getBetreiber(){
 		return betreiber;
 	}
+	
+	/**
+	 * Get Kundenliste
+	 * 
+	 * @return Kundenliste
+	 */
 	public ArrayList<Kunde> getKunden(){
 		return kunden;
 	}
+	
+	/**
+	 * Get Accountliste
+	 * 
+	 * @return Accountliste
+	 */
 	public ArrayList<Account> getAccounts(){
 		ArrayList<Account> result = new ArrayList<Account>();
 		result.addAll(getAnbieter());
@@ -155,6 +221,12 @@ public class Accountverwaltung {
 		return result;
 	}
 	
+	/**
+	 * Ist diese E-Mail Adresse schon vergeben?
+	 * 
+	 * @param email E-Mail Adresse
+	 * @return Vergeben oder nicht
+	 */
 	private boolean isFreeEmail(String email) {
 		boolean result = true;
 		for(Account a : getAccounts())
@@ -163,6 +235,12 @@ public class Accountverwaltung {
 		return result;
 	}
 
+	/**
+	 * Ist dieser Username schon vergeben?
+	 * 
+	 * @param name Username
+	 * @return Vergeben oder nicht
+	 */
 	private boolean isFreeName(String name) {
 		boolean result = true;
 		for(Account a : getAccounts())

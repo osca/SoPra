@@ -12,10 +12,21 @@ public class Klima extends Kriterium {
 	
 	private static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
 	
-	public Klima(String pwert) {
+	/**
+	 * Konstruktor
+	 * 
+	 * @param pwert Klima
+	 * @throws IllegalArgumentException Ist die Eingabe valide?
+	 */
+	public Klima(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
 	
+	/**
+	 * Get Wertebereich
+	 * 
+	 * @return Wertebereich
+	 */
 	public String[] getWertebereich() {
 		return wertebereich;
 	}

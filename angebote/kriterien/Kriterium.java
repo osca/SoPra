@@ -34,14 +34,29 @@ public abstract class Kriterium {
 		return true;
 	}
 	
+	/**
+	 * Get aktuellen Wert
+	 * 
+	 * @return Wert
+	 */
 	public String getWert() {
 		return wert;
 	}
 
+	/**
+	 * Set Wert
+	 * 
+	 * @param wert Wert
+	 */
 	public void setWert(String wert) {
 		this.wert = wert;
 	}
 	
+	/**
+	 * Get Kriteriumname
+	 * 
+	 * @return Name
+	 */
 	public String getName() {
 		return name;
 	}

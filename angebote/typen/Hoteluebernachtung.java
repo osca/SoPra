@@ -54,46 +54,101 @@ public class Hoteluebernachtung extends Angebot {
 		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
+	/**
+	 * Set Ort
+	 * 
+	 * @param wert Wert fuer Ort
+	 */
 	public void setOrt(String wert) {
 		ort.setWert(wert);
 	}
 	
+	/**
+	 * Set Klima
+	 * 
+	 * @param wert Wert fuer Klima
+	 */
 	public void setKlima(String wert) {
 		klima.setWert(wert);
 	}
 	
+	/**
+	 * Set Sterne
+	 * 
+	 * @param wert Wert fuer Sterne
+	 */
 	public void setSterne(String wert) {
 		sterne.setWert(wert);
 	}
 	
+	/**
+	 * Set Verpflegungsart
+	 * 
+	 * @param wert Wert fuer Verpflegungsart
+	 */
 	public void setVerpflegungsart(String wert) {
 		verpflegungsart.setWert(wert);
 	}
 	
+	/**
+	 * Set Bierpreis
+	 * 
+	 * @param wert Wert fuer Bierpreis
+	 */
 	public void setBierpreis(String wert) {
 		bierpreis.setWert(wert);
 	}
 
+	/**
+	 * Get Ort
+	 * 
+	 * @return Ort
+	 */
 	public Ort getOrt() {
 		return ort;
 	}
 
+	/**
+	 * Get Klima
+	 * 
+	 * @return Klima
+	 */
 	public Klima getKlima() {
 		return klima;
 	}
 
+	/**
+	 * Get Sterne
+	 * 
+	 * @return Sterne
+	 */
 	public Sterne getSterne() {
 		return sterne;
 	}
 
+	/**
+	 * Get Verpflegungsart
+	 * 
+	 * @return Verpflegungsart
+	 */
 	public Verpflegungsart getVerpflegungsart() {
 		return verpflegungsart;
 	}
 
+	/**
+	 * Get Bierpreis
+	 * 
+	 * @return Bierpreis
+	 */
 	public Bierpreis getBierpreis() {
 		return bierpreis;
 	}
 
+	/**
+	 * Get erlaubte Kriterien (Array)
+	 * 
+	 * @return Erlaubte Kriterienarray
+	 */
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}

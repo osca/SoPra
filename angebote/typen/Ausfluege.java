@@ -39,22 +39,45 @@ public class Ausfluege extends Angebot {
 		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
+	/**
+	 * Set Ort
+	 * 
+	 * @param wert Wert fuer der Ort
+	 */
 	public void setOrt(String wert) {
 		ort.setWert(wert);
 	}
 	
+	/**
+	 * Set Bierpreis
+	 * 
+	 * @param wert Wert fuer Bierpreis
+	 */
 	public void setBierpreis(String wert) {
 		bierpreis.setWert(wert);
 	}
-	
+
+	/**
+	 * Get Ort
+	 * 
+	 * @return Ort
+	 */
 	public Ort getOrt() {
 		return ort;
 	}
 
+	/**
+	 * Get Bierpreis
+	 * 
+	 * @return Bierpreis
+	 */
 	public Bierpreis getBierpreis() {
 		return bierpreis;
 	}
 	
+	/**
+	 * Get erlaubte Kriterien (Array)
+	 */
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}

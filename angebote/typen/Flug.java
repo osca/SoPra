@@ -46,34 +46,72 @@ public class Flug extends Angebot {
 		bierpreis = new Bierpreis(pbierpreis);
 	}
 	
+	/**
+	 * Set Startort
+	 * 
+	 * @param wert Wert fuer Startort
+	 */
 	public void setStart(String wert) {
 		start.setWert(wert);
 	}
 	
+	/**
+	 * Set Zielort
+	 * 
+	 * @param wert Wert fuer Zielort
+	 */
 	public void setZiel(String wert) {
 		ziel.setWert(wert);
 	}
 	
+	/**
+	 * Set Klasse
+	 * 
+	 * @param wert Wert fuer Klasse
+	 */
 	public void setKlasse(String wert) {
 		klasse.setWert(wert);
 	}
 	
+	/**
+	 * Set Bierpreis
+	 * 
+	 * @param wert Wert fuer Bierpreis
+	 */
 	public void setBierpreis(String wert) {
 		bierpreis.setWert(wert);
 	}
 	
+	/**
+	 * Get Startort
+	 * 
+	 * @return Startort
+	 */
 	public Ort getStart() {
 		return start;
 	}
 	
+	/**
+	 * Get Zielort
+	 * 
+	 * @return Zielort
+	 */
 	public Ort getZiel() {
 		return ziel;
 	}
 
+	/**
+	 * Get Bierpreis
+	 * 
+	 * @return Bierpreis
+	 */
 	public Bierpreis getBierpreis() {
 		return bierpreis;
 	}
 
+	/**
+	 * Get erlaubte Kriterien (Array)
+	 */
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}

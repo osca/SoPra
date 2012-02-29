@@ -60,78 +60,173 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		daten = pdaten;
 	}
 	
+	/**
+	 * Get Beschreibung
+	 * 
+	 * @return Beschreibung
+	 */
 	public String getBeschreibung() {
 		return beschreibung;
 	}
 
+	/**
+	 * Set Beschreibung
+	 * 
+	 * @param beschreibung Beschreibung
+	 */
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
 
+	/**
+	 * Get Typ
+	 * 
+	 * @return Typnummer
+	 */
 	public int getTyp() {
 		return typ;
 	}
 
+	/**
+	 * Set Typ
+	 * 
+	 * @param typ Typ
+	 */
 	public void setTyp(int typ) {
 		this.typ = typ;
 	}
 
+	/**
+	 * Get Angebotsname
+	 * 
+	 * @return Name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set Angebotsname
+	 * 
+	 * @param name Name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Ist das Angebot auffindbar?
+	 * 
+	 * @return Auffindbar oder nicht
+	 */
 	public boolean isAuffindbar() {
 		return auffindbar;
 	}
 
+	/**
+	 * Set Auffinbar
+	 * 
+	 * @param auffindbar Auffindbar?
+	 */
 	public void setAuffindbar(boolean auffindbar) {
 		this.auffindbar = auffindbar;
 	}
 
+	/**
+	 * Get Preis
+	 * 
+	 * @return Preis
+	 */
 	public double getPreis() {
 		return preis;
 	}
 
+	/**
+	 * Set Preis
+	 * 
+	 * @param preis Preis
+	 */
 	public void setPreis(double preis) {
 		this.preis = preis;
 	}
 
+	/**
+	 * Get Daten
+	 * 
+	 * @return Array der Daten des Angebots
+	 */
 	public Date[] getDaten() {
 		return daten;
 	}
 
+	/**
+	 * Set Daten
+	 * 
+	 * @param daten Datenarray
+	 */
 	public void setDaten(Date[] daten) {
 		this.daten = daten;
 	}
 
+	/**
+	 * Get Anzahl aller Angebote
+	 * 
+	 * @return Anzahl
+	 */
 	public static int getAnzahl() {
 		return anzahl;
 	}
 
+	/**
+	 * Get Angebotsnummer
+	 * 
+	 * @return Angebotsnummer
+	 */
 	public int getAngebotsNummer() {
 		return angebotsNummer;
 	}
 	
+	/**
+	 * Get Kommentarliste
+	 * 
+	 * @return Kommentar ArrayList
+	 */
 	public ArrayList<Kommentar> getKommentare() {
 		return kommentare;
 	}
 
+	/**
+	 * Get Buchungsliste
+	 * 
+	 * @return Buchung ArrayList
+	 */
 	public ArrayList<Buchung> getBuchungen() {
 		return buchungen;
 	}
 	
+	/**
+	 * Get Anbieter
+	 * 
+	 * @return Anbieter
+	 */
 	public Anbieter getAnbieter() {
 		return anbieter;
 	}
 	
+	/**
+	 * Get Kapazitaet
+	 * 
+	 * @return Kapazitaet
+	 */
 	public int getKapazitaet() {
 		return kapazitaet;
 	}
 	
+	/**
+	 * Get Wertung des Angebots ueber die Wertung der Kommentare
+	 * 
+	 * @return Wertung des Angebots
+	 */
 	public double getWertung() {
 		double result = 0.00;
 		
@@ -146,26 +241,57 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return result/kommentare.size();
 	}
 	
+	/**
+	 * Fuege Buchung dem Angebot hinzu
+	 * 
+	 * @param buchung Buchung
+	 */
 	public void addBuchung(Buchung buchung) {
 		buchungen.add(buchung);
 	}
 	
+	/**
+	 * Loesche Buchung
+	 * 
+	 * @param buchung Buchung
+	 */
 	public void delBuchung(Buchung buchung) {
 		buchungen.remove(buchung);
 	}
 	
+	/**
+	 * Fuege Kommentar dem Angebot hinzu
+	 * 
+	 * @param kommentar Kommentar
+	 */
 	public void addKommentar(Kommentar kommentar) {
 		kommentare.add(kommentar);
 	}
 	
+	/**
+	 * Loesche Kommentar
+	 * 
+	 * @param kommentar Kommentar
+	 */
 	public void delKommentar(Kommentar kommentar) {
 		kommentare.remove(kommentar);
 	}
 
+	/**
+	 * Get erlaubte Kriterien eines Angebots
+	 * 
+	 * @return erlaubte Kriterien Array
+	 */
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	
+	/**
+	 * Konvertiere Typnummer in Typnamen
+	 * 
+	 * @param type Typnummer
+	 * @return Typname
+	 */
 	public String convertTypToName(int type) {
 		switch(type) {
 			case 1:
@@ -180,22 +306,34 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return "Not a Type";
 	}
 	
+	/**
+	 * Listablemethode
+	 */
 	@Override
 	public String getIdetifier() {
 		return Integer.toString(angebotsNummer);
 	}
 
+	/**
+	 * Listablemethode
+	 */
 	@Override
 	public String getAdditionalInfo() {
 		return convertTypToName(typ);
 	}
 
+	/**
+	 * Listablemethode
+	 */
 	@Override
 	public String getStatus() {
 		//TODO Was kommt hier hin?!
 		return "STATUS HERE :)";
 	}
 	
+	/**
+	 * Listablemethode
+	 */
 	@Override
 	public String getFullInfo() {
 		return beschreibung;

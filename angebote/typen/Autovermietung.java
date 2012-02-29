@@ -33,14 +33,27 @@ public class Autovermietung extends Angebot {
 		ort = new Ort(port);
 	}
 	
+	/**
+	 * Set Ort
+	 * 
+	 * @param wert Wert fuer den Ort
+	 */
 	public void setOrt(String wert) {
 		ort.setWert(wert);
 	}
 
+	/**
+	 * Get Ort
+	 * 
+	 * @return Ort
+	 */
 	public Ort getOrt() {
 		return ort;
 	}
 
+	/**
+	 * Get erlaubte Kriterien (Array)
+	 */
 	public Kriterium[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}

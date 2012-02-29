@@ -12,10 +12,21 @@ public class Bierpreis extends Kriterium {
 
 	private static String[] wertebereich = {"Guenstig","Normal","Teuer","Unbezahlbar"};
 	
-	public Bierpreis(String pwert) {
+	/**
+	 * Konstruktor
+	 * 
+	 * @param pwert Bierpreis
+	 * @throws IllegalArgumentException Ist die Eingabe valide?
+	 */
+	public Bierpreis(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
 	
+	/**
+	 * Get Wertebereich
+	 * 
+	 * @return Wertebereich
+	 */
 	public String[] getWertebereich() {
 		return wertebereich;
 	}
