@@ -40,5 +40,8 @@ public class Msg extends JDialog{
 		down.add(BorderLayout.EAST, senden);
 		down.add(BorderLayout.WEST, verwerfen);
 		
+		add(BorderLayout.NORTH, up);
+		add(BorderLayout.CENTER, mid);
+		add(BorderLayout.SOUTH, down);
 	}
 }
