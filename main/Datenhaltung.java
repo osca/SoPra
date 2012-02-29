@@ -52,7 +52,7 @@ public class Datenhaltung {
 	 * @param laenderFile
 	 * @return
 	 */
-	public String[] getStringArrayFromFile(File f) {
+	public static /*String*/Object[] getStringArrayFromFile(File f) {
 		ArrayList<String> reslist = new ArrayList<String>();
 		RandomAccessFile raf;
 			try {
@@ -65,6 +65,6 @@ public class Datenhaltung {
 			} catch (IOException e) {
 				//Do nothing. This was supposed to happen someday...^^
 			}
-		return (String[]) reslist.toArray();
+		return /*(String[])*/ reslist.toArray();
 	}
 }
