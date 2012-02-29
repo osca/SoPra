@@ -22,7 +22,6 @@ public class Accountverwaltung {
 		anbieter = anb;
 		betreiber = betr;
 		kunden = kund;
-		Portal.getSingletonObject();
 	}
 	
 	public void createKunde(String email, String name, String password) throws AlreadyInUseException{
