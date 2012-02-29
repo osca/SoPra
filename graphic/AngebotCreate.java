@@ -41,7 +41,6 @@ public class AngebotCreate extends JPanel{
 		
 		up = new JPanel(new GridLayout(2,0));
 		sub_a = new JPanel(new GridLayout(6,0));
-		//sub_b = new JPanel(new GridLayout(6,0)); bei krits
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
@@ -53,6 +52,9 @@ public class AngebotCreate extends JPanel{
 		sub_a.add(kap);
 		anbieter = new JLabel(a.getName());
 		sub_a.add(anbieter);
+		//sub_b = new JPanel(new GridLayout(6,0)); bei krits
+		up.add(sub_a);
+		//up.add(sub_b);
 		
 		mid = new JPanel(new GridLayout(1,0));
 		beschreibung = new JTextField();
