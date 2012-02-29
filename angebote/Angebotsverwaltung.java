@@ -50,6 +50,7 @@ public class Angebotsverwaltung {
 		for(int i = 0; i < nAnbieter; i++) {
 			if (anbieter[i].getAngebote().contains(angebot)) anbieter[i].delAngebot(angebot);
 		}
+		// das löschen in den Dateien übernimmt XStream durch das Streamen der Entititätsklassen
 	}
 	
 	/**
