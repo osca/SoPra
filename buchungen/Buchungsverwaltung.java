@@ -31,8 +31,8 @@ public class Buchungsverwaltung {
 		angebot.addBuchung(buchung);
 	}
 	
-	/** Löscht Entfernt alle Verweise auf das übergebene Buchungsobjekt.
-	 * @param b zu löschende Buchung
+	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
+	 * @param b zu loeschende Buchung
 	 */
 	public void delBuchung(Buchung b){
 		b.getKunde().delBuchung(b);
