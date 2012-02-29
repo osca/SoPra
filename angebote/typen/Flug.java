@@ -6,10 +6,9 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
-import angebote.kriterien.Plaetze;
 
 /**
- * Flug erbt von Angebot. Enthaelt Start, Ziel, Plaetze, Klasse und Bierpreis.
+ * Flug erbt von Angebot. Enthaelt Start, Ziel, Klasse und Bierpreis.
  * 
  * @author osca
  */
@@ -17,16 +16,14 @@ public class Flug extends Angebot {
 
 	/*public static final int START = 0,
 			 				ZIEL = 1,
-			 				PLAETZE = 2,
-			 				KLASSE = 3,
-			 				BIERPREIS = 4;*/
+			 				KLASSE = 2,
+			 				BIERPREIS = 3;*/
 
 	private Ort start,ziel = null;
-	private Plaetze plaetze = null;
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
 	
-	private Kriterium[] erlaubteKriterien = {start,ziel,plaetze,klasse,bierpreis};
+	private Kriterium[] erlaubteKriterien = {start,ziel,klasse,bierpreis};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -38,15 +35,13 @@ public class Flug extends Angebot {
 	 * @param pdaten Daten
 	 * @param pstart Abflugort
 	 * @param pziel Zielort
-	 * @param pplaetze Anzahl der Plaetze
 	 * @param pklasse Welche Klasse?
 	 * @param pbierpreis Bierpreis
 	 */
-	public Flug(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
+	public Flug(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis) {
 		super(pname, pbeschreibung, Angebot.FLUG, pkapazitaet, ppreis, pdaten);
 		start = new Ort(pstart);
 		ziel = new Ort(pziel);
-		plaetze = new Plaetze(pplaetze);
 		klasse = new Klasse(pklasse);
 		bierpreis = new Bierpreis(pbierpreis);
 	}
@@ -57,10 +52,6 @@ public class Flug extends Angebot {
 	
 	public void setZiel(String wert) {
 		ziel.setWert(wert);
-	}
-	
-	public void setPlaetze(String wert) {
-		plaetze.setWert(wert);
 	}
 	
 	public void setKlasse(String wert) {
@@ -77,10 +68,6 @@ public class Flug extends Angebot {
 	
 	public Ort getZiel() {
 		return ziel;
-	}
-
-	public Plaetze getPlaetze() {
-		return plaetze;
 	}
 
 	public Bierpreis getBierpreis() {

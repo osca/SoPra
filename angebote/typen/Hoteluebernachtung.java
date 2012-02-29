@@ -6,13 +6,12 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
-import angebote.kriterien.Plaetze;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
 
 /**
- * Hoteluebernachtung erbt von Angebot. Enthaelt Ort, Klima, Betten, 
- * Sterne Verpflegungsart und Bierpreis.
+ * Hoteluebernachtung erbt von Angebot. Enthaelt Ort, Klima, 
+ * Sterne, Verpflegungsart und Bierpreis.
  * 
  * @author osca
  */
@@ -20,19 +19,17 @@ public class Hoteluebernachtung extends Angebot {
 
 	/*public static final int ORT = 1,
 			 				KLIMA = 2,
-			 				BETTEN = 3,
-			 				STERNE = 4,
-			 				VERPFLEGUNGSART = 5,
-			 				BIERPREIS = 6;*/
+			 				STERNE = 3,
+			 				VERPFLEGUNGSART = 4,
+			 				BIERPREIS = 5;*/
 	
 	private Ort ort = null;
 	private Klima klima = null;
-	private Plaetze betten = null;
 	private Sterne sterne = null;
 	private Verpflegungsart verpflegungsart = null;
 	private Bierpreis bierpreis = null;
 	
-	private Kriterium[] erlaubteKriterien = {ort,klima,betten,sterne,verpflegungsart,bierpreis};
+	private Kriterium[] erlaubteKriterien = {ort,klima,sterne,verpflegungsart,bierpreis};
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -44,16 +41,14 @@ public class Hoteluebernachtung extends Angebot {
 	 * @param pdaten Daten
 	 * @param port Ort des Hotels
 	 * @param pklima Klima an dem Ort des Hotels
-	 * @param pbetten Buchbare Betten
 	 * @param psterne Sterne des Hotels
 	 * @param pverpflegungsart Verpflegungsart
 	 * @param pbierpreis Bierpreis
 	 */
-	public Hoteluebernachtung(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pklima, String pbetten, String psterne, String pverpflegungsart, String pbierpreis) {
+	public Hoteluebernachtung(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
 		super(pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port);
 		klima = new Klima(pklima);
-		betten = new Plaetze(pbetten);
 		sterne = new Sterne(psterne);
 		verpflegungsart = new Verpflegungsart(pverpflegungsart);
 		bierpreis = new Bierpreis(pbierpreis);
@@ -65,10 +60,6 @@ public class Hoteluebernachtung extends Angebot {
 	
 	public void setKlima(String wert) {
 		klima.setWert(wert);
-	}
-	
-	public void setBetten(String wert) {
-		betten.setWert(wert);
 	}
 	
 	public void setSterne(String wert) {
@@ -89,10 +80,6 @@ public class Hoteluebernachtung extends Angebot {
 
 	public Klima getKlima() {
 		return klima;
-	}
-
-	public Plaetze getBetten() {
-		return betten;
 	}
 
 	public Sterne getSterne() {
