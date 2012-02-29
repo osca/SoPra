@@ -27,6 +27,8 @@ public class Buchung implements Listable {
 		buchungsNummer = anzahl++;
 		angebot = pangebot;
 		kunde = pkunde;
+		von = pvon;
+		bis = pbis;
 		bestaetigt = Bestaetigung.UNBEARBEITET;
 	}
 
