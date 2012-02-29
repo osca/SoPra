@@ -26,7 +26,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private static int anzahl = 0;
 	
 	private String name,beschreibung;
-	private int angebotsNummer,typ;
+	private int angebotsNummer = 0;
+	private int typ = -1;
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
@@ -197,10 +198,19 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	//Bewertung des Anbieters
 	@Override
 	public int compareTo(Angebot pangebot) {
+		final int fillGewichtung = 100,
+				  anbieterGewichtung = 20,
+				  angebotsGewichtung = 40;
 		double result = 0.00;
+		double fillRatioThis = this.getBuchungen().size()/(this.getKapazitaet()*this.getDaten().length);
+		double fillRatioP = pangebot.getBuchungen().size()/(pangebot.getKapazitaet()*pangebot.getDaten().length);
+		double abThis = this.getAnbieter().getWertung();
+		double abP = pangebot.getAnbieter().getWertung();
 		
+		result += (fillRatioThis-fillRatioP)*fillGewichtung;
+		result += (abThis-abP)*anbieterGewichtung;
+		result += (this.getWertung()-pangebot.getWertung())*angebotsGewichtung;
 		
-		
-		return 0;
+		return (int) Math.round(result);
 	}
 }
