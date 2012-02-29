@@ -66,4 +66,8 @@ public class Msg extends JDialog implements ActionListener{
 		}
 		
 	}
+	
+	public String getText(){
+		return msgText;
+	}
 }
