@@ -29,8 +29,8 @@ public class BuchDetailScreen extends JPanel {
 		down = new JPanel(new BorderLayout(5,5));
 		
 		name = new JLabel(b.getIdetifier());
-		typ = new JLabel (""+b.getTyp());		//GUCKEN BITTE
-		datum = new JLabel(b.getDaten().toString());	// DATE
+		typ = new JLabel (""+b.getAngebot().getTyp());		//GUCKEN BITTE
+		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
 		up.add(name);
@@ -38,7 +38,7 @@ public class BuchDetailScreen extends JPanel {
 		up.add(datum);
 		up.add(anbieter);
 		
-		fullinfo = new JLabel(a.getFullInfo());
+		fullinfo = new JLabel(b.getAngebot().getFullInfo());
 		mid.add(fullinfo);
 
 	}
