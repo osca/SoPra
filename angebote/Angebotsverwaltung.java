@@ -1,5 +1,6 @@
 package angebote;
 
+import main.Portal;
 import accounts.Anbieter;
 import angebote.kriterien.Kriterium;
 import angebote.typen.*;
@@ -40,6 +41,7 @@ public class Angebotsverwaltung {
 	 * @param angebot			das zu löschende Angebot
 	 */
 	public void delAngebot(Angebot angebot) {
+		
 	}
 	
 	/**

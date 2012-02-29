@@ -18,15 +18,13 @@ public class Buchungsverwaltung {
 	 * @throws InvalidDateException 
 	 */
 	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
-		Buchung buchung = new Buchung();
+		Buchung buchung = new Buchung(angebot, kunde);
 		
 		if (bis.after(von))
 			throw new InvalidDateException();
 		
 		buchung.setBis(bis);
 		buchung.setVon(von);
-		
-		//TODO: parameter angebot verarbeiten, evtl. in buchung als attribut einfügen, da buchung auf angebot verweist
 		
 		kunde.addBuchung(buchung);
 	}
@@ -47,12 +45,9 @@ public class Buchungsverwaltung {
 	 * @return				Liste seiner Buchungen.
 	 */
 	public Buchung[] getBuchungen(Kunde kunde) {
-		ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
-		buchungen.clear();
+		Buchung[] buchungen = (Buchung[])kunde.getBuchungen().toArray();
 		
-		// TODO: Kunde fehlt buchung-auslesen-methode (sinn??)
-		//		 Nicht nur Kunden haben Buchungen, sondern auch Anbieter? Besprechen?
-		return null;
+		return buchungen;
 	}
 	
 	/**
