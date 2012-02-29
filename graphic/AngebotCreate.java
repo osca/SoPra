@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 
+import accounts.Anbieter;
+
 
 public class AngebotCreate extends JPanel{
 	//b1.setToolTipText("Click this button to disable the middle button.");
@@ -34,7 +36,7 @@ public class AngebotCreate extends JPanel{
 	private JButton verwerfen;
 	private JButton bestaetigen;
 	
-	public AngebotCreate(){
+	public AngebotCreate(Anbieter a){
 		setLayout(new BorderLayout(5,5));
 		
 		up = new JPanel(new GridLayout(2,0));
@@ -49,8 +51,8 @@ public class AngebotCreate extends JPanel{
 		sub_a.add(preis);
 		kap = new JTextField();
 		sub_a.add(kap);
-		//anbieter = new JLabel(account.getName());
-		//sub_a.add(anbieter);
+		anbieter = new JLabel(a.getName());
+		sub_a.add(anbieter);
 		
 		mid = new JPanel(new GridLayout(1,0));
 		beschreibung = new JTextField();
