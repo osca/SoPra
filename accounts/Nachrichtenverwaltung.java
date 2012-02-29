@@ -24,14 +24,6 @@ public class Nachrichtenverwaltung {
 		//Angebot kennt nicht alle Nachrichten.
 	}
 	
-	/** Entfernt eine Nachricht aus dem Posteingang eines Accounts
-	 * @param acc Account mit zu löschender Nachricht
-	 * @param msg zu löschende Nachricht
-	 */
-	public void delErhalteneNachricht(Account acc, Nachricht msg){
-		acc.delErhalteneNachricht(msg);
-	}
-	
 	/** Gibt den Posteingang eines Accounts aus
 	 * @param acc ausgewählter Account
 	 * @return ArrayList von Nachrichten des Accounts
@@ -40,12 +32,12 @@ public class Nachrichtenverwaltung {
 		return acc.getPosteingang();
 	}
 	
-	/** Entfernt eine Nachricht aus dem Postausgang eines Accounts
-	 * @param acc Account mit zu löschender Nachricht
+	/** Entfernt eine Nachricht aus dem Postausgang des Absenders und aus dem Posteingang des Empfaengers
 	 * @param msg zu löschende Nachricht
 	 */
-	public void delGeschriebeneNachricht(Account acc, Nachricht msg){
-		acc.delGeschriebeneNachricht(msg);
+	public void delNachricht(Nachricht msg){
+		msg.getAbsender().delGeschriebeneNachricht(msg);
+		msg.getEmpfaenger().delErhalteneNachricht(msg);
 	}
 	
 	/** Gibt den Postausgang eines Accounts aus
