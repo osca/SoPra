@@ -2,7 +2,6 @@ package angebote;
 
 import main.Portal;
 import accounts.Anbieter;
-import angebote.kriterien.Kriterium;
 import angebote.typen.*;
 
 /**
@@ -24,7 +23,7 @@ public class Angebotsverwaltung {
 	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, String[] werte) {
 		Angebot offer = null;
 		
-		// werte array.. was da los?
+		// werte array.. was da los? ich geh jetzt einfach mal davon aus, dass die Reihenfolge der Kriterien-Werte im werte[] in der Reihenfolge das Konstruktor stehen.
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
 			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
@@ -40,7 +39,7 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * Löscht ein Angebot. Von wem oder was?
+	 * Löscht ein Angebot eines Anbieters.
 	 * 
 	 * @param angebot			das zu löschende Angebot
 	 */
@@ -55,12 +54,14 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * Editiert ein Angebot. Von wem oder was?
+	 * Editiert ein Angebot eines Anbieters.
 	 * 
 	 * @param angebot			?
 	 */
-	public void editAngebot(Angebot angebot) {
-		// TODO: angebot suchen (ist übergebene Angebot 100% anders als das Ursprungsangebot????)
-		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?
+	public void editAngebot(Angebot neues, Anbieter anbieter) {
+		// TODO: angebot suchen (ist übergebene Angebot 100% anders als das Ursprungsangebot????)???
+		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?????
+		
+		anbieter.addAngebot(neues);
 	}
 }
