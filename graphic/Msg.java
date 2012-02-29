@@ -2,6 +2,8 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Msg extends JDialog{
+public class Msg extends JDialog implements ActionListener{
 	private JLabel empfaenger;
 	private JLabel betreff;
 	private JTextField m;
@@ -18,6 +20,8 @@ public class Msg extends JDialog{
 	private JPanel down;
 	private JButton senden;
 	private JButton verwerfen;
+	
+	private String msgText;
 	
 	public Msg(String anbieter, String b){
 		// to do set size
@@ -32,11 +36,14 @@ public class Msg extends JDialog{
 		betreff = new JLabel(b);
 		up.add(betreff);
 		
+
 		m = new JTextField();
 		mid.add(m);
 		
 		senden = new JButton("Senden");
+		senden.addActionListener(this);
 		verwerfen = new JButton ("Verwerfen");
+		verwerfen.addActionListener(this);
 		down.add(BorderLayout.EAST, senden);
 		down.add(BorderLayout.WEST, verwerfen);
 		
@@ -45,5 +52,18 @@ public class Msg extends JDialog{
 		add(BorderLayout.SOUTH, down);
 		setVisible(true);
 		setAlwaysOnTop(true);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==senden){
+			msgText = m.getText();
+		}
+		else if(e.getSource()==verwerfen){
+			msgText = null;
+			hide();
+		}
+		
 	}
 }
