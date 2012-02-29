@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolTip;
 
 
 public class AngebotCreate extends JPanel{
@@ -19,6 +20,7 @@ public class AngebotCreate extends JPanel{
 	private JPanel down;
 	
 	private JTextField name;
+	
 	private JComboBox typ;
 	//private Shice date ---> vllt.
 	private JTextField preis;
@@ -38,6 +40,17 @@ public class AngebotCreate extends JPanel{
 		up = new JPanel(new GridLayout(2,0));
 		sub_a = new JPanel(new GridLayout(6,0));
 		//sub_b = new JPanel(new GridLayout(6,0)); bei krits
+		name = new JTextField();
+		name.setToolTipText("Bitte Namen eingeben");
+		sub_a.add(name);
+		typ = new JComboBox();
+		sub_a.add(typ);
+		preis= new JTextField();
+		sub_a.add(preis);
+		kap = new JTextField();
+		sub_a.add(kap);
+		//anbieter = new JLabel(account.getName());
+		//sub_a.add(anbieter);
 		
 		mid = new JPanel(new GridLayout(1,0));
 		beschreibung = new JTextField();
