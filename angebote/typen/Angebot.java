@@ -146,6 +146,14 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return result/kommentare.size();
 	}
 	
+	public void addBuchung(Buchung buchung) {
+		buchungen.add(buchung);
+	}
+	
+	public void delBuchung(Buchung buchung) {
+		buchungen.remove(buchung);
+	}
+	
 	public void addKommentar(Kommentar kommentar) {
 		kommentare.add(kommentar);
 	}
@@ -196,6 +204,14 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	//Prozentuale Plaetzebuchungen
 	//Bewertung des Angebots
 	//Bewertung des Anbieters
+	/**
+	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
+	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge
+	 * 	- Wertung der Anbieter
+	 *  - Wertung der Angebote
+	 * 
+	 * @param pangebot Das zu vergleichende Angebot
+	 */
 	@Override
 	public int compareTo(Angebot pangebot) {
 		final int fillGewichtung = 100,
