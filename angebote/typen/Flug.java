@@ -1,9 +1,11 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
+import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 
 /**
@@ -21,7 +23,9 @@ public class Flug extends Angebot {
 	private Ort start,ziel = null;
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
+	
 	private String[] erlaubteKriterien = {Ort.name, Ort.name, Klasse.name, Bierpreis.name};
+	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -42,6 +46,10 @@ public class Flug extends Angebot {
 		ziel = new Ort(pziel);
 		klasse = new Klasse(pklasse);
 		bierpreis = new Bierpreis(pbierpreis);
+		kriterien.add(start);
+		kriterien.add(ziel);
+		kriterien.add(klasse);
+		kriterien.add(bierpreis);
 	}
 	
 	/**
@@ -114,4 +122,10 @@ public class Flug extends Angebot {
 		return erlaubteKriterien;
 	}
 	
+	/**
+	 * Get Kriterien (ArrayList)
+	 */
+	public ArrayList<Kriterium> getKriterien() {
+		return kriterien;
+	}
 }

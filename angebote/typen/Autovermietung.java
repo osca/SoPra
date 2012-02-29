@@ -1,7 +1,9 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 
 /**
@@ -16,6 +18,7 @@ public class Autovermietung extends Angebot {
 	private Ort ort = null;
 	
 	private String[] erlaubteKriterien = {Ort.name};
+	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -30,6 +33,7 @@ public class Autovermietung extends Angebot {
 	public Autovermietung(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port) {
 		super(pname, pbeschreibung, Angebot.AUTOVERMIETUNG, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port);
+		kriterien.add(ort);
 	}
 	
 	/**
@@ -55,5 +59,12 @@ public class Autovermietung extends Angebot {
 	 */
 	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
+	}
+	
+	/**
+	 * Get Kriterien (ArrayList)
+	 */
+	public ArrayList<Kriterium> getKriterien() {
+		return kriterien;
 	}
 }

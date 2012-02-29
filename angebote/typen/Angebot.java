@@ -7,6 +7,7 @@ import java.util.Date;
 
 import accounts.Anbieter;
 import angebote.Kommentar;
+import angebote.kriterien.Kriterium;
 import buchungen.Buchung;
 
 /**
@@ -280,6 +281,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @return erlaubte Kriterien Array
 	 */
 	public abstract String[] getErlaubteKriterien();
+	
+	/**
+	 * Get Kriterien eines Angebots
+	 * 
+	 * @return Kriterien ArrayList
+	 */
+	public abstract ArrayList<Kriterium> getKriterien();
 	
 	/**
 	 * Konvertiere Typnummer in Typnamen

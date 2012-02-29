@@ -1,9 +1,11 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Ort;
+import angebote.kriterien.Kriterium;
 
 /**
  * Ausfluege erbt von Angebot. Enthaelt Ort und Bierpreis.
@@ -19,6 +21,7 @@ public class Ausfluege extends Angebot {
 	private Bierpreis bierpreis = null;
 
 	private String[] erlaubteKriterien = {Ort.name,Bierpreis.name};
+	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -36,6 +39,8 @@ public class Ausfluege extends Angebot {
 		super(pname, pbeschreibung, Angebot.AUSFLUG, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port); 
 		bierpreis = new Bierpreis(pbierpreis);
+		kriterien.add(ort);
+		kriterien.add(bierpreis);
 	}
 	
 	/**
@@ -79,5 +84,12 @@ public class Ausfluege extends Angebot {
 	 */
 	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
+	}
+	
+	/**
+	 * Get Kriterien (ArrayList)
+	 */
+	public ArrayList<Kriterium> getKriterien() {
+		return kriterien;
 	}
 }

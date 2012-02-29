@@ -23,19 +23,17 @@ public class Angebotsverarbeitung {
 		 * der erlaubten Kriterien überein wird weitergeprüft. Stimmen jetzt auch noch die jeweiligen Werte der Kriterien jeweils überein, 
 		 * dann wird der TrefferCounter inkrementiert. Ist am Ende die Anzahl der 
 		 * Treffer gleich der Anzahl der Kriterien. Soll das Angebot als Suchergebnis aufgeführt werden.*/
-		
-		
-		// TODO es gibt keine arrayliste an kriterien die werte haben
-//		for(Angebot a:erstellteAngebote){
-//			Kriterium[] kritContainer = a.getErlaubteKriterien();
-//			int anzKrit=a.getErlaubteKriterien().length;
-//			if(anzKrit==kriterien.length) {
-//				for(int i=0;i<anzKrit;i++){
-//					if(kritContainer[i].getWert()==kriterien[i].getWert()) treffer++;
-//				}
-//				if(treffer==anzKrit) suchErgebnisse.add(a);
-//			}
-//		}
+
+		for(Angebot a:erstellteAngebote){
+			ArrayList<Kriterium> kritContainer = a.getKriterien();
+			int anzKrit=a.getErlaubteKriterien().length;
+			if(anzKrit==kriterien.length) {
+				for(int i=0;i<anzKrit;i++){
+					if(kritContainer.get(i).getWert()==kriterien[i].getWert()) treffer++;
+				}
+				if(treffer==anzKrit) suchErgebnisse.add(a);
+			}
+		}
 		
 		return suchErgebnisse;
 	}

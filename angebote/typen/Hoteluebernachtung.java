@@ -1,9 +1,11 @@
 package angebote.typen;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
+import angebote.kriterien.Kriterium;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
@@ -29,6 +31,7 @@ public class Hoteluebernachtung extends Angebot {
 	private Bierpreis bierpreis = null;
 	
 	private String[] erlaubteKriterien = {Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
+	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
@@ -51,6 +54,11 @@ public class Hoteluebernachtung extends Angebot {
 		sterne = new Sterne(psterne);
 		verpflegungsart = new Verpflegungsart(pverpflegungsart);
 		bierpreis = new Bierpreis(pbierpreis);
+		kriterien.add(ort);
+		kriterien.add(klima);
+		kriterien.add(sterne);
+		kriterien.add(verpflegungsart);
+		kriterien.add(bierpreis);
 	}
 	
 	/**
@@ -150,5 +158,12 @@ public class Hoteluebernachtung extends Angebot {
 	 */
 	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
+	}
+	
+	/**
+	 * Get Kriterien (ArrayList)
+	 */
+	public ArrayList<Kriterium> getKriterien() {
+		return kriterien;
 	}
 }
