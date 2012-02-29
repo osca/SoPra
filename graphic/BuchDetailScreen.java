@@ -1,8 +1,10 @@
 package graphic;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,8 +42,7 @@ public class BuchDetailScreen extends JPanel {
 		
 		name = new JLabel(b.getIdetifier());
 		typ = new JLabel (""+b.getAngebot().getTyp());		//GUCKEN BITTE
-//		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
-		datum = new JLabel(""); //test
+		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
 		sub_a = new JPanel(new GridLayout(6,0));
@@ -71,7 +72,9 @@ public class BuchDetailScreen extends JPanel {
 		dPanel.add(BorderLayout.CENTER, mid);
 		dPanel.add(BorderLayout.SOUTH,down);
 		
-		dscroll.add(dPanel);
-		add(dscroll);
+		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+		
+		//dscroll.add(dPanel);
+		add(dPanel);
 	}
 }
