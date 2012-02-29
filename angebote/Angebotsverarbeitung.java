@@ -46,7 +46,7 @@ public class Angebotsverarbeitung {
 			int curBuchungen = a.getBuchungen().size();
 			topAngebote.add(a);
 			Collections.sort(topAngebote);
-			topAngebote.remove(0);
+			if(curBuchungen>numberOfEntries) topAngebote.remove(0);
 			
 		}
 		
@@ -87,6 +87,7 @@ public class Angebotsverarbeitung {
 		}
 		return alleAngebote;
 	}
+	//TODO überflüssig?
 	public ArrayList<Angebot> getAngebote(Anbieter anbieter){
 		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
 		ArrayList<Angebot> anbieterAngebote=new ArrayList<Angebot>();
