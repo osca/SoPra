@@ -22,7 +22,7 @@ public class AngDetailScreen extends JPanel{
 	private JPanel down;
 	private JLabel name;
 	private JLabel typ;
-	private JLabel datum;
+	private JLabel daten[];
 	private JLabel anbieter;
 	
 	private JLabel fullinfo;
@@ -49,13 +49,21 @@ public class AngDetailScreen extends JPanel{
 		
 		name = new JLabel(a.getIdetifier());
 		typ = new JLabel (""+a.getTyp());		//GUCKEN BITTE
-		datum = new JLabel(a.getDaten().toString());	// DATE
+		//datum = new JLabel(a.getDaten().toString());	// DATE			Rudis alte version; edit: Benjamin
 		anbieter = new JLabel(); // edit  wenn implementiert
+		
+		int nDaten = a.getDaten().length;
+		daten = new JLabel[nDaten];
+		
+		for(int i = 0; i < nDaten; i++) {
+			daten[i].setText(a.getDaten()[i].toString());
+			sub_a.add(daten[i]);
+		}
 		
 		sub_a = new JPanel(new GridLayout(6,0));
 		sub_a.add(name);
 		sub_a.add(typ);
-		sub_a.add(datum);
+		//sub_a.add(datum);				Rudis alte version; edit: Benjamin
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6,0));
 		Kriterium k[] = a.getErlaubteKriterien(); 

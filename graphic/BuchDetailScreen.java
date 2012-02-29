@@ -31,7 +31,7 @@ public class BuchDetailScreen extends JPanel {
 	private JButton aenderungsanfrage;
 	private JButton stornieren;
 	
-	public BuchDetailScreen(Mainframe m,Buchung b){
+	public BuchDetailScreen(Buchung b){
 		dscroll = new JScrollPane();
 		dPanel = new JPanel(new BorderLayout(5,5));
 		up = new JPanel(new GridLayout(0,2));
