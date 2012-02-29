@@ -15,7 +15,7 @@ import angebote.kriterien.Kriterium;
  * 
  * @author osca
  */
-public abstract class Angebot implements Listable {
+public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	//FLAGS
 	public static final int FLUG = 1,
@@ -31,6 +31,7 @@ public abstract class Angebot implements Listable {
 	private double preis;
 	private Date[] daten;
 	private Anbieter anbieter;
+	private int kapazitaet;
 	
 	private Kriterium[] erlaubteKriterien;
 	
@@ -44,14 +45,16 @@ public abstract class Angebot implements Listable {
 	 * @param pname Name
 	 * @param pbeschreibung Beschreibung
 	 * @param ptyp Angebotstyp
+	 * @param pkapazitaet Kapazitaet
 	 * @param ppreis Preis
 	 * @param pdaten Daten des Angebots. Es wird erwartet, dass das Array sortiert ist!
 	 */
-	public Angebot(String pname, String pbeschreibung, int ptyp, double ppreis, Date[] pdaten) {
+	public Angebot(String pname, String pbeschreibung, int ptyp, int pkapazitaet ,double ppreis, Date[] pdaten) {
 		angebotsNummer = anzahl++;
 		name = pname;
 		beschreibung = pbeschreibung;
 		typ = ptyp;
+		kapazitaet = pkapazitaet;
 		preis = ppreis;
 		daten = pdaten;
 	}
@@ -124,6 +127,24 @@ public abstract class Angebot implements Listable {
 		return anbieter;
 	}
 	
+	public int getKapazitaet() {
+		return kapazitaet;
+	}
+	
+	public double getWertung() {
+		double result = 0.00;
+		
+		if(kommentare.size() == 0) {
+			return result;
+		}
+		
+		for(Kommentar k:kommentare) {
+			result+=k.getBewertung();
+		}
+		
+		return result/kommentare.size();
+	}
+	
 	public void addKommentar(Kommentar kommentar) {
 		kommentare.add(kommentar);
 	}
@@ -169,5 +190,17 @@ public abstract class Angebot implements Listable {
 	@Override
 	public String getFullInfo() {
 		return beschreibung;
+	}
+	
+	//Prozentuale Plaetzebuchungen
+	//Bewertung des Angebots
+	//Bewertung des Anbieters
+	@Override
+	public int compareTo(Angebot pangebot) {
+		double result = 0.00;
+		
+		
+		
+		return 0;
 	}
 }

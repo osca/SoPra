@@ -8,31 +8,37 @@ import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
 	
-	private ArrayList<Angebot> Angebote = new ArrayList<Angebot>(); 
-	private int anzahlWertungen;
-	private double wertung;
+	private ArrayList<Angebot> angebote = new ArrayList<Angebot>(); 
 	private String agb;
 	
 	public Anbieter(String em, String nm, String pw) {
 		super(em, nm, pw);
 		gesperrt = true;
-		anzahlWertungen=0;
 	}
 	
 	public void addAngebot(Angebot offer){
-		Angebote.add(offer);
+		angebote.add(offer);
 	}
 	
 	public void delAngebot(Angebot offer){
-		Angebote.remove(offer);
+		angebote.remove(offer);
 	}
 	
 	public ArrayList<Angebot> getAngebote(){
-		return Angebote;
+		return angebote;
 	}
 	
-	public void addWertung(double wertung) {
-		this.wertung = (wertung + (this.wertung*anzahlWertungen)) / ++anzahlWertungen;
+	public double getWertung() {
+		double result = 0.00;
+		
+		if(angebote.size() == 0)
+			return result;
+		
+		for(Angebot a:angebote) {
+			result+=a.getWertung();
+		}
+		
+		return result/angebote.size();
 	}
 	
 	@Override
@@ -42,10 +48,6 @@ public class Anbieter extends Account{
 	
 	//---------------------------------------
 	//Triviale GETTER und SETTER
-	public double getWertung() {
-		return wertung;
-	}
-	
 	public String getAgb() {
 		return agb;
 	}

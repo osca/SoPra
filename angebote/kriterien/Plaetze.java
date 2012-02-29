@@ -3,12 +3,17 @@ package angebote.kriterien;
 
 public class Plaetze extends Kriterium {
 	
+	@SuppressWarnings("unused")
 	private final static String name = "Plaetze";
 	
-	String[] wertebereich = null;
+	private String[] wertebereich = null;
 	
 	public Plaetze(String pwert) {
 		super(pwert);
+	}
+	
+	public String[] getWertebereich() {
+		return wertebereich;
 	}
 	
 	@Override
@@ -21,10 +26,6 @@ public class Plaetze extends Kriterium {
 		}
 		
 		return true;
-	}
-
-	public static String getName() {
-		return name;
 	}
 	
 }

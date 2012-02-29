@@ -2,10 +2,10 @@ package angebote.kriterien;
 
 public class Klima extends Kriterium {
 	
-
+	@SuppressWarnings("unused")
 	private final static String name = "Klima";
 	
-	protected static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
+	private static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
 	
 	public Klima(String pwert) {
 		super(pwert);
@@ -14,7 +14,5 @@ public class Klima extends Kriterium {
 	public String[] getWertebereich() {
 		return wertebereich;
 	}
-	public static String getName() {
-		return name;
-	}
+
 }

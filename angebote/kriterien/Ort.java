@@ -1,4 +1,4 @@
-//wertebereich waere echt groß
+//TODO wertebereich fehlt
 
 package angebote.kriterien;
 
@@ -7,14 +7,11 @@ package angebote.kriterien;
 
 public class Ort extends Kriterium{
 	
+	@SuppressWarnings("unused")
 	private final static String name = "Ort";
 
 	public Ort(String pwert) throws IllegalArgumentException {
 		super(pwert);
-	}
-
-	public static String getName() {
-		return name;
 	}
 	
 }

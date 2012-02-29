@@ -42,8 +42,8 @@ public class Flug extends Angebot {
 	 * @param pklasse Welche Klasse?
 	 * @param pbierpreis Bierpreis
 	 */
-	public Flug(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
-		super(pname, pbeschreibung, Angebot.FLUG, ppreis, pdaten);
+	public Flug(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String pstart, String pziel, String pplaetze, String pklasse, String pbierpreis) {
+		super(pname, pbeschreibung, Angebot.FLUG, pkapazitaet, ppreis, pdaten);
 		start = new Ort(pstart);
 		ziel = new Ort(pziel);
 		plaetze = new Plaetze(pplaetze);

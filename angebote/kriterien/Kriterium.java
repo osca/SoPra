@@ -4,6 +4,7 @@ package angebote.kriterien;
 public abstract class Kriterium {
 	
 	protected String wert;
+	private static String name;
 	
 	public Kriterium(String pwerte) throws IllegalArgumentException{
 		if(isValid(pwerte)){
@@ -23,5 +24,9 @@ public abstract class Kriterium {
 
 	public void setWert(String wert) {
 		this.wert = wert;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

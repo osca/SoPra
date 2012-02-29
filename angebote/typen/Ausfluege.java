@@ -36,8 +36,8 @@ public class Ausfluege extends Angebot {
 	 * @param pplaetze Anzahl der Plaetze
 	 * @param pbierpreis Bierpreis
 	 */
-	public Ausfluege(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pplaetze, String pbierpreis) {
-		super(pname, pbeschreibung, Angebot.AUSFLUG, ppreis, pdaten);
+	public Ausfluege(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pplaetze, String pbierpreis) {
+		super(pname, pbeschreibung, Angebot.AUSFLUG, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port); 
 		plaetze = new Plaetze(pplaetze); 
 		bierpreis = new Bierpreis(pbierpreis);

@@ -32,8 +32,8 @@ public class Autovermietung extends Angebot {
 	 * @param port Von wo wird das Auto abgeholt?
 	 * @param pplaetze Wie viele Plaetze soll das Auto haben?
 	 */
-	public Autovermietung(String pname, String pbeschreibung, double ppreis, Date[] pdaten, String port, String pplaetze) {
-		super(pname, pbeschreibung, Angebot.AUTOVERMIETUNG, ppreis, pdaten);
+	public Autovermietung(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pplaetze) {
+		super(pname, pbeschreibung, Angebot.AUTOVERMIETUNG, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port);
 		plaetze = new Plaetze(pplaetze);
 	}
