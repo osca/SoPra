@@ -1,6 +1,10 @@
 package angebote.kriterien;
 
-
+/**
+ * Bierpreis - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Bierpreis extends Kriterium {
 	
 	@SuppressWarnings("unused")

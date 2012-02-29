@@ -26,8 +26,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private static int anzahl = 0;
 	
 	private String name,beschreibung;
-	private int angebotsNummer = 0;
-	private int typ = -1;
+	private int angebotsNummer;
+	private int typ;
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
@@ -200,10 +200,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public String getFullInfo() {
 		return beschreibung;
 	}
-	
-	//Prozentuale Plaetzebuchungen
-	//Bewertung des Angebots
-	//Bewertung des Anbieters
+
+	//TODO Gewichtungen muessen spaeter noch angepasst werden
 	/**
 	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
 	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge

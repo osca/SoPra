@@ -1,5 +1,10 @@
 package angebote.kriterien;
 
+/**
+ * Klima - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Klima extends Kriterium {
 	
 	@SuppressWarnings("unused")

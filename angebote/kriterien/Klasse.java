@@ -1,6 +1,10 @@
 package angebote.kriterien;
 
-
+/**
+ * Klasse - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Klasse extends Kriterium{
 	
 	@SuppressWarnings("unused")

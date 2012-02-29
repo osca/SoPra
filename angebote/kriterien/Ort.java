@@ -2,9 +2,11 @@
 
 package angebote.kriterien;
 
-
-//@author stephan
-
+/**
+ * Ort - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Ort extends Kriterium{
 	
 	@SuppressWarnings("unused")

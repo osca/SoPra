@@ -1,7 +1,11 @@
 package angebote.kriterien;
 
+/**
+ * Sterne - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Sterne extends Kriterium {
-
 
 	@SuppressWarnings("unused")
 	private final static String name = "Sterne";

@@ -1,6 +1,10 @@
 package angebote.kriterien;
-//@author stephan
 
+/**
+ * Verpflegungsart - Erbendes Kriterium
+ * 
+ * @author stephan
+ */
 public class Verpflegungsart extends Kriterium{
 	
 	@SuppressWarnings("unused")
