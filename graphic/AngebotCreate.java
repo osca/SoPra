@@ -19,7 +19,6 @@ public class AngebotCreate {
 	private JLabel typ;
 	private JComboBox typ_e;
 	private JLabel datum;
-	private J
 	private JLabel anbieter;
 	private JComboBox krit1;
 	
