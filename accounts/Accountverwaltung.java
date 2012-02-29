@@ -1,6 +1,14 @@
 package accounts;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import buchungen.Bestaetigung;
+import buchungen.Buchung;
+import buchungen.Buchungsverwaltung;
+
+import angebote.Angebotsverwaltung;
+import angebote.typen.Angebot;
 
 import main.Portal;
 
@@ -39,13 +47,37 @@ public class Accountverwaltung {
 		acc.setGesperrt(enable);
 	}
 	
-	//TODO Darf Accountgelöscht werden? --> Buchungen, Angebote etc. in der Zukunft?, Aufruf von GarbageCollector!
+	//TODO Darf Account gelöscht werden? --> Buchungen, Angebote etc. in der Zukunft?, Aufruf von GarbageCollector!
 	public boolean delAccount(Account acc){
-		boolean success[] = new boolean[3];
-		success[0] = getAnbieter().remove(acc);
-		success[1] = getBetreiber().remove(acc);
-		success[2] = getKunden().remove(acc);
-		return (success[0] || success[1] || success[2]);
+		Date heute = new Date(); 
+		switch(acc.getTyp()){
+			case(Account.ANBIETER):{
+				Anbieter AnbieterAcc = (Anbieter) acc;
+				ArrayList<Angebot> zuLoeschendeAngebote=AnbieterAcc.getAngebote();
+				//Gibt es noch offene Buchungen Schleife
+				for(Angebot a:zuLoeschendeAngebote){
+					if(a.getDaten()[a.getDaten().length-1].compareTo(heute)>0){
+						ArrayList<Buchung> buchungen = a.getBuchungen();
+						for(Buchung b:buchungen){
+							if(b.getBis().compareTo(heute)>0&&(Bestaetigung.JA==b.getBestaetigt())) 
+								throw new LoeschenNichtMoeglichException("Sie haben noch offene Buchungen");
+						}
+					}
+				}
+				//Angebote und deren Buchungen loeschen
+				Buchungsverwaltung buchungsVerwaltung=Portal.getSingletonObject().getBuchungsverwaltung();
+				Angebotsverwaltung angebotsVerwaltung=Portal.getSingletonObject().getAngebotsverwaltung();
+				for(Angebot a:zuLoeschendeAngebote){
+					ArrayList<Buchung> buchungen = a.getBuchungen();
+					for(Buchung b:buchungen){
+						buchungsVerwaltung.delBuchung(b);
+						a.delBuchung(b);
+					}
+					angebotsVerwaltung.delAngebot(a);
+					
+				}
+			}
+		}
 	}
 
 	public ArrayList<Anbieter> getAnbieter(){
