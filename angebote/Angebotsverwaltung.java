@@ -21,18 +21,20 @@ public class Angebotsverwaltung {
 	public void createAngebot(Anbieter anbieter, String name, int typ, double preis, String[] werte, Kriterium[] kriterien) {
 		Angebot offer = null;
 		
-		// kriterium array.. was da los?
+		// kriterium array.. was da los? nicht nötig = doppelt, wegen werte?
 		// werte array.. was da los?
 		
+		//TODO: Angebote haben beschreibungen, createAngebot hat aber kein "Beschreibung"-Parameter
+		// 		
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			offer = new Autovermietung(name, null, preis, null, null, null);
+			offer = new Autovermietung(name, null, 10, preis, null, werte[0], werte[1]);					// 10 isn troll-wert..ich geh jetzt einfach mal davon aus das die werte in der reihenfolge stehen -_-
 		case Angebot.AUSFLUG:
-			offer = new Ausfluege(name, null, preis, null, null, null, null);
+			offer = new Ausfluege(name, null, 10, preis, null, null, null, null);
 		case Angebot.HOTEL:
-			offer = new Hoteluebernachtung(name, null, preis, null, null, null, null, null, null, null);		// hauptsache alles ist null!
+			offer = new Hoteluebernachtung(name, null, 10, preis, null, null, null, null, null, null, null);		// hauptsache alles ist null!
 		case Angebot.FLUG:
-			offer = new Flug(name, null, preis, null, null, null, null, null, null);
+			offer = new Flug(name, null, 10, preis, null, null, null, null, null, null);
 		}
 		
 		anbieter.addAngebot(offer);
