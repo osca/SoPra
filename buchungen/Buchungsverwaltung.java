@@ -6,6 +6,7 @@ import angebote.typen.Angebot;
 
 /**
  * @author Benjamin
+ * @edit Jay
  */
 public class Buchungsverwaltung {
 	/**
@@ -27,6 +28,15 @@ public class Buchungsverwaltung {
 		buchung.setVon(von);
 		
 		kunde.addBuchung(buchung);
+		angebot.addBuchung(buchung);
+	}
+	
+	/** Löscht Entfernt alle Verweise auf das übergebene Buchungsobjekt.
+	 * @param b zu löschende Buchung
+	 */
+	public void delBuchung(Buchung b){
+		b.getKunde().delBuchung(b);
+		b.getAngebot().delBuchung(b);
 	}
 	
 	/**
