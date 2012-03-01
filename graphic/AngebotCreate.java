@@ -19,12 +19,10 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
-import angebote.typen.Angebot;
-import angebote.typen.Flug;
-import angebote.typen.Hoteluebernachtung;
+
 
 public class AngebotCreate extends JPanel implements ActionListener {
-	// b1.setToolTipText("Click this button to disable the middle button.");
+
 	private JPanel up;
 	private JPanel sub_a;
 	private JPanel sub_b;
@@ -59,7 +57,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	public AngebotCreate(Anbieter a) {
 		setLayout(new BorderLayout(5, 5));
 
-		up = new JPanel(new GridLayout(2, 0));
+		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(6, 0));
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
@@ -114,7 +112,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(1)) {
 				ort = new JTextField();
-				ort.setToolTipText("Bitte geben SIe einen Ort");
+				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_b.add(ort);
 
 				klima = new JComboBox(Klima.wertebereich);
