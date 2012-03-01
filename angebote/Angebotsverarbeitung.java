@@ -84,8 +84,8 @@ public class Angebotsverarbeitung {
 		for(Angebot a:aktAngebote){
 			int curBuchungen = a.getBuchungen().size();
 			topAngebote.add(a);
+			Collections.sort(topAngebote);
 			if(curBuchungen>numberOfEntries) {
-				Collections.sort(topAngebote);
 				topAngebote.remove(0);
 			}
 			

@@ -39,12 +39,6 @@ public class AngebotTest {
 	
 	@Before
 	public void setUp() throws Exception {	
-		
-	}
-
-	@Test
-	public void test() {
-		try {
 		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
@@ -70,16 +64,20 @@ public class AngebotTest {
 		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde2, ang1, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
+	}
+
+	@Test
+	public void test() {
 		//Bewertungstest fuer Topangebote
 		ArrayList<Angebot> topangebote = ava.getTopAngebote();
-
+		
+		System.out.println(ang1.getWertung());
+		System.out.println(ang2.getWertung());
+		System.out.println(ang3.getWertung());
+		
 		Assert.assertEquals(ang1, topangebote.get(0));
 		Assert.assertEquals(ang2, topangebote.get(1));
 		Assert.assertEquals(ang3, topangebote.get(2));
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }
