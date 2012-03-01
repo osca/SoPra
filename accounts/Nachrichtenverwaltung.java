@@ -56,12 +56,14 @@ public class Nachrichtenverwaltung {
 			for(int i=0; i<n; i++)
 				if(pe.get(i).getAngebot().equals(ang)){
 					delNachricht(pe.get(i--));
-					n--;
+					n--;	//Verschieben der Schleife, falls Objekt gelöscht.
 				}
 			n = pa.size();
 			for(int i=0; i<n; i++)
-				if(n.getAngebot().equals(ang))
-					delNachricht(n);
+				if(pa.get(i).getAngebot().equals(ang)){
+					delNachricht(pa.get(i--));
+					n--;
+				}
 		}
 	}
 	

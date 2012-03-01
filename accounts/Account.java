@@ -1,6 +1,10 @@
 package accounts;
 
+import graphic.Listable;
+
 import java.util.ArrayList;
+
+import main.Portal;
 
 /**
  * Repräsentiert einen Benutzer
@@ -8,7 +12,7 @@ import java.util.ArrayList;
  * @edit 	Jay
  */
 
-public abstract class Account {
+public abstract class Account implements Listable{
 	
 	private String email, name, password;
 	protected boolean gesperrt = false;
@@ -121,5 +125,25 @@ public abstract class Account {
 	}
 	//-----------------------------------------------------------------------------
 
+	//Listable-Methods
+	public String getIdetifier(){
+		return name+" / "+email;
+	}
+	
+	public String getAdditionalInfo(){
+		return ""+getTyp();
+	}
+	
+	public String getFullInfo(){
+		return "";
+	}
+	
+	public String getStatus(){ // vllt. 
+		return Portal.getSingletonObject().getAccountverwaltung().getLoggedIn().equals(this);
+	}
+	
+	public int getListableTyp(){
+		return ACCOUNT;
+	}
 	
 }

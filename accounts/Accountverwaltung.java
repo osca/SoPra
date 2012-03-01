@@ -23,7 +23,7 @@ public class Accountverwaltung {
 	private ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 	private ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 	private ArrayList<Kunde> kunden = new ArrayList<Kunde>();
-
+	private Account loggedIn;
 	/**
 	 * Konstruktor
 	 * 
@@ -77,6 +77,14 @@ public class Accountverwaltung {
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		betreiber.add(new Betreiber(email, name, password));
+	}
+	
+	public void logIn(){
+		//TODO EINLOGGEN IMPLEMENTIEREN
+	}
+	
+	public Account loggedIn(){
+		return loggedIn;
 	}
 	
 	/**

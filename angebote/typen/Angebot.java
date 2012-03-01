@@ -318,4 +318,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		
 		return (int) Math.round(result);
 	}
+	
+	public int getListableTyp(){
+		return ANGEBOT;
+	}
 }

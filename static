@@ -6,3 +6,6 @@ Fast-forward
  testcases/AccountverwaltungTest.java |   29 ++++++-----------------
  4 files changed, 68 insertions(+), 37 deletions(-)
  create mode 100644 accounts/Default.java
+[master 2804e63] Angebote erlaubte krit --
+ 9 files changed, 46 insertions(+), 33 deletions(-)
+ create mode 100644 static
