@@ -8,15 +8,11 @@ import java.util.ArrayList;
 import junit.framework.Assert;
 
 public class AccountverwaltungTest {
-	private static Accountverwaltung acv;
-	
-	@BeforeClass
-	public static void setup() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
-	}
+	private Accountverwaltung acv;
 	
 	@Test
 	public void testCreateKunde() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
 			acv.createKunde("nixda@dasda.de", "Ninja", "wurstloch");
 			
@@ -36,6 +32,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testCreateAnbieter() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
 			acv.createAnbieter("tui@flug.de", "TUI", "supadupa");
 			
@@ -54,7 +51,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testeCreateBetreiber() {
-		
+		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
 			acv.createBetreiber("betreiber@host.de", "Horst", "ichkannalles");
 			
@@ -73,6 +70,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testEnableAccount() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
 			acv.createKunde("hier@dasda.de", "Polska", "wurstloch");
 			acv.setEnableAccount(acv.getKunden().get(0), false);
@@ -84,18 +82,32 @@ public class AccountverwaltungTest {
 		
 	}
 	
-	 @Test
-	 public void deleteTest() {
-		 Assert.assertEquals(1, acv.getAnbieter().size());							// insgesamt oben nur einen erstellt, also sollte hier auch nur einer sein.
-		 Assert.assertEquals(1, acv.getBetreiber().size());							// insgesamt oben nur einen erstellt, also sollte hier auch nur einen sein.
-		 Assert.assertEquals(2, acv.getKunden().size());							// insgesamt oben zwei erstellt, also sollten hier auch zwei sein.
-		 
-		 for(int i = 0; i < acv.getAccounts().size(); i++) {
-			 try {
-				 acv.delAccount(acv.getAccounts().get(i));
-			} catch (LoeschenNichtMoeglichException e) {
-				e.printStackTrace();
-			}
-		 }
-	 }
+	@Test
+	public void testDeleteKunden() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
+		
+		try {
+			acv.createKunde("hier@nix.de", "Dieter", "hahahha");
+			
+			acv.delAccount(acv.getKunden().get(0));
+			
+			Assert.assertEquals(1, acv.getKunden().size());
+		} catch (AlreadyInUseException | LoeschenNichtMoeglichException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void testDeleteAnbieter() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
+		
+		try {
+			acv.createAnbieter("pfui@tui,de", "PFUI", "supiiii");
+			
+			acv.delAccount(acv.getKunden().get(0));
+			
+			Assert.assertEquals(1, acv.getAnbieter().size());
+		} catch (AlreadyInUseException | LoeschenNichtMoeglichException e) {
+			e.printStackTrace();
+		}
+	}
 }
