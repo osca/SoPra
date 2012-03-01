@@ -2,13 +2,14 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToolTip;
 
 import accounts.Anbieter;
 
@@ -24,6 +25,7 @@ public class AngebotCreate extends JPanel{
 	private JTextField name;
 	
 	private JComboBox typ;
+	private DefaultComboBoxModel typ_m;
 	//private Shice date ---> vllt.
 	private JTextField preis;
 	private JTextField kap;
@@ -44,7 +46,17 @@ public class AngebotCreate extends JPanel{
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
+		
 		typ = new JComboBox();
+		Vector<String> typ_l= new Vector<String>();
+		typ_l.add("Hoteluebernachtung");
+		typ_l.add("Autovermietung");
+		typ_l.add("Ausflueg");
+		typ_l.add("Flug");
+		typ_m = new DefaultComboBoxModel(typ_l);
+		
+		
+		
 		sub_a.add(typ);
 		preis= new JTextField();
 		sub_a.add(preis);
@@ -69,7 +81,7 @@ public class AngebotCreate extends JPanel{
 		add(BorderLayout.NORTH, up);
 		add(BorderLayout.CENTER, mid);
 		add(BorderLayout.SOUTH, down);
-		setVisible(true);
+		setVisible(true);	
 	}
 	
 }

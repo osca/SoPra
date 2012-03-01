@@ -9,9 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import accounts.Account;
-import angebote.kriterien.Kriterium;
 
 
 public class AngDetailScreen extends JPanel{
@@ -27,8 +27,8 @@ public class AngDetailScreen extends JPanel{
 	private JLabel datum;
 	private JLabel anbieter;
 	
-	private JLabel fullinfo;
-	
+	//private JLabel fullinfo;
+	private JTextArea fullinfo;
 	private JLabel nullAcc;
 	
 	private JButton buchen;
@@ -76,7 +76,13 @@ public class AngDetailScreen extends JPanel{
 		up.add(sub_a);
 		up.add(sub_b);
 		
-		fullinfo = new JLabel(a.getFullInfo());
+//		fullinfo = new JLabel(a.getFullInfo());
+//		mid.add(fullinfo);
+		
+		fullinfo= new JTextArea(a.getFullInfo());
+		fullinfo.setLineWrap(true);
+		fullinfo.setWrapStyleWord(true);
+		fullinfo.setBackground(Color.LIGHT_GRAY);
 		mid.add(fullinfo);
 		
 		if(usertype==0){
