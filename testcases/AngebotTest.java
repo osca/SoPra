@@ -85,6 +85,13 @@ public class AngebotTest {
 		Assert.assertTrue(ava.getAllAngebote().contains(ang1));
 		Assert.assertFalse(ava.getAllAngebote().contains(ang2));
 		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
+		
+		//Aendern eines bestimmten Angebots
+		av.editAngebot(ang1, ang2, anbieter);
+		
+		Assert.assertFalse(ava.getAllAngebote().contains(ang1));
+		Assert.assertTrue(ava.getAllAngebote().contains(ang2));
+		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
 	}
 
 }

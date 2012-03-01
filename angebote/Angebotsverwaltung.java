@@ -124,13 +124,16 @@ public class Angebotsverwaltung {
 	/**
 	 * Editiert ein Angebot eines Anbieters.
 	 * 
-	 * @param angebot			?
+	 * @param altes Zu aenderndes Angebot (wird geloescht)
+	 * @param neues Neues Angebot mit neuen Daten
+	 * @param anbieter Anbieter des Angebots
 	 */
-	// NOTE: Anbieter anbieter geaddet
-	public void editAngebot(Angebot neues, Anbieter anbieter) {
-		// TODO: angebot suchen (ist �bergebene Angebot 100% anders als das Ursprungsangebot????)???
-		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?????
-		
+	public void editAngebot(Angebot altes, Angebot neues, Anbieter anbieter) {
+		try {
+			delAngebot(altes);
+		} catch (LoeschenNichtMoeglichException e) {
+			e.printStackTrace();
+		}
 		anbieter.addAngebot(neues);
 	}
 	
