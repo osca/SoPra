@@ -89,11 +89,15 @@ public class AccountverwaltungTest {
 		try {
 			acv.createKunde("hier@nix.de", "Dieter", "hahahha");
 			
-			acv.delAccount(acv.getKunden().get(0));
-			
-			Assert.assertEquals(1, acv.getKunden().size());
-		} catch (AlreadyInUseException | LoeschenNichtMoeglichException e) {
+			for (int i = 0; i < acv.getKunden().size(); i++) {
+				acv.delAccount(acv.getKunden().get(i));
+			}
+
+			Assert.assertEquals(0, acv.getKunden().size());
+		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
+		} catch (LoeschenNichtMoeglichException e1) {
+			e1.printStackTrace();
 		}
 	}
 	
@@ -106,8 +110,10 @@ public class AccountverwaltungTest {
 			acv.delAccount(acv.getKunden().get(0));
 			
 			Assert.assertEquals(1, acv.getAnbieter().size());
-		} catch (AlreadyInUseException | LoeschenNichtMoeglichException e) {
+		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
+		} catch (LoeschenNichtMoeglichException e1) {
+			e1.printStackTrace();
 		}
 	}
 }
