@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import accounts.Anbieter;
@@ -51,7 +52,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	private JComboBox klasse;
 	private Vector<String> klasse_l;
 	
-	private JTextField beschreibung;
+	private JTextArea beschreibung;
 	
 	private JButton verwerfen;
 	private JButton bestaetigen;
@@ -88,7 +89,8 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		up.add(sub_b);
 		
 		mid = new JPanel(new GridLayout(1,0));
-		beschreibung = new JTextField();
+		beschreibung = new JTextArea();
+		beschreibung.setEditable(true);
 		mid.add(beschreibung);
 		
 		down = new JPanel(new BorderLayout(5,5));
