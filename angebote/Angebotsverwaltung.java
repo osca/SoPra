@@ -17,22 +17,32 @@ public class Angebotsverwaltung {
 	
 	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date[] daten, String[] krit) {
-		Angebot offer = null;
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			offer = createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
+			anbieter.addAngebot(
+					createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT])
+					);
+			break;
 		case Angebot.AUSFLUG:
-			offer = createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
+			anbieter.addAngebot(
+					createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS])
+					);
+			break;
 		case Angebot.HOTEL:
-			offer = createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
+			anbieter.addAngebot(
+					createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
 						krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
-						krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART]);
+						krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART])
+					);
+			break;
 		case Angebot.FLUG:
-			offer = createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
-					krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
+			anbieter.addAngebot(
+					createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
+							krit[Flug.KLASSE], krit[Flug.BIERPREIS])
+					);
+			break;
 		}
 		
-		anbieter.addAngebot(offer);
 	}
 	
 	/**
