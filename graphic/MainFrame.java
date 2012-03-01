@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -11,10 +14,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+
+import main.Datenhaltung;
+import main.Portal;
 
 import accounts.Account;
 import accounts.Kunde;
+import angebote.typen.Angebot;
 import angebote.typen.Flug;
 import buchungen.Buchung;
 
@@ -25,6 +33,8 @@ public class MainFrame extends JFrame
 
 	private Account acc;
 	private JPanel screen;
+	
+	private ListeScreen list;
 
 	public MainFrame()
 	{
@@ -33,7 +43,8 @@ public class MainFrame extends JFrame
 		// ///////
 
 		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
-
+		GridLayout grid = new GridLayout(0,1);
+		
 		// ////////
 
 		JPanel northPanel = new JPanel();
@@ -48,8 +59,8 @@ public class MainFrame extends JFrame
 
 		screen = new JPanel();
 		screen.setBorder(border);
-		screen.setLayout(new FlowLayout());
-		this.add(screen, BorderLayout.CENTER);
+		screen.setLayout(grid);
+		this.add(new JScrollPane(screen), BorderLayout.CENTER);
 
 		JPanel homeButtonPanel = new JPanel();
 		northPanel.add(homeButtonPanel, BorderLayout.WEST);
@@ -75,16 +86,25 @@ public class MainFrame extends JFrame
 		westPanel.add(loginButton);
 
 		// /////////
-
-		Flug f = new Flug("name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-
-		AngDetailScreen ang = new AngDetailScreen(0, f);
-		//ang.setPreferredSize(new Dimension(400, 400));
-		//ang.setBackground(Color.black);
-
-		screen.add(ang);
-		screen.add(new BuchDetailScreen(new Buchung(f, new Kunde("name", "email","password"),new Date(), new Date())));
-
+//
+//		Flug f = new Flug("name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//
+//		AngDetailScreen ang = new AngDetailScreen(0, f);
+//		//ang.setPreferredSize(new Dimension(400, 400));
+//		//ang.setBackground(Color.black);
+//			
+//		screen.add(ang);
+//		screen.add(new BuchDetailScreen(new Buchung(f, new Kunde("name", "email","password"),new Date(), new Date())));
+		
+		
+		ArrayList<Angebot> al = new ArrayList<Angebot>();
+		for(int i=0;i<100;i++)
+			al.add(new Flug("name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+		list = new ListeScreen(this, al);
+		
+		screen.add(list);
+		
+		
 		this.pack();
 		this.setVisible(true);
 	}

@@ -17,7 +17,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
 		
-		setLayout(new GridLayout(1,0));
+		setLayout(new GridLayout(0,1));
 		lscroll = new JScrollPane();
 		sPanel= new JPanel(new GridLayout(7,0));
 		//size des scrolls setzen
@@ -66,8 +66,6 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		lscroll.add(sPanel);
 		lscroll.setViewportView(sPanel);
 		add(lscroll);
-		setVisible(true);
-		
 	}
 
 	
