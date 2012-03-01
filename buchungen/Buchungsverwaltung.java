@@ -55,7 +55,11 @@ public class Buchungsverwaltung {
 	 * @return				Liste seiner Buchungen.
 	 */
 	public Buchung[] getBuchungen(Kunde kunde) {
-		Buchung[] buchungen = (Buchung[])kunde.getBuchungen().toArray();
+		ArrayList<Buchung> buchungenListe = kunde.getBuchungen();
+		Buchung[] buchungen = new Buchung[buchungenListe.size()];
+		for(int i = 0; i < buchungenListe.size(); i++) {
+			buchungen[i] = buchungenListe.get(i);
+		}
 		
 		return buchungen;
 	}

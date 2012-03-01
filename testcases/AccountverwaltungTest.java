@@ -27,9 +27,11 @@ public class AccountverwaltungTest {
 	@Test
 	public void testCreateKunde() {
 		ArrayList<Kunde> kunden = acv.getKunden();
+		
+		Assert.assertEquals(1, kunden.size());									// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?Assert.assertEquals(1, kunden.size());									// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
+		
 		Kunde kunde = kunden.get(0);
-			
-		Assert.assertEquals(1, kunden.size());									// habe ich auch wirklich nur einen erstellt?
+
 		Assert.assertEquals("Ninja", kunde.getName());
 		Assert.assertEquals("nixda@dasda.de", kunde.getEmail());
 		Assert.assertEquals("wurstloch", kunde.getPassword());
@@ -38,9 +40,11 @@ public class AccountverwaltungTest {
 	@Test
 	public void testCreateAnbieter() {
 		ArrayList<Anbieter> anbieter = acv.getAnbieter();
+		
+		Assert.assertEquals(1, anbieter.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
+		
 		Anbieter bieter = anbieter.get(0);
 		
-		Assert.assertEquals(1, anbieter.size());								// habe ich auch wirklich nur einen erstellt?
 		Assert.assertEquals("TUI", bieter.getName());
 		Assert.assertEquals("tui@flug.de", bieter.getEmail());
 		Assert.assertEquals("supadupa", bieter.getPassword());
@@ -49,9 +53,11 @@ public class AccountverwaltungTest {
 	@Test
 	public void testeCreateBetreiber() {
 		ArrayList<Betreiber> betreiber = acv.getBetreiber();
+		
+		Assert.assertEquals(1, betreiber.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?7
+		
 		Betreiber treiber = betreiber.get(0);
 
-		Assert.assertEquals(1, betreiber.size());								// habe ich auch wirklich nur einen erstellt?
 		Assert.assertEquals("Horst", treiber.getName());
 		Assert.assertEquals("betreiber@host.de", treiber.getEmail());
 		Assert.assertEquals("ichkannalles", treiber.getPassword());
