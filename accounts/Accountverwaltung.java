@@ -79,11 +79,15 @@ public class Accountverwaltung {
 		betreiber.add(new Betreiber(email, name, password));
 	}
 	
-	public void logIn(){
-		//TODO EINLOGGEN IMPLEMENTIEREN
+	/**
+	 * Loggt einen Account an der Verwaltung als aktiv ein.
+	 * @param identifier entweder E-Mail
+	 * @param password
+	 */
+	public void logIn(String identifier, String password){
 	}
 	
-	public Account loggedIn(){
+	public Account getLoggedIn(){
 		return loggedIn;
 	}
 	

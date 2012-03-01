@@ -139,7 +139,7 @@ public abstract class Account implements Listable{
 	}
 	
 	public String getStatus(){ // vllt. 
-		return Portal.getSingletonObject().getAccountverwaltung().getLoggedIn().equals(this);
+		return ""+(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn()).equals(this);
 	}
 	
 	public int getListableTyp(){
