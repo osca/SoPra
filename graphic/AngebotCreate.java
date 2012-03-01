@@ -154,6 +154,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 				JLabel ort_label = new JLabel("Ort:");
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
+				sub_b.add(ort_label);
 				sub_b.add(ort);
 			
 			}
