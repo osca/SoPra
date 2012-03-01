@@ -27,6 +27,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	private JTextField name;
 	
 	private JComboBox typ;
+	private Vector<String> typ_l;
 	private DefaultComboBoxModel typ_m;
 	//private Shice date ---> vllt.
 	private JTextField preis;
@@ -34,6 +35,16 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	private JLabel anbieter;
 	
 	//Krit dropdown
+	private JTextField ort;
+	private JComboBox klima;
+	private Vector<String> klima_l;
+	private JTextField sterne;
+	private JComboBox verpflegung;
+	private Vector<String> verpflegung_l;
+	private JComboBox bierpreis;
+	private Vector<String> bierpreis_l;
+	private JComboBox klasse;
+	private Vector<String> klasse_l;
 	
 	private JTextField beschreibung;
 	
@@ -50,12 +61,14 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		sub_a.add(name);
 		
 		
-		Vector<String> typ_l= new Vector<String>();
+		typ_l= new Vector<String>();
+		typ_l.add("Typ");
 		typ_l.add("Hoteluebernachtung");
 		typ_l.add("Autovermietung");
 		typ_l.add("Ausflueg");
 		typ_l.add("Flug");
 		typ = new JComboBox(typ_l);
+		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		
 		sub_a.add(typ);
@@ -65,7 +78,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		sub_a.add(kap);
 		anbieter = new JLabel(a.getName());
 		sub_a.add(anbieter);
-		//sub_b = new JPanel(new GridLayout(6,0)); bei krits
+		sub_b = new JPanel(new GridLayout(6,0));
 		up.add(sub_a);
 		//up.add(sub_b);
 		
@@ -86,9 +99,23 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==typ_l.elementAt(0)){
+			sub_b.removeAll();
+		}
 		
+		if(e.getSource()==typ_l.elementAt(1)){
+			
+		}
+		
+		if(e.getSource()==typ_l.elementAt(2)){
+			
+		}
+		
+		if(e.getSource()==typ_l.elementAt(3)){
+			
+		}
 		
 	}
-	
+		
 }
