@@ -14,15 +14,15 @@ public class AccountverwaltungTest {
 	public void testCreateKunde() {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
-			acv.createKunde("nixda@dasda.de", "Ninja", "wurstloch");
+			acv.createKunde("Kunde1@kunde.de", "Kunde", "KundenPasswort");
 			
 			ArrayList<Kunde> kunden = acv.getKunden();
 			Assert.assertEquals(1, kunden.size());									// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?Assert.assertEquals(1, kunden.size());									// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
 			
 			Kunde kunde = kunden.get(0);
-			Assert.assertEquals("Ninja", kunde.getName());
-			Assert.assertEquals("nixda@dasda.de", kunde.getEmail());
-			Assert.assertEquals("wurstloch", kunde.getPassword());
+			Assert.assertEquals("Kunde", kunde.getName());
+			Assert.assertEquals("Kunde1@kunde.de", kunde.getEmail());
+			Assert.assertEquals("KundenPasswort", kunde.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		}
@@ -34,16 +34,16 @@ public class AccountverwaltungTest {
 	public void testCreateAnbieter() {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
-			acv.createAnbieter("tui@flug.de", "TUI", "supadupa");
+			acv.createAnbieter("Anbieter1@anbieter.de", "Anbieter", "AnbieterPasswort");
 			
 			ArrayList<Anbieter> anbieter = acv.getAnbieter();
 			Assert.assertEquals(1, anbieter.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
 			
 			Anbieter bieter = anbieter.get(0);
 			
-			Assert.assertEquals("TUI", bieter.getName());
-			Assert.assertEquals("tui@flug.de", bieter.getEmail());
-			Assert.assertEquals("supadupa", bieter.getPassword());
+			Assert.assertEquals("Anbieter", bieter.getName());
+			Assert.assertEquals("Anbieter1@anbieter.de", bieter.getEmail());
+			Assert.assertEquals("AnbieterPasswort", bieter.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		}
@@ -53,16 +53,16 @@ public class AccountverwaltungTest {
 	public void testeCreateBetreiber() {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
 		try {
-			acv.createBetreiber("betreiber@host.de", "Horst", "ichkannalles");
+			acv.createBetreiber("Betreiber1@betreiber.de", "Betreiber", "BetreiberPasswort");
 			
 			ArrayList<Betreiber> betreiber = acv.getBetreiber();
 			Assert.assertEquals(1, betreiber.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
 			
 			Betreiber treiber = betreiber.get(0);
 
-			Assert.assertEquals("Horst", treiber.getName());
-			Assert.assertEquals("betreiber@host.de", treiber.getEmail());
-			Assert.assertEquals("ichkannalles", treiber.getPassword());
+			Assert.assertEquals("Betreiber", treiber.getName());
+			Assert.assertEquals("Betreiber1@betreiber.de", treiber.getEmail());
+			Assert.assertEquals("BetreiberPasswort", treiber.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		}
@@ -71,14 +71,10 @@ public class AccountverwaltungTest {
 	@Test
 	public void testEnableAccount() {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
-		try {
-			acv.createKunde("hier@dasda.de", "Polska", "wurstloch");
-			acv.setEnableAccount(acv.getKunden().get(0), false);
-			
-			Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), false);
-		} catch (AlreadyInUseException e) {
-			e.printStackTrace();
-		}
+		
+		acv.setEnableAccount(acv.getKunden().get(0), false);
+	
+		Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), false);
 		
 	}
 	
@@ -87,20 +83,14 @@ public class AccountverwaltungTest {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
 		
 		try {
-			acv.createKunde("hier@nix.de", "Dieter", "hahahha");
-			
-			for (int i = 0; i < acv.getKunden().size(); i++) {
-				acv.delAccount(acv.getKunden().get(i));
-			}
+			acv.delAccount(acv.getKunden().get(0));
 
-			Assert.assertEquals(0, acv.getKunden().size());
-		} catch (AlreadyInUseException e) {
-			e.printStackTrace();
+			Assert.assertEquals(true, acv.getKunden().isEmpty());
 		} catch (LoeschenNichtMoeglichException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void testDeleteAnbieter() {
 		acv = Portal.getSingletonObject().getAccountverwaltung();
 		
@@ -109,7 +99,22 @@ public class AccountverwaltungTest {
 			
 			acv.delAccount(acv.getKunden().get(0));
 			
-			Assert.assertEquals(1, acv.getAnbieter().size());
+			Assert.assertEquals(true, acv.getAnbieter().isEmpty());
+		} catch (AlreadyInUseException e) {
+			e.printStackTrace();
+		} catch (LoeschenNichtMoeglichException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void testDeleteBetreiber() {
+		acv = Portal.getSingletonObject().getAccountverwaltung();
+		
+		try {
+			acv.createBetreiber("", "", "");
+			
+			acv.delAccount(acv.getBetreiber().get(0));
+			Assert.assertEquals(false, acv.getBetreiber().isEmpty());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (LoeschenNichtMoeglichException e1) {
