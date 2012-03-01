@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import accounts.Anbieter;
+import angebote.kriterien.Bierpreis;
+import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
 
@@ -38,6 +40,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	
 	//Krit dropdown
 	private JTextField ort;
+	private JTextField ortz;
 	private JComboBox klima;
 	private Vector<String> klima_l;
 	private JTextField sterne;
@@ -102,6 +105,10 @@ public class AngebotCreate extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		/**
+		 * to do : dynamische erzeugung mit add-methode und of else über erlaubte kriterien
+		 */
 		if(e.getSource()==typ_l.elementAt(0)){
 			sub_b.removeAll();
 		}
@@ -111,39 +118,51 @@ public class AngebotCreate extends JPanel implements ActionListener{
 			ort.setToolTipText("Bitte geben SIe einen Ort");
 			sub_b.add(ort);
 			
-			klima_l = new Vector<String>();
-//			klima_l.add("Klima");
-//			klima_l.add("Tropisch");
-//			klima_l.add("Mediteran");
-//			klima_l.add("Gemäßigt");
-//			klima_l.add("Kalt");
-			klima_l.add(Klima.wertebereich);
-			klima = new JComboBox(klima_l);
+			
+			klima = new JComboBox(Klima.wertebereich);
 			sub_b.add(klima);
 			
 			sterne = new JTextField();
 			sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 			sub_b.add(sterne);
 			
-			verpflegung_l = new Vector<String>();
-			verpflegung_l.add(Verpflegungsart.wertebereich);
-			verpflegung = new JComboBox(verpflegung_l);
 			
-			bierpreis_l = new Vector<String>();
-			bierpreis_l.add(Bierpreis.wertebereich);
-			
+			verpflegung = new JComboBox(Verpflegungsart.wertebereich);
+			sub_b.add(verpflegung);
+
+			bierpreis =  new JComboBox(Bierpreis.wertebereich);
+			sub_b.add(bierpreis);
 		}
 		
 		if(e.getSource()==typ_l.elementAt(2)){
-			
+			ort = new JTextField();
+			ort.setToolTipText("Bitte geben SIe einen Ort");
+			sub_b.add(ort);
 		}
 		
 		if(e.getSource()==typ_l.elementAt(3)){
-			
+			ort = new JTextField();
+			ort.setToolTipText("Bitte geben SIe einen Ort");
+			sub_b.add(ort);
+		
+			bierpreis =  new JComboBox(Bierpreis.wertebereich);
+			sub_b.add(bierpreis);
 		}
 		
 		if(e.getSource()==typ_l.elementAt(4)){
+			ort = new JTextField();
+			ort.setToolTipText("Bitte geben SIe einen Startort");
+			sub_b.add(ort);
 			
+			ortz = new JTextField();
+			ortz.setToolTipText("Bitte geben SIe einen Zielort");
+			sub_b.add(ortz);
+			
+			klasse = new JComboBox(Klasse.wertebereich);
+			sub_b.add(klasse);
+			
+			bierpreis =  new JComboBox(Bierpreis.wertebereich);
+			sub_b.add(bierpreis);
 		}
 	}
 		
