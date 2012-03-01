@@ -45,10 +45,12 @@ public class Accountverwaltung {
 	 * @param password Password
 	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
 	 */
-	public void createKunde(String email, String name, String password) throws AlreadyInUseException{
+	public Kunde createKunde(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
-		kunden.add(new Kunde(email, name, password));
+		Kunde k = new Kunde(email, name, password);
+		kunden.add(k);
+		return k;
 	}
 
 	/**
@@ -59,10 +61,12 @@ public class Accountverwaltung {
 	 * @param password Password
 	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
 	 */
-	public void createAnbieter(String email, String name, String password) throws AlreadyInUseException{
+	public Anbieter createAnbieter(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
-		anbieter.add(new Anbieter(email, name, password));
+		Anbieter a = new Anbieter(email, name, password);
+		anbieter.add(a);
+		return a;
 	}
 	
 	/**
@@ -73,10 +77,12 @@ public class Accountverwaltung {
 	 * @param password Password
 	 * @throws AlreadyInUseException Account E-Mail oder Username schon vergeben
 	 */
-	public void createBetreiber(String email, String name, String password) throws AlreadyInUseException{
+	public Betreiber createBetreiber(String email, String name, String password) throws AlreadyInUseException{
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
-		betreiber.add(new Betreiber(email, name, password));
+		Betreiber b = new Betreiber(email, name, password);
+		betreiber.add(b);
+		return b;
 	}
 	
 	/**
