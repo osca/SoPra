@@ -2,6 +2,8 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,7 +16,7 @@ import javax.swing.JTextField;
 import accounts.Anbieter;
 
 
-public class AngebotCreate extends JPanel{
+public class AngebotCreate extends JPanel implements ActionListener{
 	//b1.setToolTipText("Click this button to disable the middle button.");
 	private JPanel up;
 	private JPanel sub_a;
@@ -47,15 +49,14 @@ public class AngebotCreate extends JPanel{
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
 		
-		typ = new JComboBox();
+		
 		Vector<String> typ_l= new Vector<String>();
 		typ_l.add("Hoteluebernachtung");
 		typ_l.add("Autovermietung");
 		typ_l.add("Ausflueg");
 		typ_l.add("Flug");
-		typ_m = new DefaultComboBoxModel(typ_l);
-		
-		
+		typ = new JComboBox(typ_l);
+		typ.addActionListener(this);
 		
 		sub_a.add(typ);
 		preis= new JTextField();
@@ -82,6 +83,12 @@ public class AngebotCreate extends JPanel{
 		add(BorderLayout.CENTER, mid);
 		add(BorderLayout.SOUTH, down);
 		setVisible(true);	
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		
 	}
 	
 }
