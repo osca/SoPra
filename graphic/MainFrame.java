@@ -99,7 +99,7 @@ public class MainFrame extends JFrame
 		
 		ArrayList<Angebot> al = new ArrayList<Angebot>();
 		for(int i=0;i<100;i++)
-			al.add(new Flug("name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+			al.add(new Flug(null,"name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
 		list = new ListeScreen(this, al);
 		
 		screen.add(list);
@@ -109,34 +109,12 @@ public class MainFrame extends JFrame
 		this.setVisible(true);
 	}
 
-	public <T extends Listable> void showDetail(T obj) {
-
-		if (obj.getClass().equals(angebote.typen.Angebot.class)) {
-			/*
-			 * ListeScreen.scroll.remove(ListeScreen.sPanel);
-			 * 
-			 * ListeScreen.scroll.add();
-			 */
-		}
-		/*
-		 * else if(obj.getClass().equals(Buchung.class)){
-		 * 
-		 * 
-		 * 
-		 * }
-		 * 
-		 * else if(obj.getClass().equals(Account.class)){
-		 * 
-		 * 
-		 * 
-		 * }
-		 * 
-		 * else if(obj.getClass().equals(Nachrichten.class)){
-		 * 
-		 * 
-		 * 
-		 * }
-		 */
+	public <T extends Listable> void showDetail(T obj) 
+	{
+		System.out.println(((Angebot)obj).getIdetifier());
+		screen.remove(screen.getComponent(0));
+		screen.add(new AngDetailScreen(0, (Angebot)obj));
+		screen.repaint();
 	}
 
 	public Account getUser() {

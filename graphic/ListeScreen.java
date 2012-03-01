@@ -1,8 +1,6 @@
 package graphic;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,10 +18,11 @@ public class ListeScreen <T extends Listable> extends JPanel {
 	
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
-		
-		setLayout(new GridLayout(1,0));
+		GridLayout grid = new GridLayout(0,1);
+		grid.setVgap(4);
+		setLayout(grid);
 		lscroll = new JScrollPane();
-		sPanel= new JPanel(new GridLayout(0,1));
+		sPanel= new JPanel(grid);
 		//size des scrolls setzen
 		for (int i=0;i<list.size();i++){
 			final int j = i;
@@ -32,31 +31,27 @@ public class ListeScreen <T extends Listable> extends JPanel {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					mainframe.showDetail(list.get(j));
 				}
 
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
 				}
 
 				@Override
 				public void mouseExited(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
 				}
 
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+					mainframe.showDetail(list.get(j));
 				}
 				
 			});
