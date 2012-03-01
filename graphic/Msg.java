@@ -9,12 +9,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
+
+import accounts.Account;
 
 public class Msg extends JDialog implements ActionListener{
+	private JLabel absender;
 	private JLabel empfaenger;
+	
 	private JLabel betreff;
-	private JTextField m;
+	private JTextArea m;
 	private JPanel up;
 	private JPanel mid;
 	private JPanel down;
@@ -23,21 +27,23 @@ public class Msg extends JDialog implements ActionListener{
 	
 	private String msgText;
 	
-	public Msg(String anbieter, String b){
+	public Msg(Account acc, Account ziel, String b){
 		// to do set size
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout (5,5));
-		up = new JPanel(new GridLayout (2,0));
+		up = new JPanel(new GridLayout (3,0));
 		mid = new JPanel(new BorderLayout (5,5));
 		down = new JPanel(new BorderLayout (5,5));
 		
-		empfaenger = new JLabel(anbieter);
+		absender = new JLabel(acc.getName());
+		up.add(absender);
+		empfaenger = new JLabel(ziel.getName());
 		up.add(empfaenger);
 		betreff = new JLabel(b);
 		up.add(betreff);
 		
 
-		m = new JTextField();
+		m = new JTextArea();
 		mid.add(m);
 		
 		senden = new JButton("Senden");

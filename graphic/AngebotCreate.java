@@ -58,8 +58,10 @@ public class AngebotCreate extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(5, 5));
 
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(6, 0));
+		sub_a = new JPanel(new GridLayout(6, 2));
 		name = new JTextField();
+		JLabel name_label= new JLabel("Name:");
+		sub_a.add(name_label);
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
 
