@@ -16,7 +16,7 @@ public class Default extends Account
 	@Override
 	public int getTyp() 
 	{
-		return 0;
+		return Account.NONE;
 	}
 
 }

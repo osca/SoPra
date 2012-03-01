@@ -19,7 +19,7 @@ public abstract class Account implements Listable{
 	private ArrayList<Nachricht> Posteingang = new ArrayList<Nachricht>();
 	private ArrayList<Nachricht> Postausgang = new ArrayList<Nachricht>();
 	
-	public static final int //NONE = 0,
+	public static final int NONE = 0,
 							KUNDE = 1,
 							ANBIETER = 2,
 							BETREIBER = 3;
