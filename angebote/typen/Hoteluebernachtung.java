@@ -115,7 +115,7 @@ public class Hoteluebernachtung extends Angebot {
 	 * 
 	 * @return Erlaubte Kriterienarray
 	 */
-	public static String[] getErlaubteKriterien() {
+	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	

@@ -85,7 +85,7 @@ public class Flug extends Angebot {
 	/**
 	 * Get erlaubte Kriterien (Array)
 	 */
-	public static String[] getErlaubteKriterien() {
+	public String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	
