@@ -67,7 +67,7 @@ public class AngebotTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		//Bewertungstest fuer Topangebote
 		ArrayList<Angebot> topangebote = ava.getTopAngebote();
 		
@@ -78,6 +78,13 @@ public class AngebotTest {
 		Assert.assertEquals(ang1, topangebote.get(0));
 		Assert.assertEquals(ang2, topangebote.get(1));
 		Assert.assertEquals(ang3, topangebote.get(2));
+		
+		//Loeschen eines bestimmten Angebots
+		av.delAngebot(ang2);
+		
+		Assert.assertTrue(ava.getAllAngebote().contains(ang1));
+		Assert.assertFalse(ava.getAllAngebote().contains(ang2));
+		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
 	}
 
 }

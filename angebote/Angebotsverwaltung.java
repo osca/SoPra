@@ -94,12 +94,12 @@ public class Angebotsverwaltung {
 	 * @param angebot			das zu l�schende Angebot
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
-		Kommentar[] kommentare = (Kommentar[])angebot.getKommentare().toArray();
-		Buchung[] buchungen = (Buchung[])angebot.getBuchungen().toArray();
+		ArrayList<Kommentar> kommentare = angebot.getKommentare();
+		ArrayList<Buchung> buchungen = angebot.getBuchungen();
 		
 		// Erstmal checken, ob offene buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
-		for(int i = 0; i < buchungen.length; i++) {
-			if (buchungen[i].getBestaetigt() == Bestaetigung.JA && buchungen[i].getBis().after(new Date())) 
+		for(int i = 0; i < buchungen.size(); i++) {
+			if (buchungen.get(i).getBestaetigt() == Bestaetigung.JA && buchungen.get(i).getBis().after(new Date())) 
 				throw new LoeschenNichtMoeglichException("Es existieren noch zu erfuellende Buchungen auf dem Angebot.");
 		}
 		
@@ -107,13 +107,13 @@ public class Angebotsverwaltung {
 		angebot.getAnbieter().delAngebot(angebot);
 		
 		// Loeschen ist erlaubt, wir entfernen die Kommentare aus dem Angebot
-		for(int i = 0; i < kommentare.length; i++) {
-			angebot.delKommentar(kommentare[i]);
+		for(int i = 0; i < kommentare.size(); i++) {
+			angebot.delKommentar(kommentare.get(i));
 		}
 		
 		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
-		for(int i = 0; i < buchungen.length; i++) {
-			angebot.delBuchung(buchungen[i]);
+		for(int i = 0; i < buchungen.size(); i++) {
+			angebot.delBuchung(buchungen.get(i));
 		}
 		Portal.getSingletonObject().getNachrichtenverwaltung().delAllNachrichten(angebot);
 		// zugriff auf Nachrichten is nicht m�glich
