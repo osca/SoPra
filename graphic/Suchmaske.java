@@ -19,6 +19,7 @@ import main.Portal;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
+import angebote.kriterien.Kriterium;
 import angebote.kriterien.Verpflegungsart;
 
 public class Suchmaske extends JPanel implements ActionListener {
@@ -154,7 +155,8 @@ public class Suchmaske extends JPanel implements ActionListener {
 			sub_b.repaint();
 		}
 		else if(e.getSource()==suche){
-			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(typ.getSelectedItem(), kapazitaet, vonPreis, bisPreis, daten, kriterien)
+			
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem(), kap.getText(), vpreis.getText(), bpreis.getText(), daten, kriterien)
 		}
 		else if(e.getSource()==abbrechen){
 			
