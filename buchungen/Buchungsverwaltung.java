@@ -51,17 +51,11 @@ public class Buchungsverwaltung {
 	/**
 	 * Gibt alle Buchungen eines Kunden aus.
 	 * 
-	 * @param kunde			DU KUNDE JUNGE!!!!!
-	 * @return				Liste seiner Buchungen.
+	 * @param kunde			Kunde
+	 * @return				Liste seiner Buchungen
 	 */
-	public Buchung[] getBuchungen(Kunde kunde) {
-		ArrayList<Buchung> buchungenListe = kunde.getBuchungen();
-		Buchung[] buchungen = new Buchung[buchungenListe.size()];
-		for(int i = 0; i < buchungenListe.size(); i++) {
-			buchungen[i] = buchungenListe.get(i);
-		}
-		
-		return buchungen;
+	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
+		return kunde.getBuchungen();
 	}
 	
 	/**
