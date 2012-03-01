@@ -2,8 +2,6 @@ package accounts;
 
 import graphic.Listable;
 
-import java.util.ArrayList;
-
 import main.Portal;
 
 /**
@@ -16,8 +14,6 @@ public abstract class Account implements Listable{
 	
 	private String email, name, password;
 	protected boolean gesperrt = false;
-	private ArrayList<Nachricht> Posteingang = new ArrayList<Nachricht>();
-	private ArrayList<Nachricht> Postausgang = new ArrayList<Nachricht>();
 	
 	public static final int NONE = 0,
 							KUNDE = 1,
@@ -37,48 +33,6 @@ public abstract class Account implements Listable{
 		password=pw;
 	}
 
-	/** Fuegt eine Nachricht in den Posteingang ein
-	 * @param msg Nachrichtenobjekt
-	 */
-	public void addErhalteneNachricht(Nachricht msg){
-		Posteingang.add(msg);
-	}
-	
-	/** Entfernt eine Nachricht aus dem Posteingang
-	 * @param msg Nachrichtenobjekt
-	 */
-	public void delErhalteneNachricht(Nachricht msg){
-		Posteingang.remove(msg);
-	}
-	
-	/** Fuegt eine Nachricht in den Postausgang ein
-	 * @param msg Nachrichtenobjekt
-	 */
-	public void addGeschriebeneNachricht(Nachricht msg){
-		Postausgang.add(msg);
-	}
-	
-	/** Entfernt eine Nachricht aus dem Postausgang
-	 * @param msg Nachrichtenobjekt
-	 */
-	public void delGeschriebeneNachricht(Nachricht msg){
-		Postausgang.remove(msg);
-	}
-	
-	/** gibt den kompletten Posteingang zurueck
-	 * @return Posteingang
-	 */
-	public ArrayList<Nachricht> getPosteingang() {
-		return Posteingang;
-	}
-	
-	/** gibt den kompletten Postausgang zurueck
-	 * @return
-	 */
-	public ArrayList<Nachricht> getPostausgang() {
-		return Postausgang;
-	}
-	
 	/** Gibt in Flag aus von welchem Typ der jeweilige Account ist
 	 * @return Flag des AccountTyps
 	 */

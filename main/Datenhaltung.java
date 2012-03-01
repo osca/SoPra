@@ -11,13 +11,16 @@ import accounts.Accountverwaltung;
 import accounts.Anbieter;
 import accounts.Betreiber;
 import accounts.Kunde;
+import accounts.Nachricht;
+import accounts.Nachrichtenverwaltung;
 
 import com.thoughtworks.xstream.XStream;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
 			betrFile = new File("Betreiber.xml"), 
-			kundFile = new File("Kunden.xml");
+			kundFile = new File("Kunden.xml"),
+			msgFile = new File("Nachrichten.xml");
 
 	private Datenhaltung() {
 	}
@@ -34,9 +37,34 @@ public class Datenhaltung {
 	 *             Fehler beim Schreiben
 	 */
 	public static void saveAllAccounts(Accountverwaltung av) throws IOException {
-		xs.toXML(av.getAnbieter(), new FileWriter(anbFile));
-		xs.toXML(av.getBetreiber(), new FileWriter(betrFile));
-		xs.toXML(av.getKunden(), new FileWriter(kundFile));
+		if(anbFile.exists())
+			anbFile.delete();
+		if(betrFile.exists())
+			betrFile.delete();
+		if(kundFile.exists())
+			kundFile.delete();
+		FileWriter f = new FileWriter(anbFile);
+		xs.toXML(av.getAnbieter(), f);
+		f.close();
+		f = new FileWriter(betrFile);
+		xs.toXML(av.getBetreiber(), f);
+		f.close();
+		f = new FileWriter(kundFile);
+		xs.toXML(av.getKunden(), f);
+		f.close();
+	}
+	
+	/**
+	 * 
+	 * @param av
+	 * @throws IOException
+	 */
+	public static void saveAllMessages(Nachrichtenverwaltung nv) throws IOException {
+		if(msgFile.exists())
+			msgFile.delete();
+		FileWriter f = new FileWriter(msgFile);
+		xs.toXML(nv.getAlleNachrichten(), f);
+		f.close();
 	}
 
 	/**
@@ -70,6 +98,16 @@ public class Datenhaltung {
 		if (!kundFile.exists())
 			return new ArrayList<Kunde>();
 		return (ArrayList<Kunde>) xs.fromXML(kundFile);
+	}
+	
+	/**
+	 * Liest die aktuell in XML gespeicherte Liste an Nachrichten aus
+	 * @return Nachrichten-Liste
+	 */
+	public static ArrayList<Nachricht> getNachrichten(){
+		if(!msgFile.exists())
+			return new ArrayList<Nachricht>();
+		return (ArrayList<Nachricht>) xs.fromXML(msgFile);
 	}
 
 	/**

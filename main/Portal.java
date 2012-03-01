@@ -16,10 +16,10 @@ public class Portal {
 	private static Portal single = new Portal();
 	
 	private Portal(){
+		nachrverw = new Nachrichtenverwaltung(Datenhaltung.getNachrichten());
 		accverw = new Accountverwaltung(Datenhaltung.getAnbieter(), Datenhaltung.getBetreiber(), Datenhaltung.getKunde());
 		angebverw = new Angebotsverwaltung();
 		buchverw = new Buchungsverwaltung();
-		nachrverw = new Nachrichtenverwaltung();
 		angebverar = new Angebotsverarbeitung();
 	}
 	
