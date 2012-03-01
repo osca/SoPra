@@ -19,6 +19,7 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
+import angebote.typen.Hoteluebernachtung;
 
 
 public class AngebotCreate extends JPanel implements ActionListener{
@@ -43,14 +44,11 @@ public class AngebotCreate extends JPanel implements ActionListener{
 	private JTextField ort;
 	private JTextField ortz;
 	private JComboBox klima;
-	private Vector<String> klima_l;
 	private JTextField sterne;
 	private JComboBox verpflegung;
-	private Vector<String> verpflegung_l;
 	private JComboBox bierpreis;
-	private Vector<String> bierpreis_l;
 	private JComboBox klasse;
-	private Vector<String> klasse_l;
+	private String[] k;
 	
 	private JTextArea beschreibung;
 	
@@ -170,6 +168,12 @@ public class AngebotCreate extends JPanel implements ActionListener{
 			bierpreis =  new JComboBox(Bierpreis.wertebereich);
 			sub_b.add(bierpreis);
 			sub_b.repaint();
+		}
+	}
+	
+	public void addShice(String fu){
+		if(fu=="Hoteluebernachtung"){
+			k=Hoteluebernachtung.getErlaubteKriterien();
 		}
 	}
 		
