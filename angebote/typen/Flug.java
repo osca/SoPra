@@ -3,6 +3,7 @@ package angebote.typen;
 import java.util.ArrayList;
 import java.util.Date;
 
+import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Kriterium;
@@ -15,10 +16,10 @@ import angebote.kriterien.Ort;
  */
 public class Flug extends Angebot {
 
-	/*public static final int START = 0,
+	public static final int START = 0,
 			 				ZIEL = 1,
 			 				KLASSE = 2,
-			 				BIERPREIS = 3;*/
+			 				BIERPREIS = 3;
 
 	private Ort start,ziel = null;
 	private Klasse klasse = null;
@@ -31,8 +32,10 @@ public class Flug extends Angebot {
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
 	 * den entsprechenden Werten
 	 * 
+	 * @param panb zustaendiger Anbieter
 	 * @param pname Name
 	 * @param pbeschreibung Beschreibung
+	 * @param pkapazitaet Kapazitaet
 	 * @param ppreis Preis
 	 * @param pdaten Daten
 	 * @param pstart Abflugort
@@ -40,8 +43,8 @@ public class Flug extends Angebot {
 	 * @param pklasse Welche Klasse?
 	 * @param pbierpreis Bierpreis
 	 */
-	public Flug(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis) {
-		super(pname, pbeschreibung, Angebot.FLUG, pkapazitaet, ppreis, pdaten);
+	public Flug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis) {
+		super(panb, pname, pbeschreibung, Angebot.FLUG, pkapazitaet, ppreis, pdaten);
 		start = new Ort(pstart);
 		ziel = new Ort(pziel);
 		klasse = new Klasse(pklasse);

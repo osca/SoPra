@@ -14,36 +14,67 @@ import angebote.typen.*;
  * @author Benjamin, stephan	
  */
 public class Angebotsverwaltung {
-	/**
-	 * Es wird ein spezifisches Angebot erstellt und einem Anbieter zugeordnet. 
-	 * 
-	 * @param anbieter			Dem Anbieter wird das Angebot zugeordnet.
-	 * @param name				Name, den das Angebot haben wird.
-	 * @param typ				Typ, entweder: Ausflug, Autovermietung, Hotel�bernachtung, Ausflug
-	 * @param preis				Preis des Angebots.
-	 * @param werte				erlaubte Werte f�r die Suche
-	 * @param kriterien			Kriterien.
-	 */
-	// NOTE: String beschr geaddet
-	//		 int kapazitaet geaddet
-	//		 Kriterium[] kriterien entfernt
-	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, String[] werte) {
+	
+	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
+			Date[] daten, String[] krit) {
 		Angebot offer = null;
-		
-		// werte array.. was da los? ich geh jetzt einfach mal davon aus, dass die Reihenfolge der Kriterien-Werte im werte[] in der Reihenfolge das Konstruktor stehen.
-		// streng genommen waere es jetzt noch noetig zu checken ob werte.length() = die Laenge der maximialen Anzanl an erlaubten Kriterien entspricht
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			offer = new Autovermietung(name, beschr, kapazitaet, preis, null, werte[0]);
+			offer = createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
 		case Angebot.AUSFLUG:
-			offer = new Ausfluege(name, beschr, kapazitaet, preis, null, werte[0], werte[1]);
+			offer = createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausfluege.ORT], krit[Ausfluege.BIERPREIS]);
 		case Angebot.HOTEL:
-			offer = new Hoteluebernachtung(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3], werte[4]);
+			offer = createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
+						krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
+						krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART]);
 		case Angebot.FLUG:
-			offer = new Flug(name, beschr, kapazitaet, preis, null, werte[0], werte[1], werte[2], werte[3]);
+			offer = createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
+					krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
 		}
 		
 		anbieter.addAngebot(offer);
+	}
+	
+	/**
+	 * Legt ein Autovermietungs-Angebot an
+	 * @param anbieter zustaendiger Anbieter
+	 * @param name Name der Autovermietung
+	 * @param beschr textuelle benutzerdefinierte Beschreibung
+	 * @param kapaz Anzahl gleichzeitig zu verleihender Autos
+	 * @param preis Preis pro Tag / Buchung
+	 * @param dates Array von Daten an denen das Angebot stattfindet
+	 * @param ort Ort an dem Das Auto abgeholt werden kann
+	 * @see Autovermietung
+	 */
+	public Angebot createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort){
+		return new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
+	}
+	
+	/**
+	 * @see Ausfluege
+	 * @param panb
+	 * @param pname
+	 * @param pbeschreibung
+	 * @param pkapazitaet
+	 * @param ppreis
+	 * @param pdaten
+	 * @param port
+	 * @param pbierpreis
+	 * @return
+	 */
+	public Angebot createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
+			Date[] pdaten, String port, String pbierpreis){
+		return new Ausfluege(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
+	}
+	
+	public Angebot createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
+			Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis){
+		return new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
+	}
+	
+	public Angebot createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date[] daten, 
+			String ort, String klima, String sterne, String verpf, String bierpr){
+		return new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
 	}
 	
 	/**
@@ -77,6 +108,7 @@ public class Angebotsverwaltung {
 		// zugriff auf Nachrichten is nicht m�glich
 		// das loeschen in den Dateien �bernimmt XStream durch das Streamen der Entititaetsklassen
 	}
+	
 	
 	/**
 	 * Editiert ein Angebot eines Anbieters.

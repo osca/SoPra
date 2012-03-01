@@ -3,6 +3,7 @@ package angebote.typen;
 import java.util.ArrayList;
 import java.util.Date;
 
+import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
@@ -18,11 +19,11 @@ import angebote.kriterien.Verpflegungsart;
  */
 public class Hoteluebernachtung extends Angebot {
 
-	/*public static final int ORT = 0,
+	public static final int ORT = 0,
 			 				KLIMA = 1,
 			 				STERNE = 2,
 			 				VERPFLEGUNGSART = 3,
-			 				BIERPREIS = 4;*/
+			 				BIERPREIS = 4;
 	
 	private Ort ort = null;
 	private Klima klima = null;
@@ -37,8 +38,10 @@ public class Hoteluebernachtung extends Angebot {
 	 * Konstruktor erzeugt die abstrakte Klasse und zu dem noch die erlaubten Kriterien mit
 	 * den entsprechenden Werten
 	 * 
+	 * @param panbieter Hotelbesitzer
 	 * @param pname Name
 	 * @param pbeschreibung Beschreibung
+	 * @param pkapazitaet Kapazitaet
 	 * @param ppreis Preis
 	 * @param pdaten Daten
 	 * @param port Ort des Hotels
@@ -47,8 +50,9 @@ public class Hoteluebernachtung extends Angebot {
 	 * @param pverpflegungsart Verpflegungsart
 	 * @param pbierpreis Bierpreis
 	 */
-	public Hoteluebernachtung(String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
-		super(pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pdaten);
+	public Hoteluebernachtung(Anbieter panbieter, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
+			Date[] pdaten, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
+		super(panbieter, pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pdaten);
 		ort = new Ort(port);
 		klima = new Klima(pklima);
 		sterne = new Sterne(psterne);
@@ -61,51 +65,6 @@ public class Hoteluebernachtung extends Angebot {
 		kriterien.add(bierpreis);
 	}
 	
-	/**
-	 * Set Ort
-	 * 
-	 * @param wert Wert fuer Ort
-	 */
-	public void setOrt(String wert) {
-		ort.setWert(wert);
-	}
-	
-	/**
-	 * Set Klima
-	 * 
-	 * @param wert Wert fuer Klima
-	 */
-	public void setKlima(String wert) {
-		klima.setWert(wert);
-	}
-	
-	/**
-	 * Set Sterne
-	 * 
-	 * @param wert Wert fuer Sterne
-	 */
-	public void setSterne(String wert) {
-		sterne.setWert(wert);
-	}
-	
-	/**
-	 * Set Verpflegungsart
-	 * 
-	 * @param wert Wert fuer Verpflegungsart
-	 */
-	public void setVerpflegungsart(String wert) {
-		verpflegungsart.setWert(wert);
-	}
-	
-	/**
-	 * Set Bierpreis
-	 * 
-	 * @param wert Wert fuer Bierpreis
-	 */
-	public void setBierpreis(String wert) {
-		bierpreis.setWert(wert);
-	}
-
 	/**
 	 * Get Ort
 	 * 

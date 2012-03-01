@@ -40,21 +40,24 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	/**
 	 * Konstruktor
-	 * 
+	 * @param panbieter Anbieter, der für das Angebot zustaendig ist
 	 * @param pname Name
 	 * @param pbeschreibung Beschreibung
-	 * @param ptyp Angebotstyp
+	 * @param ptyp Angebotstyp (siehe Flags)
 	 * @param pkapazitaet Kapazitaet
 	 * @param ppreis Preis
-	 * @param pdaten Daten des Angebots. Es wird erwartet, dass das Array sortiert ist!
+	 * @param pdaten Daten des Angebots. 
+	 * @pre Es wird erwartet, dass das Array sortiert ist!
 	 */
-	public Angebot(String pname, String pbeschreibung, int ptyp, int pkapazitaet ,double ppreis, Date[] pdaten) {
+	public Angebot(Anbieter panbieter, String pname, String pbeschreibung, int ptyp, int pkapazitaet, double ppreis, Date[] pdaten) {
+		anbieter = panbieter;
 		angebotsNummer = anzahl++;
 		name = pname;
 		beschreibung = pbeschreibung;
 		typ = ptyp;
-		kapazitaet = pkapazitaet;
+		auffindbar = true;
 		preis = ppreis;
+		kapazitaet = pkapazitaet;
 		daten = pdaten;
 	}
 	
@@ -68,30 +71,12 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
-	 * Set Beschreibung
-	 * 
-	 * @param beschreibung Beschreibung
-	 */
-	public void setBeschreibung(String beschreibung) {
-		this.beschreibung = beschreibung;
-	}
-
-	/**
 	 * Get Typ
 	 * 
 	 * @return Typnummer
 	 */
 	public int getTyp() {
 		return typ;
-	}
-
-	/**
-	 * Set Typ
-	 * 
-	 * @param typ Typ
-	 */
-	public void setTyp(int typ) {
-		this.typ = typ;
 	}
 
 	/**
@@ -104,30 +89,12 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
-	 * Set Angebotsname
-	 * 
-	 * @param name Name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
 	 * Ist das Angebot auffindbar?
 	 * 
 	 * @return Auffindbar oder nicht
 	 */
 	public boolean isAuffindbar() {
 		return auffindbar;
-	}
-
-	/**
-	 * Set Auffinbar
-	 * 
-	 * @param auffindbar Auffindbar?
-	 */
-	public void setAuffindbar(boolean auffindbar) {
-		this.auffindbar = auffindbar;
 	}
 
 	/**
@@ -140,15 +107,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
-	 * Set Preis
-	 * 
-	 * @param preis Preis
-	 */
-	public void setPreis(double preis) {
-		this.preis = preis;
-	}
-
-	/**
 	 * Get Daten
 	 * 
 	 * @return Array der Daten des Angebots
@@ -156,16 +114,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public Date[] getDaten() {
 		return daten;
 	}
-
-	/**
-	 * Set Daten
-	 * 
-	 * @param daten Datenarray
-	 */
-	public void setDaten(Date[] daten) {
-		this.daten = daten;
-	}
-
 	/**
 	 * Get Anzahl aller Angebote
 	 * 
