@@ -22,7 +22,13 @@ public class Buchung implements Listable {
 	private Date von,bis;
 	private Angebot angebot;
 	private Kunde kunde;
-	
+	/**
+	 * Legt ein Buchungsobjekt an
+	 * @param pangebot Angebot zur Referenz
+	 * @param pkunde Kunde der die Buchung anfragt
+	 * @param pvon Startdatum der Buchung
+	 * @param pbis Enddatum der Buchung
+	 */
 	public Buchung(Angebot pangebot, Kunde pkunde, Date pvon, Date pbis) {
 		buchungsNummer = anzahl++;
 		angebot = pangebot;
@@ -32,42 +38,75 @@ public class Buchung implements Listable {
 		bestaetigt = Bestaetigung.UNBEARBEITET;
 	}
 
+	/**
+	 * @return Anzahl der insgesamt getätigten Buchungen
+	 */
 	public static int getAnzahl() {
 		return anzahl;
 	}
 
+	/**
+	 * @return Buchungsnummer für diese Buchung
+	 */
 	public int getBuchungsnummer() {
 		return buchungsNummer;
 	}
 
+	/**
+	 * @return gibt zurueck welchen Status die Buchung hat
+	 */
 	public Bestaetigung getBestaetigt() {
 		return bestaetigt;
 	}
 
+	/**
+	 * @param bestaetigt setzt die Bestaetigung für die Buchung
+	 * @pre es muss vorher sichergestellt sein, dass der Aufrufer berechtigt ist die Buchung zu bestaetigen
+	 */
 	public void setBestaetigt(Bestaetigung bestaetigt) {
 		this.bestaetigt = bestaetigt;
 	}
 
+	/**
+	 * @return Startdatum
+	 */
 	public Date getVon() {
 		return von;
 	}
 
+	/**
+	 * @param von neues Startdatum
+	 * @pre Berechtigung vorher prüfen
+	 */
 	public void setVon(Date von) {
 		this.von = von;
 	}
 
+	/**
+	 * @return Enddatum
+	 */
 	public Date getBis() {
 		return bis;
 	}
 
+	/**
+	 * @param bis neues Enddatum
+	 * @pre Berechtigung muss vorher geprüft werden
+	 */
 	public void setBis(Date bis) {
 		this.bis = bis;
 	}
 
+	/**
+	 * @return referenziertes Angebotsobjekt
+	 */
 	public Angebot getAngebot() {
 		return angebot;
 	}
 	
+	/**
+	 * @return buchender Kunde
+	 */
 	public Kunde getKunde() {
 		return kunde;
 	}
@@ -89,6 +128,12 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getStatus() {
-		return "STATUS HIERE :)";
+		String result = "";
+		switch(bestaetigt) {
+		case JA : result = "Bestätigt";
+		case NEIN : result = "Abgelehnt";
+		case UNBEARBEITET : result = "Unbearbeitet";
+		}
+		return result;
 	}
 }

@@ -1,8 +1,10 @@
-package main;
+package testcases;
 
 import java.io.File;
 
 import junit.framework.Assert;
+
+import main.Datenhaltung;
 
 import org.junit.Test;
 

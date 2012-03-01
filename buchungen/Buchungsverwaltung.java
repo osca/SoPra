@@ -21,7 +21,7 @@ public class Buchungsverwaltung {
 	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung(angebot, kunde, von, bis);
 		
-		if (bis.after(von))
+		if (bis.before(von) || von.before(new Date()))
 			throw new InvalidDateException();
 		
 		buchung.setBis(bis);
