@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import accounts.Anbieter;
+import angebote.kriterien.Klima;
+import angebote.kriterien.Verpflegungsart;
 
 
 public class AngebotCreate extends JPanel implements ActionListener{
@@ -105,6 +107,30 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		}
 		
 		if(e.getSource()==typ_l.elementAt(1)){
+			ort = new JTextField();
+			ort.setToolTipText("Bitte geben SIe einen Ort");
+			sub_b.add(ort);
+			
+			klima_l = new Vector<String>();
+//			klima_l.add("Klima");
+//			klima_l.add("Tropisch");
+//			klima_l.add("Mediteran");
+//			klima_l.add("Gem‰ﬂigt");
+//			klima_l.add("Kalt");
+			klima_l.add(Klima.wertebereich);
+			klima = new JComboBox(klima_l);
+			sub_b.add(klima);
+			
+			sterne = new JTextField();
+			sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
+			sub_b.add(sterne);
+			
+			verpflegung_l = new Vector<String>();
+			verpflegung_l.add(Verpflegungsart.wertebereich);
+			verpflegung = new JComboBox(verpflegung_l);
+			
+			bierpreis_l = new Vector<String>();
+			bierpreis_l.add(Bierpreis.wertebereich);
 			
 		}
 		
