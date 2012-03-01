@@ -24,6 +24,12 @@ import angebote.typen.Autovermietung;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
+/**
+ * Testcase fuer Angebote/Angebotsverarbeitung/Angebotsverwaltung
+ * 
+ * @author osca
+ *
+ */
 public class AngebotTest {
 
 	Angebotsverwaltung av = Portal.getSingletonObject().getAngebotsverwaltung();
@@ -41,22 +47,26 @@ public class AngebotTest {
 	Buchung b1,b2,b3,b4,b5;
 	
 	@Before
-	public void setUp() throws Exception {	
+	public void setUp() throws Exception {
+		//Accounts erstellen
 		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
 		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 		
+		//Acounts aufnehmen
 		anbieter1 = accv.getAnbieter().get(0);
 		anbieter2 = accv.getAnbieter().get(1);
 		kunde1 = accv.getKunden().get(0);
 		kunde2 = accv.getKunden().get(1);
 
+		//Angebote erstellen
 		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster");
 		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		
+		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
 		av.addKommentar(ang1, new Kommentar(kunde2.getName(), "Guter Urlaub", 4));
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Ultra Urlaub", 5));
@@ -65,6 +75,7 @@ public class AngebotTest {
 		av.addKommentar(ang3, new Kommentar(kunde1.getName(), "Echt mies!", 1));
 		av.addKommentar(ang3, new Kommentar(kunde2.getName(), "Ganz doll dreckig!", 1));
 	
+		//Buchungen von Kunden zu Angeboten erstellen
 		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
@@ -74,9 +85,7 @@ public class AngebotTest {
 
 	@Test
 	public void test() throws Exception {
-		System.out.println(new Date().getTime());
-		
-		//Bewertungstest fuer Topangebote
+		//Bewertungstest fuer Topangebote (auch Angebots compareTo enthalten)
 		ArrayList<Angebot> topangebote = ava.getTopAngebote();
 		
 		Assert.assertEquals(ang1, topangebote.get(0));

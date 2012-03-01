@@ -34,7 +34,7 @@ public class Buchungsverwaltung {
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
 	 * @param b zu loeschende Buchung
 	 */
-	public void delBuchung(Buchung b){
+	public void delBuchung(Buchung b) {
 		b.getKunde().delBuchung(b);
 		b.getAngebot().delBuchung(b);
 	}

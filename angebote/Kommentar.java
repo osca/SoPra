@@ -2,8 +2,6 @@ package angebote;
 
 import java.util.Date;
 
-import angebote.typen.Angebot;
-
 public class Kommentar {
 	
 	private String absender, text;
