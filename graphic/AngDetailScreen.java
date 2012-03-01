@@ -112,7 +112,6 @@ public class AngDetailScreen extends JPanel{
 		}
 		}
 		
-		
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
 		dPanel.add(BorderLayout.NORTH, up);
