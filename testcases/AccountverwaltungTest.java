@@ -59,7 +59,7 @@ public class AccountverwaltungTest {
 			acv.createBetreiber("betreiber@host.de", "Horst", "ichkannalles");
 			
 			ArrayList<Betreiber> betreiber = acv.getBetreiber();
-			Assert.assertEquals(1, betreiber.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?7
+			Assert.assertEquals(1, betreiber.size());								// habe ich auch wirklich nur einen erstellt, wenn nicht fehler im setup?
 			
 			Betreiber treiber = betreiber.get(0);
 
@@ -74,7 +74,7 @@ public class AccountverwaltungTest {
 	@Test
 	public void testEnableAccount() {
 		try {
-			acv.createKunde("nixda@dasda.de", "Ninja", "wurstloch");
+			acv.createKunde("hier@dasda.de", "Polska", "wurstloch");
 			acv.setEnableAccount(acv.getKunden().get(0), false);
 			
 			Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), false);
@@ -86,29 +86,16 @@ public class AccountverwaltungTest {
 	
 	 @Test
 	 public void deleteTest() {
-		 for(int i = 0; i < acv.getAnbieter().size(); i++) {
-			 try {
-				acv.delAccount(acv.getAnbieter().get(i));
-			} catch (LoeschenNichtMoeglichException e) {
-				e.printStackTrace();
-			}
-		 }
-		 for(int i = 0; i < acv.getKunden().size(); i++) {
-			 try {
-				acv.delAccount(acv.getKunden().get(i));
-			} catch (LoeschenNichtMoeglichException e) {
-				e.printStackTrace();
-			}
-		 }
-		 for(int i = 0; i < acv.getBetreiber().size(); i++) {
-			 try {
-				acv.delAccount(acv.getBetreiber().get(i));
-			} catch (LoeschenNichtMoeglichException e) {
-				e.printStackTrace();
-			}
-		 }
+		 Assert.assertEquals(1, acv.getAnbieter().size());							// insgesamt oben nur einen erstellt, also sollte hier auch nur einer sein.
+		 Assert.assertEquals(1, acv.getBetreiber().size());							// insgesamt oben nur einen erstellt, also sollte hier auch nur einen sein.
+		 Assert.assertEquals(2, acv.getKunden().size());							// insgesamt oben zwei erstellt, also sollten hier auch zwei sein.
 		 
-		 
-		 Assert.assertEquals(acv.getAccounts().size(), 0);
+		 for(int i = 0; i < acv.getAccounts().size(); i++) {
+			 try {
+				 acv.delAccount(acv.getAccounts().get(i));
+			} catch (LoeschenNichtMoeglichException e) {
+				e.printStackTrace();
+			}
+		 }
 	 }
 }
