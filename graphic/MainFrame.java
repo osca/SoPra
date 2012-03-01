@@ -31,8 +31,9 @@ public class MainFrame extends JFrame
 	private static final int BUTTONHEIGHT = 24;
 	private static final int BUTTONWIDTH = 120;
 
-	private Account acc;
+	private Account account;
 	private JPanel screen;
+	private JScrollPane scroll;
 	
 	private ListeScreen list;
 
@@ -40,12 +41,16 @@ public class MainFrame extends JFrame
 	{
 		this.setLayout(new BorderLayout());
 		
-		// ///////
+		/////////
+		
+		
+		
+		//////////
 
 		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
 		GridLayout grid = new GridLayout(0,1);
 		
-		// ////////
+		///////////
 
 		JPanel northPanel = new JPanel();
 		northPanel.setLayout(new BorderLayout());
@@ -60,7 +65,10 @@ public class MainFrame extends JFrame
 		screen = new JPanel();
 		screen.setBorder(border);
 		screen.setLayout(grid);
-		this.add(new JScrollPane(screen), BorderLayout.CENTER);
+		
+		scroll = new JScrollPane(screen);
+		//scroll.setViewportView(screen);
+		this.add(scroll, BorderLayout.CENTER);
 
 		JPanel homeButtonPanel = new JPanel();
 		northPanel.add(homeButtonPanel, BorderLayout.WEST);
@@ -111,14 +119,24 @@ public class MainFrame extends JFrame
 
 	public <T extends Listable> void showDetail(T obj) 
 	{
-		System.out.println(((Angebot)obj).getIdetifier());
-		screen.remove(screen.getComponent(0));
-		screen.add(new AngDetailScreen(0, (Angebot)obj));
-		screen.repaint();
-	}
-
-	public Account getUser() {
-		return acc;
+		if(obj.getClass().equals(Angebot.class))
+		{
+			System.out.println(((Angebot)obj).getIdetifier());
+			
+			screen.removeAll();
+			screen.add(new AngDetailScreen(account.getTyp(), (Angebot)obj));
+			scroll.setViewportView(screen);
+			scroll.repaint();
+			this.repaint();
+		}
+		else
+		{
+			screen.removeAll();
+			screen.add(new BuchDetailScreen((Buchung)obj));
+			scroll.setViewportView(screen);
+			scroll.repaint();
+			this.repaint();
+		}
 	}
 
 	public static void main(String[] args)
