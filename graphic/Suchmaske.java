@@ -3,25 +3,161 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Suchmaske extends JPanel {
+import main.Portal;
+
+import angebote.kriterien.Bierpreis;
+import angebote.kriterien.Klasse;
+import angebote.kriterien.Klima;
+import angebote.kriterien.Verpflegungsart;
+
+public class Suchmaske extends JPanel implements ActionListener {
 
 	private JPanel up;
 	private JPanel sub_a;
 	private JPanel sub_b;
 	private JPanel mid;
 
+	private JTextField name;
+	private JComboBox typ;
+	private Vector<String> typ_l;
+	private DefaultComboBoxModel typ_m;
+	private JTextField vpreis;
+	private JTextField bpreis;
+	private JTextField kap;
+	private JTextField anbieter;
+
+	private JTextField ort;
+	private JTextField ortz;
+	private JComboBox klima;
+	private JTextField sterne;
+	private JComboBox verpflegung;
+	private JComboBox bierpreis;
+	private JComboBox klasse;
+	private String[] k;
+
+	private JButton suche;
+	private JButton abbrechen;
+
 	public Suchmaske() {
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a= new JPanel(new GridLayout(6,0));
-		sub_b= new JPanel(new GridLayout(6,0));
-		
+		sub_a = new JPanel(new GridLayout(6, 0));
+		sub_b = new JPanel(new GridLayout(6, 0));
+		name = new JTextField();
+		name.setToolTipText("Bitte Namen eingeben");
+		sub_a.add(name);
+		typ_l = new Vector<String>();
+		typ_l.add("Typ");
+		typ_l.add("Hoteluebernachtung");
+		typ_l.add("Autovermietung");
+		typ_l.add("Ausflueg");
+		typ_l.add("Flug");
+		typ = new JComboBox(typ_l);
+		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
+		typ.addActionListener(this);
+		sub_a.add(typ);
+		vpreis = new JTextField();
+		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
+		sub_a.add(vpreis);
+		bpreis = new JTextField();
+		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
+		sub_a.add(bpreis);
+		kap = new JTextField();
+		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
+		sub_a.add(kap);
+		anbieter = new JTextField();
+		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
+		sub_a.add(anbieter);
+		sub_b = new JPanel(new GridLayout(6, 0));
+		up.add(sub_a);
+		up.add(sub_b);
+
 		mid = new JPanel(new FlowLayout());
-		
-		
+		suche = new JButton("Suchen");
+		abbrechen = new JButton("Abbrechen");
+
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == typ) {
+			sub_b.removeAll();
+			if (typ.getSelectedItem().toString() == typ_l.elementAt(0)) {
+
+			}
+
+			if (typ.getSelectedItem().toString() == typ_l.elementAt(1)) {
+				ort = new JTextField();
+				ort.setToolTipText("Bitte geben Sie einen Ort");
+				sub_b.add(ort);
+
+				klima = new JComboBox(Klima.wertebereich);
+				sub_b.add(klima);
+
+				sterne = new JTextField();
+				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
+				sub_b.add(sterne);
+
+				verpflegung = new JComboBox(Verpflegungsart.wertebereich);
+				sub_b.add(verpflegung);
+
+				bierpreis = new JComboBox(Bierpreis.wertebereich);
+				sub_b.add(bierpreis);
+
+			}
+
+			if (typ.getSelectedItem().toString() == typ_l.elementAt(2)) {
+				ort = new JTextField();
+				ort.setToolTipText("Bitte geben SIe einen Ort");
+				sub_b.add(ort);
+
+			}
+
+			if (typ.getSelectedItem().toString() == typ_l.elementAt(3)) {
+				ort = new JTextField();
+				ort.setToolTipText("Bitte geben SIe einen Ort");
+				sub_b.add(ort);
+
+				bierpreis = new JComboBox(Bierpreis.wertebereich);
+				sub_b.add(bierpreis);
+
+			}
+
+			if (typ.getSelectedItem().toString() == typ_l.elementAt(4)) {
+				ort = new JTextField();
+				ort.setToolTipText("Bitte geben Sie einen Startort");
+				sub_b.add(ort);
+
+				ortz = new JTextField();
+				ortz.setToolTipText("Bitte geben Sie einen Zielort");
+				sub_b.add(ortz);
+
+				klasse = new JComboBox(Klasse.wertebereich);
+				sub_b.add(klasse);
+
+				bierpreis = new JComboBox(Bierpreis.wertebereich);
+				sub_b.add(bierpreis);
+
+			}
+			sub_b.repaint();
+		}
+		else if(e.getSource()==suche){
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(typ.getSelectedItem(), kapazitaet, vonPreis, bisPreis, daten, kriterien)
+		}
+		else if(e.getSource()==abbrechen){
+			
+		}
+	}
 }
