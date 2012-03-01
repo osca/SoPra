@@ -11,6 +11,7 @@ import org.junit.Test;
 import accounts.Accountverwaltung;
 import accounts.Anbieter;
 import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 import angebote.Angebotsverwaltung;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
@@ -18,6 +19,11 @@ import buchungen.Bestaetigung;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
+/**
+ * Buchungsverwaltungs Testcase
+ * 
+ * @author osca
+ */
 public class BuchungsverwaltungTest {
 	
 	Angebotsverwaltung av = Portal.getSingletonObject().getAngebotsverwaltung();
@@ -33,25 +39,30 @@ public class BuchungsverwaltungTest {
 	Buchung b1,b2,b3,b4,b5;
 	
 	@Before
-	public void setUp() throws Exception {	
+	public void setUp() throws Exception {
+		//Accounts erstellen
 		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 		
+		//Accounts abrufen
 		anbieter = accv.getAnbieter().get(0);
 		kunde1 = accv.getKunden().get(0);
 		kunde2 = accv.getKunden().get(1);
 		
+		//Angebote erstellen
 		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster");
 		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		ang3 = av.createAusflug(anbieter, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		
+		//Buchungen erstellen
 		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde2, ang3, new Date(1430609911421L), new Date(1430610011421L));
 		
+		//Buchungen abrufen
 		b1 = bv.getBuchungen(kunde1).get(0);
 		b2 = bv.getBuchungen(kunde1).get(1);
 		b3 = bv.getBuchungen(kunde1).get(2);
@@ -60,7 +71,7 @@ public class BuchungsverwaltungTest {
 	}
 	
 	@Test
-	public void testSetGetBestaetigung() {
+	public void testSetGetBestaetigung() throws Exception {
 		//Set und Get Bestaetigung einer Buchung
 		bv.setBestaetigt(b3, Bestaetigung.JA);
 		

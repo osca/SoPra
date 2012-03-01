@@ -243,7 +243,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @param type Typnummer
 	 * @return Typname
 	 */
-	public String convertTypToName(int type) {
+	public static String convertTypToName(int type) {
 		switch(type) {
 			case 1:
 				return "Flug";

@@ -4,29 +4,63 @@ import java.util.ArrayList;
 
 import buchungen.Buchung;
 
+/**
+ * Kunde, erbende Klasse von Account
+ * 
+ * @edit osca (schrieb javadoc)
+ */
 public class Kunde extends Account {
 	
 	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	
-	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param em E-Mail Adresse
+	 * @param nm Username
+	 * @param pw Passwort
+	 */
 	public Kunde(String em, String nm, String pw) {
 		super(em, nm, pw);
 	}
 	
-	public void addBuchung(Buchung entry){
+	/**
+	 * Fuege Buchung in die Buchungsliste hinzu
+	 * 
+	 * @param entry Buchung
+	 */
+	public void addBuchung(Buchung entry) {
 		buchungen.add(entry);
 	}
 	
-	public void delBuchung(Buchung entry){
+	/**
+	 * Loesche Buchung aus Buchungsliste
+	 * 
+	 * @param entry Buchung
+	 * @throws LoeschenNichtMoeglichException Buchung ist null oder wurde nicht gefunden
+	 */
+	public void delBuchung(Buchung entry) throws LoeschenNichtMoeglichException {
+		if(entry == null || !(buchungen.contains(entry)))
+			throw new LoeschenNichtMoeglichException("Buchung null oder nicht gefunden!");
 		buchungen.remove(entry);
 	}
 	
+	/**
+	 * Get Liste an Buchungen
+	 * 
+	 * @return Buchungsliste
+	 */
 	public ArrayList<Buchung> getBuchungen() {
 		return buchungen;
 	}
 	
+	/**
+	 * Get Accounttyp
+	 * 
+	 * @return Accounttypnummer
+	 */
 	@Override
-	public int getTyp(){
+	public int getTyp() {
 		return Account.KUNDE;
 	}	
 }

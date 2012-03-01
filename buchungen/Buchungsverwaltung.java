@@ -2,6 +2,7 @@ package buchungen;
 
 import java.util.*;
 import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 import angebote.typen.Angebot;
 
 /**
@@ -34,18 +35,9 @@ public class Buchungsverwaltung {
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
 	 * @param b zu loeschende Buchung
 	 */
-	public void delBuchung(Buchung b) {
+	public void delBuchung(Buchung b) throws LoeschenNichtMoeglichException {
 		b.getKunde().delBuchung(b);
 		b.getAngebot().delBuchung(b);
-	}
-	
-	/**
-	 * Cancelt eine Buchung (im Fall von stornieren etc. relevant)
-	 * 
-	 * @param buchung 		zu beartbeitende Buchung.
-	 */
-	public void cancelBuchung(Buchung buchung) {
-		buchung.setBestaetigt(Bestaetigung.NEIN);
 	}
 	
 	/**

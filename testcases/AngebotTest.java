@@ -123,6 +123,13 @@ public class AngebotTest {
 		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new Kriterium[]{new Ort("Muenster"),new Bierpreis("Guenstig")});
 		
 		Assert.assertEquals(ang4, suche.get(0));
+		
+		//Typconverter
+		Assert.assertEquals("Ausflug", Angebot.convertTypToName(Angebot.AUSFLUG));
+		Assert.assertEquals("Autovermietung", Angebot.convertTypToName(Angebot.AUTOVERMIETUNG));
+		Assert.assertEquals("Flug", Angebot.convertTypToName(Angebot.FLUG));
+		Assert.assertEquals("Hotel", Angebot.convertTypToName(Angebot.HOTEL));
+		
 	}
 
 }
