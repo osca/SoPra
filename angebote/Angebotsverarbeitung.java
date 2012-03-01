@@ -11,7 +11,7 @@ import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
 public class Angebotsverarbeitung {
-	public final static int KEINTYP 		= 0;
+	public final static String KEINNAME		= "";
 	public final static int KEINEKAPAZITAET	= 0;
 	public final static double KEINPREIS 	= 0;
 	public final static Date[] KEINEDATEN	= null;
@@ -28,47 +28,45 @@ public class Angebotsverarbeitung {
 	 * @param bisPreis Der maximale Preis, der gezahlt werden soll in Form eines Doubles, 
 	 * 			wenn kein Preis gewählt worden ist, lautet die Flag KEINPREIS
 	 * @param daten Das Array an Daten an denen der Kunde ein Angebot buchen möchte, wenn kein Datum gewählt wurde, lautet die Flag KEINEDATEN
-	 * @param kriterien [Start/Ort, Ziel, Bierpreis, Klasse, Klima, Sterne, Verpflegungsart]
-	 * 			Das Array an Kriterien das vom Kunden spezifiziert wurde. Hat der Kunde ein Kriterium nicht gesetzt oder existiert dies nicht für
-	 * 			dieses Angebot, lautet die Flag KEINKRITERIUM (dieses wird innerhalb des Arrays gesetzt). Die Methode erwartet 6 Eintraege im 
-	 * 			Array (im Zweifel die Flag setzen), sonst wirft sie eine Exception.
+	 * @param kriterien Das Array an Kriterien das vom Kunden spezifiziert wurde. Hat der Kunde ein Kriterium nicht gesetzt, lautet die Flag 
+	 * 			KEINKRITERIUM (dieses wird innerhalb des Arrays gesetzt).
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfüllen.
-	 * @throws falscheAnzahlKriterienException Es wird eine Exception geworfen, wenn weniger oder mehr als 6 Kriterien geworfen werden
 	 */
-	public ArrayList<Angebot> sucheAngebote(int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, Kriterium[] kriterien)
-			throws FalscheAnzahlKriterienException{
-		int anzKrit = 7;
-		int alleTreffer = 11;
+	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, Kriterium[] kriterien){
+		int alleTreffer = 12;
 		int treffer=0;
-		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>();
-		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote();
-		if(kriterien.length!=anzKrit) throw new FalscheAnzahlKriterienException();
+		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
+		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote(); 
 
 		for(Angebot a:erstellteAngebote){
-			if(a.getTyp()==typ||typ==KEINTYP) treffer++;
-			if(a.getKapazitaet()==kapazitaet||kapazitaet==KEINEKAPAZITAET) treffer++;
-			if((a.getPreis()>vonPreis&&a.getPreis()<bisPreis)||
-					(vonPreis==KEINPREIS&&bisPreis==KEINPREIS)) treffer++;
-			if(daten==KEINEDATEN) treffer++;
-			else {
-				for(int i=0;i<daten.length;i++){
-					if(daten[i].compareTo(a.getDaten()[1])>=0 &&
-							daten[i].compareTo(a.getDaten()[a.getDaten().length-1])<=0){
-						treffer ++;
-						i=daten.length;
+			if(a.getName()==name||name==KEINNAME) treffer++;
+			if(a.getTyp()==typ) {
+				if(a.getKapazitaet()==kapazitaet||kapazitaet==KEINEKAPAZITAET) treffer++;
+				if((a.getPreis()>vonPreis&&a.getPreis()<bisPreis)||
+						(vonPreis==KEINPREIS&&bisPreis==KEINPREIS)) treffer++;
+				if(daten==KEINEDATEN) treffer++;
+				else {
+					for(int i=0;i<daten.length;i++){
+						if(daten[i].compareTo(a.getDaten()[1])>=0 &&
+								daten[i].compareTo(a.getDaten()[a.getDaten().length-1])<=0){
+							treffer ++;
+							i=daten.length;
+						}
 					}
 				}
-			}
-			ArrayList<Kriterium> kritContainer = a.getKriterien();
-			for(int i=0;i<anzKrit;i++){
-				if(kriterien[i]== KEINKRITERIUM) treffer++;
-				else if(kritContainer.get(i).getWert()==kriterien[i].getWert()) treffer++;
+				ArrayList<Kriterium> kritContainer = a.getKriterien();
+				int anzKrit = kriterien.length;
+				for(int i=0;i<anzKrit;i++){
+					if(kriterien[i]==KEINKRITERIUM) treffer++;
+					else if(kritContainer.get(i).getWert()==kriterien[i].getWert()) treffer++;
+				}
 			}
 			if(treffer==alleTreffer) suchErgebnisse.add(a);
 		}
 		
 		return suchErgebnisse;
 	}
+
 	/**
 	 * Die Methode geht alle Angebote durch, das Aktuelle wird jeweils der Liste angefügt, wenn die Liste mehr als 10 Angebot enthält wird sie
 	 * sortiert (aufsteigend) und das erste Element entfernt. Die Sortierung wird auf Grund von Angebotsinternen Kriterien vorgenommen.
