@@ -132,6 +132,7 @@ public class Accountverwaltung {
 					
 					angebotsVerwaltung.delAngebot(a);
 				}
+				break;
 			}
 			
 			case(Account.KUNDE):{
@@ -150,12 +151,16 @@ public class Accountverwaltung {
 					
 				for(Buchung b:buchungsVerwaltung.getBuchungen(kundenacc))
 					buchungsVerwaltung.delBuchung(b);
+				
+				break;
 			}
 			
 			case(Account.BETREIBER):{
 				//Ist er der letzte Betreiber? Hoffentlich nicht...
 				if(getBetreiber().size() < 2)
 					throw new LoeschenNichtMoeglichException("You're the last unicorn!");
+				
+				break;
 			}
 		}
 		
