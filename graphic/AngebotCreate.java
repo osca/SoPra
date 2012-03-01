@@ -107,10 +107,9 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == typ) {
-
+			sub_b.removeAll();
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(0)) {
-				sub_b.removeAll();
-				sub_b.repaint();
+				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(1)) {
@@ -130,14 +129,14 @@ public class AngebotCreate extends JPanel implements ActionListener {
 
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-				sub_b.repaint();
+				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(2)) {
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
-				sub_b.repaint();
+			
 			}
 
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(3)) {
@@ -147,7 +146,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-				sub_b.repaint();
+				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_l.elementAt(4)) {
@@ -156,7 +155,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 				sub_b.add(ort);
 
 				ortz = new JTextField();
-				ortz.setToolTipText("Bitte geben SIe einen Zielort");
+				ortz.setToolTipText("Bitte geben Sie einen Zielort");
 				sub_b.add(ortz);
 
 				klasse = new JComboBox(Klasse.wertebereich);
@@ -164,9 +163,11 @@ public class AngebotCreate extends JPanel implements ActionListener {
 
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-				sub_b.repaint();
+				
 			}
+			sub_b.repaint();
 		}
+		
 	}
 
 }
