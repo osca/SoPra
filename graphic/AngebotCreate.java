@@ -116,6 +116,9 @@ public class AngebotCreate extends JPanel implements ActionListener{
 			
 		}
 		
+		if(e.getSource()==typ_l.elementAt(4)){
+			
+		}
 	}
 		
 }
