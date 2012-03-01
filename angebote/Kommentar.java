@@ -9,10 +9,8 @@ public class Kommentar {
 	private String absender, text;
 	private int bewertung;
 	private Date zeitstempel;
-	private Angebot angebot;
 	
-	public Kommentar(Angebot pangebot, String pabsender, String ptext, int pbewertung) {
-		angebot = pangebot;
+	public Kommentar(String pabsender, String ptext, int pbewertung) {
 		absender = pabsender;
 		text = ptext;
 		bewertung = pbewertung;
@@ -33,10 +31,6 @@ public class Kommentar {
 
 	public Date getZeitstempel() {
 		return zeitstempel;
-	}
-	
-	public Angebot getAngebot() {
-		return angebot;
 	}
 	
 }

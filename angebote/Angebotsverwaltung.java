@@ -1,5 +1,6 @@
 package angebote;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import main.Portal;
@@ -131,5 +132,35 @@ public class Angebotsverwaltung {
 		//		 neues Angebot erstellen und durch edited ersetzen => .replace(...)?????
 		
 		anbieter.addAngebot(neues);
+	}
+	
+	/**
+	 * Gibt die Liste aller Kommentare eines Angebots
+	 * 
+	 * @param angebot Angebot
+	 * @return ArrayList an Kommentaren des Angebots
+	 */
+	public ArrayList<Kommentar> getKommentare(Angebot angebot) {
+		return angebot.getKommentare();
+	}
+	
+	/**
+	 * Fuege einem Angebot ein Kommentar hinzu
+	 * 
+	 * @param angebot Angebot
+	 * @param kommentar Kommentar
+	 */
+	public void addKommentar(Angebot angebot, Kommentar kommentar) {
+		angebot.addKommentar(kommentar);
+	}
+	
+	/**
+	 * Loesche ein Kommentar eines Angebots
+	 * 
+	 * @param angebot Angebot
+	 * @param kommentar Kommentar
+	 */
+	public void delKommentar(Angebot angebot, Kommentar kommentar) {
+		angebot.delKommentar(kommentar);
 	}
 }
