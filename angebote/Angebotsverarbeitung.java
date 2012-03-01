@@ -36,13 +36,13 @@ public class Angebotsverarbeitung {
 	 * @throws falscheAnzahlKriterienException Es wird eine Exception geworfen, wenn weniger oder mehr als 6 Kriterien geworfen werden
 	 */
 	public ArrayList<Angebot> sucheAngebote(int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, Kriterium[] kriterien)
-			throws falscheAnzahlKriterienException{
+			throws FalscheAnzahlKriterienException{
 		int anzKrit = 7;
 		int alleTreffer = 11;
 		int treffer=0;
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>();
 		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote();
-		if(kriterien.length!=anzKrit) throw new falscheAnzahlKriterienException();
+		if(kriterien.length!=anzKrit) throw new FalscheAnzahlKriterienException();
 
 		for(Angebot a:erstellteAngebote){
 			if(a.getTyp()==typ||typ==KEINTYP) treffer++;

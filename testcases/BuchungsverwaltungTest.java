@@ -3,7 +3,6 @@ package testcases;
 import java.util.Date;
 
 import junit.framework.Assert;
-
 import main.Portal;
 
 import org.junit.Before;
@@ -34,8 +33,7 @@ public class BuchungsverwaltungTest {
 	Buchung b1,b2,b3,b4,b5;
 	
 	@Before
-	public void setUp() throws Exception {
-		
+	public void setUp() throws Exception {	
 		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
@@ -62,13 +60,13 @@ public class BuchungsverwaltungTest {
 	}
 	
 	@Test
-	public void test() {
+	public void testSetGetBestaetigung() {
 		//Set und Get Bestaetigung einer Buchung
 		bv.setBestaetigt(b3, Bestaetigung.JA);
 		
 		Assert.assertEquals(Bestaetigung.JA, bv.getBuchungen(kunde1).get(2).getBestaetigt());
-		
-		//Loeschen einer Buchung
+
+		//Loesche Buchung
 		bv.delBuchung(b3);
 		bv.delBuchung(b4);
 		
@@ -77,7 +75,6 @@ public class BuchungsverwaltungTest {
 		Assert.assertEquals(false, bv.getBuchungen(kunde1).contains(b3));
 		Assert.assertEquals(false, bv.getBuchungen(kunde2).contains(b4));
 		Assert.assertEquals(true, bv.getBuchungen(kunde2).contains(b5));
-
 	}
 
 }
