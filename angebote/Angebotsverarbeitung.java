@@ -33,18 +33,23 @@ public class Angebotsverarbeitung {
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfüllen.
 	 */
 	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, Kriterium[] kriterien){
-		int alleTreffer = 12;
+		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
 		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote(); 
 
 		for(Angebot a:erstellteAngebote){
-			if(a.getName()==name||name==KEINNAME) treffer++;
+			treffer = 0;
+			if(a.getName()==name||name==KEINNAME) 
+				treffer++;
 			if(a.getTyp()==typ) {
-				if(a.getKapazitaet()==kapazitaet||kapazitaet==KEINEKAPAZITAET) treffer++;
+				if(a.getKapazitaet()>=kapazitaet||kapazitaet==KEINEKAPAZITAET) 
+					treffer++;
 				if((a.getPreis()>vonPreis&&a.getPreis()<bisPreis)||
-						(vonPreis==KEINPREIS&&bisPreis==KEINPREIS)) treffer++;
-				if(daten==KEINEDATEN) treffer++;
+						(vonPreis==KEINPREIS&&bisPreis==KEINPREIS)) 
+					treffer++;
+				if(daten==KEINEDATEN) 
+					treffer++;
 				else {
 					for(int i=0;i<daten.length;i++){
 						if(daten[i].compareTo(a.getDaten()[1])>=0 &&
@@ -57,11 +62,14 @@ public class Angebotsverarbeitung {
 				ArrayList<Kriterium> kritContainer = a.getKriterien();
 				int anzKrit = kriterien.length;
 				for(int i=0;i<anzKrit;i++){
-					if(kriterien[i]==KEINKRITERIUM) treffer++;
-					else if(kritContainer.get(i).getWert()==kriterien[i].getWert()) treffer++;
+					if(kriterien[i]==KEINKRITERIUM) 
+						treffer++;
+					else if(kritContainer.get(i).getWert()==kriterien[i].getWert()) 
+						treffer++;
 				}
 			}
-			if(treffer==alleTreffer) suchErgebnisse.add(a);
+			if(treffer==alleTreffer)
+				suchErgebnisse.add(a);
 		}
 		
 		return suchErgebnisse;

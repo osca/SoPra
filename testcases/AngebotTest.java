@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import junit.framework.Assert;
-
 import main.Portal;
 
 import org.junit.Before;
@@ -16,6 +15,9 @@ import accounts.Kunde;
 import angebote.Angebotsverarbeitung;
 import angebote.Angebotsverwaltung;
 import angebote.Kommentar;
+import angebote.kriterien.Bierpreis;
+import angebote.kriterien.Kriterium;
+import angebote.kriterien.Ort;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
@@ -29,27 +31,31 @@ public class AngebotTest {
 	Accountverwaltung accv = Portal.getSingletonObject().getAccountverwaltung();
 	Buchungsverwaltung bv = Portal.getSingletonObject().getBuchungsverwaltung();
 	
-	Anbieter anbieter;
+	Anbieter anbieter1;
+	Anbieter anbieter2;
 	Kunde kunde1,kunde2;
 	
 	Autovermietung ang1;
-	Ausflug ang2,ang3;
+	Ausflug ang2,ang3,ang4;
 	
 	Buchung b1,b2,b3,b4,b5;
 	
 	@Before
 	public void setUp() throws Exception {	
 		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
+		accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
 		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 		
-		anbieter = accv.getAnbieter().get(0);
+		anbieter1 = accv.getAnbieter().get(0);
+		anbieter2 = accv.getAnbieter().get(1);
 		kunde1 = accv.getKunden().get(0);
 		kunde2 = accv.getKunden().get(1);
 
-		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster");
-		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster");
+		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
+		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
 		av.addKommentar(ang1, new Kommentar(kunde2.getName(), "Guter Urlaub", 4));
@@ -68,16 +74,15 @@ public class AngebotTest {
 
 	@Test
 	public void test() throws Exception {
+		System.out.println(new Date().getTime());
+		
 		//Bewertungstest fuer Topangebote
 		ArrayList<Angebot> topangebote = ava.getTopAngebote();
-		
-		System.out.println(ang1.getWertung());
-		System.out.println(ang2.getWertung());
-		System.out.println(ang3.getWertung());
 		
 		Assert.assertEquals(ang1, topangebote.get(0));
 		Assert.assertEquals(ang2, topangebote.get(1));
 		Assert.assertEquals(ang3, topangebote.get(2));
+		Assert.assertEquals(ang4, topangebote.get(3));
 		
 		//Loeschen eines bestimmten Angebots
 		av.delAngebot(ang2);
@@ -87,11 +92,28 @@ public class AngebotTest {
 		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
 		
 		//Aendern eines bestimmten Angebots
-		av.editAngebot(ang1, ang2, anbieter);
+		av.editAngebot(ang1, ang2, anbieter1);
 		
 		Assert.assertFalse(ava.getAllAngebote().contains(ang1));
 		Assert.assertTrue(ava.getAllAngebote().contains(ang2));
 		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
+		
+		//Get Alle Angebote
+		Assert.assertEquals(3, ava.getAllAngebote().size());
+		
+		//Get abgelaufene Angebote
+		Assert.assertEquals(0, ava.getAbgelaufeneAngebote().size());
+		
+		//Get aktuelle Angebote
+		Assert.assertEquals(3, ava.getAktuelleAngebote().size());
+		
+		//Get Angebote eines Anbieters
+		Assert.assertEquals(ang4, ava.getAngebote(anbieter2).get(0));
+		
+		//Suche Angebot
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new Kriterium[]{new Ort("Muenster"),new Bierpreis("Guenstig")});
+		
+		Assert.assertEquals(ang4, suche.get(0));
 	}
 
 }
