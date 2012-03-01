@@ -9,7 +9,7 @@ public class Klasse extends Kriterium{
 	
 	public final static String name = "Klasse";
 	
-	private static String[] wertebereich = {"First Class","Business","Economy"};
+	public final static String[] wertebereich = {"First Class","Business","Economy"};
 
 	/**
 	 * Konstruktor
@@ -19,14 +19,5 @@ public class Klasse extends Kriterium{
 	 */
 	public Klasse(String pwert) throws IllegalArgumentException {
 		super(pwert);
-	}
-	
-	/**
-	 * Get Wertebereich
-	 * 
-	 * @return Wertebereich
-	 */
-	public String[] getWertebereich() {
-		return wertebereich;
 	}
 }

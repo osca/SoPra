@@ -9,7 +9,7 @@ public class Klima extends Kriterium {
 	
 	public final static String name = "Klima";
 	
-	private static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
+	public final static String[] wertebereich = {"Tropisch","Mediteran","Gemaessigt","Kalt"};
 	
 	/**
 	 * Konstruktor
@@ -19,15 +19,6 @@ public class Klima extends Kriterium {
 	 */
 	public Klima(String pwert) throws IllegalArgumentException {
 		super(pwert);
-	}
-	
-	/**
-	 * Get Wertebereich
-	 * 
-	 * @return Wertebereich
-	 */
-	public String[] getWertebereich() {
-		return wertebereich;
 	}
 
 }
