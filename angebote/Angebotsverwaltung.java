@@ -20,27 +20,19 @@ public class Angebotsverwaltung {
 			Date[] daten, String[] krit) {
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			anbieter.addAngebot(
-					createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT])
-					);
+			createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
 			break;
 		case Angebot.AUSFLUG:
-			anbieter.addAngebot(
-					createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS])
-					);
+			createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
 			break;
 		case Angebot.HOTEL:
-			anbieter.addAngebot(
-					createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
-						krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
-						krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART])
-					);
+			createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
+					krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
+					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART]);
 			break;
 		case Angebot.FLUG:
-			anbieter.addAngebot(
-					createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
-							krit[Flug.KLASSE], krit[Flug.BIERPREIS])
-					);
+			createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
+						krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
 			break;
 		}
 		
@@ -58,7 +50,9 @@ public class Angebotsverwaltung {
 	 * @see Autovermietung
 	 */
 	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort){
-		return new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
+		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
+		anbieter.addAngebot(av);
+		return av;
 	}
 	
 	/**
@@ -75,17 +69,23 @@ public class Angebotsverwaltung {
 	 */
 	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date[] pdaten, String port, String pbierpreis){
-		return new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
+		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
+		panb.addAngebot(af);
+		return af;
 	}
 	
 	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis){
-		return new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
+		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
+		panb.addAngebot(f);
+		return f;
 	}
 	
 	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date[] daten, 
 			String ort, String klima, String sterne, String verpf, String bierpr){
-		return new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
+		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
+		anb.addAngebot(hu);
+		return hu;
 	}
 	
 	/**
