@@ -16,7 +16,8 @@ import com.thoughtworks.xstream.XStream;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
-			betrFile = new File("Betreiber.xml"), kundFile = new File("Kunden.xml");
+			betrFile = new File("Betreiber.xml"), 
+			kundFile = new File("Kunden.xml");
 
 	private Datenhaltung() {
 	}

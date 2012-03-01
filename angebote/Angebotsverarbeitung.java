@@ -90,7 +90,7 @@ public class Angebotsverarbeitung {
 			}
 			
 		}
-		
+		Collections.reverse(topAngebote); 		//absteigende Ordnung
 		return topAngebote;
 	}
 	
