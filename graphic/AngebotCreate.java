@@ -41,7 +41,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	private JTextField kap;
 	private JLabel anbieter;
 
-	// Krit dropdown
+	// Kriterien
 	private JTextField ort;
 	private JTextField ortz;
 	private JComboBox klima;
