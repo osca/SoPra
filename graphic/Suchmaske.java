@@ -95,62 +95,83 @@ public class Suchmaske extends JPanel implements ActionListener {
 
 		if (e.getSource() == typ) {
 			sub_b.removeAll();
-			if (typ.getSelectedItem().toString() == typ_l.elementAt(0)) {
-
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
+				
 			}
 
-			if (typ.getSelectedItem().toString() == typ_l.elementAt(1)) {
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
+				JLabel ort_label = new JLabel("Ort:");
+				sub_b.add(ort_label);
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_b.add(ort);
-
+				
+				JLabel klima_label= new JLabel("Klima:");
+				sub_b.add(klima_label);
 				klima = new JComboBox(Klima.wertebereich);
 				sub_b.add(klima);
-
+				
+				JLabel sterne_label= new JLabel("Sterne:");
+				sub_b.add(sterne_label);
 				sterne = new JTextField();
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 				sub_b.add(sterne);
-
+				
+				JLabel verpfelgeung_label= new JLabel("Verpflegung:");
+				sub_b.add(verpfelgeung_label);
 				verpflegung = new JComboBox(Verpflegungsart.wertebereich);
 				sub_b.add(verpflegung);
-
+				
+				JLabel bierpreis_label= new JLabel("Bierpreie:");
+				sub_b.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-
+				
 			}
 
-			if (typ.getSelectedItem().toString() == typ_l.elementAt(2)) {
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
-
+			
 			}
 
-			if (typ.getSelectedItem().toString() == typ_l.elementAt(3)) {
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
+				JLabel ort_label= new JLabel("Ort:");
+				sub_b.add(ort_label);
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
-
+				
+				JLabel bierpreis_label= new JLabel("Bierpreis:");
+				sub_b.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-
+				
 			}
 
-			if (typ.getSelectedItem().toString() == typ_l.elementAt(4)) {
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
+				JLabel ort_label= new JLabel("Startort:");
+				sub_b.add(ort_label);
 				ort = new JTextField();
 				ort.setToolTipText("Bitte geben Sie einen Startort");
 				sub_b.add(ort);
-
+				JLabel ortz_label= new JLabel("Zielort:");
+				sub_b.add(ortz_label);
 				ortz = new JTextField();
 				ortz.setToolTipText("Bitte geben Sie einen Zielort");
 				sub_b.add(ortz);
-
+				
+				JLabel klasse_label= new JLabel("Klasse:");
+				sub_b.add(klasse_label);
 				klasse = new JComboBox(Klasse.wertebereich);
 				sub_b.add(klasse);
-
+				
+				JLabel bierpreis_label= new JLabel("Bierpreie:");
+				sub_b.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
-
+				
 			}
 			sub_b.repaint();
 		}
