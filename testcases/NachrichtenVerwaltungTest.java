@@ -14,7 +14,7 @@ import accounts.Kunde;
 import accounts.Nachricht;
 import accounts.Nachrichtenverwaltung;
 import angebote.Angebotsverwaltung;
-import angebote.typen.Ausfluege;
+import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
 
 public class NachrichtenVerwaltungTest {
@@ -25,7 +25,7 @@ public class NachrichtenVerwaltungTest {
 	Anbieter anbieter;
 	Kunde kunde;
 	Autovermietung ang1;
-	Ausfluege ang2;
+	Ausflug ang2;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -36,13 +36,14 @@ public class NachrichtenVerwaltungTest {
 		kunde = accv.getKunden().get(0);
 
 		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, null, "Muenster");
+		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, null, "Muenster", "Guenstig");
 		
-		nv.sendeNachricht(kunde, anbieter, "Hallo Mr.Anbieter", "Cooles Angebot haben sie da...", null);
-		nv.sendeNachricht(anbieter, kunde, "Re: Hallo Mr.Anbieter", "Danke, dann buch es doch!", null);
-		nv.sendeNachricht(kunde, anbieter, "Am Strand?", "Ist das Hotel am Strand?", null);
-		nv.sendeNachricht(anbieter, kunde, "Re: Am Strand?", "Ja, steht aber auch in der Beschreibung!", null);
-		nv.sendeNachricht(kunde, anbieter, "Danke", "Danke vielmals!", null);
-		nv.sendeNachricht(anbieter, kunde, "Re: Danke", "Bitte!", null);
+		nv.sendeNachricht(kunde, anbieter, "Hallo Mr.Anbieter", "Cooles Angebot haben sie da...", ang1);
+		nv.sendeNachricht(anbieter, kunde, "Re: Hallo Mr.Anbieter", "Danke, dann buch es doch!", ang1);
+		nv.sendeNachricht(kunde, anbieter, "Am Strand?", "Ist das Hotel am Strand?", ang2);
+		nv.sendeNachricht(anbieter, kunde, "Re: Am Strand?", "Ja, steht aber auch in der Beschreibung!", ang2);
+		nv.sendeNachricht(kunde, anbieter, "Danke", "Danke vielmals!", ang1);
+		nv.sendeNachricht(anbieter, kunde, "Re: Danke", "Bitte!", ang1);
 	}
 
 	@Test
@@ -95,7 +96,27 @@ public class NachrichtenVerwaltungTest {
 		Assert.assertEquals(postausgangAnb.size(),3);
 		Assert.assertEquals(posteingangKun.size(),3);
 		
-		//
+		//Loeschen nach Angebot
+		nv.delAllNachrichten(ang2);
+		
+		Assert.assertEquals(postausgangKun.size(),2);
+		Assert.assertEquals(posteingangAnb.size(),2);
+		Assert.assertEquals(postausgangAnb.size(),2);
+		Assert.assertEquals(posteingangKun.size(),2);
+		
+		//Loeschen nach Account
+		nv.delAllNachrichten(kunde);
+		nv.delAllNachrichten(anbieter);
+		
+		System.out.println(postausgangKun.size());
+		System.out.println(posteingangAnb.size());
+		System.out.println(postausgangAnb.size());
+		System.out.println(posteingangKun.size());
+		
+		Assert.assertEquals(postausgangKun.size(),0);
+		Assert.assertEquals(posteingangAnb.size(),0);
+		Assert.assertEquals(postausgangAnb.size(),0);
+		Assert.assertEquals(posteingangKun.size(),0);
 	}
 
 }
