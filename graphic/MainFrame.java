@@ -46,11 +46,24 @@ public class MainFrame extends JFrame
 	private static final int BUTTONHEIGHT = 38;
 	private static final int BUTTONWIDTH = 180;
 
+	private JButton loginButton;
+	private JButton logoutButton;
+	private JButton registerButton;
+	private JButton nachrichtButton;
+	private JButton buchenButton;
+	private JButton angebotButton;
+	private JButton sucheButton;
+	private JButton topButton;
+	private JButton alleButton;
+	private JButton erstelleButton;
+	
 	private Account account;
 	private JPanel screen;
 	private JScrollPane scroll;
 	
 	private ListeScreen list;
+	
+	private boolean logged = false;
 
 	public MainFrame()
 	{
@@ -104,18 +117,30 @@ public class MainFrame extends JFrame
 		homeButton.setBorderPainted(false);
 		homeButtonPanel.add(homeButton);
 
-		JButton loginButton = new JButton("Login");
+		loginButton = new JButton("Login");
 		loginButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		JButton registerButton = new JButton("Registrieren");
+		logoutButton = new JButton("Logout");
+		logoutButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		registerButton = new JButton("Registrieren");
 		registerButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		JButton eigeneButton = new JButton("Eigene Angebote");
-		eigeneButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		JButton sucheButton = new JButton("Suche Angebote");
+		buchenButton = new JButton("Eigene Buchungen");
+		buchenButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		sucheButton = new JButton("Suche Angebote");
 		sucheButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		topButton = new JButton("Top Angebote");
+		topButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		nachrichtButton = new JButton("Nachrichten");
+		nachrichtButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		angebotButton = new JButton("Eigene Angebote");
+		angebotButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		alleButton = new JButton("Alle Angebote");
+		alleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		erstelleButton = new JButton("Angebot erstellen");
+		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		
 		buttonPanel.add(loginButton);
-		buttonPanel.add(eigeneButton);
 		buttonPanel.add(sucheButton);
+		buttonPanel.add(topButton);
 		registerPanel.add(registerButton);
 
 		// /////////
@@ -144,7 +169,7 @@ public class MainFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				showHome();
+				showTopAngebote();
 			}
 		});
 	
@@ -167,7 +192,7 @@ public class MainFrame extends JFrame
 			}
 		});
 		
-		eigeneButton.addActionListener(new ActionListener()
+		buchenButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent argR0) 
@@ -189,6 +214,7 @@ public class MainFrame extends JFrame
 		
 		this.pack();
 		this.setVisible(true);
+		
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -217,19 +243,52 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			JTextField nameField = new JTextField("Name");
-			JTextField passwordField = new JTextField("Password");
-			JLabel label = new JLabel();
-					
-			label.setText("Bitte geben Sie die Anmeldeinformationen an");
-	
-			JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION);
-			
-			//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
-			if(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn() != null)
+			if(!logged)
 			{
-				//account = Portal.getSingletonObject().getAccountverwaltung().getLoggedIn();
+				JTextField nameField = new JTextField("Name");
+				JTextField passwordField = new JTextField("Password");
+				JLabel label = new JLabel();
+						
+				label.setText("Bitte geben Sie die Anmeldeinformationen an");
+		
+				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+				{
+					
 				
+					//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
+					//if(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn() != null)
+					//{
+						//account = Portal.getSingletonObject().getAccountverwaltung().getLoggedIn();
+						loginButton.setText("Logout");
+						this.repaint();
+						logged = true;
+					//}
+				}
+			}
+			else
+			{
+				Portal.getSingletonObject().getAccountverwaltung().logOut();
+				loginButton.setText("Login");
+				this.repaint();
+				logged = false;
+			}
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	private void logout()
+	{
+		try
+		{
+			if(logged)
+			{
+				
+				
+				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+				logged = false;
 			}
 		}
 		catch(Exception e)
@@ -250,7 +309,15 @@ public class MainFrame extends JFrame
 		}
 	}
 	
-	private void showHome()
+	private void showEigene()
+	{
+		
+	}
+	
+	private void showSuche()
+	{}
+	
+	private void showTopAngebote()
 	{
 		try
 		{
@@ -265,14 +332,6 @@ public class MainFrame extends JFrame
 			
 		}
 	}
-	
-	private void showEigene()
-	{
-		
-	}
-	
-	private void showSuche()
-	{}
 
 	/////////////////////////
 	

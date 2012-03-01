@@ -23,7 +23,7 @@ public class Accountverwaltung {
 	private ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 	private ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 	private ArrayList<Kunde> kunden = new ArrayList<Kunde>();
-	private Account loggedIn;
+	private Account loggedIn = new Default();
 	/**
 	 * Konstruktor
 	 * 
