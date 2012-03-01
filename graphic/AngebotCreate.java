@@ -85,7 +85,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6,0));
 		up.add(sub_a);
-		//up.add(sub_b);
+		up.add(sub_b);
 		
 		mid = new JPanel(new GridLayout(1,0));
 		beschreibung = new JTextField();
@@ -111,6 +111,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		 */
 		if(e.getSource()==typ_l.elementAt(0)){
 			sub_b.removeAll();
+			sub_b.repaint();
 		}
 		
 		if(e.getSource()==typ_l.elementAt(1)){
@@ -132,12 +133,14 @@ public class AngebotCreate extends JPanel implements ActionListener{
 
 			bierpreis =  new JComboBox(Bierpreis.wertebereich);
 			sub_b.add(bierpreis);
+			sub_b.repaint();
 		}
 		
 		if(e.getSource()==typ_l.elementAt(2)){
 			ort = new JTextField();
 			ort.setToolTipText("Bitte geben SIe einen Ort");
 			sub_b.add(ort);
+			sub_b.repaint();
 		}
 		
 		if(e.getSource()==typ_l.elementAt(3)){
@@ -147,6 +150,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 		
 			bierpreis =  new JComboBox(Bierpreis.wertebereich);
 			sub_b.add(bierpreis);
+			sub_b.repaint();
 		}
 		
 		if(e.getSource()==typ_l.elementAt(4)){
@@ -163,6 +167,7 @@ public class AngebotCreate extends JPanel implements ActionListener{
 			
 			bierpreis =  new JComboBox(Bierpreis.wertebereich);
 			sub_b.add(bierpreis);
+			sub_b.repaint();
 		}
 	}
 		
