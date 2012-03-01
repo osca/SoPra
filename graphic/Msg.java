@@ -46,7 +46,7 @@ public class Msg extends JDialog {
 		// to do set size
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout (5, 5));
-		setPreferredSize(new Dimension(500, 500));
+		setSize(new Dimension(500, 350));
 		
 		up = new JPanel(new GridLayout (3, 0));
 		mid = new JPanel(new BorderLayout (5, 5));
