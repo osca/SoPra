@@ -177,7 +177,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 		}
 		else if(e.getSource()==suche){
 			
-			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem(), kap.getText(), vpreis.getText(), bpreis.getText(), daten, kriterien)
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem(), kap.getText(), vpreis.getText(), bpreis.getText(), daten, kriterien);
 		}
 		else if(e.getSource()==abbrechen){
 			
