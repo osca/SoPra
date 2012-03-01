@@ -20,7 +20,7 @@ public class Ausflug extends Angebot {
 	private Ort ort = null;
 	private Bierpreis bierpreis = null;
 
-	private String[] erlaubteKriterien = {Ort.name,Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Ort.name,Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -65,7 +65,7 @@ public class Ausflug extends Angebot {
 	/**
 	 * Get erlaubte Kriterien (Array)
 	 */
-	public String[] getErlaubteKriterien() {
+	public static String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	

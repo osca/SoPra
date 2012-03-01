@@ -25,7 +25,7 @@ public class Flug extends Angebot {
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
 	
-	private String[] erlaubteKriterien = {Ort.name, Ort.name, Klasse.name, Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Ort.name, Ort.name, Klasse.name, Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -85,7 +85,7 @@ public class Flug extends Angebot {
 	/**
 	 * Get erlaubte Kriterien (Array)
 	 */
-	public String[] getErlaubteKriterien() {
+	public static String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	

@@ -31,7 +31,7 @@ public class Hoteluebernachtung extends Angebot {
 	private Verpflegungsart verpflegungsart = null;
 	private Bierpreis bierpreis = null;
 	
-	private String[] erlaubteKriterien = {Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -115,7 +115,7 @@ public class Hoteluebernachtung extends Angebot {
 	 * 
 	 * @return Erlaubte Kriterienarray
 	 */
-	public String[] getErlaubteKriterien() {
+	public static String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	

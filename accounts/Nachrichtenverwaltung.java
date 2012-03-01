@@ -3,7 +3,6 @@ package accounts;
 import java.util.ArrayList;
 
 import main.Portal;
-
 import angebote.typen.Angebot;
 /**
  * 
@@ -48,11 +47,19 @@ public class Nachrichtenverwaltung {
 	 */
 	public void delAllNachrichten(Angebot ang){
 		Accountverwaltung av = Portal.getSingletonObject().getAccountverwaltung();
+		int n;
+		ArrayList<Nachricht> pe,pa;
 		for(Account acc : av.getAccounts()){
-			for(Nachricht n : getErhalteneNachrichten(acc))
-				if(n.getAngebot().equals(ang))
-					delNachricht(n);
-			for(Nachricht n : getGesendeteNachrichten(acc))
+			pe = getErhalteneNachrichten(acc);
+			pa = getGesendeteNachrichten(acc);
+			n = pe.size();
+			for(int i=0; i<n; i++)
+				if(pe.get(i).getAngebot().equals(ang)){
+					delNachricht(pe.get(i--));
+					n--;
+				}
+			n = pa.size();
+			for(int i=0; i<n; i++)
 				if(n.getAngebot().equals(ang))
 					delNachricht(n);
 		}
@@ -63,10 +70,11 @@ public class Nachrichtenverwaltung {
 	 * @param acc spezielles Accountobjekt
 	 */
 	public void delAllNachrichten(Account acc){
-		for(Nachricht n : getErhalteneNachrichten(acc))
-			delNachricht(n);
-		for(Nachricht n : getGesendeteNachrichten(acc))
-			delNachricht(n);
+		// Mit For-Each-Schleife funktioniert Löschen nicht wie gewünscht, da Elemente nachrutschen
+		while(!getErhalteneNachrichten(acc).isEmpty())
+			delNachricht(getErhalteneNachrichten(acc).get(0));
+		while(!getGesendeteNachrichten(acc).isEmpty())
+			delNachricht(getGesendeteNachrichten(acc).get(0));
 	}
 	
 	/** Gibt den Postausgang eines Accounts aus

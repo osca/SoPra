@@ -228,7 +228,9 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @return erlaubte Kriterien Array
 	 */
-	public abstract String[] getErlaubteKriterien();
+	public static String[] getErlaubteKriterien(){
+		return null;
+	}
 	
 	/**
 	 * Get Kriterien eines Angebots

@@ -95,24 +95,19 @@ public class NachrichtenVerwaltungTest {
 		Assert.assertEquals(posteingangAnb.size(),2);
 		Assert.assertEquals(postausgangAnb.size(),3);
 		Assert.assertEquals(posteingangKun.size(),3);
-		
+
 		//Loeschen nach Angebot
-		nv.delAllNachrichten(ang2);
+		nv.delAllNachrichten(ang1);
 		
-		Assert.assertEquals(postausgangKun.size(),2);
-		Assert.assertEquals(posteingangAnb.size(),2);
-		Assert.assertEquals(postausgangAnb.size(),2);
-		Assert.assertEquals(posteingangKun.size(),2);
-		
+		Assert.assertEquals(postausgangKun.size(),1);
+		Assert.assertEquals(posteingangAnb.size(),1);
+		Assert.assertEquals(postausgangAnb.size(),1);
+		Assert.assertEquals(posteingangKun.size(),1);
+
 		//Loeschen nach Account
 		nv.delAllNachrichten(kunde);
-		nv.delAllNachrichten(anbieter);
-		
-		System.out.println(postausgangKun.size());
-		System.out.println(posteingangAnb.size());
-		System.out.println(postausgangAnb.size());
-		System.out.println(posteingangKun.size());
-		
+		//nv.delAllNachrichten(anbieter);
+
 		Assert.assertEquals(postausgangKun.size(),0);
 		Assert.assertEquals(posteingangAnb.size(),0);
 		Assert.assertEquals(postausgangAnb.size(),0);

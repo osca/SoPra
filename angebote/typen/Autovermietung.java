@@ -16,7 +16,7 @@ public class Autovermietung extends Angebot {
 	public static final int ORT = 0;
 	private Ort ort = null;
 	
-	private String[] erlaubteKriterien = {Ort.name};
+	public static final String[] erlaubteKriterien = {Ort.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 
 	/**
@@ -49,7 +49,7 @@ public class Autovermietung extends Angebot {
 	/**
 	 * Get erlaubte Kriterien (Array)
 	 */
-	public String[] getErlaubteKriterien() {
+	public static String[] getErlaubteKriterien() {
 		return erlaubteKriterien;
 	}
 	
