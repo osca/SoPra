@@ -81,16 +81,33 @@ public class Accountverwaltung {
 	
 	/**
 	 * Loggt einen Account an der Verwaltung als aktiv ein.
-	 * @param identifier entweder E-Mail
-	 * @param password
+	 * @param identifier entweder E-Mail oder Nick
+	 * @param password passwort
+	 * @throws LoginException Falls Passwort nicht passend oder Account nicht gefunden (mit entspr. Nachricht)
 	 */
-	public void logIn(String identifier, String password){
+	public void logIn(String identifier, String password) throws LoginException{
+		for (Account acc : getAccounts()){
+			if(acc.getEmail().equals(identifier) || acc.getName().equals(identifier)){ //match found
+				if(!acc.getPassword().equals(password))
+					throw new LoginException("Passwort war falsch");
+				loggedIn = acc;
+				return;
+			}
+		}
+		throw new LoginException("Account wurde nicht gefunden");
 	}
 	
+	/**
+	 * @return der aktuell eingeloggte Account
+	 */
 	public Account getLoggedIn(){
 		return loggedIn;
 	}
 	
+	public void logOut(){
+		//TODO Exceptions oder Warnungen
+		loggedIn = new Default();
+	}
 	/**
 	 * Account (de)aktivieren
 	 * 
