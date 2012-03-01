@@ -136,4 +136,9 @@ public class Buchung implements Listable {
 		}
 		return result;
 	}
+
+	@Override
+	public int getListableTyp() {
+		return BUCHUNG;
+	}
 }
