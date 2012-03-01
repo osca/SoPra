@@ -50,9 +50,11 @@ public class Nachrichtenverwaltung {
 		Accountverwaltung av = Portal.getSingletonObject().getAccountverwaltung();
 		for(Account acc : av.getAccounts()){
 			for(Nachricht n : getErhalteneNachrichten(acc))
-				delNachricht(n);
+				if(n.getAngebot().equals(ang))
+					delNachricht(n);
 			for(Nachricht n : getGesendeteNachrichten(acc))
-				delNachricht(n);
+				if(n.getAngebot().equals(ang))
+					delNachricht(n);
 		}
 	}
 	

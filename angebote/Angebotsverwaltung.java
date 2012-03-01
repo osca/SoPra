@@ -22,7 +22,7 @@ public class Angebotsverwaltung {
 		case Angebot.AUTOVERMIETUNG:
 			offer = createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
 		case Angebot.AUSFLUG:
-			offer = createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausfluege.ORT], krit[Ausfluege.BIERPREIS]);
+			offer = createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
 		case Angebot.HOTEL:
 			offer = createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
 						krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
@@ -46,7 +46,7 @@ public class Angebotsverwaltung {
 	 * @param ort Ort an dem Das Auto abgeholt werden kann
 	 * @see Autovermietung
 	 */
-	public Angebot createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort){
+	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort){
 		return new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
 	}
 	
@@ -62,17 +62,17 @@ public class Angebotsverwaltung {
 	 * @param pbierpreis
 	 * @return
 	 */
-	public Angebot createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
+	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date[] pdaten, String port, String pbierpreis){
-		return new Ausfluege(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
+		return new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
 	}
 	
-	public Angebot createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
+	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis){
 		return new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
 	}
 	
-	public Angebot createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date[] daten, 
+	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date[] daten, 
 			String ort, String klima, String sterne, String verpf, String bierpr){
 		return new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
 	}
