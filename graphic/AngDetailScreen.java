@@ -83,6 +83,8 @@ public class AngDetailScreen extends JPanel{
 		fullinfo.setLineWrap(true);
 		fullinfo.setWrapStyleWord(true);
 		fullinfo.setBackground(Color.LIGHT_GRAY);
+		fullinfo.setEditable(false);
+		
 		mid.add(fullinfo);
 		
 		if(usertype==0){
@@ -96,19 +98,22 @@ public class AngDetailScreen extends JPanel{
 			melden = new JButton("Melden");
 			down.add(BorderLayout.EAST, kommentieren);
 			down.add(BorderLayout.CENTER, buchen);
-			down.add(BorderLayout.CENTER, melden);
+			down.add(BorderLayout.WEST, melden);
+			break;
 		}
 		case Account.ANBIETER:{
 			loeschen = new JButton("Loeschen"); 
 			editieren = new JButton("Editieren");
 			down.add(BorderLayout.EAST, loeschen);
 			down.add(BorderLayout.WEST, editieren);
+			break;
 		}
 		case Account.BETREIBER:{
 			loeschen = new JButton("Loeschen");
 			kontaktieren = new JButton("Kontaktieren");
 			down.add(BorderLayout.EAST, loeschen);
 			down.add(BorderLayout.WEST, kontaktieren);
+			break;
 		}
 		}
 		
