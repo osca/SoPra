@@ -31,7 +31,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 
 	private JTextField name;
 	private JComboBox typ;
-	private Vector<String> typ_l;
+	private Vector<String> typ_list;
 	private DefaultComboBoxModel typ_m;
 	private JTextField vpreis;
 	private JTextField bpreis;
@@ -58,13 +58,13 @@ public class Suchmaske extends JPanel implements ActionListener {
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
-		typ_l = new Vector<String>();
-		typ_l.add("Typ");
-		typ_l.add("Hoteluebernachtung");
-		typ_l.add("Autovermietung");
-		typ_l.add("Ausflueg");
-		typ_l.add("Flug");
-		typ = new JComboBox(typ_l);
+		typ_list = new Vector<String>();
+		typ_list.add("Typ");
+		typ_list.add("Hoteluebernachtung");
+		typ_list.add("Autovermietung");
+		typ_list.add("Ausflueg");
+		typ_list.add("Flug");
+		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		sub_a.add(typ);
