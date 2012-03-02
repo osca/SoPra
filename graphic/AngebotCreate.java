@@ -4,15 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
@@ -29,7 +32,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	private JPanel mid;
 	private JPanel down;
 
-	private JTextField name;
+	private JFormattedTextField name;
 
 	private JComboBox typ;
 	private Vector<String> typ_list;
@@ -54,12 +57,15 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	private JButton verwerfen;
 	private JButton bestaetigen;
 
-	public AngebotCreate(Anbieter a) {
+	public AngebotCreate(Anbieter a) throws ParseException {
 		setLayout(new BorderLayout(5, 5));
-
+		
+		MaskFormatter formatter = new MaskFormatter("");
+		formatter.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+		
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(6, 2));
-		name = new JTextField();
+		JFormattedTextField name = new JFormattedTextField(formatter);
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
 		name.setToolTipText("Bitte Namen eingeben");

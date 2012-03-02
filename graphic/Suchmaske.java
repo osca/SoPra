@@ -176,14 +176,11 @@ public class Suchmaske extends JPanel implements ActionListener {
 			sub_b.repaint();
 		}
 		else if(e.getSource()==suche){
-			
-			
-			// TODO
-			// gab einen fehler aus, hab ich erstmal auskommentiert
-			//Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem(), kap.getText(), vpreis.getText(), bpreis.getText(), daten, kriterien);
+			Portal.getSingletonObject().getAngebotsverarbeitung().
 		}
 		else if(e.getSource()==abbrechen){
 			
 		}
 	}
+	
 }
