@@ -19,7 +19,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testCreateKunde() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createKunde("Kunde1@kunde.de", "Kunde", "KundenPasswort");
 			
@@ -39,7 +39,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testCreateAnbieter() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createAnbieter("Anbieter1@anbieter.de", "Anbieter", "AnbieterPasswort");
 			
@@ -58,7 +58,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testeCreateBetreiber() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createBetreiber("Betreiber1@betreiber.de", "Betreiber", "BetreiberPasswort");
 			
@@ -77,7 +77,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testEnableAccount() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		acv.setEnableAccount(acv.getKunden().get(0), false);
 	
@@ -87,7 +87,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testDeleteKunden() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
 			acv.delAccount(acv.getKunden().get(0));
@@ -99,7 +99,7 @@ public class AccountverwaltungTest {
 	}
 
 	public void testDeleteAnbieter() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
 			acv.createAnbieter("pfui@tui,de", "PFUI", "supiiii");
@@ -115,7 +115,7 @@ public class AccountverwaltungTest {
 	}
 	
 	public void testDeleteBetreiber() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
 			acv.createBetreiber("", "", "");

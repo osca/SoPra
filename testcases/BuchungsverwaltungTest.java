@@ -25,9 +25,9 @@ import buchungen.Buchungsverwaltung;
  */
 public class BuchungsverwaltungTest {
 	
-	Angebotsverwaltung av = Portal.getSingletonObject().getAngebotsverwaltung();
-	Accountverwaltung accv = Portal.getSingletonObject().getAccountverwaltung();
-	Buchungsverwaltung bv = Portal.getSingletonObject().getBuchungsverwaltung();
+	Angebotsverwaltung av = Portal.Angebotsverwaltung();
+	Accountverwaltung accv = Portal.Accountverwaltung();
+	Buchungsverwaltung bv = Portal.Buchungsverwaltung();
 	
 	Anbieter anbieter;
 	Kunde kunde1,kunde2;

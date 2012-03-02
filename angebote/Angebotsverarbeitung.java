@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 
 import main.Portal;
-import accounts.Anbieter;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
@@ -87,7 +86,7 @@ public class Angebotsverarbeitung {
 		final int numberOfEntries=10;
 		
 		for(Angebot a:aktAngebote){
-			int curBuchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a).size();
+			int curBuchungen = Portal.Buchungsverwaltung().getBuchungen(a).size();
 			topAngebote.add(a);
 			Collections.sort(topAngebote);
 			if(curBuchungen>numberOfEntries) {
@@ -101,8 +100,9 @@ public class Angebotsverarbeitung {
 	
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
 		Date now = new Date();
-		ArrayList<Angebot> erstellteAngebote = getAllAngebote();
+		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
 			if(ang.getDaten()[ang.getDaten().length-1].before(now)) {
@@ -114,8 +114,9 @@ public class Angebotsverarbeitung {
 	}
 	public ArrayList<Angebot> getAktuelleAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
 		Date now = new Date();
-		ArrayList<Angebot> erstellteAngebote = getAllAngebote();
+		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
 			if(!(ang.getDaten()[ang.getDaten().length-1].before(now))) {
@@ -125,23 +126,5 @@ public class Angebotsverarbeitung {
 		
 		return result;
 	}
-	public ArrayList<Angebot> getAllAngebote(){
-		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
-		ArrayList<Angebot> alleAngebote = new ArrayList<Angebot>();
-		for(Anbieter a:anbieterListe){
-			alleAngebote.addAll(getAngebote(a));
-		}
-		return alleAngebote;
-	}
-	public ArrayList<Angebot> getAngebote(Anbieter anbieter){
-		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
-		ArrayList<Angebot> anbieterAngebote=new ArrayList<Angebot>();
-		for(Anbieter a:anbieterListe){
-			if(a.equals(anbieter)){
-				anbieterAngebote.addAll(getAngebote(a));
-				return anbieterAngebote;
-			}
-		}
-		return anbieterAngebote;
-	}
+	
 }

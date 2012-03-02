@@ -17,9 +17,9 @@ import angebote.typen.Autovermietung;
 
 public class NachrichtenVerwaltungTest {
 
-	Accountverwaltung accv = Portal.getSingletonObject().getAccountverwaltung();
-	Nachrichtenverwaltung nv = Portal.getSingletonObject().getNachrichtenverwaltung();
-	Angebotsverwaltung av = Portal.getSingletonObject().getAngebotsverwaltung();
+	Accountverwaltung accv = Portal.Accountverwaltung();
+	Nachrichtenverwaltung nv = Portal.Nachrichtenverwaltung();
+	Angebotsverwaltung av = Portal.Angebotsverwaltung();
 	Anbieter anbieter;
 	Kunde kunde;
 	Autovermietung ang1;

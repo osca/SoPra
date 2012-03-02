@@ -29,10 +29,10 @@ import buchungen.Buchungsverwaltung;
  */
 public class AngebotTest {
 
-	Angebotsverwaltung av = Portal.getSingletonObject().getAngebotsverwaltung();
-	Angebotsverarbeitung ava = Portal.getSingletonObject().getAngebotsverarbeitung();
-	Accountverwaltung accv = Portal.getSingletonObject().getAccountverwaltung();
-	Buchungsverwaltung bv = Portal.getSingletonObject().getBuchungsverwaltung();
+	Angebotsverwaltung av = Portal.Angebotsverwaltung();
+	Angebotsverarbeitung ava = Portal.Angebotsverarbeitung();
+	Accountverwaltung accv = Portal.Accountverwaltung();
+	Buchungsverwaltung bv = Portal.Buchungsverwaltung();
 	
 	Anbieter anbieter1;
 	Anbieter anbieter2;
@@ -93,19 +93,19 @@ public class AngebotTest {
 		//Loeschen eines bestimmten Angebots
 		av.delAngebot(ang2);
 		
-		Assert.assertTrue(ava.getAllAngebote().contains(ang1));
-		Assert.assertFalse(ava.getAllAngebote().contains(ang2));
-		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
+		Assert.assertTrue(av.getAllAngebote().contains(ang1));
+		Assert.assertFalse(av.getAllAngebote().contains(ang2));
+		Assert.assertTrue(av.getAllAngebote().contains(ang3));
 		
 		//Aendern eines bestimmten Angebots
 		av.editAngebot(ang1, ang2, anbieter1);
 		
-		Assert.assertFalse(ava.getAllAngebote().contains(ang1));
-		Assert.assertTrue(ava.getAllAngebote().contains(ang2));
-		Assert.assertTrue(ava.getAllAngebote().contains(ang3));
+		Assert.assertFalse(av.getAllAngebote().contains(ang1));
+		Assert.assertTrue(av.getAllAngebote().contains(ang2));
+		Assert.assertTrue(av.getAllAngebote().contains(ang3));
 		
 		//Get Alle Angebote
-		Assert.assertEquals(3, ava.getAllAngebote().size());
+		Assert.assertEquals(3, av.getAllAngebote().size());
 		
 		//Get abgelaufene Angebote
 		Assert.assertEquals(0, ava.getAbgelaufeneAngebote().size());
@@ -114,7 +114,7 @@ public class AngebotTest {
 		Assert.assertEquals(3, ava.getAktuelleAngebote().size());
 		
 		//Get Angebote eines Anbieters
-		Assert.assertEquals(ang4, ava.getAngebote(anbieter2).get(0));
+		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
 		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new String[]{"Muenster","Guenstig"});
