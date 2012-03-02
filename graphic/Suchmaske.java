@@ -208,7 +208,16 @@ public class Suchmaske extends JPanel implements ActionListener {
 			  }
 			       
 			}
-			Date [] date = lolz(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			Date[] date = null;
+			try {
+				date = lolz(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
 					Double.parseDouble(bpreis.getText()), date, k);
