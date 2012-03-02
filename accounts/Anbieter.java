@@ -36,6 +36,14 @@ public class Anbieter extends Account{
 		angebote.remove(angebotsNummer);
 	}
 	
+	/**
+	 * gibt von allen Angeboten des Anbieters die AngebotsNummern aus
+	 * @return ArrayList
+	 */
+	public ArrayList<Integer> getAngebotsNummern(){
+		return angebote;
+	}
+	
 	public double getWertung() {
 		double result = 0.00;
 		
