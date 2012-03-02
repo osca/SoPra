@@ -188,7 +188,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				verpflegung = new JComboBox(Verpflegungsart.wertebereich);
 				sub_b.add(verpflegung);
 				
-				JLabel bierpreis_label= new JLabel("Bierpreie:");
+				JLabel bierpreis_label= new JLabel("Bierpreis:");
 				sub_b.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
 				sub_b.add(bierpreis);
@@ -246,7 +246,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		else if(e.getSource()==bestaetigen){
 String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
-			for(int i=0;i < sub_b.getComponentCount(); i++)
+			for(int i=0;i < sub_b.getComponentCount()-1; i++)
 			{
 			 Component c = sub_b.getComponent(i);
 			  if(c instanceof JComboBox){
