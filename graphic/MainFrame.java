@@ -139,7 +139,7 @@ public class MainFrame extends JFrame
 		
 		ArrayList<Angebot> al = new ArrayList<Angebot>();
 		for(int i=0;i<100;i++)
-			al.add(new Flug(null,"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
 		list = new ListeScreen(this, al);
 		
 		screen.add(list);
@@ -260,9 +260,9 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-					if(nameField.equals("1"))
+					if(nameField.getText().equals("eins"))
 						account = new Kunde("1324","1234","1243");
-					else if(nameField.equals("2"))
+					else if(nameField.getText().equals("zwei"))
 						account = new Anbieter("1324","1234","1243");
 					else 
 						account = new Betreiber("1324","1234","1243");

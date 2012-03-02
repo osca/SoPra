@@ -240,7 +240,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				sub_b.add(bierpreis);
 				
 			}
-			sub_b.repaint();
+			this.repaint();
 		}
 		else if(e.getSource()==bestaetigen){
 String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
