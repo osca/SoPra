@@ -32,7 +32,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	private JPanel mid;
 	private JPanel down;
 
-	private JFormattedTextField name;
+	private JTextField name;
 
 	private JComboBox typ;
 	private Vector<String> typ_list;
@@ -60,12 +60,12 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	public AngebotCreate(Anbieter a) throws ParseException {
 		setLayout(new BorderLayout(5, 5));
 		
-		MaskFormatter formatter = new MaskFormatter("");
-		formatter.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+//		MaskFormatter formatter = new MaskFormatter("***********************************************");
+//		formatter.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
 		
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(6, 2));
-		JFormattedTextField name = new JFormattedTextField(formatter);
+		name = new JTextField();
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
 		name.setToolTipText("Bitte Namen eingeben");
