@@ -1,10 +1,12 @@
 package graphic;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -19,13 +21,15 @@ import javax.swing.text.MaskFormatter;
 import main.Portal;
 
 import accounts.Anbieter;
+import angebote.Angebotsverwaltung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
+import angebote.typen.Angebot;
 
 
-public class AngebotCreate extends JPanel implements ActionListener {
+public class AngebotCreate<FormattedTextField> extends JPanel implements ActionListener {
 
 	private JPanel up;
 	private JPanel sub_a;
@@ -39,6 +43,9 @@ public class AngebotCreate extends JPanel implements ActionListener {
 	private Vector<String> typ_list;
 	private JFormattedTextField preis;
 	private JFormattedTextField kap;
+	private JFormattedTextField von;
+	private JFormattedTextField bis;
+	private JFormattedTextField interval;
 	private JLabel anbieter;
 
 	// Kriterien
@@ -71,7 +78,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
 		
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(6, 2));
+		sub_a = new JPanel(new GridLayout(9, 2));
 		name = new JFormattedTextField(stringformat);
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
@@ -99,6 +106,18 @@ public class AngebotCreate extends JPanel implements ActionListener {
 		sub_a.add(kap_label);
 		kap = new JFormattedTextField(interv);
 		sub_a.add(kap);
+		JLabel von_label = new JLabel("Datum von");
+		sub_a.add(von_label);
+		von = new JFormattedTextField(date_f);
+		sub_a.add(von);
+		JLabel bis_label = new JLabel("Datum bis");
+		sub_a.add(bis_label);
+		bis = new JFormattedTextField(date_f);
+		sub_a.add(bis);
+		JLabel interval_label = new JLabel("Interval");
+		sub_a.add(interval_label);
+		interval = new JFormattedTextField(interv);
+		sub_a.add(interval);
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_a.add(anbieter_label);
 		anbieter = new JLabel(a.getName());
@@ -224,7 +243,31 @@ public class AngebotCreate extends JPanel implements ActionListener {
 			sub_b.repaint();
 		}
 		else if(e.getSource()==bestaetigen){
-			Portal.getSingletonObject().getAngebotsverwaltung().createAngebot(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn().getName(), name.getText(), beschreibung.getText(), typ, preis, kapazitaet, daten, krit)
+String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
+			
+			for(int i=0;i < sub_b.getComponentCount(); i++)
+			{
+			 Component c = sub_b.getComponent(i);
+			  if(c instanceof JComboBox){
+				  k[i]=((JComboBox) c).getSelectedItem().toString();
+			  }
+			  if(c instanceof JFormattedTextField){
+				  k[i]= ((JFormattedTextField) c).getText();
+			  }
+			       
+			}
+			Date[] date = null;
+			try {
+				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Portal.getSingletonObject().getAngebotsverwaltung().createAngebot((Anbieter) Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			
 		}
 		
 	}
