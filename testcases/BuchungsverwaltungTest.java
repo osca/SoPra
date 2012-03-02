@@ -11,7 +11,6 @@ import org.junit.Test;
 import accounts.Accountverwaltung;
 import accounts.Anbieter;
 import accounts.Kunde;
-import accounts.LoeschenNichtMoeglichException;
 import angebote.Angebotsverwaltung;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;

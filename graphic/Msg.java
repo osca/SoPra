@@ -1,14 +1,21 @@
 package graphic;
 
-import accounts.*;
-import angebote.typen.Angebot;
-import main.Portal;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
+
+import main.Portal;
+import accounts.Account;
+import angebote.typen.Angebot;
 
 
 /**

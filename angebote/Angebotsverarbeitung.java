@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 
 import main.Portal;
-
 import accounts.Anbieter;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;

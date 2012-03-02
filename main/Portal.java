@@ -1,9 +1,9 @@
 package main;
 import accounts.Accountverwaltung;
 import accounts.Nachrichtenverwaltung;
+import angebote.Angebotsverarbeitung;
 import angebote.Angebotsverwaltung;
 import buchungen.Buchungsverwaltung;
-import angebote.Angebotsverarbeitung;
 
 
 public class Portal {

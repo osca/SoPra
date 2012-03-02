@@ -1,6 +1,7 @@
 package buchungen;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 import main.Portal;
 import accounts.Kunde;

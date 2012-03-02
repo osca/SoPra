@@ -15,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import angebote.kriterien.Kriterium;
 import buchungen.Buchung;
 
 public class BuchDetailScreen extends JPanel {
