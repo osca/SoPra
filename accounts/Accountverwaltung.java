@@ -3,14 +3,12 @@ package accounts;
 import java.util.ArrayList;
 import java.util.Date;
 
+import main.Portal;
+import angebote.Angebotsverwaltung;
+import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
-
-import angebote.Angebotsverwaltung;
-import angebote.typen.Angebot;
-
-import main.Portal;
 
 /**
  * Verwaltet alle drei Accounttypen. Fuehrt saemtliche nicht-triviale Methoden 

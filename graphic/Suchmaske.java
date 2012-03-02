@@ -6,16 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -39,13 +33,13 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JPanel sub_b;
 	private JPanel mid;
 
-	private JTextField name;
+	private JFormattedTextField name;
 	private JComboBox typ;
 	private Vector<String> typ_list;
 	private JFormattedTextField vpreis;
 	private JFormattedTextField bpreis;
 	private JFormattedTextField kap;
-	private JTextField anbieter;
+	private JFormattedTextField anbieter;
 	private JFormattedTextField von;
 	private JFormattedTextField bis;
 	private JFormattedTextField interval;
@@ -63,13 +57,28 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JButton abbrechen;
 
 	public Suchmaske() throws ParseException {
+		
+
+		MaskFormatter preisformat = new MaskFormatter("******.**");
+		preisformat.setValidCharacters("0123456789");
+		MaskFormatter date_f = new MaskFormatter("##/##/####");
+		date_f.setValidCharacters("0123456789");
+		MaskFormatter interv = new MaskFormatter("**");
+		interv.setValidCharacters("0123456789");
+		MaskFormatter stringformat =new MaskFormatter(Methods.format4long(30));
+		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(9, 0));
+		sub_a = new JPanel(new GridLayout(9, 2));
 		sub_b = new JPanel(new GridLayout(6, 0));
-		name = new JTextField();
+		JLabel name_label= new JLabel("Name:");
+		sub_a.add(name_label);
+		name =new JFormattedTextField(stringformat);
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
+		JLabel typ_label = new JLabel("Typ:");
+		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
 		typ_list.add("Typ");
 		typ_list.add("Hoteluebernachtung");
@@ -80,24 +89,22 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		sub_a.add(typ);
-		
-		MaskFormatter preisformat = new MaskFormatter("******.**");
-		preisformat.setValidCharacters("0123456789");
-		MaskFormatter date_f = new MaskFormatter("##/##/####");
-		date_f.setValidCharacters("0123456789");
-		MaskFormatter interv = new MaskFormatter("**");
-		interv.setValidCharacters("0123456789");
-		
+		JLabel vpreis_label = new JLabel("Startpreis:");
+		sub_a.add(vpreis_label);
 		vpreis = new JFormattedTextField(preisformat);
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
+		JLabel bpreis_label = new JLabel("Endpreis:");
+		sub_a.add(bpreis_label);
 		bpreis = new JFormattedTextField(preisformat);
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
+		JLabel kap_label = new JLabel("Kapazitaet:");
+		sub_a.add(kap_label);
 		kap = new JFormattedTextField(interv);
 		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
 		sub_a.add(kap);
-		anbieter = new JTextField();
+		anbieter = new JFormattedTextField(stringformat);
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6, 0));
@@ -114,15 +121,23 @@ public class Suchmaske extends JPanel implements ActionListener {
 		suche = new JButton("Suchen");
 		mid.add(suche);
 		
-		add(up);
-		add(mid);
+		add(BorderLayout.NORTH,up);
+		add(BorderLayout.SOUTH,mid);
 		//abbrechen = new JButton("Abbrechen");
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		MaskFormatter stringformatone = null;
+		try {
+			stringformatone = new MaskFormatter(Methods.format4long(30));
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		stringformatone.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+		
 		if (e.getSource() == typ) {
 			sub_b.removeAll();
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
@@ -132,7 +147,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_b.add(ort);
 				
@@ -143,7 +158,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 				
 				JLabel sterne_label= new JLabel("Sterne:");
 				sub_b.add(sterne_label);
-				sterne = new JTextField();
+				sterne = new JFormattedTextField(stringformatone);
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 				sub_b.add(sterne);
 				
@@ -160,7 +175,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 			
@@ -169,7 +184,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
 				JLabel ort_label= new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort =new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 				
@@ -183,12 +198,12 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				JLabel ort_label= new JLabel("Startort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Startort");
 				sub_b.add(ort);
 				JLabel ortz_label= new JLabel("Zielort:");
 				sub_b.add(ortz_label);
-				ortz = new JTextField();
+				ortz = new JFormattedTextField(stringformatone);
 				ortz.setToolTipText("Bitte geben Sie einen Zielort");
 				sub_b.add(ortz);
 				
@@ -215,8 +230,8 @@ public class Suchmaske extends JPanel implements ActionListener {
 			  if(c instanceof JComboBox){
 				  k[i]=((JComboBox) c).getSelectedItem().toString();
 			  }
-			  if(c instanceof JTextField){
-				  k[i]= ((JTextField) c).getText();
+			  if(c instanceof JFormattedTextField){
+				  k[i]= ((JFormattedTextField) c).getText();
 			  }
 			       
 			}

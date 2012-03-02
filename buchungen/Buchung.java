@@ -6,7 +6,6 @@ import java.util.Date;
 
 import accounts.Kunde;
 import angebote.typen.Angebot;
-import buchungen.Bestaetigung;
 
 /**
  * Entitaetsklasse Buchung mit einem Anzahlcounter, einer Buchungsnummer,

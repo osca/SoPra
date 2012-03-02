@@ -29,4 +29,13 @@ public class Methods {
 		}
 		return d;
 	}
+	
+	public static String format4long(int length){
+		String s ="";
+		for(int i=0;i<length;i++){
+			s += "*";
+		}
+		return s;
+	}
+	
 }

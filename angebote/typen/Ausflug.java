@@ -5,8 +5,8 @@ import java.util.Date;
 
 import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
-import angebote.kriterien.Ort;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Ort;
 
 /**
  * Ausfluege erbt von Angebot. Enthaelt Ort und Bierpreis.
