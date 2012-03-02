@@ -9,6 +9,8 @@ import java.awt.Insets;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,12 +20,14 @@ import javax.swing.DefaultButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.Popup;
@@ -171,7 +175,7 @@ public class MainFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				login();
+				showLogin();
 			}
 		});
 		
@@ -199,6 +203,15 @@ public class MainFrame extends JFrame
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				showSuche();
+			}
+		});
+		
+		nachrichtButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showNachricht();
 			}
 		});
 		
@@ -231,17 +244,17 @@ public class MainFrame extends JFrame
 
 	/////////////////////////
 	
-	private void login() 
+	private void showLogin() 
 	{
 		try
 		{
 			if(!logged)
 			{
+				
+				
 				JTextField nameField = new JTextField("Name");
 				JTextField passwordField = new JTextField("Password");
-				JLabel label = new JLabel();
-						
-				label.setText("Bitte geben Sie die Anmeldeinformationen an");
+				JLabel label = new JLabel("Bitte geben Sie die Anmeldeinformationen an");
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
@@ -254,11 +267,16 @@ public class MainFrame extends JFrame
 						eigeneButton.setEnabled(true);
 						nachrichtButton.setEnabled(true);
 						
+						nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.getSingletonObject().getNachrichtenverwaltung().getErhalteneNachrichten(account).size()+")");
+						
 						loginButton.setText("Logout");
 						if(account.getTyp() == Account.KUNDE)
 							eigeneButton.setText("Eigene Buchungen");
 						else if(account.getTyp() == Account.ANBIETER)
+						{
 							eigeneButton.setText("Eigene Angebote");
+							erstelleButton.setEnabled(true);
+						}
 						else
 							eigeneButton.setText("Alle Accounds");
 						
@@ -275,7 +293,10 @@ public class MainFrame extends JFrame
 				eigeneButton.setEnabled(false);
 				eigeneButton.setText("Angebote/Buchungen");
 				nachrichtButton.setEnabled(false);
+				erstelleButton.setEnabled(false);
 				loginButton.setText("Login");
+				nachrichtButton.setText("Nachrichten");
+				
 				this.repaint();
 				logged = false;
 			}
@@ -290,7 +311,16 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			JOptionPane.showConfirmDialog(this,new Object[]{},"Login",JOptionPane.OK_CANCEL_OPTION);
+			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
+			JTextField nameField = new JTextField("Name");
+			JTextField emailField = new JTextField("E-Mail-Adresse");
+			JTextField passwordField = new JTextField("Password");
+			
+			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
+			final JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
+			final JTextArea agb = new JTextArea("Bitte füllen Sie Ihre Allgemeinen Geschäftsbedingungen aus!");
+			
+			JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Login",JOptionPane.OK_CANCEL_OPTION);
 		}
 		catch(Exception e)
 		{
@@ -334,6 +364,19 @@ public class MainFrame extends JFrame
 		{
 			
 		}
+	}
+	
+	private void showNachrichten()
+	{
+		try
+		{
+			screen.removeAll();
+//			screen.add(new Msg());
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{}
 	}
 	
 	private void showTopAngebote()

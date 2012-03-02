@@ -3,12 +3,17 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import angebote.kriterien.Kriterium;
 import buchungen.Buchung;
@@ -40,7 +45,7 @@ public class BuchDetailScreen extends JPanel {
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new BorderLayout(5,5));
 		
-		name = new JLabel(b.getIdetifier());
+		name = new JLabel(b.getIdentifier());
 		typ = new JLabel (""+b.getAngebot().getTyp());		//GUCKEN BITTE
 		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
@@ -64,6 +69,17 @@ public class BuchDetailScreen extends JPanel {
 		mid.add(fullinfo);
 		
 		aenderungsanfrage = new JButton("Aenderungsanfrage");
+		aenderungsanfrage.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				JTextField betreff = new JTextField("Betreff");
+				JTextArea area = new JTextArea("");
+				JOptionPane.showConfirmDialog(null,new Object[]{betreff,area},"Login",JOptionPane.OK_CANCEL_OPTION);
+			}
+		});
 		stornieren = new JButton("Stronieren");
 		down.add(BorderLayout.EAST, aenderungsanfrage);
 		down.add(BorderLayout.WEST, stornieren);
