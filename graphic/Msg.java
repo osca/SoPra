@@ -92,7 +92,7 @@ public class Msg extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Portal.getSingletonObject().getNachrichtenverwaltung().sendeNachricht(sender, empf, betr, msgText, bezug);
+			Portal.Nachrichtenverwaltung().sendeNachricht(sender, empf, betr, msgText, bezug);
 		}
 	};
 	
