@@ -6,13 +6,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.text.DateFormatter;
 
 import main.Portal;
 import accounts.Account;
@@ -288,6 +292,7 @@ public class MainFrame extends JFrame
 			{
 				Portal.Accountverwaltung().logOut();
 				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+				showTopAngebote();
 				
 				eigeneButton.setEnabled(false);
 				eigeneButton.setText("Angebote/Buchungen");
@@ -311,22 +316,28 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-			JTextField nameField = new JTextField("Name");
-			JTextField emailField = new JTextField("E-Mail-Adresse");
-			JTextField passwordField = new JTextField("Password");
-			
-			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
-			final JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
-			final JTextArea agb = new JTextArea("Bitte füllen Sie Ihre Allgemeinen Geschäftsbedingungen aus!");
-			
-			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			if(!logged)
 			{
-				if(drop.getSelectedIndex() == 0)
-					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), passwordField.getText());
-				else
-					Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), passwordField.getText());
+				JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
+				JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
+				JTextField nameField = new JTextField("Name");
+				JTextField emailField = new JTextField("E-Mail-Adresse");
+				JTextField passwordField = new JTextField("Password");
+				
+				JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
+				final JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
+				final JTextArea agb = new JTextArea("Bitte füllen Sie Ihre Allgemeinen Geschäftsbedingungen aus!");
+				
+				if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+				{
+					if(drop.getSelectedIndex() == 0)
+						Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), passwordField.getText());
+					else
+						Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), passwordField.getText());
+				}
 			}
+			else
+				JOptionPane.showMessageDialog(this, "Sie sind bereits registriert");
 		}
 		catch(Exception e)
 		{
@@ -459,5 +470,4 @@ public class MainFrame extends JFrame
 	{
 		MainFrame f = new MainFrame();
 	}
-
 }

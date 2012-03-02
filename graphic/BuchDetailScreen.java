@@ -90,8 +90,7 @@ public class BuchDetailScreen extends JPanel {
 		dPanel.add(BorderLayout.SOUTH,down);
 		
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-		
-		//dscroll.add(dPanel);
+
 		add(dPanel);
 	}
 }
