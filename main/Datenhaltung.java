@@ -21,7 +21,7 @@ public class Datenhaltung {
 			betrFile = new File("Betreiber.xml"), 
 			kundFile = new File("Kunden.xml"),
 			msgFile = new File("Nachrichten.xml");
-
+	private final static String encoding = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 	private Datenhaltung() {
 	}
 
@@ -43,12 +43,18 @@ public class Datenhaltung {
 			betrFile.delete();
 		if(kundFile.exists())
 			kundFile.delete();
+		
 		FileWriter f = new FileWriter(anbFile);
+		f.write(encoding);
 		xs.toXML(av.getAnbieter(), f);
 		f.close();
+
+		f.write(encoding);
 		f = new FileWriter(betrFile);
 		xs.toXML(av.getBetreiber(), f);
 		f.close();
+
+		f.write(encoding);
 		f = new FileWriter(kundFile);
 		xs.toXML(av.getKunden(), f);
 		f.close();
@@ -62,7 +68,9 @@ public class Datenhaltung {
 	public static void saveAllMessages(Nachrichtenverwaltung nv) throws IOException {
 		if(msgFile.exists())
 			msgFile.delete();
+
 		FileWriter f = new FileWriter(msgFile);
+		f.write(encoding);
 		xs.toXML(nv.getAlleNachrichten(), f);
 		f.close();
 	}
