@@ -133,12 +133,11 @@ public class Angebotsverarbeitung {
 		}
 		return alleAngebote;
 	}
-	//TODO überflüssig?
 	public ArrayList<Angebot> getAngebote(Anbieter anbieter){
 		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
 		ArrayList<Angebot> anbieterAngebote=new ArrayList<Angebot>();
 		for(Anbieter a:anbieterListe){
-			if(a==anbieter){
+			if(a.equals(anbieter)){
 				anbieterAngebote.addAll(getAngebote(a));
 				return anbieterAngebote;
 			}

@@ -81,7 +81,7 @@ public class AccountverwaltungTest {
 		
 		acv.setEnableAccount(acv.getKunden().get(0), false);
 	
-		Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), false);
+		Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), true);
 		
 	}
 	
