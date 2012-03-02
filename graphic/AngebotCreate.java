@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.MaskFormatter;
 
+import main.Portal;
+
 import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
@@ -116,6 +118,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 		verwerfen = new JButton("Verwerfen");
 		down.add(BorderLayout.EAST, verwerfen);
 		bestaetigen = new JButton("Bestätigen");
+		bestaetigen.addActionListener(this);
 		down.add(BorderLayout.WEST, bestaetigen);
 
 		add(BorderLayout.NORTH, up);
@@ -219,6 +222,9 @@ public class AngebotCreate extends JPanel implements ActionListener {
 				
 			}
 			sub_b.repaint();
+		}
+		else if(e.getSource()==bestaetigen){
+			Portal.getSingletonObject().getAngebotsverwaltung().createAngebot(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn().getName(), name.getText(), beschreibung.getText(), typ, preis, kapazitaet, daten, krit)
 		}
 		
 	}
