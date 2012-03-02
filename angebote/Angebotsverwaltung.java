@@ -166,4 +166,10 @@ public class Angebotsverwaltung {
 	public void delKommentar(Angebot angebot, Kommentar kommentar) {
 		angebot.delKommentar(kommentar);
 	}
+	
+	public Angebot getAngebotByAngebotsNummer(int id){
+		Angebotsverarbeitung ava = Portal.getSingletonObject().getAngebotsverarbeitung();
+		for(Angebot ang : ava.getAllAngebote())
+			
+	}
 }

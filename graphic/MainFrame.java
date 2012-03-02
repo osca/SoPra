@@ -221,7 +221,7 @@ public class MainFrame extends JFrame
 	{
 		if(obj.getListableTyp() == Angebot.ANGEBOT)
 		{
-			System.out.println(((Angebot)obj).getIdetifier());
+			System.out.println(((Angebot)obj).getIdentifier());
 			
 			screen.removeAll();
 			screen.add(new AngDetailScreen(Account.KUNDE, (Angebot)obj));

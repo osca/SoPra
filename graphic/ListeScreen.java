@@ -55,7 +55,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 				}
 				
 			});
-			JLabel name = new JLabel(list.get(i).getIdetifier());
+			JLabel name = new JLabel(list.get(i).getIdentifier());
 			listenerPanel.add(name);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
 			listenerPanel.add(info);

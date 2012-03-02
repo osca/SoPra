@@ -261,7 +261,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * Listablemethode
 	 */
 	@Override
-	public String getIdetifier() {
+	public String getIdentifier() {
 		return Integer.toString(angebotsNummer);
 	}
 

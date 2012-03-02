@@ -80,7 +80,7 @@ public abstract class Account implements Listable{
 	//-----------------------------------------------------------------------------
 
 	//Listable-Methods
-	public String getIdetifier(){
+	public String getIdentifier(){
 		return name+" / "+email;
 	}
 	
