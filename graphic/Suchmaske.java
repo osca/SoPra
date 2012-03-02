@@ -42,7 +42,6 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JTextField name;
 	private JComboBox typ;
 	private Vector<String> typ_list;
-	private DefaultComboBoxModel typ_m;
 	private JTextField vpreis;
 	private JTextField bpreis;
 	private JTextField kap;
@@ -66,7 +65,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 	public Suchmaske() throws ParseException {
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(10, 0));
+		sub_a = new JPanel(new GridLayout(9, 0));
 		sub_b = new JPanel(new GridLayout(6, 0));
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
@@ -98,7 +97,11 @@ public class Suchmaske extends JPanel implements ActionListener {
 		MaskFormatter formatter = new MaskFormatter("##/##/####");
 		formatter.setValidCharacters("0123456789");
 		von = new JFormattedTextField(formatter);
+		sub_a.add(von);
 		bis = new JFormattedTextField(formatter);
+		sub_a.add(bis);
+//		MaskFormatter interv = new MaskFormatter("**");
+//		formatter.setValidCharacters("0123456789");
 		up.add(sub_a);
 		up.add(sub_b);
 
@@ -210,7 +213,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 			Date[] date = null;
 			try {
-				date = lolz(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+				date = Methods.dater(von.getText(),bis.getText(),1);
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -227,24 +230,5 @@ public class Suchmaske extends JPanel implements ActionListener {
 		}
 	}
 	
-	public Date[] lolz(String start, String end, int  interval) throws ParseException{
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		Date s = 	df.parse(start);
-		Date e =    df.parse(end);
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(s);
-		
-		ArrayList<Date> temp = new ArrayList<Date>();
-		while(s.before(e)){
-			temp.add(s);
-			calendar.add(Calendar.DAY_OF_MONTH, interval);
-			Date a = calendar.getTime();
-			s=df.parse(df.format(a));
-		}
-		Date[] d= new Date[temp.size()];
-		for (int i=0;i<d.length;i++){
-			d[i]=temp.get(i);
-		}
-		return d;
-	}
+	
 }
