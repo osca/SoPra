@@ -1,6 +1,8 @@
 package buchungen;
 
 import java.util.*;
+
+import main.Portal;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import angebote.typen.Angebot;
@@ -50,6 +52,21 @@ public class Buchungsverwaltung {
 		return kunde.getBuchungen();
 	}
 	
+	public Buchung getBuchungByBuchungsnummer(int id){
+		for(Buchung b : getAllBuchungen())
+				if(b.getIdentifier().equals(""+id))
+					return b;
+		return null;
+	}
+	
+	public ArrayList<Buchung> getAllBuchungen(){
+		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		ArrayList<Kunde> acclist = Portal.getSingletonObject().getAccountverwaltung().getKunden();
+		for(Kunde k : acclist)
+			for(Buchung b : getBuchungen(k))
+				reslist.add(b);
+		return reslist;
+	}
 	/**
 	 * Setter.
 	 * 

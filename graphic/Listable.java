@@ -8,7 +8,7 @@ public interface  Listable {
 							NACHRICHT = 2,
 							ACCOUNT = 3;
 	
-	public String getIdetifier();
+	public String getIdentifier();
 	
 	public String getAdditionalInfo();
 	

@@ -49,7 +49,7 @@ public class AngDetailScreen extends JPanel{
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new BorderLayout(5,5));
 		
-		name = new JLabel(a.getIdetifier());
+		name = new JLabel(a.getIdentifier());
 		typ = new JLabel (""+a.getTyp());		//GUCKEN BITTE
 		datum = new JLabel(a.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
 		anbieter = new JLabel(); // edit  wenn implementiert
@@ -88,7 +88,7 @@ public class AngDetailScreen extends JPanel{
 		mid.add(fullinfo);
 		
 		if(usertype==0){
-			nullAcc = new JLabel("Sie müssen sich einlogen um weitere Aktionen durchzuführen");
+			nullAcc = new JLabel("Sie mï¿½ssen sich einlogen um weitere Aktionen durchzufï¿½hren");
 			down.add(BorderLayout.CENTER, nullAcc);
 		}
 		else switch (usertype){
