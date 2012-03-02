@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,8 +68,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	public AngebotCreate(Anbieter a) throws ParseException {
 		setLayout(new BorderLayout(5, 5));
 		
-		MaskFormatter preisformat = new MaskFormatter("******.**");
-		preisformat.setValidCharacters("0123456789");
+//		MaskFormatter preisformat = new MaskFormatter);
+//		preisformat.setValidCharacters("0123456789");
 	//	MaskFormatter date_f = new MaskFormatter(new SimpleDateFormat("dd/mm/yyyy"));
 	//	date_f.setValidCharacters("0123456789");
 		MaskFormatter interv = new MaskFormatter("**");
@@ -101,7 +102,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		sub_a.add(typ);
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
-		preis = new JFormattedTextField(preisformat);
+		preis = new JFormattedTextField(new DecimalFormat("#*#.##"));
 		sub_a.add(preis);
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
