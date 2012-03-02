@@ -49,13 +49,13 @@ public class Datenhaltung {
 		xs.toXML(av.getAnbieter(), f);
 		f.close();
 
-		f.write(encoding);
 		f = new FileWriter(betrFile);
+		f.write(encoding);
 		xs.toXML(av.getBetreiber(), f);
 		f.close();
 
-		f.write(encoding);
 		f = new FileWriter(kundFile);
+		f.write(encoding);
 		xs.toXML(av.getKunden(), f);
 		f.close();
 	}
