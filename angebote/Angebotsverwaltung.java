@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import main.Portal;
-
-import buchungen.Bestaetigung;
-import buchungen.Buchung;
 import accounts.Anbieter;
 import accounts.LoeschenNichtMoeglichException;
-import angebote.typen.*;
+import angebote.typen.Angebot;
+import angebote.typen.Ausflug;
+import angebote.typen.Autovermietung;
+import angebote.typen.Flug;
+import angebote.typen.Hoteluebernachtung;
+import buchungen.Bestaetigung;
+import buchungen.Buchung;
 
 /**
  * @author Benjamin, stephan	

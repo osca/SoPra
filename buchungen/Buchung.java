@@ -8,7 +8,6 @@ import main.Portal;
 
 import accounts.Anbieter;
 import angebote.typen.Angebot;
-import buchungen.Bestaetigung;
 
 /**
  * Entitaetsklasse Buchung mit einem Anzahlcounter, einer Buchungsnummer,

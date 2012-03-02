@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 
 import main.Portal;
-
 import accounts.Anbieter;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
@@ -15,7 +14,7 @@ public class Angebotsverarbeitung {
 	public final static int KEINEKAPAZITAET	= 0;
 	public final static double KEINPREIS 	= 0;
 	public final static Date[] KEINEDATEN	= null;
-	public final static Kriterium KEINKRITERIUM = null;
+	public final static String KEINKRITERIUM = null;
 	/**
 	 * Die Methode geht alle übergebenen Parameter durch für alle Angebote und wenn ein Angebot dabei alle Parameter erfüllen kann wird es der
 	 * Liste der Suchergebnisse angefügt. Es gibt auch immer die Möglichkeit für ein Parameter eine Nichtgewählt-Flag zu setzen, diese wird immer
@@ -32,7 +31,7 @@ public class Angebotsverarbeitung {
 	 * 			KEINKRITERIUM (dieses wird innerhalb des Arrays gesetzt).
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfüllen.
 	 */
-	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, Kriterium[] kriterien){
+	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, String[] kriterien){
 		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
@@ -64,7 +63,7 @@ public class Angebotsverarbeitung {
 				for(int i=0;i<anzKrit;i++){
 					if(kriterien[i]==KEINKRITERIUM) 
 						treffer++;
-					else if(kritContainer.get(i).getWert()==kriterien[i].getWert()) 
+					else if(kritContainer.get(i).getWert()==kriterien[i]) 
 						treffer++;
 				}
 			}

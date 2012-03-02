@@ -1,11 +1,18 @@
 package testcases;
 
-import main.*;
-import accounts.*;
-
-import org.junit.*;
 import java.util.ArrayList;
+
 import junit.framework.Assert;
+import main.Portal;
+
+import org.junit.Test;
+
+import accounts.Accountverwaltung;
+import accounts.AlreadyInUseException;
+import accounts.Anbieter;
+import accounts.Betreiber;
+import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 
 public class AccountverwaltungTest {
 	private Accountverwaltung acv;

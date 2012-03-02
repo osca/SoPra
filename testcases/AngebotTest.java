@@ -15,9 +15,6 @@ import accounts.Kunde;
 import angebote.Angebotsverarbeitung;
 import angebote.Angebotsverwaltung;
 import angebote.Kommentar;
-import angebote.kriterien.Bierpreis;
-import angebote.kriterien.Kriterium;
-import angebote.kriterien.Ort;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
@@ -120,7 +117,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, ava.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new Kriterium[]{new Ort("Muenster"),new Bierpreis("Guenstig")});
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new String[]{"Muenster","Guenstig"});
 		
 		Assert.assertEquals(ang4, suche.get(0));
 		

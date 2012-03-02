@@ -3,20 +3,22 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import main.Portal;
 import accounts.Account;
+import angebote.typen.Angebot;
 
 
 public class AngDetailScreen extends JPanel{
-	private JScrollPane dscroll;
-	private JPanel dPanel;
 	private JPanel up;
 	private JPanel sub_a;
 	private JPanel sub_b;
@@ -27,48 +29,39 @@ public class AngDetailScreen extends JPanel{
 	private JLabel datum;
 	private JLabel anbieter;
 	
-	//private JLabel fullinfo;
 	private JTextArea fullinfo;
 	private JLabel nullAcc;
 	
-	private JButton buchen;
-	private JButton melden;
-	//private JButton agb;
-	private JButton kommentieren;
+	private JButton buchen = new JButton("Buchen");
+	private JButton melden = new JButton("Melden");
+	private JButton kommentieren = new JButton("Kommentieren");
+	private JButton loeschen = new JButton("Löschen");
+	private JButton editieren = new JButton("Editieren");
+	private JButton kontaktieren = new JButton("kontaktieren");
 	
-	private JButton loeschen;
-	private JButton editieren;
+	final Angebot angebot;
 	
-	private JButton kontaktieren;
-	
-	
-	public AngDetailScreen(int usertype, angebote.typen.Angebot a){
-		dscroll = new JScrollPane();
-		dPanel = new JPanel(new BorderLayout(5,5));
+	public AngDetailScreen(int usertype, Angebot a){
+		
+		angebot = a;
+		
+		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0,2));
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new BorderLayout(5,5));
 		
-		name = new JLabel(a.getIdentifier());
-		typ = new JLabel (""+a.getTyp());		//GUCKEN BITTE
-		datum = new JLabel(a.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
-		anbieter = new JLabel(); // edit  wenn implementiert
-		
-//		int nDaten = a.getDaten().length;
-//		daten = new JLabel[nDaten];
-		
-//		for(int i = 0; i < nDaten; i++) {
-//			daten[i].setText(a.getDaten()[i].toString());
-//			sub_a.add(daten[i]);
-//		}
+		name = new JLabel(angebot.getIdentifier());
+		typ = new JLabel (""+angebot.getTyp());		
+		datum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
+		anbieter = new JLabel(); 
 		
 		sub_a = new JPanel(new GridLayout(6,0));
 		sub_a.add(name);
 		sub_a.add(typ);
-		sub_a.add(datum);				//Rudis alte version; edit: Benjamin
+		sub_a.add(datum);				
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6,0));
-		String k[] = a.getErlaubteKriterien(); 
+		String k[] = angebot.getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
 			JLabel krit = new JLabel(k[i]);
 			sub_b.add(krit);
@@ -76,10 +69,7 @@ public class AngDetailScreen extends JPanel{
 		up.add(sub_a);
 		up.add(sub_b);
 		
-//		fullinfo = new JLabel(a.getFullInfo());
-//		mid.add(fullinfo);
-		
-		fullinfo= new JTextArea(a.getFullInfo());
+		fullinfo= new JTextArea(angebot.getFullInfo());
 		fullinfo.setLineWrap(true);
 		fullinfo.setWrapStyleWord(true);
 		fullinfo.setBackground(Color.LIGHT_GRAY);
@@ -87,42 +77,103 @@ public class AngDetailScreen extends JPanel{
 		
 		mid.add(fullinfo);
 		
+		///////////////////
+		
 		if(usertype==0){
 			nullAcc = new JLabel("Sie mï¿½ssen sich einlogen um weitere Aktionen durchzufï¿½hren");
 			down.add(BorderLayout.CENTER, nullAcc);
 		}
 		else switch (usertype){
-		case Account.KUNDE :{
-			kommentieren = new JButton("Kommentieren");
-			buchen = new JButton("Buchen");
-			melden = new JButton("Melden");
+		case Account.KUNDE :
 			down.add(BorderLayout.EAST, kommentieren);
 			down.add(BorderLayout.CENTER, buchen);
 			down.add(BorderLayout.WEST, melden);
 			break;
-		}
-		case Account.ANBIETER:{
-			loeschen = new JButton("Loeschen"); 
-			editieren = new JButton("Editieren");
+		
+		case Account.ANBIETER:
 			down.add(BorderLayout.EAST, loeschen);
 			down.add(BorderLayout.WEST, editieren);
 			break;
-		}
-		case Account.BETREIBER:{
-			loeschen = new JButton("Loeschen");
-			kontaktieren = new JButton("Kontaktieren");
+		
+		case Account.BETREIBER:
 			down.add(BorderLayout.EAST, loeschen);
 			down.add(BorderLayout.WEST, kontaktieren);
 			break;
-		}
+		
 		}
 		
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
-		dPanel.add(BorderLayout.NORTH, up);
-		dPanel.add(BorderLayout.CENTER, mid);
-		dPanel.add(BorderLayout.SOUTH, down);
-		//dscroll.add(dPanel);
-		add(dPanel);
+		this.add(BorderLayout.NORTH, up);
+		this.add(BorderLayout.CENTER, mid);
+		this.add(BorderLayout.SOUTH, down);
+		
+		/////////////////
+		
+		
+		buchen.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try
+				{//TODO
+					JOptionPane.showConfirmDialog(up.getParent(), angebot.getAnbieter().getAgb(), "Buchung", JOptionPane.OK_CANCEL_OPTION);
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(up.getParent(), e.toString());
+				}
+			}
+		});
+		melden.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try
+				{
+					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass sie dieses Angebot Melden möchten?", "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+						Portal.getSingletonObject().getNachrichtenverwaltung().sendeNachricht(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), angebot.getAnbieter(), "Angebot gemeldet!", "Ein Angebot wurde Gemeldet", angebot);
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(up.getParent(), e.toString());
+				}
+			}
+		});
+		kommentieren.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				String s = JOptionPane.showInputDialog(up.getParent(), "", "", JOptionPane.OK_CANCEL_OPTION);
+				
+			}
+		});
+		loeschen.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				
+			}
+		});
+		editieren.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				
+			}
+		});
+		kontaktieren.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				
+			}
+		});
 	}
 }

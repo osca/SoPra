@@ -1,7 +1,5 @@
 package testcases;
 
-import java.util.ArrayList;
-
 import junit.framework.Assert;
 import main.Portal;
 
@@ -48,15 +46,10 @@ public class NachrichtenVerwaltungTest {
 
 	@Test
 	public void test() {
-		ArrayList<Nachricht> postausgangKun = nv.getGesendeteNachrichten(kunde);
-		ArrayList<Nachricht> posteingangAnb = nv.getErhalteneNachrichten(anbieter);
-		ArrayList<Nachricht> postausgangAnb = nv.getGesendeteNachrichten(anbieter);
-		ArrayList<Nachricht> posteingangKun = nv.getErhalteneNachrichten(kunde);
-		
-		Nachricht ausgang1kunde = postausgangKun.get(0);
-		Nachricht eingang1anbieter = posteingangAnb.get(0);
-		Nachricht ausgang1anbieter = postausgangAnb.get(0);
-		Nachricht eingang1kunde = posteingangKun.get(0);
+		Nachricht ausgang1kunde = nv.getGesendeteNachrichten(kunde).get(0);
+		Nachricht eingang1anbieter = nv.getErhalteneNachrichten(anbieter).get(0);
+		Nachricht ausgang1anbieter = nv.getGesendeteNachrichten(anbieter).get(0);
+		Nachricht eingang1kunde = nv.getErhalteneNachrichten(kunde).get(0);
 		
 		//Kunde: Postausgang
 		Assert.assertEquals(kunde, ausgang1kunde.getAbsender());
@@ -82,35 +75,43 @@ public class NachrichtenVerwaltungTest {
 		Assert.assertEquals("Re: Hallo Mr.Anbieter", eingang1kunde.getBetreff());
 		Assert.assertEquals("Danke, dann buch es doch!", eingang1kunde.getText());
 		
+		//Gelesen und ungelesene Nachrichten
+		Assert.assertEquals(6, nv.getAnzahlUngelesenerNachrichten());
+		nv.setGelesen(ausgang1kunde, true);
+		Assert.assertEquals(5, nv.getAnzahlUngelesenerNachrichten());
+		
 		//Groesse der Postkaesten
-		Assert.assertEquals(postausgangKun.size(),3);
-		Assert.assertEquals(posteingangAnb.size(),3);
-		Assert.assertEquals(postausgangAnb.size(),3);
-		Assert.assertEquals(posteingangKun.size(),3);
+		Assert.assertEquals(nv.getGesendeteNachrichten(kunde).size(),3);
+		Assert.assertEquals(nv.getErhalteneNachrichten(anbieter).size(),3);
+		Assert.assertEquals(nv.getGesendeteNachrichten(anbieter).size(),3);
+		Assert.assertEquals(nv.getErhalteneNachrichten(kunde).size(),3);
 		
 		//Loeschen einer Nachricht
-		nv.delNachricht(postausgangKun.get(1));
+		nv.delNachricht(nv.getGesendeteNachrichten(kunde).get(1));
 		
-		Assert.assertEquals(postausgangKun.size(),2);
-		Assert.assertEquals(posteingangAnb.size(),2);
-		Assert.assertEquals(postausgangAnb.size(),3);
-		Assert.assertEquals(posteingangKun.size(),3);
+		Assert.assertEquals(nv.getGesendeteNachrichten(kunde).size(),2);
+		Assert.assertEquals(nv.getErhalteneNachrichten(anbieter).size(),2);
+		Assert.assertEquals(nv.getGesendeteNachrichten(anbieter).size(),3);
+		Assert.assertEquals(nv.getErhalteneNachrichten(kunde).size(),3);
 
 		//Loeschen nach Angebot
 		nv.delAllNachrichten(ang1);
 		
-		Assert.assertEquals(postausgangKun.size(),0);
-		Assert.assertEquals(posteingangAnb.size(),0);
-		Assert.assertEquals(postausgangAnb.size(),1);
-		Assert.assertEquals(posteingangKun.size(),1);
+		Assert.assertEquals(nv.getGesendeteNachrichten(kunde).size(),0);
+		Assert.assertEquals(nv.getErhalteneNachrichten(anbieter).size(),0);
+		Assert.assertEquals(nv.getGesendeteNachrichten(anbieter).size(),1);
+		Assert.assertEquals(nv.getErhalteneNachrichten(kunde).size(),1);
+		
+		//Get Angebot By Id
+		Assert.assertEquals(nv.getAlleNachrichten().get(0), nv.getNachrichtById(3));
 
 		//Loeschen nach Account
 		nv.delAllNachrichten(kunde);
 
-		Assert.assertEquals(postausgangKun.size(),0);
-		Assert.assertEquals(posteingangAnb.size(),0);
-		Assert.assertEquals(postausgangAnb.size(),0);
-		Assert.assertEquals(posteingangKun.size(),0);
+		Assert.assertEquals(nv.getGesendeteNachrichten(kunde).size(),0);
+		Assert.assertEquals(nv.getErhalteneNachrichten(anbieter).size(),0);
+		Assert.assertEquals(nv.getGesendeteNachrichten(anbieter).size(),0);
+		Assert.assertEquals(nv.getErhalteneNachrichten(kunde).size(),0);
 	}
 
 }

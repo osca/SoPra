@@ -6,25 +6,25 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import main.Portal;
-
 import angebote.Angebotsverwaltung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
-import angebote.kriterien.Kriterium;
 import angebote.kriterien.Verpflegungsart;
-import angebote.typen.Autovermietung;
-import angebote.typen.Hoteluebernachtung;
+import angebote.typen.Angebot;
 
 public class Suchmaske extends JPanel implements ActionListener {
 
@@ -33,14 +33,16 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JPanel sub_b;
 	private JPanel mid;
 
-	private JTextField name;
+	private JFormattedTextField name;
 	private JComboBox typ;
 	private Vector<String> typ_list;
-	private DefaultComboBoxModel typ_m;
-	private JTextField vpreis;
-	private JTextField bpreis;
-	private JTextField kap;
-	private JTextField anbieter;
+	private JFormattedTextField vpreis;
+	private JFormattedTextField bpreis;
+	private JFormattedTextField kap;
+	private JFormattedTextField anbieter;
+	private JFormattedTextField von;
+	private JFormattedTextField bis;
+	private JFormattedTextField interval;
 
 	private JTextField ort;
 	private JTextField ortz;
@@ -54,14 +56,29 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JButton suche;
 	private JButton abbrechen;
 
-	public Suchmaske() {
+	public Suchmaske() throws ParseException {
+		
+
+		MaskFormatter preisformat = new MaskFormatter("******.**");
+		preisformat.setValidCharacters("0123456789");
+		MaskFormatter date_f = new MaskFormatter("##/##/####");
+		date_f.setValidCharacters("0123456789");
+		MaskFormatter interv = new MaskFormatter("**");
+		interv.setValidCharacters("0123456789");
+		MaskFormatter stringformat =new MaskFormatter(Methods.format4long(30));
+		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(6, 0));
+		sub_a = new JPanel(new GridLayout(9, 2));
 		sub_b = new JPanel(new GridLayout(6, 0));
-		name = new JTextField();
+		JLabel name_label= new JLabel("Name:");
+		sub_a.add(name_label);
+		name =new JFormattedTextField(stringformat);
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
+		JLabel typ_label = new JLabel("Typ:");
+		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
 		typ_list.add("Typ");
 		typ_list.add("Hoteluebernachtung");
@@ -72,31 +89,55 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		sub_a.add(typ);
-		vpreis = new JTextField();
+		JLabel vpreis_label = new JLabel("Startpreis:");
+		sub_a.add(vpreis_label);
+		vpreis = new JFormattedTextField(preisformat);
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
-		bpreis = new JTextField();
+		JLabel bpreis_label = new JLabel("Endpreis:");
+		sub_a.add(bpreis_label);
+		bpreis = new JFormattedTextField(preisformat);
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
-		kap = new JTextField();
+		JLabel kap_label = new JLabel("Kapazitaet:");
+		sub_a.add(kap_label);
+		kap = new JFormattedTextField(interv);
 		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
 		sub_a.add(kap);
-		anbieter = new JTextField();
+		anbieter = new JFormattedTextField(stringformat);
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6, 0));
+		von = new JFormattedTextField(date_f);
+		sub_a.add(von);
+		bis = new JFormattedTextField(date_f);
+		sub_a.add(bis);
+		interval = new JFormattedTextField(interv);
+		sub_a.add(interval);
 		up.add(sub_a);
 		up.add(sub_b);
 
 		mid = new JPanel(new FlowLayout());
 		suche = new JButton("Suchen");
-		abbrechen = new JButton("Abbrechen");
+		mid.add(suche);
+		
+		add(BorderLayout.NORTH,up);
+		add(BorderLayout.SOUTH,mid);
+		//abbrechen = new JButton("Abbrechen");
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		MaskFormatter stringformatone = null;
+		try {
+			stringformatone = new MaskFormatter(Methods.format4long(30));
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		stringformatone.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+		
 		if (e.getSource() == typ) {
 			sub_b.removeAll();
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
@@ -106,7 +147,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_b.add(ort);
 				
@@ -117,7 +158,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 				
 				JLabel sterne_label= new JLabel("Sterne:");
 				sub_b.add(sterne_label);
-				sterne = new JTextField();
+				sterne = new JFormattedTextField(stringformatone);
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 				sub_b.add(sterne);
 				
@@ -134,7 +175,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 			
@@ -143,7 +184,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
 				JLabel ort_label= new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort =new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 				
@@ -157,12 +198,12 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				JLabel ort_label= new JLabel("Startort:");
 				sub_b.add(ort_label);
-				ort = new JTextField();
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Startort");
 				sub_b.add(ort);
 				JLabel ortz_label= new JLabel("Zielort:");
 				sub_b.add(ortz_label);
-				ortz = new JTextField();
+				ortz = new JFormattedTextField(stringformatone);
 				ortz.setToolTipText("Bitte geben Sie einen Zielort");
 				sub_b.add(ortz);
 				
@@ -189,18 +230,29 @@ public class Suchmaske extends JPanel implements ActionListener {
 			  if(c instanceof JComboBox){
 				  k[i]=((JComboBox) c).getSelectedItem().toString();
 			  }
-			  if(c instanceof JTextField){
-				  k[i]= ((JTextField) c).getText();
+			  if(c instanceof JFormattedTextField){
+				  k[i]= ((JFormattedTextField) c).getText();
 			  }
 			       
 			}
-			
-			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem().toString(), kap.getText(), vpreis.getText(), 
-				bpreis.getText()	, daten, k);
+			Date[] date = null;
+			try {
+				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		else if(e.getSource()==abbrechen){
 			
-		}
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
+					Double.parseDouble(bpreis.getText()), date, k);
+			}
+//		else if(e.getSource()==abbrechen){
+//			
+//		}
 	}
+	
 	
 }

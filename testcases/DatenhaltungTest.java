@@ -1,22 +1,16 @@
 package testcases;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Date;
 
 import junit.framework.Assert;
-
 import main.Datenhaltung;
 import main.Portal;
 
 import org.junit.Test;
 
-import accounts.Accountverwaltung;
-import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.Nachrichtenverwaltung;
-import angebote.typen.Angebot;
 
 public class DatenhaltungTest {
 

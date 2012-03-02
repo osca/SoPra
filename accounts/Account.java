@@ -1,7 +1,6 @@
 package accounts;
 
 import graphic.Listable;
-
 import main.Portal;
 
 /**
