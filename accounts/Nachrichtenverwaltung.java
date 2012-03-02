@@ -96,14 +96,32 @@ public class Nachrichtenverwaltung {
 		}
 	}
 	
-	public boolean getGelesen(Nachricht n) {
+	/**
+	 * Ist die Nachricht gelesen
+	 * 
+	 * @param n Nachricht
+	 * @return Boolean
+	 */
+	public boolean isGelesen(Nachricht n) {
 		return n.isGelesen();
 	}
 	
+	/**
+	 * Set Gelesen oder Ungelesen
+	 * 
+	 * @param n Nachricht
+	 * @param gelesen Boolean
+	 */
 	public void setGelesen(Nachricht n, boolean gelesen) {
 		n.setGelesen(gelesen);
 	}
 	
+	/**
+	 * Get Nachricht By Id
+	 * 
+	 * @param id Id einer Nachricht
+	 * @return Nachricht mit der uebergebenen Id oder null wenn diese nicht funktioniert
+	 */
 	public Nachricht getNachrichtById(int id) {
 		for(Nachricht n:alleNachrichten) {
 			if(n.getId() == id)
@@ -112,16 +130,22 @@ public class Nachrichtenverwaltung {
 		return null;
 	}
 	
-	public ArrayList<Nachricht> getUngeleseneNachrichten() {
-		ArrayList<Nachricht> result = new ArrayList<Nachricht>();
+	/**
+	 * Get Anzahl an Ungelesene Nachrichten
+	 * 
+	 * @return Anzahl an ungelesenen Nachrichten
+	 */
+	public int getAnzahlUngelesenerNachrichten() {
+		int result = 0;
 		
 		for(Nachricht n:alleNachrichten) {
 			if(!n.isGelesen())
-				result.add(n);
+				result++;
 		}
 		
 		return result;
 	}
+	
 	
 	
 }
