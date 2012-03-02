@@ -112,7 +112,7 @@ public class Buchung implements Listable {
 	}
 
 	@Override
-	public String getIdetifier() {
+	public String getIdentifier() {
 		return Integer.toString(buchungsNummer);
 	}
 
@@ -141,4 +141,5 @@ public class Buchung implements Listable {
 	public int getListableTyp() {
 		return BUCHUNG;
 	}
+
 }

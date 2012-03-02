@@ -167,9 +167,16 @@ public class Angebotsverwaltung {
 		angebot.delKommentar(kommentar);
 	}
 	
+	/**
+	 * suche Angebot nach Angebotsnummer (eindeutig)
+	 * @param id
+	 * @return passendes Angebot oder null, falls nicht gefunden/vorhanden
+	 */
 	public Angebot getAngebotByAngebotsNummer(int id){
 		Angebotsverarbeitung ava = Portal.getSingletonObject().getAngebotsverarbeitung();
 		for(Angebot ang : ava.getAllAngebote())
-			
+			if(ang.getIdentifier().equals(""+id))
+				return ang;
+		return null;
 	}
 }
