@@ -21,6 +21,8 @@ import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
 import angebote.kriterien.Verpflegungsart;
+import angebote.typen.Autovermietung;
+import angebote.typen.Hoteluebernachtung;
 
 public class Suchmaske extends JPanel implements ActionListener {
 
@@ -176,6 +178,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 			sub_b.repaint();
 		}
 		else if(e.getSource()==suche){
+			String[] k;
+			
+			
 			Portal.getSingletonObject().getAngebotsverarbeitung().
 		}
 		else if(e.getSource()==abbrechen){
