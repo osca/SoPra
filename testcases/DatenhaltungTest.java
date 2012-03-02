@@ -1,6 +1,8 @@
 package testcases;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 
 import junit.framework.Assert;
 import main.Datenhaltung;
@@ -8,9 +10,11 @@ import main.Portal;
 
 import org.junit.Test;
 
+import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.Nachrichtenverwaltung;
+import angebote.typen.Angebot;
 
 public class DatenhaltungTest {
 
@@ -25,26 +29,26 @@ public class DatenhaltungTest {
 	}
 	
 	
-	/*@Test
-	public void testStruktur(){
-		Anbieter anb;
-		Kunde kun;
-		try {
-			anb = 	Portal.Accountverwaltung().createAnbieter("Email", "anb", "password");
-			kun = 	Portal.Accountverwaltung().createKunde("em", "kunde", "password");
-			Angebot ang = Portal.Angebotsverwaltung().createAusflug(anb, "Ausf", "toller Ausflug"
-					, 20, 25.5, new Date[]{new Date(99999999999999999L)}, "Duisburg", "Cheap");
-			Portal.Nachrichtenverwaltung().sendeNachricht(kun, anb, "Betr", "txtblabla", ang);
-			Datenhaltung.saveAllAccounts(Portal.Accountverwaltung());
-			Datenhaltung.saveAllMessages(Portal.Nachrichtenverwaltung());
-			//Weiter in Teil 2
-		} catch (AlreadyInUseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
+//	@Test
+//	public void testStruktur(){
+//		Anbieter anb;
+//		Kunde kun;
+//		try {
+//			anb = 	Portal.Accountverwaltung().createAnbieter("Email", "anb", "password");
+//			kun = 	Portal.Accountverwaltung().createKunde("em", "kunde", "password");
+//			Angebot ang = Portal.Angebotsverwaltung().createAusflug(anb, "Ausf", "toller Ausflug"
+//					, 20, 25.5, new Date[]{new Date(99999999999999999L)}, "Duisburg", "Cheap");
+//			Portal.Nachrichtenverwaltung().sendeNachricht(kun, anb, "Betr", "txtblabla", ang);
+//			Datenhaltung.saveAllAccounts(Portal.Accountverwaltung());
+//			Datenhaltung.saveAllMessages(Portal.Nachrichtenverwaltung());
+//			//Weiter in Teil 2
+//		} catch (AlreadyInUseException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	@Test
 	public void testStruktur2(){	

@@ -52,26 +52,26 @@ public class NachrichtenVerwaltungTest {
 		Nachricht eingang1kunde = nv.getErhalteneNachrichten(kunde).get(0);
 		
 		//Kunde: Postausgang
-		Assert.assertEquals(kunde, ausgang1kunde.getAbsender());
-		Assert.assertEquals(anbieter, ausgang1kunde.getEmpfaenger());
+		Assert.assertEquals(kunde, Portal.Nachrichtenverwaltung().getAbsender(ausgang1kunde));
+		Assert.assertEquals(anbieter, Portal.Nachrichtenverwaltung().getEmpfaenger(ausgang1kunde));
 		Assert.assertEquals("Hallo Mr.Anbieter", ausgang1kunde.getBetreff());
 		Assert.assertEquals("Cooles Angebot haben sie da...", ausgang1kunde.getText());
 		
 		//Anbieter: Posteingang
-		Assert.assertEquals(kunde, eingang1anbieter.getAbsender());
-		Assert.assertEquals(anbieter, eingang1anbieter.getEmpfaenger());
+		Assert.assertEquals(kunde, Portal.Nachrichtenverwaltung().getAbsender(eingang1anbieter));
+		Assert.assertEquals(anbieter, Portal.Nachrichtenverwaltung().getEmpfaenger(eingang1anbieter));
 		Assert.assertEquals("Hallo Mr.Anbieter", eingang1anbieter.getBetreff());
 		Assert.assertEquals("Cooles Angebot haben sie da...", eingang1anbieter.getText());
 		
 		//Kunde: Postausgang
-		Assert.assertEquals(anbieter, ausgang1anbieter.getAbsender());
-		Assert.assertEquals(kunde, ausgang1anbieter.getEmpfaenger());
+		Assert.assertEquals(anbieter, Portal.Nachrichtenverwaltung().getAbsender(ausgang1anbieter));
+		Assert.assertEquals(kunde, Portal.Nachrichtenverwaltung().getEmpfaenger(ausgang1anbieter));
 		Assert.assertEquals("Re: Hallo Mr.Anbieter", ausgang1anbieter.getBetreff());
 		Assert.assertEquals("Danke, dann buch es doch!", ausgang1anbieter.getText());
 				
 		//Kunde: Postausgang
-		Assert.assertEquals(anbieter, eingang1kunde.getAbsender());
-		Assert.assertEquals(kunde, eingang1kunde.getEmpfaenger());
+		Assert.assertEquals(anbieter, Portal.Nachrichtenverwaltung().getAbsender(eingang1kunde));
+		Assert.assertEquals(kunde, Portal.Nachrichtenverwaltung().getEmpfaenger(eingang1kunde));
 		Assert.assertEquals("Re: Hallo Mr.Anbieter", eingang1kunde.getBetreff());
 		Assert.assertEquals("Danke, dann buch es doch!", eingang1kunde.getText());
 		
