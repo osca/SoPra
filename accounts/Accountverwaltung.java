@@ -52,8 +52,7 @@ public class Accountverwaltung {
 		kunden.add(k);
 		return k;
 	}
-
-	/**
+		/**
 	 * Erstelle Anbieter
 	 * 
 	 * @param email E-Mail Adresse
@@ -92,15 +91,12 @@ public class Accountverwaltung {
 	 * @throws LoginException Falls Passwort nicht passend oder Account nicht gefunden (mit entspr. Nachricht)
 	 */
 	public void logIn(String identifier, String password) throws LoginException{
-		for (Account acc : getAccounts()){
-			if(acc.getEmail().equals(identifier) || acc.getName().equals(identifier)){ //match found
-				if(!acc.getPassword().equals(password))
-					throw new LoginException("Passwort war falsch");
-				loggedIn = acc;
-				return;
-			}
-		}
-		throw new LoginException("Account wurde nicht gefunden");
+		Account acc = getAccountByIdentifier(identifier);
+		if(acc==null)
+			throw new LoginException("Account wurde nicht gefunden");
+		if(! acc.getPassword().equals(password))
+			throw new LoginException("Passwort war falsch");
+		loggedIn = acc;
 	}
 	
 	/**
@@ -249,6 +245,44 @@ public class Accountverwaltung {
 		result.addAll(getKunden());
 		return result;
 	}
+	
+
+	/**
+	 * Sucht einen Account über seinen Nick-/Unternehmensnamen
+	 * @param name
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByName(String name){
+		for(Account acc : getAccounts())
+			if (acc.getName().equals(name))
+				return acc;
+		return null;
+	}
+	
+	/** Sucht einen Account über seine E-Mail-Adresse
+	 * @param email
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByEmail(String email){
+		for(Account acc : getAccounts())
+			if (acc.getEmail().equals(email))
+				return acc;
+		return null;
+	}
+
+	/**
+	 * Sucht einen Account über seine "Identifikation" (= Name oder email, siehe Pflichtenheft)
+	 * @param ident
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByIdentifier(String ident){
+		Account acc1 = getAccountByEmail(ident),
+				acc2 = getAccountByName(ident);
+		if (acc1 != null)
+			return acc1;
+		return acc2;
+	}
+
 	
 	/**
 	 * Ist diese E-Mail Adresse schon vergeben?
