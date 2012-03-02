@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -68,15 +69,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		
 		MaskFormatter preisformat = new MaskFormatter("******.**");
 		preisformat.setValidCharacters("0123456789");
-		MaskFormatter date_f = new MaskFormatter("##/##/####");
-		date_f.setValidCharacters("0123456789");
+	//	MaskFormatter date_f = new MaskFormatter(new SimpleDateFormat("dd/mm/yyyy"));
+	//	date_f.setValidCharacters("0123456789");
 		MaskFormatter interv = new MaskFormatter("**");
 		interv.setValidCharacters("0123456789");
 		MaskFormatter stringformat =new MaskFormatter(Methods.format4long(30));
-		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
-		MaskFormatter beschreibungformat = new MaskFormatter(Methods.format4long(5000));
-		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
-		
+		stringformat.setValidCharacters(" abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+//		MaskFormatter beschreibungformat = new MaskFormatter(Methods.format4long(5000));
+//		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+	
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(9, 2));
 		name = new JFormattedTextField(stringformat);
@@ -108,11 +109,11 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		sub_a.add(kap);
 		JLabel von_label = new JLabel("Datum von");
 		sub_a.add(von_label);
-		von = new JFormattedTextField(date_f);
+		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
 		JLabel bis_label = new JLabel("Datum bis");
 		sub_a.add(bis_label);
-		bis = new JFormattedTextField(date_f);
+		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
 		JLabel interval_label = new JLabel("Interval");
 		sub_a.add(interval_label);
