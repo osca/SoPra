@@ -8,9 +8,6 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 import accounts.Accountverwaltung;
-import accounts.Anbieter;
-import accounts.Betreiber;
-import accounts.Kunde;
 import accounts.Nachricht;
 import accounts.Nachrichtenverwaltung;
 
@@ -75,12 +72,12 @@ public class Datenhaltung {
 		f.close();
 	}
 
-	/**
+/*	/**
 	 * Liest die aktuell in XML gespeicherte Liste an Anbietern aus
 	 * 
 	 * @return Anbieter-Liste
 	 */
-	public static ArrayList<Anbieter> getAnbieter() {
+/*	public static ArrayList<Anbieter> getAnbieter() {
 		if (!anbFile.exists())
 			return new ArrayList<Anbieter>();
 		return (ArrayList<Anbieter>) xs.fromXML(anbFile);
@@ -91,7 +88,7 @@ public class Datenhaltung {
 	 * 
 	 * @return Betreiber-Liste
 	 */
-	public static ArrayList<Betreiber> getBetreiber() {
+/*	public static ArrayList<Betreiber> getBetreiber() {
 		if (!betrFile.exists())
 			return new ArrayList<Betreiber>();
 		return (ArrayList<Betreiber>) xs.fromXML(betrFile);
@@ -102,7 +99,7 @@ public class Datenhaltung {
 	 * 
 	 * @return Kunden-Liste
 	 */
-	public static ArrayList<Kunde> getKunde() {
+/*	public static ArrayList<Kunde> getKunde() {
 		if (!kundFile.exists())
 			return new ArrayList<Kunde>();
 		return (ArrayList<Kunde>) xs.fromXML(kundFile);
@@ -112,12 +109,23 @@ public class Datenhaltung {
 	 * Liest die aktuell in XML gespeicherte Liste an Nachrichten aus
 	 * @return Nachrichten-Liste
 	 */
-	public static ArrayList<Nachricht> getNachrichten(){
+/*	public static ArrayList<Nachricht> getNachrichten(){
 		if(!msgFile.exists())
 			return new ArrayList<Nachricht>();
 		return (ArrayList<Nachricht>) xs.fromXML(msgFile);
 	}
+*/
+	
+	public static Portal loadSavedState(){
+		ArrayList<Nachricht> nachrichten = new ArrayList<Nachricht>();
+		if(msgFile.exists())
+			nachrichten = (ArrayList<Nachricht>) xs.fromXML(msgFile);
+		for(Nachricht msg : nachrichten){
 
+		}		
+		return null;
+	}
+	
 	/**
 	 * Liest ein NICHT-XML-File ein und gibt die einzelnen Zeilen als
 	 * String-Array aus

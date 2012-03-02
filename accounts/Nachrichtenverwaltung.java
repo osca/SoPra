@@ -2,6 +2,8 @@ package accounts;
 
 import java.util.ArrayList;
 
+import main.Portal;
+
 import angebote.typen.Angebot;
 /**
  * 
@@ -12,9 +14,7 @@ public class Nachrichtenverwaltung {
 	
 	private ArrayList<Nachricht> alleNachrichten = new ArrayList<Nachricht>();
 	
-	public Nachrichtenverwaltung(ArrayList<Nachricht> msgList){
-		alleNachrichten = msgList;
-	}
+	public Nachrichtenverwaltung(){	}
 	
 	public ArrayList<Nachricht> getAlleNachrichten(){
 		return alleNachrichten;
@@ -39,7 +39,7 @@ public class Nachrichtenverwaltung {
 	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc){
 		ArrayList<Nachricht> posteingang = new ArrayList<Nachricht>();
 		for(Nachricht msg : alleNachrichten)
-			if(msg.getEmpfaenger().equals(acc))
+			if(getEmpfaenger(msg).equals(acc))
 				posteingang.add(msg);
 		return posteingang;
 	}
@@ -51,7 +51,7 @@ public class Nachrichtenverwaltung {
 	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc){
 		ArrayList<Nachricht> postausgang = new ArrayList<Nachricht>();
 		for(Nachricht msg : alleNachrichten)
-			if(msg.getAbsender().equals(acc))
+			if(getAbsender(msg).equals(acc))
 				postausgang.add(msg);
 		return postausgang;
 	}
@@ -71,12 +71,39 @@ public class Nachrichtenverwaltung {
 		int n = alleNachrichten.size();
 		for(int i=0; i<n; i++){		//For-Each-Schleife funktioniert nicht
 			Nachricht current = alleNachrichten.get(i);
-			if(current.getAngebot().equals(ang)){
+			if(getReferringAngebot(current).equals(ang)){
 				delNachricht(current);
 				i--;	//Liste rueckt auf
 				n--;	//Liste verkuerzt sich
 			}
 		}
+	}
+	
+	/**
+	 * gibt das Angebotsobjekt zu einer Nachricht aus
+	 * @param msg entsprechende Nachricht
+	 * @return Angebot
+	 */
+	public Angebot getReferringAngebot(Nachricht msg){
+		return Portal.getSingletonObject().getAngebotsverwaltung().getAngebotByAngebotsNummer(msg.getAngebotsNummer());
+	}
+	
+	/**
+	 * gibt den Absender der Nachricht zurueck
+	 * @param msg
+	 * @return
+	 */
+	public Account getAbsender(Nachricht msg){
+		return Portal.getSingletonObject().getAccountverwaltung().getAccountByName(msg.getAbsender());
+	}
+	
+	/**
+	 * gibt den Empfaenger der Nachricht zurueck
+	 * @param msg
+	 * @return
+	 */
+	public Account getEmpfaenger(Nachricht msg){
+		return Portal.getSingletonObject().getAccountverwaltung().getAccountByName(msg.getEmpfaenger());
 	}
 	
 	/**
@@ -88,7 +115,7 @@ public class Nachrichtenverwaltung {
 		int n = alleNachrichten.size();
 		for(int i=0; i<n; i++){
 			Nachricht current = alleNachrichten.get(i);
-			if(current.getAbsender().equals(acc) || current.getEmpfaenger().equals(acc)){
+			if(getAbsender(current).equals(acc) || getEmpfaenger(current).equals(acc)){
 				delNachricht(current);
 				i--;	//Liste rueckt auf
 				n--;	//Liste verkuerzt sich

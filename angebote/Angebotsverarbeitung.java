@@ -88,7 +88,7 @@ public class Angebotsverarbeitung {
 		final int numberOfEntries=10;
 		
 		for(Angebot a:aktAngebote){
-			int curBuchungen = a.getBuchungen().size();
+			int curBuchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a).size();
 			topAngebote.add(a);
 			Collections.sort(topAngebote);
 			if(curBuchungen>numberOfEntries) {
@@ -130,7 +130,7 @@ public class Angebotsverarbeitung {
 		ArrayList<Anbieter> anbieterListe = Portal.getSingletonObject().getAccountverwaltung().getAnbieter();
 		ArrayList<Angebot> alleAngebote = new ArrayList<Angebot>();
 		for(Anbieter a:anbieterListe){
-			alleAngebote.addAll(a.getAngebote());
+			alleAngebote.addAll(getAngebote(a));
 		}
 		return alleAngebote;
 	}
@@ -140,7 +140,7 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> anbieterAngebote=new ArrayList<Angebot>();
 		for(Anbieter a:anbieterListe){
 			if(a==anbieter){
-				anbieterAngebote.addAll(a.getAngebote());
+				anbieterAngebote.addAll(getAngebote(a));
 				return anbieterAngebote;
 			}
 		}

@@ -18,8 +18,8 @@ public class Nachricht implements Listable {
 	private int id;
 	private Date zeitstempel;
 	private String text, betreff;
-	private Account absender, empfaenger;
-	private Angebot angebot;
+	private String absenderName, empfaengerName;
+	private int angebot;
 	private boolean gelesen;
 
 	/**
@@ -35,9 +35,9 @@ public class Nachricht implements Listable {
 		id = anzahl++;
 		text = txt;
 		betreff = subj;
-		absender = abs;
-		empfaenger = empf;
-		angebot = ang;
+		absenderName = abs.getName();
+		empfaengerName = empf.getName();
+		angebot = ang.getAngebotsNummer();
 		gelesen = false;
 		zeitstempel = new Date();
 	}
@@ -47,8 +47,8 @@ public class Nachricht implements Listable {
 	 * 
 	 * @return Absender der Nachricht
 	 */
-	public Account getAbsender() {
-		return absender;
+	public String getAbsender() {
+		return absenderName;
 	}
 
 	/**
@@ -56,8 +56,8 @@ public class Nachricht implements Listable {
 	 * 
 	 * @return Empfaenger der Nachricht
 	 */
-	public Account getEmpfaenger() {
-		return empfaenger;
+	public String getEmpfaenger() {
+		return empfaengerName;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Nachricht implements Listable {
 	 * 
 	 * @return Verknuepftes Angebot einer Nachricht
 	 */
-	public Angebot getAngebot() {
+	public int getAngebotsNummer() {
 		return angebot;
 	}
 

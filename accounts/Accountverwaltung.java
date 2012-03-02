@@ -31,11 +31,7 @@ public class Accountverwaltung {
 	 * @param betr Betreiber
 	 * @param kund Kunde
 	 */
-	public Accountverwaltung(ArrayList<Anbieter> anb, ArrayList<Betreiber> betr, ArrayList<Kunde> kund){
-		anbieter = anb;
-		betreiber = betr;
-		kunden = kund;
-	}
+	public Accountverwaltung(){	}
 	
 	/**
 	 * Erstelle Kunde
@@ -117,7 +113,7 @@ public class Accountverwaltung {
 	 * @param enable Aktiv oder nicht
 	 */
 	public void setEnableAccount(Account acc, boolean enable){
-		acc.setGesperrt(enable);
+		acc.setGesperrt(!enable);
 	}
 	
 	/**
@@ -125,22 +121,22 @@ public class Accountverwaltung {
 	 * 
 	 * @param acc Der zu loeschende Account
 	 * @throws LoeschenNichtMoeglichException Loeschen ist nicht moeglich
+	 * @pre zu loeschender Account darf nicht null sein
 	 */
 	public void delAccount(Account acc) throws LoeschenNichtMoeglichException {
-		if(acc == null)
-			throw new LoeschenNichtMoeglichException("Der Account wurde nicht gefunden!");
+		assert acc!=null : "null-Account kann nicht geloescht werden";
 		
 		Date heute = new Date();
 		
 		switch(acc.getTyp()){
 			case(Account.ANBIETER):{
 				Anbieter anbieteracc = (Anbieter) acc;
-				ArrayList<Angebot> zuLoeschendeAngebote=anbieteracc.getAngebote();
+				ArrayList<Angebot> zuLoeschendeAngebote=Portal.getSingletonObject().getAngebotsverwaltung().getAngebote(anbieteracc);
 				
 				//Gibt es noch offene Buchungen Schleife
 				for(Angebot a:zuLoeschendeAngebote){
 					if(a.getDaten()[a.getDaten().length-1].compareTo(heute)>0){
-						ArrayList<Buchung> buchungen = a.getBuchungen();
+						ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a);
 						
 						for(Buchung b:buchungen){
 							if(b.getBis().compareTo(heute) > 0 && (Bestaetigung.JA == b.getBestaetigt())) 
@@ -154,11 +150,12 @@ public class Accountverwaltung {
 				Angebotsverwaltung angebotsVerwaltung=Portal.getSingletonObject().getAngebotsverwaltung();
 				
 				for(Angebot a:zuLoeschendeAngebote){
-					ArrayList<Buchung> buchungen = a.getBuchungen();
+					ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a);
 					
 					for(Buchung b:buchungen){
 						buchungsVerwaltung.delBuchung(b);
-						a.delBuchung(b);
+						Portal.getSingletonObject().getBuchungsverwaltung().delBuchung(b); 
+						//TODO Duerfen Buchungen wirklich geloescht werden? Nicht besser canceln?
 					}
 					
 					angebotsVerwaltung.delAngebot(a);
@@ -168,7 +165,7 @@ public class Accountverwaltung {
 			
 			case(Account.KUNDE):{
 				Kunde kundenacc = (Kunde) acc;
-				ArrayList<Buchung> kundenbuchungen = kundenacc.getBuchungen();
+				ArrayList<Buchung> kundenbuchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(kundenacc);
 				
 				//Hat der Kunde noch anstehende bestaetigte Buchungen?
 				for(Buchung b:kundenbuchungen) {
@@ -281,6 +278,26 @@ public class Accountverwaltung {
 		if (acc1 != null)
 			return acc1;
 		return acc2;
+	}
+	
+	/**
+	 * Gibt einen qualifizierten Namen zu einer Flag zurueck;
+	 * @param flag
+	 * @return
+	 */
+	public String convertFlagToName(int flag){
+		switch (flag){
+		case Account.NONE :
+			return "Default";
+		case Account.ANBIETER :
+			return "Anbieter";
+		case Account.BETREIBER :
+			return "Betreiber";
+		case Account.KUNDE :
+			return "Kunde";
+		default :
+			return "Kein Account";
+		}
 	}
 
 	

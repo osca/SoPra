@@ -11,7 +11,8 @@ import buchungen.Buchung;
  */
 public class Kunde extends Account {
 	
-	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	// private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	private ArrayList<Integer> buchungen = new ArrayList<Integer>();
 	
 	/**
 	 * Konstruktor
@@ -30,7 +31,7 @@ public class Kunde extends Account {
 	 * @param entry Buchung
 	 */
 	public void addBuchung(Buchung entry) {
-		buchungen.add(entry);
+		buchungen.add(entry.getBuchungsnummer());
 	}
 	
 	/**
@@ -40,17 +41,12 @@ public class Kunde extends Account {
 	 * @throws LoeschenNichtMoeglichException Buchung ist null oder wurde nicht gefunden
 	 */
 	public void delBuchung(Buchung entry) throws LoeschenNichtMoeglichException {
-		if(entry == null || !(buchungen.contains(entry)))
+		if(entry == null || !(buchungen.contains(entry.getBuchungsnummer())))
 			throw new LoeschenNichtMoeglichException("Buchung null oder nicht gefunden!");
-		buchungen.remove(entry);
+		buchungen.remove(entry.getBuchungsnummer());
 	}
 	
-	/**
-	 * Get Liste an Buchungen
-	 * 
-	 * @return Buchungsliste
-	 */
-	public ArrayList<Buchung> getBuchungen() {
+	public ArrayList<Integer> getBuchungsNummern(){
 		return buchungen;
 	}
 	

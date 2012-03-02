@@ -4,7 +4,9 @@ import graphic.Listable;
 
 import java.util.Date;
 
-import accounts.Kunde;
+import main.Portal;
+
+import accounts.Anbieter;
 import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
 
@@ -20,8 +22,8 @@ public class Buchung implements Listable {
 	private int buchungsNummer;
 	private Bestaetigung bestaetigt;
 	private Date von,bis;
-	private Angebot angebot;
-	private Kunde kunde;
+	private int angebotsNummer;
+	private String kundenName;
 	/**
 	 * Legt ein Buchungsobjekt an
 	 * @param pangebot Angebot zur Referenz
@@ -29,10 +31,10 @@ public class Buchung implements Listable {
 	 * @param pvon Startdatum der Buchung
 	 * @param pbis Enddatum der Buchung
 	 */
-	public Buchung(Angebot pangebot, Kunde pkunde, Date pvon, Date pbis) {
+	public Buchung(int pangebotsnummer, String pkundenname, Date pvon, Date pbis) {
 		buchungsNummer = anzahl++;
-		angebot = pangebot;
-		kunde = pkunde;
+		angebotsNummer = pangebotsnummer;
+		kundenName = pkundenname;
 		von = pvon;
 		bis = pbis;
 		bestaetigt = Bestaetigung.UNBEARBEITET;
@@ -100,15 +102,15 @@ public class Buchung implements Listable {
 	/**
 	 * @return referenziertes Angebotsobjekt
 	 */
-	public Angebot getAngebot() {
-		return angebot;
+	public int getAngebotsNummer() {
+		return angebotsNummer;
 	}
 	
 	/**
 	 * @return buchender Kunde
 	 */
-	public Kunde getKunde() {
-		return kunde;
+	public String getKundenName() {
+		return kundenName;
 	}
 
 	@Override
@@ -118,12 +120,14 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getAdditionalInfo() {
-		return ""+angebot.getAnbieter().getName()+", "+von+" - "+bis+", "+angebot.getAdditionalInfo();
+		Angebot ang = Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(this);
+		Anbieter anbieter = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(ang);
+		return anbieter.getName()+", "+von+" - "+bis+", "+ang.getAdditionalInfo();
 	}
 
 	@Override
 	public String getFullInfo() {
-		return angebot.getFullInfo();
+		return Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(this).getFullInfo();
 	}
 
 	@Override

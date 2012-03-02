@@ -12,6 +12,9 @@ import angebote.typen.Angebot;
  * @edit Jay
  */
 public class Buchungsverwaltung {
+	
+	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	
 	/**
 	 * Erstellt eine Buchung und weist sie einem Kunden zu.
 	 * 
@@ -22,7 +25,7 @@ public class Buchungsverwaltung {
 	 * @throws InvalidDateException 
 	 */
 	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
-		Buchung buchung = new Buchung(angebot, kunde, von, bis);
+		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
 		
 		if (bis.before(von) || von.before(new Date()))
 			throw new InvalidDateException();
@@ -31,15 +34,25 @@ public class Buchungsverwaltung {
 		buchung.setVon(von);
 		
 		kunde.addBuchung(buchung);
-		angebot.addBuchung(buchung);
+		angebot.addBuchung(buchung.getBuchungsnummer());
+		buchungen.add(buchung);
 	}
 	
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
 	 * @param b zu loeschende Buchung
 	 */
 	public void delBuchung(Buchung b) throws LoeschenNichtMoeglichException {
-		b.getKunde().delBuchung(b);
-		b.getAngebot().delBuchung(b);
+		getKunde(b).delBuchung(b);
+		getReferringAngebot(b).delBuchung(b.getBuchungsnummer());
+		buchungen.remove(b);
+	}
+	
+	public ArrayList<Buchung> getBuchungen(Angebot angebot){
+		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		for (Buchung b : buchungen)
+			if(b.getAngebotsNummer() == angebot.getAngebotsNummer())
+				reslist.add(b);
+		return reslist;
 	}
 	
 	/**
@@ -49,23 +62,23 @@ public class Buchungsverwaltung {
 	 * @return				Liste seiner Buchungen
 	 */
 	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
-		return kunde.getBuchungen();
+		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		for(Buchung b : buchungen)
+			if(getKunde(b).equals(kunde))
+				reslist.add(b);
+		return reslist;
 	}
 	
 	public Buchung getBuchungByBuchungsnummer(int id){
 		for(Buchung b : getAllBuchungen())
-				if(b.getIdentifier().equals(""+id))
-					return b;
+			if(b.getBuchungsnummer() == id)
+				return b;
 		return null;
 	}
 	
+	
 	public ArrayList<Buchung> getAllBuchungen(){
-		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
-		ArrayList<Kunde> acclist = Portal.getSingletonObject().getAccountverwaltung().getKunden();
-		for(Kunde k : acclist)
-			for(Buchung b : getBuchungen(k))
-				reslist.add(b);
-		return reslist;
+		return buchungen;
 	}
 	/**
 	 * Setter.
@@ -85,5 +98,16 @@ public class Buchungsverwaltung {
 	 */
 	public Bestaetigung getBestaetigt(Buchung buchung) {
 		return buchung.getBestaetigt();
+	}
+	
+	public Kunde getKunde(Buchung buchung){
+		for (Buchung b : buchungen)
+			if(b.getBuchungsnummer() == buchung.getBuchungsnummer())
+				return (Kunde) Portal.getSingletonObject().getAccountverwaltung().getAccountByName(buchung.getKundenName());
+		return null;
+	}
+	
+	public Angebot getReferringAngebot(Buchung buchung){
+		return Portal.getSingletonObject().getAngebotsverwaltung().getAngebotByAngebotsNummer(buchung.getAngebotsNummer());
 	}
 }

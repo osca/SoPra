@@ -16,6 +16,8 @@ import angebote.typen.*;
  */
 public class Angebotsverwaltung {
 	
+	private ArrayList<Angebot> angebote = new ArrayList<Angebot>();
+	
 	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date[] daten, String[] krit) {
 		switch(typ) {
@@ -52,6 +54,7 @@ public class Angebotsverwaltung {
 	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort){
 		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
 		anbieter.addAngebot(av);
+		angebote.add(av);
 		return av;
 	}
 	
@@ -71,6 +74,7 @@ public class Angebotsverwaltung {
 			Date[] pdaten, String port, String pbierpreis){
 		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
 		panb.addAngebot(af);
+		angebote.add(af);
 		return af;
 	}
 	
@@ -85,6 +89,7 @@ public class Angebotsverwaltung {
 			String ort, String klima, String sterne, String verpf, String bierpr){
 		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
 		anb.addAngebot(hu);
+		angebote.add(hu);
 		return hu;
 	}
 	
@@ -95,7 +100,7 @@ public class Angebotsverwaltung {
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
 		ArrayList<Kommentar> kommentare = angebot.getKommentare();
-		ArrayList<Buchung> buchungen = angebot.getBuchungen();
+		ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(angebot);
 		
 		// Erstmal checken, ob offene buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
 		for(int i = 0; i < buchungen.size(); i++) {
@@ -104,7 +109,9 @@ public class Angebotsverwaltung {
 		}
 		
 		// Loeschen ist erlaubt, wir entfernen das Angebot vom Anbieter
-		angebot.getAnbieter().delAngebot(angebot);
+		getAnbieter(angebot).delAngebot(angebot);
+		// und aus der gesamten Liste
+		angebote.remove(angebot);
 		
 		// Loeschen ist erlaubt, wir entfernen die Kommentare aus dem Angebot
 		for(int i = 0; i < kommentare.size(); i++) {
@@ -113,11 +120,11 @@ public class Angebotsverwaltung {
 		
 		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
 		for(int i = 0; i < buchungen.size(); i++) {
-			angebot.delBuchung(buchungen.get(i));
+			angebot.delBuchung(buchungen.get(i).getBuchungsnummer());
 		}
 		Portal.getSingletonObject().getNachrichtenverwaltung().delAllNachrichten(angebot);
-		// zugriff auf Nachrichten is nicht m�glich
-		// das loeschen in den Dateien �bernimmt XStream durch das Streamen der Entititaetsklassen
+		// zugriff auf Nachrichten is nicht moeglich
+		// das loeschen in den Dateien uebernimmt XStream durch das Streamen der Entititaetsklassen
 	}
 	
 	
@@ -131,10 +138,12 @@ public class Angebotsverwaltung {
 	public void editAngebot(Angebot altes, Angebot neues, Anbieter anbieter) {
 		try {
 			delAngebot(altes);
+			angebote.remove(altes);
 		} catch (LoeschenNichtMoeglichException e) {
 			e.printStackTrace();
 		}
 		anbieter.addAngebot(neues);
+		angebote.add(neues);
 	}
 	
 	/**
@@ -167,6 +176,10 @@ public class Angebotsverwaltung {
 		angebot.delKommentar(kommentar);
 	}
 	
+	public Anbieter getAnbieter(Angebot angebot){
+		return (Anbieter) Portal.getSingletonObject().getAccountverwaltung().getAccountByName(angebot.getAnbieterName());
+	}
+	
 	/**
 	 * suche Angebot nach Angebotsnummer (eindeutig)
 	 * @param id
@@ -177,6 +190,21 @@ public class Angebotsverwaltung {
 		for(Angebot ang : ava.getAllAngebote())
 			if(ang.getIdentifier().equals(""+id))
 				return ang;
+		return null;
+	}
+	
+	public ArrayList<Angebot> getAngebote(Anbieter anb){
+		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		for(Angebot ang : angebote)
+			if(getAnbieter(ang).equals(anb))
+				result.add(ang);
+		return result;
+	}
+	
+	public Angebot getAngebotByNummer(int id){
+		for(Angebot a : angebote)
+			if(id == a.getAngebotsNummer())
+				return a;
 		return null;
 	}
 	

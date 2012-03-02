@@ -5,6 +5,8 @@ import graphic.Listable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import main.Portal;
+
 import accounts.Anbieter;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
@@ -31,11 +33,11 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private boolean auffindbar;
 	private double preis;
 	private Date[] daten;
-	private Anbieter anbieter;
+	private String anbieterName;
 	private int kapazitaet;
 	
 	private ArrayList<Kommentar> kommentare = new ArrayList<Kommentar>();
-	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+	private ArrayList<Integer> buchungsNummern = new ArrayList<Integer>();
 	
 	
 	/**
@@ -50,7 +52,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @pre Es wird erwartet, dass das Array sortiert ist!
 	 */
 	public Angebot(Anbieter panbieter, String pname, String pbeschreibung, int ptyp, int pkapazitaet, double ppreis, Date[] pdaten) {
-		anbieter = panbieter;
+		anbieterName = panbieter.getName();
 		angebotsNummer = anzahl++;
 		name = pname;
 		beschreibung = pbeschreibung;
@@ -146,8 +148,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @return Buchung ArrayList
 	 */
-	public ArrayList<Buchung> getBuchungen() {
-		return buchungen;
+	public ArrayList<Integer> getBuchungsNummern() {
+		return buchungsNummern;
 	}
 	
 	/**
@@ -155,8 +157,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @return Anbieter
 	 */
-	public Anbieter getAnbieter() {
-		return anbieter;
+	public String getAnbieterName() {
+		return anbieterName;
 	}
 	
 	/**
@@ -192,8 +194,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @param buchung Buchung
 	 */
-	public void addBuchung(Buchung buchung) {
-		buchungen.add(buchung);
+	public void addBuchung(int buchungsNummer) {
+		buchungsNummern.add(buchungsNummer);
 	}
 	
 	/**
@@ -201,8 +203,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * 
 	 * @param buchung Buchung
 	 */
-	public void delBuchung(Buchung buchung) {
-		buchungen.remove(buchung);
+	public void delBuchung(int buchungsNummer) {
+		buchungsNummern.remove(buchungsNummer);
 	}
 	
 	/**
@@ -305,7 +307,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return beschreibung;
 	}
 
-	//TODO Gewichtungen muessen spaeter noch angepasst werden
+	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
 	/**
 	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
 	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge
@@ -320,10 +322,12 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 				  anbieterGewichtung = 20,
 				  angebotsGewichtung = 40;
 		double result = 0.00;
-		double fillRatioThis = this.getBuchungen().size()/(this.getKapazitaet()*this.getDaten().length);
-		double fillRatioP = pangebot.getBuchungen().size()/(pangebot.getKapazitaet()*pangebot.getDaten().length);
-		double abThis = this.getAnbieter().getWertung();
-		double abP = pangebot.getAnbieter().getWertung();
+		ArrayList<Buchung> buchungenThis = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(this),
+							buchungenP = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(pangebot);
+		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*this.getDaten().length);
+		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*pangebot.getDaten().length);
+		double abThis = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(this).getWertung();
+		double abP = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(pangebot).getWertung();
 		
 		result += (fillRatioThis-fillRatioP)*fillGewichtung;
 		result += (abThis-abP)*anbieterGewichtung;

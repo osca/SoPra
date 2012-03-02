@@ -85,7 +85,7 @@ public abstract class Account implements Listable{
 	}
 	
 	public String getAdditionalInfo(){
-		return ""+getTyp();
+		return Portal.getSingletonObject().getAccountverwaltung().convertFlagToName(getTyp());
 	}
 	
 	public String getFullInfo(){
