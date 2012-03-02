@@ -153,7 +153,7 @@ public class MainFrame extends JFrame
 		
 		ArrayList<Angebot> al = new ArrayList<Angebot>();
 		for(int i=0;i<100;i++)
-			al.add(new Flug(null,"name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+			al.add(new Flug(null,"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
 		list = new ListeScreen(this, al);
 		
 		screen.add(list);
@@ -215,6 +215,24 @@ public class MainFrame extends JFrame
 			}
 		});
 		
+		alleButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showAlleAngebote();
+			}
+		});
+		
+		erstelleButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showErstelle();
+			}
+		});
+		
 		////////////////
 		
 		this.pack();
@@ -250,8 +268,6 @@ public class MainFrame extends JFrame
 		{
 			if(!logged)
 			{
-				
-				
 				JTextField nameField = new JTextField("Name");
 				JTextField passwordField = new JTextField("Password");
 				JLabel label = new JLabel("Bitte geben Sie die Anmeldeinformationen an");
@@ -267,7 +283,7 @@ public class MainFrame extends JFrame
 						eigeneButton.setEnabled(true);
 						nachrichtButton.setEnabled(true);
 						
-						nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.getSingletonObject().getNachrichtenverwaltung().getErhalteneNachrichten(account).size()+")");
+						nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.getSingletonObject().getNachrichtenverwaltung().getAnzahlUngelesenerNachrichten()+")");
 						
 						loginButton.setText("Logout");
 						if(account.getTyp() == Account.KUNDE)
@@ -385,6 +401,48 @@ public class MainFrame extends JFrame
 		{
 			screen.removeAll();
 			list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getTopAngebote());
+			screen.add(list);
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	private void showNachricht()
+	{
+		try
+		{
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	private void showErstelle()
+	{
+		try
+		{
+			screen.removeAll();
+			screen.add(new AngebotCreate((Anbieter)account));
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	private void showAlleAngebote()
+	{
+		try
+		{
+			screen.removeAll();
+			list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getAllAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
