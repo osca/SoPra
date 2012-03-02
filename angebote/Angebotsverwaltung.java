@@ -179,4 +179,18 @@ public class Angebotsverwaltung {
 				return ang;
 		return null;
 	}
+	
+	public String[] angebotNameToErlaubteKriterien(String name){
+		switch(Angebot.convertNameToTyp(name)){
+		case Angebot.AUSFLUG : 
+			return Ausflug.erlaubteKriterien;
+		case Angebot.AUTOVERMIETUNG : 
+			return Autovermietung.erlaubteKriterien;
+		case Angebot.FLUG : 
+			return Flug.erlaubteKriterien;
+		case Angebot.HOTEL : 
+			return Hoteluebernachtung.erlaubteKriterien;
+		default : return null;
+		}
+	}
 }

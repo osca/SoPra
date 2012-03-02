@@ -256,6 +256,21 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		}
 		return "Not a Type";
 	}
+	private static final String _flug = "Flug",
+								_autoverm = "Autovermietung",
+								_ausflug = "Ausflug",
+								_hotel = "Hotel";
+	public static int convertNameToTyp(String name){
+		if(name.equals(_flug))
+			return FLUG;
+		else if(name.equals(_autoverm))
+			return AUTOVERMIETUNG;
+		else if(name.equals(_ausflug))
+			return AUSFLUG;
+		else if(name.equals(_hotel))
+			return HOTEL;
+		return -23;	//this should never ever happen :O
+	}
 	
 	/**
 	 * Listablemethode
