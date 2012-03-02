@@ -260,41 +260,33 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-					if(nameField.getText().equals("eins"))
-						account = new Kunde("1324","1234","1243");
-					else if(nameField.getText().equals("zwei"))
-						account = new Anbieter("1324","1234","1243");
-					else 
-						account = new Betreiber("1324","1234","1243");
 				
-					//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
-					//{
-						//account = Portal.getSingletonObject().getAccountverwaltung().getLoggedIn();
-						
-						eigeneButton.setEnabled(true);
-						nachrichtButton.setEnabled(true);
-						
-						nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.getSingletonObject().getNachrichtenverwaltung().getAnzahlUngelesenerNachrichten()+")");
-						
-						loginButton.setText("Logout");
-						if(account.getTyp() == Account.KUNDE)
-							eigeneButton.setText("Eigene Buchungen");
-						else if(account.getTyp() == Account.ANBIETER)
-						{
-							eigeneButton.setText("Eigene Angebote");
-							erstelleButton.setEnabled(true);
-						}
-						else
-							eigeneButton.setText("Alle Accounds");
-						
-						this.repaint();
-						logged = true;
-					//}
+					Portal.Accountverwaltung().logIn(nameField.getText(), passwordField.getText());
+					account = Portal.Accountverwaltung().getLoggedIn();
+					
+					eigeneButton.setEnabled(true);
+					nachrichtButton.setEnabled(true);
+					
+					nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten()+")");
+					
+					loginButton.setText("Logout");
+					if(account.getTyp() == Account.KUNDE)
+						eigeneButton.setText("Eigene Buchungen");
+					else if(account.getTyp() == Account.ANBIETER)
+					{
+						eigeneButton.setText("Eigene Angebote");
+						erstelleButton.setEnabled(true);
+					}
+					else
+						eigeneButton.setText("Alle Accounds");
+					
+					this.repaint();
+					logged = true;
 				}
 			}
 			else
 			{
-				Portal.getSingletonObject().getAccountverwaltung().logOut();
+				Portal.Accountverwaltung().logOut();
 				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
 				
 				eigeneButton.setEnabled(false);
@@ -310,7 +302,8 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 
@@ -327,11 +320,18 @@ public class MainFrame extends JFrame
 			final JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			final JTextArea agb = new JTextArea("Bitte füllen Sie Ihre Allgemeinen Geschäftsbedingungen aus!");
 			
-			JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Login",JOptionPane.OK_CANCEL_OPTION);
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			{
+				if(drop.getSelectedIndex() == 0)
+					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), passwordField.getText());
+				else
+					Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), passwordField.getText());
+			}
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -342,11 +342,11 @@ public class MainFrame extends JFrame
 			screen.removeAll();
 			
 			if(account.getTyp() == Account.KUNDE)
-				list = new ListeScreen(this, Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen((Kunde)account));
+				list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Kunde)account));
 			else if(account.getTyp() == Account.ANBIETER)
-				list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getAngebote((Anbieter)account));
+				list = new ListeScreen(this, Portal.Angebotsverwaltung().getAngebote((Anbieter)account));
 			else
-				list = new ListeScreen(this, Portal.getSingletonObject().getAccountverwaltung().getAccounts());
+				list = new ListeScreen(this, Portal.Accountverwaltung().getAccounts());
 			
 			screen.add(list);
 			scroll.setViewportView(screen);
@@ -354,7 +354,8 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -369,7 +370,8 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -383,7 +385,10 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());			
+		}
 	}
 	
 	private void showTopAngebote()
@@ -391,14 +396,15 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getTopAngebote());
+			list = new ListeScreen(this, Portal.Angebotsverarbeitung().getTopAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -409,7 +415,8 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -424,7 +431,8 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 	
@@ -433,14 +441,15 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getAllAngebote());
+			list = new ListeScreen(this, Portal.Angebotsverwaltung().getAllAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
 	}
 

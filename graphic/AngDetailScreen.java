@@ -46,7 +46,7 @@ public class AngDetailScreen extends JPanel{
 	public AngDetailScreen(int usertype, Angebot a){
 		
 		angebot = a;
-		anbieter = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(angebot);
+		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0,2));
@@ -137,7 +137,7 @@ public class AngDetailScreen extends JPanel{
 				try
 				{
 					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass sie dieses Angebot Melden möchten?", "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-						Portal.getSingletonObject().getNachrichtenverwaltung().sendeNachricht(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), anbieter, "Beschwerde","Ein Kunde hat ein Angebot gemeldet!", angebot);
+						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Beschwerde","Ein Kunde hat ein Angebot gemeldet!", angebot);
 				}
 				catch(Exception e)
 				{

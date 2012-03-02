@@ -47,7 +47,7 @@ public class BuchDetailScreen extends JPanel {
 		down = new JPanel(new BorderLayout(5,5));
 		
 		name = new JLabel(b.getIdentifier());
-		typ = new JLabel (""+Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(b).getTyp());		//GUCKEN BITTE
+		typ = new JLabel (""+Portal.Buchungsverwaltung().getReferringAngebot(b).getTyp());		//GUCKEN BITTE
 		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
 		anbieter = new JLabel(); // edit  wenn implementiert
 		
@@ -58,7 +58,7 @@ public class BuchDetailScreen extends JPanel {
 		sub_a.add(anbieter);
 		
 		sub_b = new JPanel(new GridLayout(6,0));
-		String k[] = Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(b).getErlaubteKriterien(); 
+		String k[] = Portal.Buchungsverwaltung().getReferringAngebot(b).getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
 			JLabel krit = new JLabel(k[i]);
 			sub_b.add(krit);
@@ -66,7 +66,7 @@ public class BuchDetailScreen extends JPanel {
 		up.add(sub_a);
 		up.add(sub_b);
 		
-		fullinfo = new JLabel(Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(b).getFullInfo());
+		fullinfo = new JLabel(Portal.Buchungsverwaltung().getReferringAngebot(b).getFullInfo());
 		mid.add(fullinfo);
 		
 		aenderungsanfrage = new JButton("Aenderungsanfrage");

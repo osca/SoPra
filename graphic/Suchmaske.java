@@ -246,7 +246,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			
-			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
+			Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
 					Double.parseDouble(bpreis.getText()), date, k);
 			}
 //		else if(e.getSource()==abbrechen){

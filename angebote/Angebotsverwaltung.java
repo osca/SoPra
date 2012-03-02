@@ -103,7 +103,7 @@ public class Angebotsverwaltung {
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
 		ArrayList<Kommentar> kommentare = angebot.getKommentare();
-		ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(angebot);
+		ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(angebot);
 		
 		// Erstmal checken, ob offene buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
 		for(int i = 0; i < buchungen.size(); i++) {
@@ -125,7 +125,7 @@ public class Angebotsverwaltung {
 		for(int i = 0; i < buchungen.size(); i++) {
 			angebot.delBuchung(buchungen.get(i).getBuchungsnummer());
 		}
-		Portal.getSingletonObject().getNachrichtenverwaltung().delAllNachrichten(angebot);
+		Portal.Nachrichtenverwaltung().delAllNachrichten(angebot);
 		// zugriff auf Nachrichten is nicht moeglich
 		// das loeschen in den Dateien uebernimmt XStream durch das Streamen der Entititaetsklassen
 	}
@@ -180,7 +180,7 @@ public class Angebotsverwaltung {
 	}
 	
 	public Anbieter getAnbieter(Angebot angebot){
-		return (Anbieter) Portal.getSingletonObject().getAccountverwaltung().getAccountByName(angebot.getAnbieterName());
+		return (Anbieter) Portal.Accountverwaltung().getAccountByName(angebot.getAnbieterName());
 	}
 	
 	/**
@@ -189,8 +189,8 @@ public class Angebotsverwaltung {
 	 * @return passendes Angebot oder null, falls nicht gefunden/vorhanden
 	 */
 	public Angebot getAngebotByAngebotsNummer(int id){
-		Angebotsverarbeitung ava = Portal.getSingletonObject().getAngebotsverarbeitung();
-		for(Angebot ang : ava.getAllAngebote())
+		Angebotsverwaltung av = Portal.Angebotsverwaltung();
+		for(Angebot ang : av.getAllAngebote())
 			if(ang.getIdentifier().equals(""+id))
 				return ang;
 		return null;

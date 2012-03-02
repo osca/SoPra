@@ -267,7 +267,7 @@ String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedIte
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			Portal.getSingletonObject().getAngebotsverwaltung().createAngebot((Anbieter) Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
 			
 		}
 		
