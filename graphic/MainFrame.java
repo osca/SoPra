@@ -48,8 +48,8 @@ import buchungen.Buchung;
 
 public class MainFrame extends JFrame
 {
-	private static final int BUTTONHEIGHT = 38;
-	private static final int BUTTONWIDTH = 180;
+	public static final int BUTTONHEIGHT = 38;
+	public static final int BUTTONWIDTH = 180;
 
 	private JButton loginButton;
 	private JButton registerButton;
