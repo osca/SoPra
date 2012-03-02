@@ -135,8 +135,14 @@ public class Suchmaske extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		MaskFormatter stringformat =new MaskFormatter(Methods.format4long(30));
-		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
+		MaskFormatter stringformatone = null;
+		try {
+			stringformatone = new MaskFormatter(Methods.format4long(30));
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		stringformatone.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
 		
 		if (e.getSource() == typ) {
 			sub_b.removeAll();
@@ -147,7 +153,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort = new JFormattedTextField(stringformat);
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_b.add(ort);
 				
@@ -158,7 +164,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 				
 				JLabel sterne_label= new JLabel("Sterne:");
 				sub_b.add(sterne_label);
-				sterne = new JFormattedTextField(stringformat);
+				sterne = new JFormattedTextField(stringformatone);
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 				sub_b.add(sterne);
 				
@@ -175,7 +181,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
-				ort = new JFormattedTextField(stringformat);
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 			
@@ -184,7 +190,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
 				JLabel ort_label= new JLabel("Ort:");
 				sub_b.add(ort_label);
-				ort =new JFormattedTextField(stringformat);
+				ort =new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben SIe einen Ort");
 				sub_b.add(ort);
 				
@@ -198,12 +204,12 @@ public class Suchmaske extends JPanel implements ActionListener {
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				JLabel ort_label= new JLabel("Startort:");
 				sub_b.add(ort_label);
-				ort = new JFormattedTextField(stringformat);
+				ort = new JFormattedTextField(stringformatone);
 				ort.setToolTipText("Bitte geben Sie einen Startort");
 				sub_b.add(ort);
 				JLabel ortz_label= new JLabel("Zielort:");
 				sub_b.add(ortz_label);
-				ortz = new JFormattedTextField(stringformat);
+				ortz = new JFormattedTextField(stringformatone);
 				ortz.setToolTipText("Bitte geben Sie einen Zielort");
 				sub_b.add(ortz);
 				
