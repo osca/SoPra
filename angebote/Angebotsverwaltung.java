@@ -211,6 +211,14 @@ public class Angebotsverwaltung {
 		return null;
 	}
 	
+	/**
+	 * gibt alle im System befindlichen Angebote zurueck
+	 * @return
+	 */
+	public ArrayList<Angebot> getAllAngebote(){
+		return angebote;
+	}
+	
 	public static String[] angebotNameToErlaubteKriterien(String name){
 		switch(Angebot.convertNameToTyp(name)){
 		case Angebot.AUSFLUG : 
