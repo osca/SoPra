@@ -104,11 +104,11 @@ public class Buchungsverwaltung {
 	public Kunde getKunde(Buchung buchung){
 		for (Buchung b : buchungen)
 			if(b.getBuchungsnummer() == buchung.getBuchungsnummer())
-				return (Kunde) Portal.getSingletonObject().getAccountverwaltung().getAccountByName(buchung.getKundenName());
+				return (Kunde) Portal.Accountverwaltung().getAccountByName(buchung.getKundenName());
 		return null;
 	}
 	
 	public Angebot getReferringAngebot(Buchung buchung){
-		return Portal.getSingletonObject().getAngebotsverwaltung().getAngebotByAngebotsNummer(buchung.getAngebotsNummer());
+		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(buchung.getAngebotsNummer());
 	}
 }

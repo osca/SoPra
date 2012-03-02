@@ -322,12 +322,12 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 				  anbieterGewichtung = 20,
 				  angebotsGewichtung = 40;
 		double result = 0.00;
-		ArrayList<Buchung> buchungenThis = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(this),
-							buchungenP = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(pangebot);
+		ArrayList<Buchung> buchungenThis = Portal.Buchungsverwaltung().getBuchungen(this),
+							buchungenP = Portal.Buchungsverwaltung().getBuchungen(pangebot);
 		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*this.getDaten().length);
 		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*pangebot.getDaten().length);
-		double abThis = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(this).getWertung();
-		double abP = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(pangebot).getWertung();
+		double abThis = Portal.Angebotsverwaltung().getAnbieter(this).getWertung();
+		double abP = Portal.Angebotsverwaltung().getAnbieter(pangebot).getWertung();
 		
 		result += (fillRatioThis-fillRatioP)*fillGewichtung;
 		result += (abThis-abP)*anbieterGewichtung;

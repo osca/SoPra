@@ -50,7 +50,7 @@ public class Anbieter extends Account{
 		if(angebote.size() == 0)
 			return result;
 		
-		for(Angebot a: Portal.getSingletonObject().getAngebotsverwaltung().getAngebote(this)) {
+		for(Angebot a: Portal.Angebotsverwaltung().getAngebote(this)) {
 			result+=a.getWertung();
 		}
 		

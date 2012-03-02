@@ -31,6 +31,22 @@ public class Accountverwaltung {
 	 */
 	public Accountverwaltung(){	}
 	
+	public Account createAccount(int typFlag, String email, String name, String password) throws AlreadyInUseException{
+		switch (typFlag){
+		case Account.NONE :
+			return new Default();
+		case Account.ANBIETER :
+			return createAnbieter(email, name, password);
+		case Account.BETREIBER :
+			return createBetreiber(email, name, password);
+		case Account.KUNDE : 
+			return createKunde(email, name, password);
+		default : 
+			return null;
+		}
+	}
+	
+	
 	/**
 	 * Erstelle Kunde
 	 * 
@@ -129,12 +145,12 @@ public class Accountverwaltung {
 		switch(acc.getTyp()){
 			case(Account.ANBIETER):{
 				Anbieter anbieteracc = (Anbieter) acc;
-				ArrayList<Angebot> zuLoeschendeAngebote=Portal.getSingletonObject().getAngebotsverwaltung().getAngebote(anbieteracc);
+				ArrayList<Angebot> zuLoeschendeAngebote=Portal.Angebotsverwaltung().getAngebote(anbieteracc);
 				
 				//Gibt es noch offene Buchungen Schleife
 				for(Angebot a:zuLoeschendeAngebote){
 					if(a.getDaten()[a.getDaten().length-1].compareTo(heute)>0){
-						ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a);
+						ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(a);
 						
 						for(Buchung b:buchungen){
 							if(b.getBis().compareTo(heute) > 0 && (Bestaetigung.JA == b.getBestaetigt())) 
@@ -144,15 +160,15 @@ public class Accountverwaltung {
 				}
 				
 				//Angebote und deren Buchungen loeschen
-				Buchungsverwaltung buchungsVerwaltung=Portal.getSingletonObject().getBuchungsverwaltung();
-				Angebotsverwaltung angebotsVerwaltung=Portal.getSingletonObject().getAngebotsverwaltung();
+				Buchungsverwaltung buchungsVerwaltung=Portal.Buchungsverwaltung();
+				Angebotsverwaltung angebotsVerwaltung=Portal.Angebotsverwaltung();
 				
 				for(Angebot a:zuLoeschendeAngebote){
-					ArrayList<Buchung> buchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(a);
+					ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(a);
 					
 					for(Buchung b:buchungen){
 						buchungsVerwaltung.delBuchung(b);
-						Portal.getSingletonObject().getBuchungsverwaltung().delBuchung(b); 
+						Portal.Buchungsverwaltung().delBuchung(b); 
 						//TODO Duerfen Buchungen wirklich geloescht werden? Nicht besser canceln?
 					}
 					
@@ -163,7 +179,7 @@ public class Accountverwaltung {
 			
 			case(Account.KUNDE):{
 				Kunde kundenacc = (Kunde) acc;
-				ArrayList<Buchung> kundenbuchungen = Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen(kundenacc);
+				ArrayList<Buchung> kundenbuchungen = Portal.Buchungsverwaltung().getBuchungen(kundenacc);
 				
 				//Hat der Kunde noch anstehende bestaetigte Buchungen?
 				for(Buchung b:kundenbuchungen) {
@@ -173,7 +189,7 @@ public class Accountverwaltung {
 				}
 				
 				//Loesche saemtliche mit dem Kunden verbundene Buchungen
-				Buchungsverwaltung buchungsVerwaltung = Portal.getSingletonObject().getBuchungsverwaltung();
+				Buchungsverwaltung buchungsVerwaltung = Portal.Buchungsverwaltung();
 					
 				for(Buchung b:buchungsVerwaltung.getBuchungen(kundenacc))
 					buchungsVerwaltung.delBuchung(b);
@@ -191,7 +207,7 @@ public class Accountverwaltung {
 		}
 		
 		//Loesche saemtliche mit dem Account verbundenen Nachrichten
-		Nachrichtenverwaltung nachrichtenVerwaltung = Portal.getSingletonObject().getNachrichtenverwaltung();
+		Nachrichtenverwaltung nachrichtenVerwaltung = Portal.Nachrichtenverwaltung();
 		
 		nachrichtenVerwaltung.delAllNachrichten(acc);
 		

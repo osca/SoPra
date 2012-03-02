@@ -26,42 +26,42 @@ public class Portal {
 	/** Gibt das Portalobjekt zurück
 	 * @return PortalSingleton
 	 */
-	public static Portal getSingletonObject(){
+/*	public static Portal getSingletonObject(){
 		return single;
 	}
 	
 	/** gibt das Accountverwaltungsobjekt zurück
 	 * @return Accountverwaltungsobjekt
 	 */
-	public Accountverwaltung getAccountverwaltung(){
-		return accverw;
+	public static Accountverwaltung Accountverwaltung(){
+		return single.accverw;
 	}
 	
 	/**
 	 * @return Angebotsverwaltungsobjekt
 	 */
-	public Angebotsverwaltung getAngebotsverwaltung() {
-		return angebverw;
+	public static Angebotsverwaltung Angebotsverwaltung() {
+		return single.angebverw;
 	}
 
 	/**
 	 * @return Buchungsverwaltungsobjekt
 	 */
-	public Buchungsverwaltung getBuchungsverwaltung() {
-		return buchverw;
+	public static Buchungsverwaltung Buchungsverwaltung() {
+		return single.buchverw;
 	}
 
 	/**
 	 * @return Nachrichtenverwaltungsobjekt
 	 */
-	public Nachrichtenverwaltung getNachrichtenverwaltung() {
-		return nachrverw;
+	public static Nachrichtenverwaltung Nachrichtenverwaltung() {
+		return single.nachrverw;
 	}
 
 	/**
 	 * @return Angebotsverarbeitungsobjekt
 	 */
-	public Angebotsverarbeitung getAngebotsverarbeitung() {
-		return angebverar;
+	public static Angebotsverarbeitung Angebotsverarbeitung() {
+		return single.angebverar;
 	}
 }

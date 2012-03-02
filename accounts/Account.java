@@ -73,7 +73,7 @@ public abstract class Account implements Listable{
 	/**Setzt den Account auf gesperrt bzw. nicht gesperrt
 	 * @param gesperrt : true - sperrt account, false - entsperrt Account
 	 */
-	public void setGesperrt(boolean gesperrt) {	
+	void setGesperrt(boolean gesperrt) {		//package
 		this.gesperrt = gesperrt;
 	}
 	//-----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ public abstract class Account implements Listable{
 	}
 	
 	public String getAdditionalInfo(){
-		return Portal.getSingletonObject().getAccountverwaltung().convertFlagToName(getTyp());
+		return Portal.Accountverwaltung().convertFlagToName(getTyp());
 	}
 	
 	public String getFullInfo(){
@@ -92,7 +92,7 @@ public abstract class Account implements Listable{
 	}
 	
 	public String getStatus(){ // vllt. 
-		return ""+(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn()).equals(this);
+		return ""+(Portal.Accountverwaltung().getLoggedIn()).equals(this);
 	}
 	
 	public int getListableTyp(){

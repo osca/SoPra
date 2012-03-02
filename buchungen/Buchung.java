@@ -119,14 +119,14 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getAdditionalInfo() {
-		Angebot ang = Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(this);
-		Anbieter anbieter = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(ang);
+		Angebot ang = Portal.Buchungsverwaltung().getReferringAngebot(this);
+		Anbieter anbieter = Portal.Angebotsverwaltung().getAnbieter(ang);
 		return anbieter.getName()+", "+von+" - "+bis+", "+ang.getAdditionalInfo();
 	}
 
 	@Override
 	public String getFullInfo() {
-		return Portal.getSingletonObject().getBuchungsverwaltung().getReferringAngebot(this).getFullInfo();
+		return Portal.Buchungsverwaltung().getReferringAngebot(this).getFullInfo();
 	}
 
 	@Override

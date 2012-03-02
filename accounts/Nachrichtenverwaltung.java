@@ -85,7 +85,7 @@ public class Nachrichtenverwaltung {
 	 * @return Angebot
 	 */
 	public Angebot getReferringAngebot(Nachricht msg){
-		return Portal.getSingletonObject().getAngebotsverwaltung().getAngebotByAngebotsNummer(msg.getAngebotsNummer());
+		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(msg.getAngebotsNummer());
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class Nachrichtenverwaltung {
 	 * @return
 	 */
 	public Account getAbsender(Nachricht msg){
-		return Portal.getSingletonObject().getAccountverwaltung().getAccountByName(msg.getAbsender());
+		return Portal.Accountverwaltung().getAccountByName(msg.getAbsender());
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class Nachrichtenverwaltung {
 	 * @return
 	 */
 	public Account getEmpfaenger(Nachricht msg){
-		return Portal.getSingletonObject().getAccountverwaltung().getAccountByName(msg.getEmpfaenger());
+		return Portal.Accountverwaltung().getAccountByName(msg.getEmpfaenger());
 	}
 	
 	/**
