@@ -96,4 +96,32 @@ public class Nachrichtenverwaltung {
 		}
 	}
 	
+	public boolean getGelesen(Nachricht n) {
+		return n.isGelesen();
+	}
+	
+	public void setGelesen(Nachricht n, boolean gelesen) {
+		n.setGelesen(gelesen);
+	}
+	
+	public Nachricht getNachrichtById(int id) {
+		for(Nachricht n:alleNachrichten) {
+			if(n.getId() == id)
+				return n;
+		}
+		return null;
+	}
+	
+	public ArrayList<Nachricht> getUngeleseneNachrichten() {
+		ArrayList<Nachricht> result = new ArrayList<Nachricht>();
+		
+		for(Nachricht n:alleNachrichten) {
+			if(!n.isGelesen())
+				result.add(n);
+		}
+		
+		return result;
+	}
+	
+	
 }
