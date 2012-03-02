@@ -37,5 +37,9 @@ public class Methods {
 		}
 		return s;
 	}
+	public static String verify(String s){
+		
+		return s;
+	}
 	
 }

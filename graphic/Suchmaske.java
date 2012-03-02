@@ -6,7 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -32,17 +34,19 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JPanel sub_a;
 	private JPanel sub_b;
 	private JPanel mid;
+	private JPanel sub_one;
+	private JPanel sub_two;
 
-	private JFormattedTextField name;
+	private JTextField name;
 	private JComboBox typ;
 	private Vector<String> typ_list;
 	private JFormattedTextField vpreis;
 	private JFormattedTextField bpreis;
-	private JFormattedTextField kap;
-	private JFormattedTextField anbieter;
+	private JTextField kap;
+	private JTextField anbieter;
 	private JFormattedTextField von;
 	private JFormattedTextField bis;
-	private JFormattedTextField interval;
+	private JTextField interval;
 
 	private JTextField ort;
 	private JTextField ortz;
@@ -58,15 +62,6 @@ public class Suchmaske extends JPanel implements ActionListener {
 
 	public Suchmaske() throws ParseException {
 		
-
-		MaskFormatter preisformat = new MaskFormatter("******.**");
-		preisformat.setValidCharacters("0123456789");
-		MaskFormatter date_f = new MaskFormatter("##/##/####");
-		date_f.setValidCharacters("0123456789");
-		MaskFormatter interv = new MaskFormatter("**");
-		interv.setValidCharacters("0123456789");
-		MaskFormatter stringformat =new MaskFormatter(Methods.format4long(30));
-		stringformat.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
 		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
@@ -74,7 +69,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 		sub_b = new JPanel(new GridLayout(6, 0));
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
-		name =new JFormattedTextField(stringformat);
+		name =new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
 		JLabel typ_label = new JLabel("Typ:");
@@ -91,28 +86,32 @@ public class Suchmaske extends JPanel implements ActionListener {
 		sub_a.add(typ);
 		JLabel vpreis_label = new JLabel("Startpreis:");
 		sub_a.add(vpreis_label);
-		vpreis = new JFormattedTextField(preisformat);
+		vpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
 		JLabel bpreis_label = new JLabel("Endpreis:");
 		sub_a.add(bpreis_label);
-		bpreis = new JFormattedTextField(preisformat);
+		bpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
-		kap = new JFormattedTextField(interv);
+		kap = new JTextField();
 		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
 		sub_a.add(kap);
-		anbieter = new JFormattedTextField(stringformat);
+		anbieter = new JTextField();
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
-		sub_b = new JPanel(new GridLayout(6, 0));
-		von = new JFormattedTextField(date_f);
+		sub_b = new JPanel(new GridLayout(0, 2));
+		sub_one = new JPanel(new GridLayout(6,1));
+		sub_two = new JPanel(new GridLayout(6,1));
+		sub_b.add(sub_a);
+		sub_b.add(sub_two);
+		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
-		bis = new JFormattedTextField(date_f);
+		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
-		interval = new JFormattedTextField(interv);
+		interval = new JTextField();
 		sub_a.add(interval);
 		up.add(sub_a);
 		up.add(sub_b);
@@ -129,104 +128,102 @@ public class Suchmaske extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		MaskFormatter stringformatone = null;
-		try {
-			stringformatone = new MaskFormatter(Methods.format4long(30));
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		stringformatone.setValidCharacters("abcdefghijklmopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
 		
 		if (e.getSource() == typ) {
-			sub_b.removeAll();
+			
+			sub_one.removeAll();
+			sub_two.removeAll();
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
 				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
-				sub_b.add(ort_label);
-				ort = new JFormattedTextField(stringformatone);
+				sub_one.add(ort_label);
+				ort = new JTextField();
 				ort.setToolTipText("Bitte geben Sie einen Ort");
-				sub_b.add(ort);
+				sub_two.add(ort);
 				
 				JLabel klima_label= new JLabel("Klima:");
-				sub_b.add(klima_label);
+				sub_one.add(klima_label);
 				klima = new JComboBox(Klima.wertebereich);
-				sub_b.add(klima);
+				sub_two.add(klima);
 				
 				JLabel sterne_label= new JLabel("Sterne:");
-				sub_b.add(sterne_label);
-				sterne = new JFormattedTextField(stringformatone);
+				sub_one.add(sterne_label);
+				sterne = new JTextField();
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
-				sub_b.add(sterne);
+				sub_two.add(sterne);
 				
 				JLabel verpfelgeung_label= new JLabel("Verpflegung:");
-				sub_b.add(verpfelgeung_label);
+				sub_one.add(verpfelgeung_label);
 				verpflegung = new JComboBox(Verpflegungsart.wertebereich);
-				sub_b.add(verpflegung);
+				sub_two.add(verpflegung);
 				
-				JLabel bierpreis_label= new JLabel("Bierpreie:");
-				sub_b.add(bierpreis_label);
+				JLabel bierpreis_label= new JLabel("Bierpreis:");
+				sub_one.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
-				sub_b.add(bierpreis);
+				sub_two.add(bierpreis);
 				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
-				ort = new JFormattedTextField(stringformatone);
+				JLabel ort_label = new JLabel("Ort:");
+				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
-				sub_b.add(ort);
+				sub_one.add(ort_label);
+				sub_two.add(ort);
 			
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
 				JLabel ort_label= new JLabel("Ort:");
-				sub_b.add(ort_label);
-				ort =new JFormattedTextField(stringformatone);
+				sub_one.add(ort_label);
+				ort = new JTextField();
 				ort.setToolTipText("Bitte geben SIe einen Ort");
-				sub_b.add(ort);
+				sub_two.add(ort);
 				
 				JLabel bierpreis_label= new JLabel("Bierpreis:");
-				sub_b.add(bierpreis_label);
+				sub_one.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
-				sub_b.add(bierpreis);
+				sub_two.add(bierpreis);
 				
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				JLabel ort_label= new JLabel("Startort:");
-				sub_b.add(ort_label);
-				ort = new JFormattedTextField(stringformatone);
+				sub_one.add(ort_label);
+				ort = new JTextField();
 				ort.setToolTipText("Bitte geben Sie einen Startort");
-				sub_b.add(ort);
+				sub_two.add(ort);
 				JLabel ortz_label= new JLabel("Zielort:");
-				sub_b.add(ortz_label);
-				ortz = new JFormattedTextField(stringformatone);
+				sub_one.add(ortz_label);
+				ortz = new JTextField();
 				ortz.setToolTipText("Bitte geben Sie einen Zielort");
-				sub_b.add(ortz);
+				sub_two.add(ortz);
 				
 				JLabel klasse_label= new JLabel("Klasse:");
-				sub_b.add(klasse_label);
+				sub_one.add(klasse_label);
 				klasse = new JComboBox(Klasse.wertebereich);
-				sub_b.add(klasse);
+				sub_two.add(klasse);
 				
 				JLabel bierpreis_label= new JLabel("Bierpreie:");
-				sub_b.add(bierpreis_label);
+				sub_one.add(bierpreis_label);
 				bierpreis = new JComboBox(Bierpreis.wertebereich);
-				sub_b.add(bierpreis);
+				sub_two.add(bierpreis);
 				
 			}
-			sub_b.repaint();
+			sub_one.repaint();
+			sub_two.repaint();
+			this.repaint();
 		}
 		else if(e.getSource()==suche){
 			
 			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
-			for(int i=0;i < sub_b.getComponentCount(); i++)
+			for(int i=0;i < sub_two.getComponentCount(); i++)
 			{
-			 Component c = sub_b.getComponent(i);
+			 Component c = sub_two.getComponent(i);
 			  if(c instanceof JComboBox){
 				  k[i]=((JComboBox) c).getSelectedItem().toString();
 			  }
