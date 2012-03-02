@@ -25,6 +25,7 @@ import javax.swing.border.Border;
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
+import accounts.Betreiber;
 import accounts.Default;
 import accounts.Kunde;
 import angebote.typen.Angebot;
@@ -259,7 +260,12 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-					account = new Anbieter("1324","1234","1243");
+					if(nameField.equals("1"))
+						account = new Kunde("1324","1234","1243");
+					else if(nameField.equals("2"))
+						account = new Anbieter("1324","1234","1243");
+					else 
+						account = new Betreiber("1324","1234","1243");
 				
 					//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
 					//{

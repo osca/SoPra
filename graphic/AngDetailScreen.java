@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import main.Portal;
 import accounts.Account;
+import accounts.Anbieter;
 import angebote.typen.Angebot;
 
 
@@ -27,7 +28,7 @@ public class AngDetailScreen extends JPanel{
 	private JLabel name;
 	private JLabel typ;
 	private JLabel datum;
-	private JLabel anbieter;
+	private JLabel anbieterl;
 	
 	private JTextArea fullinfo;
 	private JLabel nullAcc;
@@ -40,10 +41,12 @@ public class AngDetailScreen extends JPanel{
 	private JButton kontaktieren = new JButton("kontaktieren");
 	
 	final Angebot angebot;
+	final Anbieter anbieter;
 	
 	public AngDetailScreen(int usertype, Angebot a){
 		
 		angebot = a;
+		anbieter = Portal.getSingletonObject().getAngebotsverwaltung().getAnbieter(angebot);
 		
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0,2));
@@ -53,13 +56,13 @@ public class AngDetailScreen extends JPanel{
 		name = new JLabel(angebot.getIdentifier());
 		typ = new JLabel (""+angebot.getTyp());		
 		datum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
-		anbieter = new JLabel(); 
+		anbieterl = new JLabel(); 
 		
 		sub_a = new JPanel(new GridLayout(6,0));
 		sub_a.add(name);
 		sub_a.add(typ);
 		sub_a.add(datum);				
-		sub_a.add(anbieter);
+		sub_a.add(anbieterl);
 		sub_b = new JPanel(new GridLayout(6,0));
 		String k[] = angebot.getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
@@ -118,7 +121,7 @@ public class AngDetailScreen extends JPanel{
 			{
 				try
 				{//TODO
-					JOptionPane.showConfirmDialog(up.getParent(), angebot.getAnbieter().getAgb(), "Buchung", JOptionPane.OK_CANCEL_OPTION);
+					JOptionPane.showConfirmDialog(up.getParent(), anbieter.getAgb(), "Buchung", JOptionPane.OK_CANCEL_OPTION);
 				}
 				catch(Exception e)
 				{
@@ -134,7 +137,7 @@ public class AngDetailScreen extends JPanel{
 				try
 				{
 					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass sie dieses Angebot Melden möchten?", "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-						Portal.getSingletonObject().getNachrichtenverwaltung().sendeNachricht(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), angebot.getAnbieter(), "Angebot gemeldet!", "Ein Angebot wurde Gemeldet", angebot);
+						Portal.getSingletonObject().getNachrichtenverwaltung().sendeNachricht(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn(), anbieter, "Beschwerde","Ein Kunde hat ein Angebot gemeldet!", angebot);
 				}
 				catch(Exception e)
 				{
