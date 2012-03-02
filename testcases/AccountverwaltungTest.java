@@ -19,7 +19,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testCreateKunde() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createKunde("Kunde1@kunde.de", "Kunde", "KundenPasswort");
 			
@@ -39,7 +39,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testCreateAnbieter() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createAnbieter("Anbieter1@anbieter.de", "Anbieter", "AnbieterPasswort");
 			
@@ -58,7 +58,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testeCreateBetreiber() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		try {
 			acv.createBetreiber("Betreiber1@betreiber.de", "Betreiber", "BetreiberPasswort");
 			
@@ -75,9 +75,9 @@ public class AccountverwaltungTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testEnableAccount() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		acv.setEnableAccount(acv.getKunden().get(0), false);
 	
@@ -87,7 +87,7 @@ public class AccountverwaltungTest {
 	
 	@Test
 	public void testDeleteKunden() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
 			acv.delAccount(acv.getKunden().get(0));
@@ -98,24 +98,22 @@ public class AccountverwaltungTest {
 		}
 	}
 
+	@Test
 	public void testDeleteAnbieter() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
-			acv.createAnbieter("pfui@tui,de", "PFUI", "supiiii");
-			
-			acv.delAccount(acv.getKunden().get(0));
+			acv.delAccount(acv.getAnbieter().get(0));
 			
 			Assert.assertEquals(true, acv.getAnbieter().isEmpty());
-		} catch (AlreadyInUseException e) {
+		} catch (LoeschenNichtMoeglichException e) {
 			e.printStackTrace();
-		} catch (LoeschenNichtMoeglichException e1) {
-			e1.printStackTrace();
 		}
 	}
 	
+	@Test
 	public void testDeleteBetreiber() {
-		acv = Portal.getSingletonObject().getAccountverwaltung();
+		acv = Portal.Accountverwaltung();
 		
 		try {
 			acv.createBetreiber("", "", "");
