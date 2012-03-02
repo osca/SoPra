@@ -35,6 +35,7 @@ import main.Datenhaltung;
 import main.Portal;
 
 import accounts.Account;
+import accounts.Anbieter;
 import accounts.Default;
 import accounts.Kunde;
 import angebote.typen.Angebot;
@@ -47,11 +48,9 @@ public class MainFrame extends JFrame
 	private static final int BUTTONWIDTH = 180;
 
 	private JButton loginButton;
-	private JButton logoutButton;
 	private JButton registerButton;
 	private JButton nachrichtButton;
-	private JButton buchenButton;
-	private JButton angebotButton;
+	private JButton eigeneButton;
 	private JButton sucheButton;
 	private JButton topButton;
 	private JButton alleButton;
@@ -119,41 +118,34 @@ public class MainFrame extends JFrame
 
 		loginButton = new JButton("Login");
 		loginButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		logoutButton = new JButton("Logout");
-		logoutButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		registerButton = new JButton("Registrieren");
 		registerButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		buchenButton = new JButton("Eigene Buchungen");
-		buchenButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		sucheButton = new JButton("Suche Angebote");
 		sucheButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		topButton = new JButton("Top Angebote");
 		topButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		nachrichtButton = new JButton("Nachrichten");
 		nachrichtButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-		angebotButton = new JButton("Eigene Angebote");
-		angebotButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		nachrichtButton.setEnabled(false);
+		eigeneButton = new JButton("Angebote/Buchungen");
+		eigeneButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		eigeneButton.setEnabled(false);
 		alleButton = new JButton("Alle Angebote");
 		alleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		erstelleButton = new JButton("Angebot erstellen");
 		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		erstelleButton.setEnabled(false);
 		
 		buttonPanel.add(loginButton);
+		buttonPanel.add(eigeneButton);
 		buttonPanel.add(sucheButton);
+		buttonPanel.add(nachrichtButton);
+		buttonPanel.add(erstelleButton);
 		buttonPanel.add(topButton);
+		buttonPanel.add(alleButton);
 		registerPanel.add(registerButton);
 
-		// /////////
-//
-//		Flug f = new Flug("name", "beschreibung", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//
-//		AngDetailScreen ang = new AngDetailScreen(0, f);
-//		//ang.setPreferredSize(new Dimension(400, 400));
-//		//ang.setBackground(Color.black);
-//			
-//		screen.add(ang);
-//		screen.add(new BuchDetailScreen(new Buchung(f, new Kunde("name", "email","password"),new Date(), new Date())));
-		
+		// /////////	
 		
 		ArrayList<Angebot> al = new ArrayList<Angebot>();
 		for(int i=0;i<100;i++)
@@ -192,7 +184,7 @@ public class MainFrame extends JFrame
 			}
 		});
 		
-		buchenButton.addActionListener(new ActionListener()
+		eigeneButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent argR0) 
@@ -253,13 +245,23 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-					
+					account = new Kunde("1324","1234","1243");
 				
 					//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
-					//if(Portal.getSingletonObject().getAccountverwaltung().getLoggedIn() != null)
 					//{
 						//account = Portal.getSingletonObject().getAccountverwaltung().getLoggedIn();
+						
+						eigeneButton.setEnabled(true);
+						nachrichtButton.setEnabled(true);
+						
 						loginButton.setText("Logout");
+						if(account.getTyp() == Account.KUNDE)
+							eigeneButton.setText("Eigene Buchungen");
+						else if(account.getTyp() == Account.ANBIETER)
+							eigeneButton.setText("Eigene Angebote");
+						else
+							eigeneButton.setText("Alle Accounds");
+						
 						this.repaint();
 						logged = true;
 					//}
@@ -268,6 +270,11 @@ public class MainFrame extends JFrame
 			else
 			{
 				Portal.getSingletonObject().getAccountverwaltung().logOut();
+				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+				
+				eigeneButton.setEnabled(false);
+				eigeneButton.setText("Angebote/Buchungen");
+				nachrichtButton.setEnabled(false);
 				loginButton.setText("Login");
 				this.repaint();
 				logged = false;
@@ -278,30 +285,12 @@ public class MainFrame extends JFrame
 			
 		}
 	}
-	
-	private void logout()
-	{
-		try
-		{
-			if(logged)
-			{
-				
-				
-				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
-				logged = false;
-			}
-		}
-		catch(Exception e)
-		{
-			
-		}
-	}
-	
+
 	private void showRegister()
 	{
 		try
 		{
-			
+			JOptionPane.showConfirmDialog(this,new Object[]{},"Login",JOptionPane.OK_CANCEL_OPTION);
 		}
 		catch(Exception e)
 		{
@@ -311,11 +300,41 @@ public class MainFrame extends JFrame
 	
 	private void showEigene()
 	{
-		
+		try
+		{
+			screen.removeAll();
+			
+			if(account.getTyp() == Account.KUNDE)
+				list = new ListeScreen(this, Portal.getSingletonObject().getBuchungsverwaltung().getBuchungen((Kunde)account));
+			else if(account.getTyp() == Account.ANBIETER)
+				list = new ListeScreen(this, Portal.getSingletonObject().getAngebotsverarbeitung().getAngebote((Anbieter)account));
+			else
+				list = new ListeScreen(this, Portal.getSingletonObject().getAccountverwaltung().getAccounts());
+			
+			screen.add(list);
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 	
 	private void showSuche()
-	{}
+	{
+		try
+		{
+			screen.removeAll();
+			screen.add(new Suchmaske());
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
 	
 	private void showTopAngebote()
 	{
