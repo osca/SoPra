@@ -259,7 +259,7 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-					account = new Kunde("1324","1234","1243");
+					account = new Anbieter("1324","1234","1243");
 				
 					//Portal.getSingletonObject().getAccountverwaltung().logIn(nameField.getText(), passwordField.getText());
 					//{
