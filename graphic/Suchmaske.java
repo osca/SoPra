@@ -42,9 +42,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JTextField name;
 	private JComboBox typ;
 	private Vector<String> typ_list;
-	private JTextField vpreis;
-	private JTextField bpreis;
-	private JTextField kap;
+	private JFormattedTextField vpreis;
+	private JFormattedTextField bpreis;
+	private JFormattedTextField kap;
 	private JTextField anbieter;
 	private JFormattedTextField von;
 	private JFormattedTextField bis;
@@ -80,34 +80,43 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		sub_a.add(typ);
-		vpreis = new JTextField();
+		
+		MaskFormatter preisformat = new MaskFormatter("******.**");
+		preisformat.setValidCharacters("0123456789");
+		MaskFormatter date_f = new MaskFormatter("##/##/####");
+		date_f.setValidCharacters("0123456789");
+		MaskFormatter interv = new MaskFormatter("**");
+		interv.setValidCharacters("0123456789");
+		
+		vpreis = new JFormattedTextField(preisformat);
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
-		bpreis = new JTextField();
+		bpreis = new JFormattedTextField(preisformat);
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
-		kap = new JTextField();
+		kap = new JFormattedTextField(interv);
 		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
 		sub_a.add(kap);
 		anbieter = new JTextField();
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6, 0));
-//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		MaskFormatter formatter = new MaskFormatter("##/##/####");
-		formatter.setValidCharacters("0123456789");
-		von = new JFormattedTextField(formatter);
+		von = new JFormattedTextField(date_f);
 		sub_a.add(von);
-		bis = new JFormattedTextField(formatter);
+		bis = new JFormattedTextField(date_f);
 		sub_a.add(bis);
-//		MaskFormatter interv = new MaskFormatter("**");
-//		formatter.setValidCharacters("0123456789");
+		interval = new JFormattedTextField(interv);
+		sub_a.add(interval);
 		up.add(sub_a);
 		up.add(sub_b);
 
 		mid = new JPanel(new FlowLayout());
 		suche = new JButton("Suchen");
-		abbrechen = new JButton("Abbrechen");
+		mid.add(suche);
+		
+		add(up);
+		add(mid);
+		//abbrechen = new JButton("Abbrechen");
 
 	}
 
@@ -213,7 +222,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 			Date[] date = null;
 			try {
-				date = Methods.dater(von.getText(),bis.getText(),1);
+				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -225,9 +234,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
 					Double.parseDouble(bpreis.getText()), date, k);
 			}
-		else if(e.getSource()==abbrechen){
-			
-		}
+//		else if(e.getSource()==abbrechen){
+//			
+//		}
 	}
 	
 	
