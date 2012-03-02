@@ -33,7 +33,7 @@ public class Anbieter extends Account{
 	}
 	
 	public void delAngebot(int angebotsNummer){
-		angebote.remove(angebotsNummer);
+		angebote.remove((Integer) angebotsNummer);
 	}
 	
 	/**

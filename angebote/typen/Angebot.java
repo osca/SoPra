@@ -204,7 +204,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @param buchung Buchung
 	 */
 	public void delBuchung(int buchungsNummer) {
-		buchungsNummern.remove(buchungsNummer);
+		buchungsNummern.remove((Integer) buchungsNummer);
 	}
 	
 	/**

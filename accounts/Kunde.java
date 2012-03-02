@@ -43,7 +43,7 @@ public class Kunde extends Account {
 	public void delBuchung(Buchung entry) throws LoeschenNichtMoeglichException {
 		if(entry == null || !(buchungen.contains(entry.getBuchungsnummer())))
 			throw new LoeschenNichtMoeglichException("Buchung null oder nicht gefunden!");
-		buchungen.remove(entry.getBuchungsnummer());
+		buchungen.remove((Integer) entry.getBuchungsnummer());
 	}
 	
 	public ArrayList<Integer> getBuchungsNummern(){
