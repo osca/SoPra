@@ -180,7 +180,7 @@ public class Angebotsverwaltung {
 		return null;
 	}
 	
-	public String[] angebotNameToErlaubteKriterien(String name){
+	public static String[] angebotNameToErlaubteKriterien(String name){
 		switch(Angebot.convertNameToTyp(name)){
 		case Angebot.AUSFLUG : 
 			return Ausflug.erlaubteKriterien;

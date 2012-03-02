@@ -1,6 +1,7 @@
 package graphic;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 
 import main.Portal;
 
+import angebote.Angebotsverwaltung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
@@ -178,11 +180,24 @@ public class Suchmaske extends JPanel implements ActionListener {
 			sub_b.repaint();
 		}
 		else if(e.getSource()==suche){
-			String[] k;
 			
+			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
-			Portal.getSingletonObject().getAngebotsverarbeitung().
-		}
+			for(int i=0;i < sub_b.getComponentCount(); i++)
+			{
+			 Component c = sub_b.getComponent(i);
+			  if(c instanceof JComboBox){
+				  k[i]=((JComboBox) c).getSelectedItem().toString();
+			  }
+			  if(c instanceof JTextField){
+				  k[i]= ((JTextField) c).getText();
+			  }
+			       
+			}
+			
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem().toString(), kap.getText(), vpreis.getText(), 
+				bpreis.getText()	, daten, k);
+			}
 		else if(e.getSource()==abbrechen){
 			
 		}
