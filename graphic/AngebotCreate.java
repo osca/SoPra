@@ -10,10 +10,10 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
 import accounts.Anbieter;
@@ -35,8 +35,6 @@ public class AngebotCreate extends JPanel implements ActionListener {
 
 	private JComboBox typ;
 	private Vector<String> typ_list;
-	private DefaultComboBoxModel typ_m;
-	// private Shice date ---> vllt.
 	private JFormattedTextField preis;
 	private JFormattedTextField kap;
 	private JLabel anbieter;
