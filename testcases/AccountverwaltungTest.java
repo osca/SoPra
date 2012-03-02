@@ -13,6 +13,7 @@ import accounts.Anbieter;
 import accounts.Betreiber;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
+import accounts.LoginException;
 
 public class AccountverwaltungTest {
 	private Accountverwaltung acv;
@@ -119,11 +120,36 @@ public class AccountverwaltungTest {
 			acv.createBetreiber("", "", "");
 			
 			acv.delAccount(acv.getBetreiber().get(0));
-			Assert.assertEquals(false, acv.getBetreiber().isEmpty());
+			Assert.assertEquals(false, acv.getBetreiber().isEmpty());		// sollte false sein, da dies der einzige Betreiber ist und der nicht gelöscht werden kann; Benjamin
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (LoeschenNichtMoeglichException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testLogIn() {
+		acv = Portal.Accountverwaltung();
+		
+		try {
+			acv.createKunde("kunde@kunden@de", "Kundenspasst", "passwort");
+			
+			Kunde kunde = (Kunde)acv.getAccountByIdentifier("Kundenspasst");
+			Kunde test = null;
+			
+			acv.logIn(kunde.getEmail(), kunde.getPassword());
+			
+			test = (Kunde) acv.getLoggedIn();
+			Assert.assertEquals(kunde.getName(), test.getName());
+			
+			acv.delAccount(kunde);
+		} catch (AlreadyInUseException e) {
+			e.printStackTrace();
+		} catch (LoginException e) {
+			e.printStackTrace();
+		} catch (LoeschenNichtMoeglichException e) {
+			e.printStackTrace();
 		}
 	}
 }
