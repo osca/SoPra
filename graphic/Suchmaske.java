@@ -6,25 +6,31 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import main.Portal;
-
 import angebote.Angebotsverwaltung;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
-import angebote.kriterien.Kriterium;
 import angebote.kriterien.Verpflegungsart;
-import angebote.typen.Autovermietung;
-import angebote.typen.Hoteluebernachtung;
+import angebote.typen.Angebot;
 
 public class Suchmaske extends JPanel implements ActionListener {
 
@@ -41,6 +47,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JTextField bpreis;
 	private JTextField kap;
 	private JTextField anbieter;
+	private JFormattedTextField von;
+	private JFormattedTextField bis;
+	private JFormattedTextField interval;
 
 	private JTextField ort;
 	private JTextField ortz;
@@ -54,10 +63,10 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JButton suche;
 	private JButton abbrechen;
 
-	public Suchmaske() {
+	public Suchmaske() throws ParseException {
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(6, 0));
+		sub_a = new JPanel(new GridLayout(10, 0));
 		sub_b = new JPanel(new GridLayout(6, 0));
 		name = new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
@@ -85,6 +94,11 @@ public class Suchmaske extends JPanel implements ActionListener {
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
 		sub_b = new JPanel(new GridLayout(6, 0));
+//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		MaskFormatter formatter = new MaskFormatter("##/##/####");
+		formatter.setValidCharacters("0123456789");
+		von = new JFormattedTextField(formatter);
+		bis = new JFormattedTextField(formatter);
 		up.add(sub_a);
 		up.add(sub_b);
 
@@ -194,13 +208,34 @@ public class Suchmaske extends JPanel implements ActionListener {
 			  }
 			       
 			}
+			Date [] date = lolz(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			
-			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(), typ.getSelectedItem().toString(), kap.getText(), vpreis.getText(), 
-				bpreis.getText()	, daten, k);
+			Portal.getSingletonObject().getAngebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
+					Double.parseDouble(bpreis.getText()), date, k);
 			}
 		else if(e.getSource()==abbrechen){
 			
 		}
 	}
 	
+	public Date[] lolz(String start, String end, int  interval) throws ParseException{
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date s = 	df.parse(start);
+		Date e =    df.parse(end);
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(s);
+		
+		ArrayList<Date> temp = new ArrayList<Date>();
+		while(s.before(e)){
+			temp.add(s);
+			calendar.add(Calendar.DAY_OF_MONTH, interval);
+			Date a = calendar.getTime();
+			s=df.parse(df.format(a));
+		}
+		Date[] d= new Date[temp.size()];
+		for (int i=0;i<d.length;i++){
+			d[i]=temp.get(i);
+		}
+		return d;
+	}
 }

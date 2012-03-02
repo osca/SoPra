@@ -206,5 +206,7 @@ public class AngebotCreate extends JPanel implements ActionListener {
 		}
 		
 	}
+	
+	
 
 }
