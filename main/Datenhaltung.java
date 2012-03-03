@@ -8,17 +8,24 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 import accounts.Accountverwaltung;
+import accounts.Anbieter;
+import accounts.Betreiber;
+import accounts.Kunde;
 import accounts.Nachricht;
 import accounts.Nachrichtenverwaltung;
+import buchungen.Buchung;
+import buchungen.Buchungsverwaltung;
 
 import com.thoughtworks.xstream.XStream;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
-			betrFile = new File("Betreiber.xml"), 
-			kundFile = new File("Kunden.xml"),
-			msgFile = new File("Nachrichten.xml");
-	private final static String encoding = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
+			betrFile = new File("Betreiber.xml"), kundFile = new File(
+					"Kunden.xml"), msgFile = new File("Nachrichten.xml"),
+			buchFile = new File("Buchungen.xml");
+
+	private final static String header = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
+
 	private Datenhaltung() {
 	}
 
@@ -33,99 +40,89 @@ public class Datenhaltung {
 	 * @throws IOException
 	 *             Fehler beim Schreiben
 	 */
-	public static void saveAllAccounts(Accountverwaltung av) throws IOException {
-		if(anbFile.exists())
+	public static void saveAllAccounts() throws IOException {
+		if (anbFile.exists())
 			anbFile.delete();
-		if(betrFile.exists())
+		if (betrFile.exists())
 			betrFile.delete();
-		if(kundFile.exists())
+		if (kundFile.exists())
 			kundFile.delete();
-		
+		Accountverwaltung av = Portal.Accountverwaltung();
+
 		FileWriter f = new FileWriter(anbFile);
-		f.write(encoding);
+		f.write(header);
 		xs.toXML(av.getAnbieter(), f);
 		f.close();
 
 		f = new FileWriter(betrFile);
-		f.write(encoding);
+		f.write(header);
 		xs.toXML(av.getBetreiber(), f);
 		f.close();
 
 		f = new FileWriter(kundFile);
-		f.write(encoding);
+		f.write(header);
 		xs.toXML(av.getKunden(), f);
 		f.close();
 	}
-	
+
 	/**
+	 * Speichert alle Nachrichten, die in der Nachrichtenverwaltung existieren
 	 * 
-	 * @param av
 	 * @throws IOException
 	 */
-	public static void saveAllMessages(Nachrichtenverwaltung nv) throws IOException {
-		if(msgFile.exists())
+	public static void saveAllMessages() throws IOException {
+		if (msgFile.exists())
 			msgFile.delete();
 
+		Nachrichtenverwaltung nv = Portal.Nachrichtenverwaltung();
 		FileWriter f = new FileWriter(msgFile);
-		f.write(encoding);
+		f.write(header);
 		xs.toXML(nv.getAlleNachrichten(), f);
 		f.close();
 	}
 
-/*	/**
-	 * Liest die aktuell in XML gespeicherte Liste an Anbietern aus
+	/**
+	 * Speichert alle Buchungen aus der Buchungsverwaltung
 	 * 
-	 * @return Anbieter-Liste
+	 * @throws IOException
 	 */
-/*	public static ArrayList<Anbieter> getAnbieter() {
-		if (!anbFile.exists())
-			return new ArrayList<Anbieter>();
-		return (ArrayList<Anbieter>) xs.fromXML(anbFile);
+	public static void saveAllBookings() throws IOException {
+		if (buchFile.exists())
+			buchFile.delete();
+
+		Buchungsverwaltung bv = Portal.Buchungsverwaltung();
+		FileWriter f = new FileWriter(buchFile);
+		f.write(header);
+		xs.toXML(bv.getAllBuchungen(), f);
+		f.close();
 	}
 
 	/**
-	 * Liest die aktuell in XML gespeicherte Liste an Betreiber aus
-	 * 
-	 * @return Betreiber-Liste
+	 * Laedt persistierte Daten aus XML-Files falls vorhanden und regelt die
+	 * uebernahme dieser Daten in der Portal-Klasse
 	 */
-/*	public static ArrayList<Betreiber> getBetreiber() {
-		if (!betrFile.exists())
-			return new ArrayList<Betreiber>();
-		return (ArrayList<Betreiber>) xs.fromXML(betrFile);
-	}
-
-	/**
-	 * Liest die aktuell in XML gespeicherte Liste an Kunden aus
-	 * 
-	 * @return Kunden-Liste
-	 */
-/*	public static ArrayList<Kunde> getKunde() {
-		if (!kundFile.exists())
-			return new ArrayList<Kunde>();
-		return (ArrayList<Kunde>) xs.fromXML(kundFile);
-	}
-	
-	/**
-	 * Liest die aktuell in XML gespeicherte Liste an Nachrichten aus
-	 * @return Nachrichten-Liste
-	 */
-/*	public static ArrayList<Nachricht> getNachrichten(){
-		if(!msgFile.exists())
-			return new ArrayList<Nachricht>();
-		return (ArrayList<Nachricht>) xs.fromXML(msgFile);
-	}
-*/
-	
-	public static Portal loadSavedState(){
+	@SuppressWarnings("unchecked")
+	public static void recoverSavedState() {
 		ArrayList<Nachricht> nachrichten = new ArrayList<Nachricht>();
-		if(msgFile.exists())
+		ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+		ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
+		ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
+		ArrayList<Kunde> kunden = new ArrayList<Kunde>();
+		if (msgFile.exists())
 			nachrichten = (ArrayList<Nachricht>) xs.fromXML(msgFile);
-		for(Nachricht msg : nachrichten){
-
-		}		
-		return null;
+		if (buchFile.exists())
+			buchungen = (ArrayList<Buchung>) xs.fromXML(buchFile);
+		if (anbFile.exists())
+			anbieter = (ArrayList<Anbieter>) xs.fromXML(anbFile);
+		if (betrFile.exists())
+			betreiber = (ArrayList<Betreiber>) xs.fromXML(betrFile);
+		if (kundFile.exists())
+			kunden = (ArrayList<Kunde>) xs.fromXML(kundFile);
+		Portal.recover(new Accountverwaltung(anbieter, betreiber, kunden),
+				new Buchungsverwaltung(buchungen), new Nachrichtenverwaltung(
+						nachrichten));
 	}
-	
+
 	/**
 	 * Liest ein NICHT-XML-File ein und gibt die einzelnen Zeilen als
 	 * String-Array aus

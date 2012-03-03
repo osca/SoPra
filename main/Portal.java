@@ -1,4 +1,5 @@
 package main;
+
 import accounts.Accountverwaltung;
 import accounts.Nachrichtenverwaltung;
 import angebote.Angebotsverarbeitung;
@@ -21,13 +22,6 @@ public class Portal {
 		angebverw = new Angebotsverwaltung();
 		buchverw = new Buchungsverwaltung();
 		angebverar = new Angebotsverarbeitung();
-	}
-	
-	/** Gibt das Portalobjekt zurück
-	 * @return PortalSingleton
-	 */
-/*	public static Portal getSingletonObject(){
-		return single;
 	}
 	
 	/** gibt das Accountverwaltungsobjekt zurück
@@ -63,5 +57,17 @@ public class Portal {
 	 */
 	public static Angebotsverarbeitung Angebotsverarbeitung() {
 		return single.angebverar;
+	}
+	
+	/**
+	 * Stellt den in den Argumenten uebgergebenen Zustand des Systems wieder her
+	 * @param accv Accountverwaltung mit Benutzerlisten
+	 * @param buchv Buchungsverwaltung mit Buchungslisten
+	 * @param nachv Nachrichtenverwaltung mit Nachrichtenlisten
+	 */
+	public static void recover(Accountverwaltung accv, Buchungsverwaltung buchv, Nachrichtenverwaltung nachv){
+		single.accverw = accv;
+		single.buchverw = buchv;
+		single.nachrverw = nachv;
 	}
 }

@@ -5,158 +5,208 @@ import java.util.ArrayList;
 import main.Portal;
 
 import angebote.typen.Angebot;
+
 /**
  * 
  * @author Jay
- *
+ * 
  */
 public class Nachrichtenverwaltung {
-	
+
 	private ArrayList<Nachricht> alleNachrichten = new ArrayList<Nachricht>();
-	
-	public Nachrichtenverwaltung(){	}
-	
-	public ArrayList<Nachricht> getAlleNachrichten(){
+
+	/**
+	 * Konstruktor mit leerer Nachrichtenliste
+	 */
+	public Nachrichtenverwaltung() {
+	}
+
+	/**
+	 * konstruiert ein Nachrichtenverwaltungsobjekt mit vorgegebener
+	 * Nachrichten-Liste
+	 * 
+	 * @param nachrichten
+	 */
+	public Nachrichtenverwaltung(ArrayList<Nachricht> nachrichten) {
+		alleNachrichten = nachrichten;
+	}
+
+	/**
+	 * @return Alle Nachrichten die momentan gespeichert sind
+	 */
+	public ArrayList<Nachricht> getAlleNachrichten() {
 		return alleNachrichten;
 	}
+
 	/**
-	 * Sendet Nachricht mit 'text' und 'betreff' von 'absender' an 'empfaenger' und verweist auf das 'angebot'
+	 * Sendet Nachricht mit 'text' und 'betreff' von 'absender' an 'empfaenger'
+	 * und verweist auf das 'angebot'
+	 * 
 	 * @param absender
 	 * @param empfaenger
 	 * @param betreff
 	 * @param text
 	 * @param angebot
 	 */
-	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot){
-		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
+	public void sendeNachricht(Account absender, Account empfaenger,
+			String betreff, String text, Angebot angebot) {
+		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger,
+				angebot);
 		alleNachrichten.add(msg);
 	}
-	
-	/** Gibt den Posteingang eines Accounts aus
-	 * @param acc ausgewählter Account
+
+	/**
+	 * Gibt den Posteingang eines Accounts aus
+	 * 
+	 * @param acc
+	 *            ausgewählter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
-	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc){
+	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc) {
 		ArrayList<Nachricht> posteingang = new ArrayList<Nachricht>();
-		for(Nachricht msg : alleNachrichten)
-			if(getEmpfaenger(msg).equals(acc))
+		for (Nachricht msg : alleNachrichten)
+			if (getEmpfaenger(msg).equals(acc))
 				posteingang.add(msg);
 		return posteingang;
 	}
-	
-	/** Gibt den Postausgang eines Accounts aus
-	 * @param acc ausgewählter Account
+
+	/**
+	 * Gibt den Postausgang eines Accounts aus
+	 * 
+	 * @param acc
+	 *            ausgewählter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
-	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc){
+	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc) {
 		ArrayList<Nachricht> postausgang = new ArrayList<Nachricht>();
-		for(Nachricht msg : alleNachrichten)
-			if(getAbsender(msg).equals(acc))
+		for (Nachricht msg : alleNachrichten)
+			if (getAbsender(msg).equals(acc))
 				postausgang.add(msg);
 		return postausgang;
 	}
-	
-	/** Entfernt eine Nachricht aus dem Postausgang des Absenders und aus dem Posteingang des Empfaengers
-	 * @param msg zu löschende Nachricht
+
+	/**
+	 * Entfernt eine Nachricht aus dem Postausgang des Absenders und aus dem
+	 * Posteingang des Empfaengers
+	 * 
+	 * @param msg
+	 *            zu löschende Nachricht
 	 */
-	public void delNachricht(Nachricht msg){
+	public void delNachricht(Nachricht msg) {
 		alleNachrichten.remove(msg);
 	}
-	
+
 	/**
 	 * Loescht alle Nachrichten, die auf das spezifizierte Angebot verweisen
-	 * @param ang Angebot dessen Verweise hinfaellig sind
+	 * 
+	 * @param ang
+	 *            Angebot dessen Verweise hinfaellig sind
 	 */
-	public void delAllNachrichten(Angebot ang){
+	public void delAllNachrichten(Angebot ang) {
 		int n = alleNachrichten.size();
-		for(int i=0; i<n; i++){		//For-Each-Schleife funktioniert nicht
+		for (int i = 0; i < n; i++) { // For-Each-Schleife funktioniert nicht
 			Nachricht current = alleNachrichten.get(i);
-			if(getReferringAngebot(current).equals(ang)){
+			if (getReferringAngebot(current).equals(ang)) {
 				delNachricht(current);
-				i--;	//Liste rueckt auf
-				n--;	//Liste verkuerzt sich
+				i--; // Liste rueckt auf
+				n--; // Liste verkuerzt sich
 			}
 		}
 	}
-	
+
 	/**
 	 * gibt das Angebotsobjekt zu einer Nachricht aus
-	 * @param msg entsprechende Nachricht
+	 * 
+	 * @param msg
+	 *            entsprechende Nachricht
 	 * @return Angebot
 	 */
-	public Angebot getReferringAngebot(Nachricht msg){
-		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(msg.getAngebotsNummer());
+	public Angebot getReferringAngebot(Nachricht msg) {
+		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(
+				msg.getAngebotsNummer());
 	}
-	
+
 	/**
 	 * gibt den Absender der Nachricht zurueck
+	 * 
 	 * @param msg
 	 * @return
 	 */
-	public Account getAbsender(Nachricht msg){
+	public Account getAbsender(Nachricht msg) {
 		return Portal.Accountverwaltung().getAccountByName(msg.getAbsender());
 	}
-	
+
 	/**
 	 * gibt den Empfaenger der Nachricht zurueck
+	 * 
 	 * @param msg
 	 * @return
 	 */
-	public Account getEmpfaenger(Nachricht msg){
+	public Account getEmpfaenger(Nachricht msg) {
 		return Portal.Accountverwaltung().getAccountByName(msg.getEmpfaenger());
 	}
-	
+
 	/**
-	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder -ausgang hat
-	 * @param acc spezielles Accountobjekt
+	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder
+	 * -ausgang hat
+	 * 
+	 * @param acc
+	 *            spezielles Accountobjekt
 	 */
-	public void delAllNachrichten(Account acc){
-		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da Elemente nachrutschen
+	public void delAllNachrichten(Account acc) {
+		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da
+		// Elemente nachrutschen
 		int n = alleNachrichten.size();
-		for(int i=0; i<n; i++){
+		for (int i = 0; i < n; i++) {
 			Nachricht current = alleNachrichten.get(i);
-			if(getAbsender(current).equals(acc) || getEmpfaenger(current).equals(acc)){
+			if (getAbsender(current).equals(acc)
+					|| getEmpfaenger(current).equals(acc)) {
 				delNachricht(current);
-				i--;	//Liste rueckt auf
-				n--;	//Liste verkuerzt sich
+				i--; // Liste rueckt auf
+				n--; // Liste verkuerzt sich
 			}
 		}
 	}
-	
+
 	/**
 	 * Ist die Nachricht gelesen
 	 * 
-	 * @param n Nachricht
+	 * @param n
+	 *            Nachricht
 	 * @return Boolean
 	 */
 	public boolean isGelesen(Nachricht n) {
 		return n.isGelesen();
 	}
-	
+
 	/**
 	 * Set Gelesen oder Ungelesen
 	 * 
-	 * @param n Nachricht
-	 * @param gelesen Boolean
+	 * @param n
+	 *            Nachricht
+	 * @param gelesen
+	 *            Boolean
 	 */
 	public void setGelesen(Nachricht n, boolean gelesen) {
 		n.setGelesen(gelesen);
 	}
-	
+
 	/**
 	 * Get Nachricht By Id
 	 * 
-	 * @param id Id einer Nachricht
-	 * @return Nachricht mit der uebergebenen Id oder null wenn diese nicht funktioniert
+	 * @param id
+	 *            Id einer Nachricht
+	 * @return Nachricht mit der uebergebenen Id oder null wenn diese nicht
+	 *         funktioniert
 	 */
 	public Nachricht getNachrichtById(int id) {
-		for(Nachricht n:alleNachrichten) {
-			if(n.getId() == id)
+		for (Nachricht n : alleNachrichten) {
+			if (n.getId() == id)
 				return n;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get Anzahl an Ungelesene Nachrichten
 	 * 
@@ -164,15 +214,13 @@ public class Nachrichtenverwaltung {
 	 */
 	public int getAnzahlUngelesenerNachrichten() {
 		int result = 0;
-		
-		for(Nachricht n:alleNachrichten) {
-			if(!n.isGelesen())
+
+		for (Nachricht n : alleNachrichten) {
+			if (!n.isGelesen())
 				result++;
 		}
-		
+
 		return result;
 	}
-	
-	
-	
+
 }

@@ -17,6 +17,19 @@ public class Buchungsverwaltung {
 	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	
 	/**
+	 * erstellt die buchungsverwaltung mit leerer Buchungs-Liste
+	 */
+	public Buchungsverwaltung(){}
+	
+	/**
+	 * setzt die uebergebene Buchungs-Liste als die aller zugreifbaren
+	 * @param buchungen
+	 */
+	public Buchungsverwaltung(ArrayList<Buchung> buchungen){
+		this.buchungen = buchungen;
+	}
+	
+	/**
 	 * Erstellt eine Buchung und weist sie einem Kunden zu.
 	 * 
 	 * @param kunde			Dem Kunden wird die Buchung zugewiesen.

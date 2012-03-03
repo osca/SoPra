@@ -21,6 +21,13 @@ public class Angebotsverwaltung {
 	
 	private ArrayList<Angebot> angebote = new ArrayList<Angebot>();
 	
+	public Angebotsverwaltung(){}
+	public Angebotsverwaltung(ArrayList<Angebot> angebote){
+		this.angebote = angebote;
+	}
+	
+	
+	
 	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date[] daten, String[] krit) {
 		switch(typ) {
