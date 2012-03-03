@@ -384,11 +384,10 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	private boolean isFreeEmail(String email) {
-		boolean result = true;
 		for (Account a : getAccounts())
 			if (a.getEmail().equals(email))
-				result = false;
-		return result;
+				return false;
+		return true;
 	}
 
 	/**
@@ -399,10 +398,9 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	private boolean isFreeName(String name) {
-		boolean result = true;
 		for (Account a : getAccounts())
 			if (a.getName().equals(name))
-				result = false;
-		return result;
+				return false;
+		return true;
 	}
 }

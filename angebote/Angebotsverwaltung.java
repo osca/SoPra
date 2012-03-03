@@ -109,7 +109,7 @@ public class Angebotsverwaltung {
 	 * @param angebot			das zu l�schende Angebot
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
-		ArrayList<Kommentar> kommentare = angebot.getKommentare();
+//		ArrayList<Kommentar> kommentare = angebot.getKommentare();
 		ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(angebot);
 		
 		// Erstmal checken, ob offene Buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
@@ -191,27 +191,19 @@ public class Angebotsverwaltung {
 		return (Anbieter) Portal.Accountverwaltung().getAccountByName(angebot.getAnbieterName());
 	}
 	
+	public ArrayList<Angebot> getAngebote(Anbieter anb){
+		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		for(Angebot ang : angebote)
+			if(anb.getAngebotsNummern().contains(ang.getAngebotsNummer()))
+				result.add(ang);
+		return result;
+	}
+
 	/**
 	 * suche Angebot nach Angebotsnummer (eindeutig)
 	 * @param id
 	 * @return passendes Angebot oder null, falls nicht gefunden/vorhanden
 	 */
-	public Angebot getAngebotByAngebotsNummer(int id){
-		Angebotsverwaltung av = Portal.Angebotsverwaltung();
-		for(Angebot ang : av.getAllAngebote())
-			if(ang.getIdentifier().equals(""+id))
-				return ang;
-		return null;
-	}
-	
-	public ArrayList<Angebot> getAngebote(Anbieter anb){
-		ArrayList<Angebot> result = new ArrayList<Angebot>();
-		for(Angebot ang : angebote)
-			if(getAnbieter(ang).equals(anb))
-				result.add(ang);
-		return result;
-	}
-	
 	public Angebot getAngebotByNummer(int id){
 		for(Angebot a : angebote)
 			if(id == a.getAngebotsNummer())

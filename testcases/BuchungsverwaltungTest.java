@@ -55,18 +55,11 @@ public class BuchungsverwaltungTest {
 		ang3 = av.createAusflug(anbieter, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
 		
 		//Buchungen erstellen
-		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde2, ang3, new Date(1430609911421L), new Date(1430610011421L));
-		
-		//Buchungen abrufen
-		b1 = bv.getBuchungen(kunde1).get(0);
-		b2 = bv.getBuchungen(kunde1).get(1);
-		b3 = bv.getBuchungen(kunde1).get(2);
-		b4 = bv.getBuchungen(kunde2).get(0);
-		b5 = bv.getBuchungen(kunde2).get(1);
+		b1 = bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
+		b2 = bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		b3 = bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
+		b4 = bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		b5 = bv.createBuchung(kunde2, ang3, new Date(1430609911421L), new Date(1430610011421L));
 	}
 	
 	@Test

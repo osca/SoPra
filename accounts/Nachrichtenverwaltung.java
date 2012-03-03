@@ -48,10 +48,8 @@ public class Nachrichtenverwaltung {
 	 * @param text
 	 * @param angebot
 	 */
-	public void sendeNachricht(Account absender, Account empfaenger,
-			String betreff, String text, Angebot angebot) {
-		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger,
-				angebot);
+	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot) {
+		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
 		alleNachrichten.add(msg);
 	}
 
@@ -65,7 +63,7 @@ public class Nachrichtenverwaltung {
 	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc) {
 		ArrayList<Nachricht> posteingang = new ArrayList<Nachricht>();
 		for (Nachricht msg : alleNachrichten)
-			if (getEmpfaenger(msg).equals(acc))
+			if(acc.getName() .equals(msg.getEmpfaenger()))
 				posteingang.add(msg);
 		return posteingang;
 	}
@@ -80,7 +78,7 @@ public class Nachrichtenverwaltung {
 	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc) {
 		ArrayList<Nachricht> postausgang = new ArrayList<Nachricht>();
 		for (Nachricht msg : alleNachrichten)
-			if (getAbsender(msg).equals(acc))
+			if (acc.getName() .equals(msg.getAbsender()))
 				postausgang.add(msg);
 		return postausgang;
 	}
@@ -116,14 +114,11 @@ public class Nachrichtenverwaltung {
 
 	/**
 	 * gibt das Angebotsobjekt zu einer Nachricht aus
-	 * 
-	 * @param msg
-	 *            entsprechende Nachricht
+	 * @param msg entsprechende Nachricht
 	 * @return Angebot
 	 */
 	public Angebot getReferringAngebot(Nachricht msg) {
-		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(
-				msg.getAngebotsNummer());
+		return Portal.Angebotsverwaltung().getAngebotByNummer(msg.getAngebotsNummer());
 	}
 
 	/**
@@ -159,8 +154,8 @@ public class Nachrichtenverwaltung {
 		int n = alleNachrichten.size();
 		for (int i = 0; i < n; i++) {
 			Nachricht current = alleNachrichten.get(i);
-			if (getAbsender(current).equals(acc)
-					|| getEmpfaenger(current).equals(acc)) {
+			if (current.getAbsender().equals(acc.getName())
+					|| current.getEmpfaenger().equals(acc.getName())) {
 				delNachricht(current);
 				i--; // Liste rueckt auf
 				n--; // Liste verkuerzt sich
@@ -168,24 +163,17 @@ public class Nachrichtenverwaltung {
 		}
 	}
 
-	/**
-	 * Ist die Nachricht gelesen
-	 * 
-	 * @param n
-	 *            Nachricht
+	/**Ist die Nachricht gelesen
+	 * @param n Nachricht
 	 * @return Boolean
 	 */
 	public boolean isGelesen(Nachricht n) {
 		return n.isGelesen();
 	}
 
-	/**
-	 * Set Gelesen oder Ungelesen
-	 * 
-	 * @param n
-	 *            Nachricht
-	 * @param gelesen
-	 *            Boolean
+	/**Set Gelesen oder Ungelesen
+	 * @param n Nachricht
+	 * @param gelesen Boolean
 	 */
 	public void setGelesen(Nachricht n, boolean gelesen) {
 		n.setGelesen(gelesen);
@@ -193,11 +181,8 @@ public class Nachrichtenverwaltung {
 
 	/**
 	 * Get Nachricht By Id
-	 * 
-	 * @param id
-	 *            Id einer Nachricht
-	 * @return Nachricht mit der uebergebenen Id oder null wenn diese nicht
-	 *         funktioniert
+	 * @param id  Id einer Nachricht
+	 * @return Nachricht mit der uebergebenen Id oder null wenn diese nicht existiert
 	 */
 	public Nachricht getNachrichtById(int id) {
 		for (Nachricht n : alleNachrichten) {
@@ -209,17 +194,15 @@ public class Nachrichtenverwaltung {
 
 	/**
 	 * Get Anzahl an Ungelesene Nachrichten
-	 * 
+	 * @param acc Account dessen ungelesene Nachrichten gezählt werden sollen. Bei null werden alle ungelesenen Nachrichten gezählt
 	 * @return Anzahl an ungelesenen Nachrichten
 	 */
-	public int getAnzahlUngelesenerNachrichten() {
+	public int getAnzahlUngelesenerNachrichten(Account acc) {
 		int result = 0;
-
 		for (Nachricht n : alleNachrichten) {
-			if (!n.isGelesen())
+			if (!n.isGelesen() && (acc==null || n.getEmpfaenger() .equals(acc.getName())))
 				result++;
 		}
-
 		return result;
 	}
 

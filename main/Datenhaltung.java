@@ -13,6 +13,8 @@ import accounts.Betreiber;
 import accounts.Kunde;
 import accounts.Nachricht;
 import accounts.Nachrichtenverwaltung;
+import angebote.Angebotsverwaltung;
+import angebote.typen.Angebot;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
@@ -20,14 +22,15 @@ import com.thoughtworks.xstream.XStream;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
-			betrFile = new File("Betreiber.xml"), kundFile = new File(
-					"Kunden.xml"), msgFile = new File("Nachrichten.xml"),
+			betrFile = new File("Betreiber.xml"), 
+			kundFile = new File("Kunden.xml"), 
+			msgFile = new File("Nachrichten.xml"),
+			offFile = new File("Angebote.xml"),
 			buchFile = new File("Buchungen.xml");
 
 	private final static String header = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 
-	private Datenhaltung() {
-	}
+	private Datenhaltung() {}
 
 	private static XStream xs = new XStream();
 
@@ -74,10 +77,9 @@ public class Datenhaltung {
 		if (msgFile.exists())
 			msgFile.delete();
 
-		Nachrichtenverwaltung nv = Portal.Nachrichtenverwaltung();
 		FileWriter f = new FileWriter(msgFile);
 		f.write(header);
-		xs.toXML(nv.getAlleNachrichten(), f);
+		xs.toXML(Portal.Nachrichtenverwaltung().getAlleNachrichten(), f);
 		f.close();
 	}
 
@@ -90,13 +92,29 @@ public class Datenhaltung {
 		if (buchFile.exists())
 			buchFile.delete();
 
-		Buchungsverwaltung bv = Portal.Buchungsverwaltung();
 		FileWriter f = new FileWriter(buchFile);
 		f.write(header);
-		xs.toXML(bv.getAllBuchungen(), f);
+		xs.toXML(Portal.Buchungsverwaltung().getAllBuchungen(), f);
+		f.close();
+	}
+	
+	public static void saveAllOffers() throws IOException {
+		if (offFile.exists())
+			offFile.delete();
+
+		FileWriter f = new FileWriter(offFile);
+		f.write(header);
+		xs.toXML(Portal.Buchungsverwaltung().getAllBuchungen(), f);
 		f.close();
 	}
 
+
+	public static void saveAllData() throws IOException {
+		saveAllAccounts();
+		saveAllBookings();
+		saveAllOffers();
+		saveAllMessages();
+	}
 	/**
 	 * Laedt persistierte Daten aus XML-Files falls vorhanden und regelt die
 	 * uebernahme dieser Daten in der Portal-Klasse
@@ -105,6 +123,7 @@ public class Datenhaltung {
 	public static void recoverSavedState() {
 		ArrayList<Nachricht> nachrichten = new ArrayList<Nachricht>();
 		ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
+		ArrayList<Angebot> angebote = new ArrayList<Angebot>();
 		ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 		ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 		ArrayList<Kunde> kunden = new ArrayList<Kunde>();
@@ -112,6 +131,8 @@ public class Datenhaltung {
 			nachrichten = (ArrayList<Nachricht>) xs.fromXML(msgFile);
 		if (buchFile.exists())
 			buchungen = (ArrayList<Buchung>) xs.fromXML(buchFile);
+		if (offFile.exists())
+			angebote = (ArrayList<Angebot>) xs.fromXML(offFile);
 		if (anbFile.exists())
 			anbieter = (ArrayList<Anbieter>) xs.fromXML(anbFile);
 		if (betrFile.exists())
@@ -119,8 +140,9 @@ public class Datenhaltung {
 		if (kundFile.exists())
 			kunden = (ArrayList<Kunde>) xs.fromXML(kundFile);
 		Portal.recover(new Accountverwaltung(anbieter, betreiber, kunden),
-				new Buchungsverwaltung(buchungen), new Nachrichtenverwaltung(
-						nachrichten));
+				new Angebotsverwaltung(angebote),
+				new Buchungsverwaltung(buchungen), 
+				new Nachrichtenverwaltung(nachrichten));
 	}
 
 	/**
@@ -149,4 +171,5 @@ public class Datenhaltung {
 			s[i] = (String) reslist.get(i);
 		return s;
 	}
+
 }

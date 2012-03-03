@@ -76,9 +76,9 @@ public class NachrichtenVerwaltungTest {
 		Assert.assertEquals("Danke, dann buch es doch!", eingang1kunde.getText());
 		
 		//Gelesen und ungelesene Nachrichten
-		Assert.assertEquals(6, nv.getAnzahlUngelesenerNachrichten());
+		Assert.assertEquals(6, nv.getAnzahlUngelesenerNachrichten(null));
 		nv.setGelesen(ausgang1kunde, true);
-		Assert.assertEquals(5, nv.getAnzahlUngelesenerNachrichten());
+		Assert.assertEquals(5, nv.getAnzahlUngelesenerNachrichten(null));
 		
 		//Groesse der Postkaesten
 		Assert.assertEquals(nv.getGesendeteNachrichten(kunde).size(),3);

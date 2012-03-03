@@ -38,7 +38,7 @@ public class Buchungsverwaltung {
 	 * @param bis			Ende (Datum).
 	 * @throws InvalidDateException 
 	 */
-	public void createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
+	public Buchung createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
 		
 		if (bis.before(von) || von.before(new Date()))
@@ -50,6 +50,7 @@ public class Buchungsverwaltung {
 		kunde.addBuchung(buchung);
 		angebot.addBuchung(buchung.getBuchungsnummer());
 		buchungen.add(buchung);
+		return buchung;
 	}
 	
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
@@ -78,7 +79,7 @@ public class Buchungsverwaltung {
 	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		for(Buchung b : buchungen)
-			if(getKunde(b).equals(kunde))
+			if(kunde.getBuchungsNummern().contains(b.getBuchungsnummer()))
 				reslist.add(b);
 		return reslist;
 	}
@@ -122,6 +123,6 @@ public class Buchungsverwaltung {
 	}
 	
 	public Angebot getReferringAngebot(Buchung buchung){
-		return Portal.Angebotsverwaltung().getAngebotByAngebotsNummer(buchung.getAngebotsNummer());
+		return Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
 	}
 }
