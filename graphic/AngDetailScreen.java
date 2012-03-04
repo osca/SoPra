@@ -13,9 +13,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import buchungen.InvalidDateException;
+
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
+import accounts.Kunde;
 import angebote.typen.Angebot;
 
 
@@ -43,7 +46,7 @@ public class AngDetailScreen extends JPanel{
 	final Angebot angebot;
 	final Anbieter anbieter;
 	
-	public AngDetailScreen(int usertype, Angebot a){
+	public AngDetailScreen(Angebot a){
 		
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
@@ -82,11 +85,11 @@ public class AngDetailScreen extends JPanel{
 		
 		///////////////////
 		
-		if(usertype==0){
-			nullAcc = new JLabel("Sie mï¿½ssen sich einlogen um weitere Aktionen durchzufï¿½hren");
+		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()){
+		case Account.NONE:
+			nullAcc = new JLabel(MeldeDienst.MSG_LOGIN_FEHLT);
 			down.add(BorderLayout.CENTER, nullAcc);
-		}
-		else switch (usertype){
+			break;
 		case Account.KUNDE :
 			down.add(kommentieren);
 			down.add(buchen);
@@ -121,8 +124,27 @@ public class AngDetailScreen extends JPanel{
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				try
-				{//TODO
-					JOptionPane.showConfirmDialog(up.getParent(), anbieter.getAgb(), "Buchung", JOptionPane.OK_CANCEL_OPTION);
+				{
+					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_BUCHEN) == JOptionPane.OK_OPTION)
+					{
+						DialogScreen dialog = new DialogScreen(null,"Buchen",DialogScreen.OK_CANCEL_OPTION)
+						{
+							@Override
+							public void onOK()
+							{
+								try {
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, null,null);
+								} catch (InvalidDateException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						};
+						dialog.setEditable(false);
+						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLÄRUNG + anbieterl, DialogScreen.LABEL_LEFT);
+						dialog.setLabelContent(MeldeDienst.MSG_GESAMMT_BEWERUNG + anbieter.getWertung(), DialogScreen.LABEL_RIGHT);
+						dialog.setContent(anbieter.getAgb());
+					}
 				}
 				catch(Exception e)
 				{
@@ -137,8 +159,11 @@ public class AngDetailScreen extends JPanel{
 			{
 				try
 				{
-					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass sie dieses Angebot Melden möchten?", "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Beschwerde","Ein Kunde hat ein Angebot gemeldet!", angebot);
+					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_ANGEBOT_MELDEN, "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+					{ //TODO welcher betreiber soll die meldung bekommen
+						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Accountverwaltung().getBetreiber().get(0), MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET,angebot);
+						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET, angebot);
+					}
 				}
 				catch(Exception e)
 				{

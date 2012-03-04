@@ -25,7 +25,8 @@ public class DialogScreen extends JDialog
 	{
 		super(comp, title);
 		
-		this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
+		if(this.getParent()!=null)
+			this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
 		JPanel main = new JPanel(new BorderLayout());
 		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*3, MainFrame.BUTTONHEIGHT*8));
 		
@@ -69,7 +70,14 @@ public class DialogScreen extends JDialog
 			JButton cancel = new JButton("Abbrechen");
 			cancel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 		    buttons.add(cancel);
-		    cancel.addActionListener(new ActionListener() {  public void actionPerformed(ActionEvent evt)   { dispose();  } });
+		    cancel.addActionListener(new ActionListener() 
+		    {  
+		    	public void actionPerformed(ActionEvent evt)  
+		    	{ 
+		    		onCancel();
+		    		dispose();  
+		    	}
+		    });
 	    }
 		
 	    ////
@@ -112,7 +120,8 @@ public class DialogScreen extends JDialog
 	}
 	
 	public void onOK()
-	{
-		
-	}
+	{}
+	
+	public void onCancel()
+	{}
 }

@@ -265,7 +265,7 @@ public class MainFrame extends JFrame
 		if(obj.getListableTyp() == Angebot.ANGEBOT)
 		{
 			screen.removeAll();
-			screen.add(new AngDetailScreen(Account.KUNDE, (Angebot)obj));
+			screen.add(new AngDetailScreen((Angebot)obj));
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
@@ -334,6 +334,7 @@ public class MainFrame extends JFrame
 					
 					showTopAngebote();
 					this.repaint();
+					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
 					logged = true;
 				}
 			}
@@ -381,7 +382,10 @@ public class MainFrame extends JFrame
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
 				if(drop.getSelectedIndex() == 0)
+				{
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+					JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
+				}
 				else
 				{
 					if(Portal.Accountverwaltung().getAccountByEmail(emailField.getText()) != null)
@@ -393,13 +397,20 @@ public class MainFrame extends JFrame
 						{
 							try 
 							{
-								Anbieter an = Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
-								an.setAgb(this.getContent());
+								Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),this.getContent());
+								JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
 							} 
 							catch (Exception e) 
 							{
 								e.printStackTrace();
+								JOptionPane.showMessageDialog(this, e.toString());
 							}
+						}
+						
+						@Override
+						public void onCancel()
+						{
+							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
 					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschäftsbedingungen an!", DialogScreen.LABEL_LEFT);
