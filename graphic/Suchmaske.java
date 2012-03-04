@@ -45,11 +45,11 @@ public class Suchmaske extends JPanel{
 	private Vector<String> typ_list;
 	private JFormattedTextField vpreis;
 	private JFormattedTextField bpreis;
-	private JTextField kap;
-	private JTextField anbieter;
+	private JTextField kap = new JTextField();
+	private JTextField anbieter = new JTextField();
 	private JFormattedTextField von;
 	private JFormattedTextField bis;
-	private JTextField interval;
+	private JFormattedTextField interval;
 
 	private JTextField ort;
 	private JTextField ortz;
@@ -261,33 +261,40 @@ public class Suchmaske extends JPanel{
 	
 	public void readContent()
 	{
-		String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
-		
-		for(int i=0;i < sub_two.getComponentCount(); i++)
+		try
 		{
-		 Component c = sub_two.getComponent(i);
-		  if(c instanceof JComboBox){
-			  k[i]=((JComboBox) c).getSelectedItem().toString();
-		  }
-		  if(c instanceof JFormattedTextField){
-			  k[i]= ((JFormattedTextField) c).getText();
-		  }
-		       
+			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
+			
+			for(int i=0;i < sub_two.getComponentCount(); i++)
+			{
+				 Component c = sub_two.getComponent(i);
+				 if(c instanceof JComboBox)
+				 {
+					  k[i]=((JComboBox) c).getSelectedItem().toString();
+				 }
+				 if(c instanceof JFormattedTextField)
+				 {
+					  k[i]= ((JFormattedTextField) c).getText();
+				 }
+			}
+//			Date[] date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			if(typ.getSelectedIndex()!=0)
+			{
+				int chosenType = Angebot.convertNameToTyp(typ.getSelectedItem().toString());
+				int chosenKapazitaet = Integer.parseInt(kap.getText());
+				double chosenVPreis = Double.parseDouble(vpreis.getText());
+				double chosenBPreis =  Double.parseDouble(bpreis.getText());
+				list = Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),chosenType, chosenKapazitaet, chosenVPreis, chosenBPreis, new Date[]{}, k);
+				onSearch();
+			}
+			else
+				JOptionPane.showMessageDialog(this, "Sie müssen einen Angebotstypen wählen");
 		}
-		Date[] date = null;
-		try 
+		catch(Exception e)
 		{
-			date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.toString());
 		}
-		catch(Exception exc)
-		{
-			JOptionPane.showMessageDialog(this, exc.toString());
-		}
-		
-		list = Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
-				Double.parseDouble(bpreis.getText()), date, k);
-		
-		onSearch();
 	}
 	
 	public ArrayList<Angebot> getList()
