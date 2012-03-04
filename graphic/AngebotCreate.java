@@ -71,12 +71,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(9, 2));
 		
+		//Name+Label
 		name = new JTextField();
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
 		
+		//Typ-ComboBox+Label+Vector mit Item-Strings
 		JLabel typ_label = new JLabel("Typ:");
 		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
@@ -90,31 +92,37 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		typ.addActionListener(this);
 		sub_a.add(typ);
 		
+		//Preis+Label
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
 		preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		sub_a.add(preis);
 		
+		//Kapazitaet+Label
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
 		kap = new JTextField();
 		sub_a.add(kap);
 		
-		JLabel von_label = new JLabel("Datum von");
+		//Startdatum+Label
+		JLabel von_label = new JLabel("Startdatum");
 		sub_a.add(von_label);
 		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
 		
-		JLabel bis_label = new JLabel("Datum bis");
+		//Enddatum+Label
+		JLabel bis_label = new JLabel("Enddatum");
 		sub_a.add(bis_label);
 		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
 		
-		JLabel interval_label = new JLabel("Länge:");
+		//Laenge+Label
+		JLabel interval_label = new JLabel("Laenge:");
 		sub_a.add(interval_label);
 		interval =new JFormattedTextField(NumberFormat.getInstance());
 		sub_a.add(interval);
 		
+		//Anbeiter
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_a.add(anbieter_label);
 		anbieter = new JLabel(a.getName());
@@ -130,6 +138,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		up.add(sub_b);
 
 		
+		//Beschreibung des Angebots
 		mid = new JPanel(new GridLayout(1, 0));
 		beschreibung = new JTextArea();
 		beschreibung.setEditable(true);
@@ -262,17 +271,11 @@ String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedIte
 			try {
 				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
-			
-		}
-		
-		else if(e.getSource()==loeschen){
 			
 		}
 		

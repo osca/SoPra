@@ -63,15 +63,18 @@ public class Suchmaske extends JPanel implements ActionListener {
 		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
-		sub_a = new JPanel(new GridLayout(9, 2));
+		sub_a = new JPanel(new GridLayout(8, 2));
 		sub_b = new JPanel(new GridLayout(6, 0));
 		
+		//Name+Label
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
 		name =new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
 		
+		
+		//Typ+Lable+Vector mit Item-Strings
 		JLabel typ_label = new JLabel("Typ:");
 		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
@@ -85,41 +88,41 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ.addActionListener(this);
 		sub_a.add(typ);
 		
+		//Startpreis+Label
 		JLabel vpreis_label = new JLabel("Startpreis:");
 		sub_a.add(vpreis_label);
 		vpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
 		
+		//Endpreis+Label
 		JLabel bpreis_label = new JLabel("Endpreis:");
 		sub_a.add(bpreis_label);
 		bpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
 		
-		JLabel kap_label = new JLabel("Kapazitaet:");
-		sub_a.add(kap_label);
-		kap = new JFormattedTextField(NumberFormat.getInstance());
-		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
-		sub_a.add(kap);
-		
+		//Abieter+Label
 		JLabel anbieter_label = new JLabel("Bitte geben Sie den gewünschten Anbieter ein:");
 		sub_a.add(anbieter_label);
 		anbieter = new JTextField();
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
 		
+		//Startdatum+Label
 		JLabel vdatum_label = new JLabel("Bitte geben Sie das Startdatum ein:");
 		sub_a.add(vdatum_label);
 		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
 		
+		//Enddatum+Label
 		JLabel bdatum_label = new JLabel("Bitte geben Sie das Enddatum ein:");
 		sub_a.add(bdatum_label);
 		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
 		
-		JLabel interval_label = new JLabel("Bitte geben Sie die gewünschte Länge ein:");
+		//Laenge+Label
+		JLabel interval_label = new JLabel("Bitte geben Sie die gewünschte Laenge ein:");
 		sub_a.add(interval_label);
 		interval = new JFormattedTextField(NumberFormat.getInstance());
 		sub_a.add(interval);
