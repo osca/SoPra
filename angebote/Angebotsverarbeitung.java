@@ -12,7 +12,7 @@ public class Angebotsverarbeitung {
 	public final static String KEINNAME		= "";
 	public final static int KEINEKAPAZITAET	= 0;
 	public final static double KEINPREIS 	= 0;
-	public final static Date[] KEINEDATEN	= null;
+	public final static Date KEINEDATEN	= null;
 	public final static String KEINKRITERIUM = null;
 	/**
 	 * Die Methode geht alle übergebenen Parameter durch für alle Angebote und wenn ein Angebot dabei alle Parameter erfüllen kann wird es der
@@ -29,8 +29,9 @@ public class Angebotsverarbeitung {
 	 * @param kriterien Das Array an Kriterien das vom Kunden spezifiziert wurde. Hat der Kunde ein Kriterium nicht gesetzt, lautet die Flag 
 	 * 			KEINKRITERIUM (dieses wird innerhalb des Arrays gesetzt).
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfüllen.
+	 * @pre Startdatum ist kleiner als das Enddatum
 	 */
-	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date[] daten, String[] kriterien){
+	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien){
 		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
@@ -46,16 +47,11 @@ public class Angebotsverarbeitung {
 				if((a.getPreis()>vonPreis&&a.getPreis()<bisPreis)||
 						(vonPreis==KEINPREIS&&bisPreis==KEINPREIS)) 
 					treffer++;
-				if(daten==KEINEDATEN) 
+				if(von==KEINEDATEN && bis==KEINEDATEN) 
 					treffer++;
 				else {
-					for(int i=0;i<daten.length;i++){
-						if(daten[i].compareTo(a.getDaten()[1])>=0 &&
-								daten[i].compareTo(a.getDaten()[a.getDaten().length-1])<=0){
-							treffer ++;
-							i=daten.length;
-						}
-					}
+					if(von.after(a.getStartdatum()) && von.before(a.getEnddatum()) && bis.before(a.getEnddatum()))
+						treffer++;
 				}
 				ArrayList<Kriterium> kritContainer = a.getKriterien();
 				int anzKrit = kriterien.length;
@@ -105,7 +101,7 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(ang.getDaten()[ang.getDaten().length-1].before(now)) {
+			if(ang.getEnddatum().before(now)) {
 				result.add(ang);
 			}
 		}
@@ -119,7 +115,7 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(!(ang.getDaten()[ang.getDaten().length-1].before(now))) {
+			if(!(ang.getEnddatum().before(now))) {
 				result.add(ang);
 			}
 		}

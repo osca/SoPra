@@ -72,10 +72,10 @@ public class AngebotTest {
 		kunde2 = accv.getKunden().get(1);
 
 		//Angebote erstellen
-		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster");
-		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
-		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date[]{new Date(1430609911421L),new Date(1430610011421L)}, "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster");
+		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
+		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
 		
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
@@ -131,7 +131,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, new String[]{"Muenster","Guenstig"});
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, Angebotsverarbeitung.KEINEDATEN, new String[]{"Muenster","Guenstig"});
 		
 		Assert.assertEquals(ang4, suche.get(0));
 		
@@ -143,16 +143,15 @@ public class AngebotTest {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test 
 	public void testFlug() throws AlreadyInUseException, java.text.ParseException, InvalidDateException{
 		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Unternehmen", "safe");
 		Kunde kunde = (Kunde) Portal.Accountverwaltung().createAccount(Account.KUNDE, "E@Mail.com", "Nah Meh", "blabla");
 		Flug flug = (Flug) Portal.Angebotsverwaltung().createAngebot(anb, "Superabsturz", "s.o.", Angebot.FLUG, 150.99, 125, 
-				new Date[]{new Date(78943216748967489L)}, new String[]{"Bremen", "Barcelona", Klasse.wertebereich[1], Bierpreis.wertebereich[2]});
+				new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Bremen", "Barcelona", Klasse.wertebereich[1], Bierpreis.wertebereich[2]});
 		Ausflug ausflug = (Ausflug) Portal.Angebotsverwaltung().createAngebot(anb, "Strandtest", "von Strand zu Stand ziehen und einfach nur rumliegen",
-				Angebot.AUSFLUG, 20.00, 35, graphic.Methods.dater("12/12/2012", "14/12/2012", 1), new String[]{"Malediven",Bierpreis.wertebereich[3]});
-		Buchung buchungAusflug = Portal.Buchungsverwaltung().createBuchung(kunde, ausflug, new Date("12/12/2012"), new Date("13/12/2012"));
+				Angebot.AUSFLUG, 20.00, 35, new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Malediven",Bierpreis.wertebereich[3]});
+		Buchung buchungAusflug = Portal.Buchungsverwaltung().createBuchung(kunde, ausflug, new Date(78943216748967489L), new Date(78943316748967489L));
 		
 		Assert.assertEquals(Portal.Angebotsverwaltung().getAnbieter(flug) .getName(), anb.getName());
 		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
@@ -169,7 +168,7 @@ public class AngebotTest {
 		try{
 			Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "email@provider.land", "DaFuq", "unsafe");
 			Portal.Angebotsverwaltung().createAngebot(anb, "Schlafplatz", "", Angebot.HOTEL, 39.99, 30, 
-					graphic.Methods.dater("01/01/2012", "01/02/2012", 1), 
+					new Date(16748967489L), new Date(16848967489L), 
 					new String[]{"Turin", Klima.wertebereich[3], Sterne.wertebereich[9], Verpflegungsart.wertebereich[1], Bierpreis.wertebereich[0]});
 			Assert.fail("Wegen abgelaufenem Datum sollte Exception fliegen!");
 		} catch(Exception exc){

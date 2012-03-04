@@ -42,18 +42,18 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException falls Daten nicht zumindest teilweise in der Zukunft liegen
 	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
-			Date[] daten, String[] krit) throws InvalidDateException {
+			Date von, Date bis, String[] krit) throws InvalidDateException {
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
+			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.ORT]);
 		case Angebot.AUSFLUG:
-			return createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
+			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
 		case Angebot.HOTEL:
-			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
+			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, von, bis, 
 					krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
 					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.BIERPREIS]);
 		case Angebot.FLUG:
-			return createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
+			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Flug.START], krit[Flug.ZIEL], 
 						krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
 		default : 
 			return null;
@@ -73,9 +73,9 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException 
 	 * @see Autovermietung
 	 */
-	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date[] dates, String ort) throws InvalidDateException{
-		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, dates, ort);
-		if(dates==null || dates[dates.length-1].before(new Date()))
+	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String ort) throws InvalidDateException{
+		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, ort);
+		if(bis.before(von) || von.before(new Date()))
 			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
 		
 		anbieter.addAngebot(av);
@@ -97,31 +97,31 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException 
 	 */
 	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date[] pdaten, String port, String pbierpreis) throws InvalidDateException{
-		if(pdaten==null || pdaten[pdaten.length-1].before(new Date()))
+			Date pvon, Date pbis, String port, String pbierpreis) throws InvalidDateException{
+		if(pbis.before(pvon) || pvon.before(new Date()))
 				throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
 			
-		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, port, pbierpreis);
+		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, port, pbierpreis);
 		panb.addAngebot(af);
 		angebote.add(af);
 		return af;
 	}
 	
 	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
-		if(pdaten==null || pdaten[pdaten.length-1].before(new Date()))
+			Date pvon, Date pbis, String pstart, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
+		if(pbis.before(pvon) || pvon.before(new Date()))
 			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
+		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pstart, pziel, pklasse, pbierpreis);
 		panb.addAngebot(f);
 		angebote.add(f);
 		return f;
 	}
 	
-	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date[] daten, 
+	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date pvon, Date pbis, 
 			String ort, String klima, String sterne, String verpf, String bierpr) throws InvalidDateException{
-		if(daten==null || daten[daten.length].before(new Date()))
+		if(pbis.before(pvon) || pvon.before(new Date()))
 			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, daten, ort, klima, sterne, verpf, bierpr);
+		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, pvon, pbis, ort, klima, sterne, verpf, bierpr);
 		anb.addAngebot(hu);
 		angebote.add(hu);
 		return hu;

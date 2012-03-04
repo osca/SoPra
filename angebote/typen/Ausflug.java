@@ -36,8 +36,8 @@ public class Ausflug extends Angebot {
 	 * @param port Ort des Ausflugs
 	 * @param pbierpreis Bierpreis
 	 */
-	public Ausflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date[] pdaten, String port, String pbierpreis) {
-		super(panb, pname, pbeschreibung, Angebot.AUSFLUG, pkapazitaet, ppreis, pdaten);
+	public Ausflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String port, String pbierpreis) {
+		super(panb, pname, pbeschreibung, Angebot.AUSFLUG, pkapazitaet, ppreis, pvon, pbis);
 		ort = new Ort(port); 
 		kriterien.add(ort);
 		bierpreis = new Bierpreis(pbierpreis);

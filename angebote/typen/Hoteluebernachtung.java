@@ -51,8 +51,8 @@ public class Hoteluebernachtung extends Angebot {
 	 * @param pbierpreis Bierpreis
 	 */
 	public Hoteluebernachtung(Anbieter panbieter, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date[] pdaten, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
-		super(panbieter, pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pdaten);
+			Date pvon, Date pbis, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
+		super(panbieter, pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pvon, pbis);
 		ort = new Ort(port);
 		klima = new Klima(pklima);
 		sterne = new Sterne(psterne);

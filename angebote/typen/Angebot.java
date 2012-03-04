@@ -32,7 +32,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private int typ;
 	private boolean auffindbar;
 	private double preis;
-	private Date[] daten;
+	private Date von,bis,zeitstempel;
 	private String anbieterName;
 	private int kapazitaet;
 	
@@ -48,10 +48,10 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @param ptyp Angebotstyp (siehe Flags)
 	 * @param pkapazitaet Kapazitaet
 	 * @param ppreis Preis
-	 * @param pdaten Daten des Angebots. 
-	 * @pre Es wird erwartet, dass das Array sortiert ist!
+	 * @param pvon Startdatum des Angebots.
+	 * @param pbis Enddatum des Angebots.
 	 */
-	public Angebot(Anbieter panbieter, String pname, String pbeschreibung, int ptyp, int pkapazitaet, double ppreis, Date[] pdaten) {
+	public Angebot(Anbieter panbieter, String pname, String pbeschreibung, int ptyp, int pkapazitaet, double ppreis, Date pvon, Date pbis) {
 		anbieterName = panbieter.getName();
 		angebotsNummer = anzahl++;
 		name = pname;
@@ -60,7 +60,9 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		auffindbar = true;
 		preis = ppreis;
 		kapazitaet = pkapazitaet;
-		daten = pdaten;
+		von = pvon;
+		bis = pbis;
+		zeitstempel = new Date();
 	}
 	
 	/**
@@ -109,13 +111,23 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
-	 * Get Daten
+	 * Get Startdatum
 	 * 
-	 * @return Array der Daten des Angebots
+	 * @return Startdatum
 	 */
-	public Date[] getDaten() {
-		return daten;
+	public Date getStartdatum() {
+		return von;
 	}
+	
+	/**
+	 * Get Enddatum
+	 * 
+	 * @return Enddatum
+	 */
+	public Date getEnddatum() {
+		return bis;
+	}
+	
 	/**
 	 * Get Anzahl aller Angebote
 	 * 
@@ -224,6 +236,10 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public void delKommentar(Kommentar kommentar) {
 		kommentare.remove(kommentar);
 	}
+	
+	public Date getZeitstempel() {
+		return zeitstempel;
+	}
 
 	/**
 	 * Get erlaubte Kriterien eines Angebots
@@ -318,14 +334,20 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public int compareTo(Angebot pangebot) {
+		long days = 1;
+		if(pangebot.getStartdatum().getTime() != pangebot.getEnddatum().getTime())
+			days = (this.getEnddatum().getTime()-this.getStartdatum().getTime())/1000/60/60/24;
+		if(days == 0)
+			days = 1;
+			
 		final int fillGewichtung = 100,
 				  anbieterGewichtung = 20,
 				  angebotsGewichtung = 40;
 		double result = 0.00;
 		ArrayList<Buchung> buchungenThis = Portal.Buchungsverwaltung().getBuchungen(this),
 							buchungenP = Portal.Buchungsverwaltung().getBuchungen(pangebot);
-		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*this.getDaten().length);
-		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*pangebot.getDaten().length);
+		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*days);
+		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*days);
 		double abThis = Portal.Angebotsverwaltung().getAnbieter(this).getWertung();
 		double abP = Portal.Angebotsverwaltung().getAnbieter(pangebot).getWertung();
 		
