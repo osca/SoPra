@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,8 +59,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private String[] k;
 
 	private JButton suche;
-	private JButton abbrechen;
-
+	
 	public Suchmaske() throws ParseException {
 		
 		
@@ -67,11 +67,13 @@ public class Suchmaske extends JPanel implements ActionListener {
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(9, 2));
 		sub_b = new JPanel(new GridLayout(6, 0));
+		
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
 		name =new JTextField();
 		name.setToolTipText("Bitte Namen eingeben");
 		sub_a.add(name);
+		
 		JLabel typ_label = new JLabel("Typ:");
 		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
@@ -84,35 +86,54 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
 		sub_a.add(typ);
+		
 		JLabel vpreis_label = new JLabel("Startpreis:");
 		sub_a.add(vpreis_label);
 		vpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		vpreis.setToolTipText("Bitte geben Sie eine Mindestpreis ein");
 		sub_a.add(vpreis);
+		
 		JLabel bpreis_label = new JLabel("Endpreis:");
 		sub_a.add(bpreis_label);
 		bpreis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		bpreis.setToolTipText("Bitte geben Sie einen Hoechstpreis ein");
 		sub_a.add(bpreis);
+		
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
-		kap = new JTextField();
+		kap = new JFormattedTextField(NumberFormat.getInstance());
 		kap.setToolTipText("Bitte geben Sie ein fuer wie viele Personen das Angebot gebucht werden soll");
 		sub_a.add(kap);
+		
+		JLabel anbieter_label = new JLabel("Bitte geben Sie den gewünschten Anbieter ein:");
+		sub_a.add(anbieter_label);
 		anbieter = new JTextField();
 		anbieter.setToolTipText("Bitte geben Sie den gewuenschten Anbieter ein");
 		sub_a.add(anbieter);
+		
+		JLabel vdatum_label = new JLabel("Bitte geben Sie das Startdatum ein:");
+		sub_a.add(vdatum_label);
+		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
+		sub_a.add(von);
+		
+		JLabel bdatum_label = new JLabel("Bitte geben Sie das Enddatum ein:");
+		sub_a.add(bdatum_label);
+		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
+		sub_a.add(bis);
+		
+		JLabel interval_label = new JLabel("Bitte geben Sie die gewünschte Länge ein:");
+		sub_a.add(interval_label);
+		interval = new JFormattedTextField(NumberFormat.getInstance());
+		sub_a.add(interval);
+		
 		sub_b = new JPanel(new GridLayout(0, 2));
 		sub_one = new JPanel(new GridLayout(6,1));
 		sub_two = new JPanel(new GridLayout(6,1));
 		sub_b.add(sub_a);
 		sub_b.add(sub_two);
-		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
-		sub_a.add(von);
-		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
-		sub_a.add(bis);
-		interval = new JTextField();
-		sub_a.add(interval);
+		
+		
+		
 		up.add(sub_a);
 		up.add(sub_b);
 
@@ -122,8 +143,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 		
 		add(BorderLayout.NORTH,up);
 		add(BorderLayout.SOUTH,mid);
-		//abbrechen = new JButton("Abbrechen");
-
+		
 	}
 
 	@Override
@@ -133,6 +153,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 			
 			sub_one.removeAll();
 			sub_two.removeAll();
+			sub_b.validate();
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
 				
 			}
@@ -215,7 +236,11 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 			sub_one.repaint();
 			sub_two.repaint();
+			sub_b.validate();
+			sub_b.repaint();
+			this.validate();
 			this.repaint();
+			
 		}
 		else if(e.getSource()==suche){
 			
