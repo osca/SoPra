@@ -262,7 +262,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		else if(e.getSource()==bestaetigen){
 			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
-			for(int i=0;i < sub_two.getComponentCount()-1; i++)
+			for(int i=0;i < sub_two.getComponentCount(); i++)
 			{
 			 Component c = sub_two.getComponent(i);
 			  if(c instanceof JComboBox){
