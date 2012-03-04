@@ -86,7 +86,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
 		typ_list.add("Typ");
-		typ_list.add("Hoteluebernachtung");
+		typ_list.add("Hotel");
 		typ_list.add("Autovermietung");
 		typ_list.add("Ausflueg");
 		typ_list.add("Flug");
