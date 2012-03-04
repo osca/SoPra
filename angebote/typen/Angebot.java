@@ -339,4 +339,23 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public int getListableTyp(){
 		return ANGEBOT;
 	}
+	
+	public static String typToString(int flag){
+		switch(flag){
+		case 1:{
+			return "Flug";
+		}
+		case 2:{
+			return "Autovermietung";
+		}
+		case 3:{
+			return  "Ausflug";
+		}
+		case 4:{
+			return "Hotel";
+		}
+		default : return null;
+		}
+		
+	}
 }
