@@ -147,13 +147,13 @@ public class MainFrame extends JFrame
 
 		// /////////	
 		
-		ArrayList<Angebot> al = new ArrayList<Angebot>();
-		for(int i=0;i<100;i++)
-			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
-		list = new ListeScreen(this, al);
-		
-		screen.add(list);
-		
+//		ArrayList<Angebot> al = new ArrayList<Angebot>();
+//		for(int i=0;i<100;i++)
+//			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+//		list = new ListeScreen(this, al);
+//		
+//		screen.add(list);
+//		
 		/////////////////
 		
 		homeButton.addActionListener(new ActionListener()
@@ -234,6 +234,11 @@ public class MainFrame extends JFrame
 		this.pack();
 		this.setVisible(true);
 		
+		//////////////
+		
+		Portal.Angebotsverwaltung().createFlug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+		
+		showTopAngebote();
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -464,6 +469,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
+			ArrayList arr = Portal.Angebotsverarbeitung().getTopAngebote();
 			list = new ListeScreen(this, Portal.Angebotsverarbeitung().getTopAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);

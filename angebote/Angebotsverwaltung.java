@@ -92,6 +92,7 @@ public class Angebotsverwaltung {
 			Date[] pdaten, String pstart, String pziel, String pklasse, String pbierpreis){
 		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pdaten, pstart, pziel, pklasse, pbierpreis);
 		panb.addAngebot(f);
+		angebote.add(f);
 		return f;
 	}
 	
