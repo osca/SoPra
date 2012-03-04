@@ -1,6 +1,8 @@
 package graphic;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,57 +20,44 @@ public class ListeScreen <T extends Listable> extends JPanel {
 	
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
-		GridLayout grid = new GridLayout(0,1);
-		grid.setVgap(4);
-		setLayout(grid);
-		lscroll = new JScrollPane();
-		sPanel= new JPanel(grid);
-		//size des scrolls setzen
+		this.setBackground(Color.black);
+		this.setLayout(new BorderLayout());
+		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+		
+		JPanel elementPanel = new JPanel(new GridLayout(0,1));
+		
 		for (int i=0;i<list.size();i++){
 			final int j = i;
-			JPanel listenerPanel = new JPanel();
-			listenerPanel.addMouseListener(new MouseListener(){
+			JPanel eventPanel = new JPanel();
+			eventPanel.addMouseListener(new MouseListener(){
 
 				@Override
-				public void mouseClicked(MouseEvent e) {
-				}
+				public void mouseClicked(MouseEvent e) {}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
+				public void mouseEntered(MouseEvent e) {}
 
 				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
+				public void mouseExited(MouseEvent e) {}
 
 				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
+				public void mousePressed(MouseEvent e) {}
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
 					mainframe.showDetail(list.get(j));
 				}
-				
 			});
+			
 			JLabel name = new JLabel(list.get(i).getIdentifier());
-			listenerPanel.add(name);
+			eventPanel.add(name);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
-			listenerPanel.add(info);
-			listenerPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-			sPanel.add(listenerPanel);
+			eventPanel.add(info);
+			eventPanel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
+			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+			elementPanel.add(eventPanel);
 		}
 		
-		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-		
-		lscroll.add(sPanel);
-		lscroll.setViewportView(sPanel);
-		add(lscroll);
+		this.add(new JScrollPane(elementPanel), BorderLayout.NORTH);
 	}
-
-	
 }

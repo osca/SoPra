@@ -67,7 +67,11 @@ public class MainFrame extends JFrame
 	{
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (d.width - getSize().width);
+	    int y = (d.height - getSize().height);
+	    setLocation(x/4, y/4);
+		this.setPreferredSize(new Dimension(x/2,y/2));
 		
 		/////////
 		
@@ -95,9 +99,8 @@ public class MainFrame extends JFrame
 		JPanel buttonPanel = new JPanel(grid);
 		menuPanel.add(buttonPanel, BorderLayout.NORTH);
 		
-		screen = new JPanel();
+		screen = new JPanel(new GridLayout(1,0));
 		screen.setBorder(border);
-		screen.setLayout(new GridLayout(1,0));
 		
 		scroll = new JScrollPane(screen);
 		this.add(scroll, BorderLayout.CENTER);
@@ -348,28 +351,37 @@ public class MainFrame extends JFrame
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 				else
 				{
-					final JDialog dialog = new JDialog(this,"AGB");
-				    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-				    dialog.setSize(BUTTONWIDTH*2 + 24, (BUTTONHEIGHT*10)+8);
-				    dialog.setLocation(dialog.getParent().WIDTH/2, dialog.getParent().HEIGHT/2);
-				    
-				    //
-				    
-				    JPanel main = new JPanel(null);
-				    
-				    final JTextArea agb = new JTextArea();
-				    JScrollPane agbScroll = new JScrollPane(agb);
-				    agbScroll.setBounds(8, 40, BUTTONWIDTH*2, (BUTTONHEIGHT*7));
-				    
-				    JLabel agbLabel = new JLabel("Bitte tragen Sie Ihre allgemeinen Geschäftsbedingungen ein!");
-				    agbLabel.setBounds(4, 8, BUTTONWIDTH*2, BUTTONHEIGHT);
-				    
-					//
-				    
-				    JButton okButton = new JButton("OK");
-				    okButton.setBounds(8, (BUTTONHEIGHT*8)+8, BUTTONWIDTH, BUTTONHEIGHT);
-				    okButton.setText("OK");
-				    okButton.addActionListener(new ActionListener() 
+					final JDialog dialog = new JDialog(this, "Allgemeine Geschäftsbedingungen");
+					dialog.setLocation(dialog.getParent().getWidth()/4, dialog.getParent().getHeight()/4);
+					JPanel main = new JPanel(new BorderLayout());
+					main.setPreferredSize(new Dimension(BUTTONWIDTH*3, BUTTONWIDTH*3));
+					
+					Border border = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.LIGHT_GRAY);
+					
+					////
+					
+					JPanel north = new JPanel();
+					JPanel center = new JPanel(new BorderLayout());
+					JPanel south = new JPanel();
+					
+					north.setBorder(border);
+					center.setBorder(border);
+					south.setBorder(border);
+					
+					JLabel agbLabel = new JLabel("Bitte tragen Sie Ihre allgemeinen Geschäftsbedingungen ein!");
+					final JTextArea agb = new JTextArea();
+					JButton ok = new JButton("OK");
+					ok.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+					JButton cancel = new JButton("Abbrechen");
+					cancel.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+					
+					JPanel buttons = new JPanel();
+					buttons.add(ok);
+					buttons.add(cancel);
+					
+					////
+					
+				    ok.addActionListener(new ActionListener() 
 				    { 
 				      public void actionPerformed(ActionEvent evt)
 				      { 
@@ -384,19 +396,21 @@ public class MainFrame extends JFrame
 				    	  }
 				      }
 				    });
-				    JButton cancelButton = new JButton("Abbrechen");
-				    cancelButton.setBounds(BUTTONWIDTH + 8, (BUTTONHEIGHT*8)+8, BUTTONWIDTH, BUTTONHEIGHT);
-				    cancelButton.setText("Abbrechen");
-				    cancelButton.addActionListener(new ActionListener()   {  public void actionPerformed(ActionEvent evt)   { dialog.dispose();  } });
+				    cancel.addActionListener(new ActionListener() {  public void actionPerformed(ActionEvent evt)   { dialog.dispose();  } });
+					
+				    ////
 				    
-				    main.add(okButton);
-				    main.add(cancelButton);
-				    main.add(agbScroll);
-				    main.add(agbLabel);
-				    
-				    dialog.add(main);
-				    dialog.setResizable(false);
-				    dialog.setVisible(true);
+					north.add(agbLabel);
+					center.add(new JScrollPane(agb), BorderLayout.CENTER);
+					south.add(buttons);
+					
+					main.add(north, BorderLayout.NORTH);
+					main.add(center, BorderLayout.CENTER);
+					main.add(south, BorderLayout.SOUTH);
+					
+					dialog.add(main);
+					dialog.pack();
+					dialog.setVisible(true);
 				}
 			}
 		}
