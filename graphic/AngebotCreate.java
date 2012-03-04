@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -59,18 +59,18 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JComboBox verpflegung;
 	private JComboBox bierpreis;
 	private JComboBox klasse;
-	private String[] k;
 
 	private JTextArea beschreibung;
-
-	private JButton verwerfen;
+	
+	private JButton loeschen;
 	private JButton bestaetigen;
 
 	public AngebotCreate(Anbieter a) throws ParseException {
+		
 		setLayout(new BorderLayout(5, 5));
-	
 		up = new JPanel(new GridLayout(0, 2));
 		sub_a = new JPanel(new GridLayout(9, 2));
+		
 		name = new JTextField();
 		JLabel name_label= new JLabel("Name:");
 		sub_a.add(name_label);
@@ -88,35 +88,42 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
 		typ.addActionListener(this);
-
 		sub_a.add(typ);
+		
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
 		preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		sub_a.add(preis);
+		
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
 		kap = new JTextField();
 		sub_a.add(kap);
+		
 		JLabel von_label = new JLabel("Datum von");
 		sub_a.add(von_label);
 		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
+		
 		JLabel bis_label = new JLabel("Datum bis");
 		sub_a.add(bis_label);
 		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
-		JLabel interval_label = new JLabel("Interval");
+		
+		JLabel interval_label = new JLabel("Länge:");
 		sub_a.add(interval_label);
-		interval = new JTextField();
+		interval =new JFormattedTextField(NumberFormat.getInstance());
 		sub_a.add(interval);
+		
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_a.add(anbieter_label);
 		anbieter = new JLabel(a.getName());
 		sub_a.add(anbieter);
+		
 		sub_b = new JPanel(new GridLayout(0, 2));
 		sub_one = new JPanel(new GridLayout(6,1));
 		sub_two = new JPanel(new GridLayout(6,1));
+		
 		sub_b.add(sub_one);
 		sub_b.add(sub_two);
 		up.add(sub_a);
@@ -129,8 +136,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		mid.add(beschreibung);
 
 		down = new JPanel(new BorderLayout(5, 5));
-		verwerfen = new JButton("Verwerfen");
-		down.add(BorderLayout.EAST, verwerfen);
+		loeschen = new JButton("Alle Eingaben Loeschen");
+		down.add(BorderLayout.EAST, loeschen);
 		bestaetigen = new JButton("Bestätigen");
 		bestaetigen.addActionListener(this);
 		down.add(BorderLayout.WEST, bestaetigen);
@@ -149,6 +156,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			
 			sub_one.removeAll();
 			sub_two.removeAll();
+			sub_b.validate();
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
 				
 			}
@@ -231,6 +239,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			}
 			sub_one.repaint();
 			sub_two.repaint();
+			sub_b.validate();
+			sub_b.repaint();
+			this.validate();
 			this.repaint();
 		}
 		else if(e.getSource()==bestaetigen){
@@ -258,6 +269,10 @@ String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedIte
 				e1.printStackTrace();
 			}
 			Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			
+		}
+		
+		else if(e.getSource()==loeschen){
 			
 		}
 		

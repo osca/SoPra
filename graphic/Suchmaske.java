@@ -19,7 +19,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import angebote.Angebotsverwaltung;
@@ -56,7 +55,6 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JComboBox verpflegung;
 	private JComboBox bierpreis;
 	private JComboBox klasse;
-	private String[] k;
 
 	private JButton suche;
 	
@@ -261,19 +259,15 @@ public class Suchmaske extends JPanel implements ActionListener {
 			try {
 				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
 			Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
 					Double.parseDouble(bpreis.getText()), date, k);
 			}
-//		else if(e.getSource()==abbrechen){
-//			
-//		}
+
 	}
 	
 	

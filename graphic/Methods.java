@@ -7,8 +7,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+/**
+ * 
+ * @author Rudi
+ *
+ */
 
 public class Methods {
+	
+	/**
+	 * Eine Methode zum Ausgeben von einem Array aus Daten,
+	 * welche zwischen strat und end liegen und eine Taktung haben.
+	 * @param start Start-Datum
+	 * @param end End-Datum
+	 * @param interval Taktung der Daten im Array
+	 * @return Array mit Daten zwischen Start und End in einer Taktung
+	 * @throws ParseException
+	 */
 	public static Date[] dater(String start, String end, int  interval) throws ParseException{
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date s = 	df.parse(start);
@@ -28,14 +43,6 @@ public class Methods {
 			d[i]=temp.get(i);
 		}
 		return d;
-	}
-	
-	public static String format4long(int length){
-		String s ="";
-		for(int i=0;i<length;i++){
-			s += "*";
-		}
-		return s;
 	}
 
 }
