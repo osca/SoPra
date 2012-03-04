@@ -245,8 +245,6 @@ public class MainFrame extends JFrame
 	{
 		if(obj.getListableTyp() == Angebot.ANGEBOT)
 		{
-			System.out.println(((Angebot)obj).getIdentifier());
-			
 			screen.removeAll();
 			screen.add(new AngDetailScreen(Account.KUNDE, (Angebot)obj));
 			scroll.setViewportView(screen);
@@ -298,6 +296,7 @@ public class MainFrame extends JFrame
 					else
 						eigeneButton.setText("Alle Accounds");
 					
+					showTopAngebote();
 					this.repaint();
 					logged = true;
 				}
@@ -376,7 +375,7 @@ public class MainFrame extends JFrame
 				      { 
 				    	  try
 				    	  {
-				    		  Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+				    		  Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),agb.getText());
 				    		  dialog.dispose();
 				    	  }
 				    	  catch(Exception e)
@@ -469,7 +468,6 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			ArrayList arr = Portal.Angebotsverarbeitung().getTopAngebote();
 			list = new ListeScreen(this, Portal.Angebotsverarbeitung().getTopAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);

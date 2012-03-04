@@ -107,6 +107,29 @@ public class Accountverwaltung {
 		anbieter.add(a);
 		return a;
 	}
+	
+	/**
+	 * Erstelle Anbieter mit AGB
+	 * 
+	 * @param email
+	 *            E-Mail Adresse
+	 * @param name
+	 *            Username
+	 * @param password
+	 *            Password
+	 * @param agb
+	 * 			  Allgemeine Geschäftsbedingungen
+	 * @throws AlreadyInUseException
+	 *             Account E-Mail oder Username schon vergeben
+	 */
+	public Anbieter createAnbieter(String email, String name, String password, String agb)
+			throws AlreadyInUseException {
+		if (!isFreeEmail(email) || !isFreeName(name))
+			throw new AlreadyInUseException();
+		Anbieter a = new Anbieter(email, name, password, agb);
+		anbieter.add(a);
+		return a;
+	}
 
 	/**
 	 * Erstelle Betreiber
