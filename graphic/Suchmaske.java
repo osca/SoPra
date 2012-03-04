@@ -110,13 +110,13 @@ public class Suchmaske extends JPanel implements ActionListener {
 		sub_a.add(anbieter);
 		
 		//Startdatum+Label
-		JLabel vdatum_label = new JLabel("Bitte geben Sie das Startdatum ein:");
+		JLabel vdatum_label = new JLabel("Bitte geben Sie das Startdatum (im DD/MM/YYYY Format)ein:");
 		sub_a.add(vdatum_label);
 		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(von);
 		
 		//Enddatum+Label
-		JLabel bdatum_label = new JLabel("Bitte geben Sie das Enddatum ein:");
+		JLabel bdatum_label = new JLabel("Bitte geben Sie das Enddatum (im DD/MM/YYYY Format)ein:");
 		sub_a.add(bdatum_label);
 		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
 		sub_a.add(bis);
@@ -237,6 +237,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 			sub_one.repaint();
 			sub_two.repaint();
+			sub_b.removeAll();
+			sub_b.add(sub_one);
+			sub_b.add(sub_two);
 			sub_b.validate();
 			sub_b.repaint();
 			this.validate();

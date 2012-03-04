@@ -13,10 +13,15 @@ public class Anbieter extends Account{
 	
 	//private ArrayList<Angebot> angebote = new ArrayList<Angebot>(); 
 	private ArrayList<Integer> angebote = new ArrayList<Integer>();
-	private String agb;
+	private String agb = "";
 	
 	public Anbieter(String em, String nm, String pw) {
 		super(em, nm, pw);
+		gesperrt = true;
+	}
+	public Anbieter(String em, String nm, String pw, String pagb) {
+		super(em, nm, pw);
+		agb = pagb;
 		gesperrt = true;
 	}
 	
