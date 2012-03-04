@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -275,26 +276,16 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			       
 			}
 			Date[] date = null;
-			try {
+			try 
+			{
 				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
-			} catch (NumberFormatException e1) {
-				e1.printStackTrace();
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			try {
 				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
-			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InvalidDateException e1) {
-				PopupFactory factory = PopupFactory.getSharedInstance();
-				Popup popup = factory.getPopup(this, new JButton("Bitte geben Sie ein gueltiges Datum ein"), 50, 50);
-			    popup.show();
 			}
-			
+			catch (Exception exc) 
+			{
+				JOptionPane.showMessageDialog(this, exc.toString());
+			}
 		}
-		
 	}
 	
 	
