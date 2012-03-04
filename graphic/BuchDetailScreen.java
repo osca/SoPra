@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,7 +30,8 @@ public class BuchDetailScreen extends JPanel {
 	private JPanel down;
 	private JLabel name;
 	private JLabel typ;
-	private JLabel datum;
+	private JLabel vondatum;
+	private JLabel bisdatum;
 	private JLabel anbieter;
 
 
@@ -46,15 +48,19 @@ public class BuchDetailScreen extends JPanel {
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new BorderLayout(5,5));
 		
+		//TODO nachher nochmal die Labels vor den labels^^^
 		name = new JLabel(b.getIdentifier());
 		typ = new JLabel (""+Portal.Buchungsverwaltung().getReferringAngebot(b).getTyp());		//GUCKEN BITTE
-		datum = new JLabel(b.getVon().toString()+ " - "+b.getBis().toString());	// DATE
-		anbieter = new JLabel(); // edit  wenn implementiert
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		vondatum = new JLabel(formatter.format(b.getVon()));	// DATE
+		bisdatum = new JLabel(formatter.format(b.getBis()));
+		anbieter = new JLabel(Portal.Buchungsverwaltung().getReferringAngebot(b).getAnbieterName()); 
 		
 		sub_a = new JPanel(new GridLayout(6,0));
 		sub_a.add(name);
 		sub_a.add(typ);
-		sub_a.add(datum);
+		sub_a.add(vondatum);
+		sub_a.add(bisdatum);
 		sub_a.add(anbieter);
 		
 		sub_b = new JPanel(new GridLayout(6,0));

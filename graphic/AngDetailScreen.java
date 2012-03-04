@@ -72,7 +72,7 @@ public class AngDetailScreen extends JPanel{
 		sub_a.add(bisdatum);
 		sub_a.add(anbieterl);
 		sub_b = new JPanel(new GridLayout(6,0));
-		String k[] = angebot.getErlaubteKriterien(); 
+		String k[] = angebot.getErlaubteKriterien(); //WTF funkt?!
 		for (int i =0;i<k.length;i++){
 			JLabel krit = new JLabel(k[i]);
 			sub_b.add(krit);
