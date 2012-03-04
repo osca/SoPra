@@ -244,7 +244,7 @@ public class MainFrame extends JFrame
 		//////////////
 		
 		try {
-			Anbieter a = Portal.Accountverwaltung().createAnbieter("horst",".+@.+\\..+","fu.fu");
+			Anbieter a = Portal.Accountverwaltung().createAnbieter("horst","x@y.z","fu.fu");
 			Kunde k = Portal.Accountverwaltung().createKunde("1", "g@g.de", "1");
 			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
 			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
@@ -278,11 +278,20 @@ public class MainFrame extends JFrame
 		}
 		else
 		{
-			Nachricht nachricht = (Nachricht)obj;
-			DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
-			dialog.setEditable(false);
-			dialog.setLabelContent("Absender: "+nachricht.getAbsender()+"/n"+"Name: "+Portal.Nachrichtenverwaltung().getAbsender(nachricht).getName() + "", DialogScreen.LABEL_LEFT);
-			dialog.setContent(nachricht.getText());
+			try
+			{
+				Nachricht nachricht = (Nachricht)obj;
+				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
+				dialog.setEditable(false);
+				dialog.setLabelContent("Absender: "+nachricht.getAbsender()+"/n"+"Name: "+Portal.Nachrichtenverwaltung().getAbsender(nachricht).getName() + "", DialogScreen.LABEL_LEFT);
+				dialog.setContent(nachricht.getText());
+				nachricht.setGelesen(true);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.toString());
+			}
 		}
 	}
 
@@ -375,7 +384,8 @@ public class MainFrame extends JFrame
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 				else
 				{
-					final Anbieter an = Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+					if(Portal.Accountverwaltung().getAccountByEmail(emailField.getText()) != null)
+						throw new AlreadyInUseException();
 					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschäftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
@@ -383,6 +393,7 @@ public class MainFrame extends JFrame
 						{
 							try 
 							{
+								Anbieter an = Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 								an.setAgb(this.getContent());
 							} 
 							catch (Exception e) 
