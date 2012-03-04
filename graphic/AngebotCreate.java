@@ -268,9 +268,10 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			  if(c instanceof JComboBox){
 				  k[i]=((JComboBox) c).getSelectedItem().toString();
 			  }
-			  if(c instanceof JFormattedTextField){
+			  else if(c instanceof JFormattedTextField){
 				  k[i]= ((JFormattedTextField) c).getText();
 			  }
+			  else return;
 			       
 			}
 			Date[] date = null;

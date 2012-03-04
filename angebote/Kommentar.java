@@ -1,8 +1,10 @@
 package angebote;
 
+import graphic.Listable;
+
 import java.util.Date;
 
-public class Kommentar {
+public class Kommentar implements Listable{
 	
 	private String absender, text;
 	private int bewertung;
@@ -29,6 +31,33 @@ public class Kommentar {
 
 	public Date getZeitstempel() {
 		return zeitstempel;
+	}
+	
+
+	//Listable-Methoden:
+	@Override
+	public String getAdditionalInfo() {
+		return getZeitstempel()+ " , "+getBewertung();
+	}
+
+	@Override
+	public String getFullInfo() {
+		return getText();
+	}
+
+	@Override
+	public String getIdentifier() {
+		return getAbsender()+", "+getBewertung();
+	}
+
+	@Override
+	public int getListableTyp() {
+		return 4;
+	}
+
+	@Override
+	public String getStatus() {
+		return "";
 	}
 	
 }
