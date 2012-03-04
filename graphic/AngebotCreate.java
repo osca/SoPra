@@ -125,7 +125,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		interval =new JFormattedTextField(NumberFormat.getInstance());
 		sub_a.add(interval);
 		
-		//Anbeiter
+		//Anbieter
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_a.add(anbieter_label);
 		anbieter = new JLabel(a.getName());
