@@ -44,5 +44,11 @@ public class Methods {
 		}
 		return d;
 	}
-
+	
+	public static boolean checkDate(Date s, Date e){
+		if(s.before(e)){
+			return true;
+		}
+		else return false;
+	}
 }

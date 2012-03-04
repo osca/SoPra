@@ -93,7 +93,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		typ_list.add("Flug");
 		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
-		typ.addActionListener(this);
+		typ.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				addScreen();
+			}
+		});
 		sub_a.add(typ);
 		
 		//Preis+Label
@@ -150,6 +157,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 		down = new JPanel(new BorderLayout(5, 5));
 		loeschen = new JButton("Alle Eingaben Loeschen");
+		loeschen.addActionListener(this);
 		down.add(BorderLayout.EAST, loeschen);
 		bestaetigen = new JButton("Bestätigen");
 		bestaetigen.addActionListener(this);
@@ -163,16 +171,52 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
-		if (e.getSource() == typ) {
+		 if(e.getSource()==bestaetigen){
+			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
+			for(int i=0;i < sub_two.getComponentCount(); i++)
+			{
+				  Component c = sub_two.getComponent(i);
+				  if(c instanceof JComboBox)
+				  {
+					  k[i]=((JComboBox) c).getSelectedItem().toString();
+				  }
+				  else if(c instanceof JTextField)
+				  {
+					  k[i]= ((JTextField) c).getText();
+				  }
+			}
+			Date[] date;
+			try 
+			{
+				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			}
+			catch (Exception exc) 
+			{
+				JOptionPane.showMessageDialog(this, exc.toString());
+			}
+		}
+		
+		else if(e.getSource()==loeschen){
+			name.setText(null);
+			typ.setSelectedIndex(0);
+			preis.setText(null);
+			kap.setText(null);
+			von.setText(null);
+			bis.setText(null);
+			interval.setText(null);
+			beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
+			addScreen();
+			
+		}
+	}
+	
+	public void addScreen()
+	{
 			sub_one.removeAll();
 			sub_two.removeAll();
 			sub_b.validate();
-			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
-				
-			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
@@ -258,36 +302,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_b.validate();
 			sub_b.repaint();
 			this.validate();
-			this.repaint();	
-		}
-		else if(e.getSource()==bestaetigen){
-			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
-			
-			for(int i=0;i < sub_two.getComponentCount(); i++)
-			{
-				  Component c = sub_two.getComponent(i);
-				  if(c instanceof JComboBox)
-				  {
-					  k[i]=((JComboBox) c).getSelectedItem().toString();
-				  }
-				  else if(c instanceof JTextField)
-				  {
-					  k[i]= ((JTextField) c).getText();
-				  }
-			}
-			Date[] date;
-			try 
-			{
-				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
-				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
-			}
-			catch (Exception exc) 
-			{
-				JOptionPane.showMessageDialog(this, exc.toString());
-			}
-		}
+			this.repaint();
 	}
-	
 	
 
 }
