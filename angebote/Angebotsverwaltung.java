@@ -28,24 +28,22 @@ public class Angebotsverwaltung {
 	
 	
 	
-	public void createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
+	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date[] daten, String[] krit) {
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
-			createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
-			break;
+			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
 		case Angebot.AUSFLUG:
-			createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
-			break;
+			return createAusflug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
 		case Angebot.HOTEL:
-			createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
+			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
 					krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
 					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART]);
-			break;
 		case Angebot.FLUG:
-			createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
+			return createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
 						krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
-			break;
+		default : 
+			return null;
 		}
 		
 	}

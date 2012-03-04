@@ -9,15 +9,19 @@ import main.Portal;
 import org.junit.Before;
 import org.junit.Test;
 
+import accounts.Account;
 import accounts.Accountverwaltung;
+import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Kunde;
 import angebote.Angebotsverarbeitung;
 import angebote.Angebotsverwaltung;
 import angebote.Kommentar;
+import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
+import angebote.typen.Flug;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
@@ -127,6 +131,12 @@ public class AngebotTest {
 		Assert.assertEquals("Flug", Angebot.convertTypToName(Angebot.FLUG));
 		Assert.assertEquals("Hotel", Angebot.convertTypToName(Angebot.HOTEL));
 		
+	}
+	
+	@Test void smallTestFlug() throws AlreadyInUseException{
+		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Na Me", "safe");
+		Flug flug = (Flug) Portal.Angebotsverwaltung().createAngebot(anb, "Superabsturz", "s.o.", Angebot.FLUG, 150.99, 125, 
+				new Date[]{new Date(78943216748967489L)}, new String[]{});
 	}
 
 }
