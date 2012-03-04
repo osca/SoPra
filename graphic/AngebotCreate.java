@@ -254,10 +254,10 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_b.validate();
 			sub_b.repaint();
 			this.validate();
-			this.repaint();
+			this.repaint();	
 		}
 		else if(e.getSource()==bestaetigen){
-String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
+			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
 			for(int i=0;i < sub_two.getComponentCount()-1; i++)
 			{
