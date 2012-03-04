@@ -246,12 +246,12 @@ public class MainFrame extends JFrame
 		try {
 			Anbieter a = Portal.Accountverwaltung().createAnbieter("horst","x@y.z","fu.fu");
 			Kunde k = Portal.Accountverwaltung().createKunde("1", "g@g.de", "1");
-			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-			Portal.Nachrichtenverwaltung().sendeNachricht(k, a, "2","sadfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",g);
+//			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, , "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Nachrichtenverwaltung().sendeNachricht(k, a, "2","sadfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",g);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
