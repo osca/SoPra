@@ -12,10 +12,16 @@ import angebote.*;
 
 public class DialogScreen extends JDialog 
 {
+	public final static int OK_OPTION = 23;
+	public final static int OK_CANCEL_OPTION = 42;
+	public final static int LABEL_LEFT = 666;
+	public final static int LABEL_RIGHT = 88;
+	
 	private JTextArea area;
 	private JLabel textLabel;
+	private JLabel starLabel;
 	
-	public DialogScreen(JFrame comp, String title, int buttonCount) 
+	public DialogScreen(JFrame comp, String title, int flag) 
 	{
 		super(comp, title);
 		
@@ -27,7 +33,7 @@ public class DialogScreen extends JDialog
 		
 		////
 		
-		JPanel north = new JPanel();
+		JPanel north = new JPanel(new BorderLayout());
 		JPanel center = new JPanel(new BorderLayout());
 		JPanel south = new JPanel();
 		
@@ -35,11 +41,16 @@ public class DialogScreen extends JDialog
 		center.setBorder(border);
 		south.setBorder(border);
 		
+		JPanel labelPanel = new JPanel(new GridLayout(1,0));
 		textLabel = new JLabel();
+		labelPanel.add(textLabel);
+		JPanel starPanel = new JPanel();
+		starLabel = new JLabel();
+		starPanel.add(starLabel);
 		area = new JTextArea();
 		JPanel buttons = new JPanel();
 		
-		if(buttonCount > 0)
+		if(flag == OK_OPTION || flag == OK_CANCEL_OPTION)
 		{
 			JButton ok = new JButton("OK");
 			ok.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
@@ -53,7 +64,7 @@ public class DialogScreen extends JDialog
 		      }
 		    });
 		}
-	    if(buttonCount > 1)
+	    if(flag == OK_CANCEL_OPTION)
 	    {
 			JButton cancel = new JButton("Abbrechen");
 			cancel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
@@ -63,7 +74,8 @@ public class DialogScreen extends JDialog
 		
 	    ////
 	    
-		north.add(textLabel);
+	    north.add(starPanel, BorderLayout.EAST);
+	    north.add(labelPanel, BorderLayout.WEST);
 		center.add(new JScrollPane(area), BorderLayout.CENTER);
 		south.add(buttons);
 		
@@ -76,9 +88,12 @@ public class DialogScreen extends JDialog
 		this.setVisible(true);
 	}
 	
-	public void setLabelContent(String l)
+	public void setLabelContent(String l, int flag)
 	{
-		textLabel.setText(l);
+		if(flag == LABEL_LEFT)
+			textLabel.setText(l);
+		else if(flag == LABEL_RIGHT)
+			starLabel.setText(l);
 	}
 	
 	public void setContent(String t)
