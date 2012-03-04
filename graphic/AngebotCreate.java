@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -28,6 +30,7 @@ import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
+import buchungen.InvalidDateException;
 
 
 public class AngebotCreate<FormattedTextField> extends JPanel implements ActionListener {
@@ -278,7 +281,16 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
-			Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			try {
+				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InvalidDateException e1) {
+				PopupFactory factory = PopupFactory.getSharedInstance();
+				Popup popup = factory.getPopup(this, new JButton("Bitte geben Sie ein gueltiges Datum ein"), 50, 50);
+			    popup.show();
+			}
 			
 		}
 		
