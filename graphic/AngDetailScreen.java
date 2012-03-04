@@ -51,7 +51,7 @@ public class AngDetailScreen extends JPanel{
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0,2));
 		mid = new JPanel(new GridLayout(1,0));
-		down = new JPanel(new BorderLayout(5,5));
+		down = new JPanel(new GridLayout(1,0));
 		
 		name = new JLabel(angebot.getIdentifier());
 		typ = new JLabel (""+angebot.getTyp());
@@ -88,19 +88,20 @@ public class AngDetailScreen extends JPanel{
 		}
 		else switch (usertype){
 		case Account.KUNDE :
-			down.add(BorderLayout.EAST, kommentieren);
-			down.add(BorderLayout.CENTER, buchen);
-			down.add(BorderLayout.WEST, melden);
+			down.add(kommentieren);
+			down.add(buchen);
+			down.add(melden);
+			down.add(kontaktieren);
 			break;
 		
 		case Account.ANBIETER:
-			down.add(BorderLayout.EAST, loeschen);
-			down.add(BorderLayout.WEST, editieren);
+			down.add(loeschen);
+			down.add(editieren);
 			break;
 		
 		case Account.BETREIBER:
-			down.add(BorderLayout.EAST, loeschen);
-			down.add(BorderLayout.WEST, kontaktieren);
+			down.add(loeschen);
+			down.add(kontaktieren);
 			break;
 		
 		}
@@ -175,7 +176,14 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				try
+				{
+					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Kontaktaufnahme",JOptionPane.showInputDialog(up.getParent(), "Bitte geben sie Ihre Nachricht ein!"), angebot);
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(up.getParent(), e.toString());
+				}
 			}
 		});
 	}
