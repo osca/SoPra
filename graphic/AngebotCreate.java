@@ -110,13 +110,13 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		//Startdatum+Label
 		JLabel von_label = new JLabel("Startdatum (im DD/MM/YYYY Format):");
 		sub_a.add(von_label);
-		von = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
+		von = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
 		sub_a.add(von);
 		
 		//Enddatum+Label
-		JLabel bis_label = new JLabel("Startdatum (im DD/MM/YYYY Format):");
+		JLabel bis_label = new JLabel("Enddatum (im DD/MM/YYYY Format):");
 		sub_a.add(bis_label);
-		bis = new JFormattedTextField(new SimpleDateFormat("dd/mm/yyyy"));
+		bis = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
 		sub_a.add(bis);
 		
 		//Laenge+Label
