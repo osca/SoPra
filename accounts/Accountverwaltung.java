@@ -1,8 +1,10 @@
 package accounts;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import main.Datenhaltung;
 import main.Portal;
 import angebote.Angebotsverwaltung;
 import angebote.typen.Angebot;
@@ -118,7 +120,7 @@ public class Accountverwaltung {
 	 * @param password
 	 *            Password
 	 * @param agb
-	 * 			  Allgemeine Geschäftsbedingungen
+	 * 			  Allgemeine Geschï¿½ftsbedingungen
 	 * @throws AlreadyInUseException
 	 *             Account E-Mail oder Username schon vergeben
 	 */
@@ -179,8 +181,9 @@ public class Accountverwaltung {
 		return loggedIn;
 	}
 
-	public void logOut() {
+	public void logOut() throws IOException {
 		// TODO Exceptions oder Warnungen
+		Datenhaltung.saveAllData();
 		loggedIn = new Default();
 	}
 
@@ -407,6 +410,9 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	private boolean isFreeEmail(String email) {
+		if(! email.matches(".+@.+\\..+"))
+			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
+		
 		for (Account a : getAccounts())
 			if (a.getEmail().equals(email))
 				return false;
@@ -421,6 +427,8 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	private boolean isFreeName(String name) {
+		if(name.length()<2)
+			throw new IllegalArgumentException("Bitte wÃ¤hlen Sie einen Namen mit mehr als 2 Zeichen");
 		for (Account a : getAccounts())
 			if (a.getName().equals(name))
 				return false;
