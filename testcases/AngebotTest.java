@@ -1,7 +1,5 @@
 package testcases;
 
-import graphic.Methods;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,14 +21,12 @@ import angebote.Kommentar;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
-import angebote.kriterien.Kriterium;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
 import angebote.typen.Flug;
-import angebote.typen.Hoteluebernachtung;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 import buchungen.InvalidDateException;
@@ -147,6 +143,7 @@ public class AngebotTest {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test 
 	public void testFlug() throws AlreadyInUseException, java.text.ParseException, InvalidDateException{
 		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Unternehmen", "safe");
@@ -160,6 +157,8 @@ public class AngebotTest {
 		Assert.assertEquals(Portal.Angebotsverwaltung().getAnbieter(flug) .getName(), anb.getName());
 		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
 				Portal.Buchungsverwaltung().getBuchungen(kunde).get(0).getBuchungsnummer());
+		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
+				buchungAusflug.getBuchungsnummer());
 		ArrayList<Angebot> alleAngebote = Portal.Angebotsverwaltung().getAllAngebote();
 		for(Angebot angeb : Portal.Angebotsverwaltung().getAngebote(anb))
 			Assert.assertTrue(alleAngebote.contains(angeb));
@@ -169,7 +168,7 @@ public class AngebotTest {
 	public void testException() throws AlreadyInUseException, ParseException{
 		try{
 			Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "email@provider.land", "DaFuq", "unsafe");
-			Hoteluebernachtung hotel = (Hoteluebernachtung) Portal.Angebotsverwaltung().createAngebot(anb, "Schlafplatz", "", Angebot.HOTEL, 39.99, 30, 
+			Portal.Angebotsverwaltung().createAngebot(anb, "Schlafplatz", "", Angebot.HOTEL, 39.99, 30, 
 					graphic.Methods.dater("01/01/2012", "01/02/2012", 1), 
 					new String[]{"Turin", Klima.wertebereich[3], Sterne.wertebereich[9], Verpflegungsart.wertebereich[1], Bierpreis.wertebereich[0]});
 			Assert.fail("Wegen abgelaufenem Datum sollte Exception fliegen!");
