@@ -186,15 +186,43 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 					  k[i]= ((JTextField) c).getText();
 				  }
 			}
-			Date[] date;
-			try 
-			{
-				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
-				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+//			Date[] date;
+//			try 
+//			{
+//				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+//				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
+//			}
+//			catch (Exception exc) 
+//			{
+//				JOptionPane.showMessageDialog(this, exc.toString());
+//			}
+			Date q=null;
+			Date w=null;
+			try {
+				q = Methods.stringToDate(von.getText());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			catch (Exception exc) 
-			{
-				JOptionPane.showMessageDialog(this, exc.toString());
+			try {
+				w = Methods.stringToDate(bis.getText());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if(Methods.checkDate(q,w)){
+				try {
+					Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), q,w, k);
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InvalidDateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			else if(Methods.checkDate(q, w)==false){
+				
 			}
 		}
 		

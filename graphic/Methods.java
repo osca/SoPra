@@ -51,4 +51,9 @@ public class Methods {
 		}
 		else return false;
 	}
+	public static Date stringToDate(String s) throws ParseException{
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date x=df.parse(s);
+		return x;
+	}
 }
