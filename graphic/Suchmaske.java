@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -36,6 +37,7 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JPanel mid;
 	private JPanel sub_one;
 	private JPanel sub_two;
+	private JPanel down;	
 
 	private JTextField name;
 	private JComboBox typ;
@@ -55,10 +57,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JComboBox verpflegung;
 	private JComboBox bierpreis;
 	private JComboBox klasse;
-
 	private JButton suche;
 	
-	public Suchmaske() throws ParseException {
+	public Suchmaske(MainFrame m) throws ParseException {
 		
 		
 		setLayout(new BorderLayout(5, 5));
@@ -142,13 +143,16 @@ public class Suchmaske extends JPanel implements ActionListener {
 		suche = new JButton("Suchen");
 		mid.add(suche);
 		
+		down = new JPanel();
+		
 		add(BorderLayout.NORTH,up);
-		add(BorderLayout.SOUTH,mid);
+		add(BorderLayout.CENTER,mid);
+		add(BorderLayout.SOUTH,down);
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	//@Override
+	public void actionPerformed(ActionEvent e, MainFrame m) {
 		
 		if (e.getSource() == typ) {
 			
@@ -270,8 +274,13 @@ public class Suchmaske extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			
-			Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
+			ArrayList<Angebot> x=Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
 					Double.parseDouble(bpreis.getText()), date, k);
+			down.add(new ListeScreen(m ,x));
+			down.validate();
+			down.repaint();
+			this.validate();
+			this.repaint();
 			}
 
 	}
