@@ -283,9 +283,11 @@ public class MainFrame extends JFrame
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
-				dialog.setLabelContent("Absender: "+nachricht.getAbsender()+"/n"+"Name: "+Portal.Nachrichtenverwaltung().getAbsender(nachricht).getName() + "", DialogScreen.LABEL_LEFT);
+				dialog.setLabelContent("Absender: "+nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
 				nachricht.setGelesen(true);
+				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				this.repaint();
 			}
 			catch(Exception e)
 			{
@@ -319,7 +321,7 @@ public class MainFrame extends JFrame
 					nachrichtButton.setEnabled(true);
 					registerButton.setEnabled(false);
 					
-					nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 					
 					loginButton.setText("Logout");
 					if(account.getTyp() == Account.KUNDE)

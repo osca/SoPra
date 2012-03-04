@@ -57,7 +57,7 @@ public class AngDetailScreen extends JPanel{
 		down = new JPanel(new GridLayout(1,0));
 		
 		name = new JLabel(angebot.getIdentifier());
-		typ = new JLabel (""+angebot.getTyp());
+		typ = new JLabel (""+angebot.getTyp()); //TODO immernoch nicht fertig...
 		datum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
 		anbieterl = new JLabel(); 
 		
@@ -132,16 +132,18 @@ public class AngDetailScreen extends JPanel{
 							@Override
 							public void onOK()
 							{
-								try {
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, null,null);
-								} catch (InvalidDateException e) {
-									// TODO Auto-generated catch block
+								try 
+								{// TODO scheiss datum
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, angebot.getDaten()[0],angebot.getDaten()[0]);
+								}
+								catch (Exception e) 
+								{
 									e.printStackTrace();
 								}
 							}
 						};
 						dialog.setEditable(false);
-						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLÄRUNG + anbieterl, DialogScreen.LABEL_LEFT);
+						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLÄRUNG + anbieterl.getText(), DialogScreen.LABEL_LEFT);
 						dialog.setLabelContent(MeldeDienst.MSG_GESAMMT_BEWERUNG + anbieter.getWertung(), DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
@@ -176,8 +178,7 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				String s = JOptionPane.showInputDialog(up.getParent(), "", "", JOptionPane.OK_CANCEL_OPTION);
-				
+								
 			}
 		});
 		loeschen.addActionListener(new ActionListener()

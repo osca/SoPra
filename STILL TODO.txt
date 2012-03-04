@@ -4,3 +4,4 @@
 2. TopAngebote werden nicht gelistet obwohl rein technisch in gui alles i.o.
 3. ein betreiber bekommt eine nachricht, falls ein kunde ein angebot meldet. welcher betreiber soll das sein? und gibt es immer mindestens einen? (siehe TODO in angDetailScreen)
 4. eine überprüfung, ob der anbieter sich registrieren kann, wär ganz nützlich. wegen dem AGB dialog würde bei falscher eingabe die nachricht erst nach der agb kommen
+5. kann einer rausfinden wie man die JDialogs vor den frame schiebt und der frame nicht mehr anfassbar wird? so wie bei JOptionPanes
