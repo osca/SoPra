@@ -33,13 +33,16 @@ import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Account;
+import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Betreiber;
 import accounts.Default;
 import accounts.Kunde;
+import accounts.Nachricht;
 import angebote.typen.Angebot;
 import angebote.typen.Flug;
 import buchungen.Buchung;
+import buchungen.InvalidDateException;
 
 public class MainFrame extends JFrame
 {
@@ -167,8 +170,14 @@ public class MainFrame extends JFrame
 				showTopAngebote();
 			}
 		});
-	
-		
+		topButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showTopAngebote();
+			}
+		});
 		loginButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -177,7 +186,6 @@ public class MainFrame extends JFrame
 				showLogin();
 			}
 		});
-		
 		registerButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -186,7 +194,6 @@ public class MainFrame extends JFrame
 				showRegister();
 			}
 		});
-		
 		eigeneButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -195,7 +202,6 @@ public class MainFrame extends JFrame
 				showEigene();
 			}
 		});
-		
 		sucheButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -204,16 +210,14 @@ public class MainFrame extends JFrame
 				showSuche();
 			}
 		});
-		
 		nachrichtButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				showNachricht();
+				showNachrichten();
 			}
 		});
-		
 		alleButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -222,7 +226,6 @@ public class MainFrame extends JFrame
 				showAlleAngebote();
 			}
 		});
-		
 		erstelleButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -232,6 +235,7 @@ public class MainFrame extends JFrame
 			}
 		});
 		
+		
 		////////////////
 		
 		this.pack();
@@ -239,9 +243,21 @@ public class MainFrame extends JFrame
 		
 		//////////////
 		
-		Portal.Angebotsverwaltung().createFlug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+		try {
+			Anbieter a = Portal.Accountverwaltung().createAnbieter("horst","@","fu.fu");
+			Kunde k = Portal.Accountverwaltung().createKunde("1", "1", "1");
+			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+			Portal.Nachrichtenverwaltung().sendeNachricht(k, a, "2","sadfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",g);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		showTopAngebote();
+		//showTopAngebote();
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -253,12 +269,20 @@ public class MainFrame extends JFrame
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
-		else
+		else if(obj.getListableTyp() == Buchung.BUCHUNG)
 		{
 			screen.removeAll();
 			screen.add(new BuchDetailScreen((Buchung)obj));
 			scroll.setViewportView(screen);
 			scroll.repaint();
+		}
+		else
+		{
+			Nachricht nachricht = (Nachricht)obj;
+			DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),1);
+			dialog.setEditable(false);
+			dialog.setLabelContent(nachricht.getAbsender());
+			dialog.setContent(nachricht.getText());
 		}
 	}
 
@@ -351,66 +375,22 @@ public class MainFrame extends JFrame
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 				else
 				{
-					final JDialog dialog = new JDialog(this, "Allgemeine Geschäftsbedingungen");
-					dialog.setLocation(dialog.getParent().getWidth()/4, dialog.getParent().getHeight()/4);
-					JPanel main = new JPanel(new BorderLayout());
-					main.setPreferredSize(new Dimension(BUTTONWIDTH*3, BUTTONWIDTH*3));
-					
-					Border border = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.LIGHT_GRAY);
-					
-					////
-					
-					JPanel north = new JPanel();
-					JPanel center = new JPanel(new BorderLayout());
-					JPanel south = new JPanel();
-					
-					north.setBorder(border);
-					center.setBorder(border);
-					south.setBorder(border);
-					
-					JLabel agbLabel = new JLabel("Bitte tragen Sie Ihre allgemeinen Geschäftsbedingungen ein!");
-					final JTextArea agb = new JTextArea();
-					JButton ok = new JButton("OK");
-					ok.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-					JButton cancel = new JButton("Abbrechen");
-					cancel.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
-					
-					JPanel buttons = new JPanel();
-					buttons.add(ok);
-					buttons.add(cancel);
-					
-					////
-					
-				    ok.addActionListener(new ActionListener() 
-				    { 
-				      public void actionPerformed(ActionEvent evt)
-				      { 
-				    	  try
-				    	  {
-				    		  Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),agb.getText());
-				    		  dialog.dispose();
-				    	  }
-				    	  catch(Exception e)
-				    	  {
-				    		  JOptionPane.showMessageDialog(dialog, e.toString());
-				    	  }
-				      }
-				    });
-				    cancel.addActionListener(new ActionListener() {  public void actionPerformed(ActionEvent evt)   { dialog.dispose();  } });
-					
-				    ////
-				    
-					north.add(agbLabel);
-					center.add(new JScrollPane(agb), BorderLayout.CENTER);
-					south.add(buttons);
-					
-					main.add(north, BorderLayout.NORTH);
-					main.add(center, BorderLayout.CENTER);
-					main.add(south, BorderLayout.SOUTH);
-					
-					dialog.add(main);
-					dialog.pack();
-					dialog.setVisible(true);
+					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschäftsbedingungen",2)
+					{
+						@Override
+						public void onOK()
+						{
+							try 
+							{
+								Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),this.getContent());
+							} 
+							catch (AlreadyInUseException e) 
+							{
+								e.printStackTrace();
+							}
+						}
+					};
+					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschäftsbedingungen an!");
 				}
 			}
 		}
@@ -466,7 +446,8 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-//			screen.add(new Msg());
+			list = new ListeScreen(this, Portal.Nachrichtenverwaltung().getErhalteneNachrichten(account));
+			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
@@ -486,18 +467,6 @@ public class MainFrame extends JFrame
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
-		}
-	}
-	
-	private void showNachricht()
-	{
-		try
-		{
 		}
 		catch(Exception e)
 		{
