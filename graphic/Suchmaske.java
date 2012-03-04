@@ -237,6 +237,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 			}
 			sub_one.repaint();
 			sub_two.repaint();
+			sub_b.removeAll();
+			sub_b.add(sub_one);
+			sub_b.add(sub_two);
 			sub_b.validate();
 			sub_b.repaint();
 			this.validate();
