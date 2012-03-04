@@ -30,7 +30,8 @@ public class AngDetailScreen extends JPanel{
 	private JPanel down;
 	private JLabel name;
 	private JLabel typ;
-	private JLabel datum;
+	private JLabel vondatum;
+	private JLabel bisdatum;
 	private JLabel anbieterl;
 	
 	private JTextArea fullinfo;
@@ -58,13 +59,14 @@ public class AngDetailScreen extends JPanel{
 		
 		name = new JLabel(angebot.getIdentifier());
 		typ = new JLabel (""+Angebot.typToString(angebot.getTyp())); //TODO immernoch nicht fertig.. edut:rudi sollte fertig sein
-		datum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
+		vondatum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
 		anbieterl = new JLabel(); 
 		
 		sub_a = new JPanel(new GridLayout(6,0));
 		sub_a.add(name);
 		sub_a.add(typ);
-		sub_a.add(datum);				
+		sub_a.add(vondatum);		
+		sub_a.add(bisdatum);
 		sub_a.add(anbieterl);
 		sub_b = new JPanel(new GridLayout(6,0));
 		String k[] = angebot.getErlaubteKriterien(); 

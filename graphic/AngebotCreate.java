@@ -106,7 +106,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		//Preis+Label
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
-		preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
+		preis =new JFormattedTextField(new DecimalFormat("0.##"));
+		//preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		sub_a.add(preis);
 		
 		//Kapazitaet+Label
@@ -198,6 +199,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 //			}
 			Date q=null;
 			Date w=null;
+			final double result = ((Number) preis.getValue()).doubleValue();
 			try {
 				q = Methods.stringToDate(von.getText());
 			} catch (ParseException e1) {
@@ -210,19 +212,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			if(Methods.checkDate(q,w)){
-				try {
-					Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), q,w, k);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InvalidDateException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			else if(Methods.checkDate(q, w)==false){
-				
+			try {
+				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InvalidDateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		
