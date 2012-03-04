@@ -221,7 +221,7 @@ public class Accountverwaltung {
 
 			// Gibt es noch offene Buchungen Schleife
 			for (Angebot a : zuLoeschendeAngebote) {
-				if (a.getDaten()[a.getDaten().length - 1].compareTo(heute) > 0) {
+				if (a.getEnddatum().compareTo(heute) > 0) {
 					ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung()
 							.getBuchungen(a);
 
