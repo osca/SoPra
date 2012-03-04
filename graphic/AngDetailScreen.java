@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -58,8 +59,10 @@ public class AngDetailScreen extends JPanel{
 		down = new JPanel(new GridLayout(1,0));
 		
 		name = new JLabel(angebot.getIdentifier());
-		typ = new JLabel (""+Angebot.typToString(angebot.getTyp())); //TODO immernoch nicht fertig.. edut:rudi sollte fertig sein
-		vondatum = new JLabel(angebot.getDaten()[0].toString());	// DATE			Rudis alte version; edit: Benjamin
+		typ = new JLabel (""+Angebot.typToString(angebot.getTyp()));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		vondatum = new JLabel(formatter.format(angebot.getStartdatum()));
+		bisdatum = new JLabel(formatter.format(angebot.getEnddatum()));
 		anbieterl = new JLabel(); 
 		
 		sub_a = new JPanel(new GridLayout(6,0));
@@ -136,7 +139,7 @@ public class AngDetailScreen extends JPanel{
 							{
 								try 
 								{// TODO scheiss datum
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, angebot.getDaten()[0],angebot.getDaten()[0]);
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, angebot.getStartdatum(),angebot.getEnddatum()); //TODO Die daten bei buchung
 								}
 								catch (Exception e) 
 								{
