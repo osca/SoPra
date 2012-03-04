@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -15,16 +16,20 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Account;
@@ -38,8 +43,8 @@ import buchungen.Buchung;
 
 public class MainFrame extends JFrame
 {
-	public static final int BUTTONHEIGHT = 38;
 	public static final int BUTTONWIDTH = 180;
+	public static final int BUTTONHEIGHT = 38;
 
 	private JButton loginButton;
 	private JButton registerButton;
@@ -61,7 +66,8 @@ public class MainFrame extends JFrame
 	public MainFrame()
 	{
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		/////////
 		
@@ -258,20 +264,23 @@ public class MainFrame extends JFrame
 		{
 			if(!logged)
 			{
-				JTextField nameField = new JTextField("Name");
-				JTextField passwordField = new JTextField("Password");
+				JLabel nameLabel = new JLabel("Name");
+				JTextField nameField = new JTextField();
+				JLabel passwordLabel = new JLabel("Password");
+				JPasswordField passwordField = new JPasswordField();
 				JLabel label = new JLabel("Bitte geben Sie die Anmeldeinformationen an");
 		
-				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameField, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameLabel, nameField, passwordLabel, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
 				
-					Portal.Accountverwaltung().logIn(nameField.getText(), passwordField.getText());
+					Portal.Accountverwaltung().logIn(nameField.getText(), new String(passwordField.getPassword()));
 					account = Portal.Accountverwaltung().getLoggedIn();
 					
 					eigeneButton.setEnabled(true);
 					nachrichtButton.setEnabled(true);
+					registerButton.setEnabled(false);
 					
-					nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten()+")");
+					nachrichtButton.setText(nachrichtButton.getText()+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 					
 					loginButton.setText("Logout");
 					if(account.getTyp() == Account.KUNDE)
@@ -300,6 +309,7 @@ public class MainFrame extends JFrame
 				erstelleButton.setEnabled(false);
 				loginButton.setText("Login");
 				nachrichtButton.setText("Nachrichten");
+				registerButton.setEnabled(true);
 				
 				this.repaint();
 				logged = false;
@@ -316,28 +326,75 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			if(!logged)
+			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
+			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
+			JLabel nameLabel = new JLabel("Name");
+			final JTextField nameField = new JTextField();
+			JLabel emailLabel = new JLabel("E-Mail-Adresse");
+			final JTextField emailField = new JTextField();
+			JLabel passwordLabel = new JLabel("Password");
+			final JPasswordField passwordField = new JPasswordField();
+			
+			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
+			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
+			
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
-				JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-				JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
-				JTextField nameField = new JTextField("Name");
-				JTextField emailField = new JTextField("E-Mail-Adresse");
-				JTextField passwordField = new JTextField("Password");
-				
-				JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
-				final JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
-				final JTextArea agb = new JTextArea("Bitte füllen Sie Ihre Allgemeinen Geschäftsbedingungen aus!");
-				
-				if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameField,emailField,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+				if(drop.getSelectedIndex() == 0)
+					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+				else
 				{
-					if(drop.getSelectedIndex() == 0)
-						Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), passwordField.getText());
-					else
-						Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), passwordField.getText());
+					final JDialog dialog = new JDialog(this,"AGB");
+				    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				    dialog.setSize(BUTTONWIDTH*2 + 24, (BUTTONHEIGHT*10)+8);
+				    dialog.setLocation(dialog.getParent().WIDTH/2, dialog.getParent().HEIGHT/2);
+				    
+				    //
+				    
+				    JPanel main = new JPanel(null);
+				    
+				    final JTextArea agb = new JTextArea();
+				    JScrollPane agbScroll = new JScrollPane(agb);
+				    agbScroll.setBounds(8, 40, BUTTONWIDTH*2, (BUTTONHEIGHT*7));
+				    
+				    JLabel agbLabel = new JLabel("Bitte tragen Sie Ihre allgemeinen Geschäftsbedingungen ein!");
+				    agbLabel.setBounds(4, 8, BUTTONWIDTH*2, BUTTONHEIGHT);
+				    
+					//
+				    
+				    JButton okButton = new JButton("OK");
+				    okButton.setBounds(8, (BUTTONHEIGHT*8)+8, BUTTONWIDTH, BUTTONHEIGHT);
+				    okButton.setText("OK");
+				    okButton.addActionListener(new ActionListener() 
+				    { 
+				      public void actionPerformed(ActionEvent evt)
+				      { 
+				    	  try
+				    	  {
+				    		  Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+				    		  dialog.dispose();
+				    	  }
+				    	  catch(Exception e)
+				    	  {
+				    		  JOptionPane.showMessageDialog(dialog, e.toString());
+				    	  }
+				      }
+				    });
+				    JButton cancelButton = new JButton("Abbrechen");
+				    cancelButton.setBounds(BUTTONWIDTH + 8, (BUTTONHEIGHT*8)+8, BUTTONWIDTH, BUTTONHEIGHT);
+				    cancelButton.setText("Abbrechen");
+				    cancelButton.addActionListener(new ActionListener()   {  public void actionPerformed(ActionEvent evt)   { dialog.dispose();  } });
+				    
+				    main.add(okButton);
+				    main.add(cancelButton);
+				    main.add(agbScroll);
+				    main.add(agbLabel);
+				    
+				    dialog.add(main);
+				    dialog.setResizable(false);
+				    dialog.setVisible(true);
 				}
 			}
-			else
-				JOptionPane.showMessageDialog(this, "Sie sind bereits registriert");
 		}
 		catch(Exception e)
 		{
