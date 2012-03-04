@@ -117,10 +117,10 @@ public class AccountverwaltungTest {
 		acv = Portal.Accountverwaltung();
 		
 		try {
-			acv.createBetreiber("", "", "");
+			acv.createBetreiber("x@y.z", "betr", "pw");
 			
 			acv.delAccount(acv.getBetreiber().get(0));
-			Assert.assertEquals(false, acv.getBetreiber().isEmpty());		// sollte false sein, da dies der einzige Betreiber ist und der nicht gelöscht werden kann; Benjamin
+			Assert.assertEquals(false, acv.getBetreiber().isEmpty());		// sollte false sein, da dies der einzige Betreiber ist und der nicht gelï¿½scht werden kann; Benjamin
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (LoeschenNichtMoeglichException e1) {
@@ -133,7 +133,7 @@ public class AccountverwaltungTest {
 		acv = Portal.Accountverwaltung();
 		
 		try {
-			acv.createKunde("kunde@kunden@de", "Kundenspasst", "passwort");
+			acv.createKunde("kunde@kunden.de", "Kundenspasst", "passwort");
 			
 			Kunde kunde = (Kunde)acv.getAccountByIdentifier("Kundenspasst");
 			Kunde test = null;

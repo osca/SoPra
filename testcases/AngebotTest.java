@@ -58,7 +58,7 @@ public class AngebotTest {
 		//Accounts erstellen
 		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		} catch(AlreadyInUseException aiu){}		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
-		try{		accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
+		try{		accv.createAnbieter("Edgar@Walla.ce", "LTUR", "hallo123");
 		} catch(AlreadyInUseException aiu){}
 		try{		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		} catch(AlreadyInUseException aiu){}
