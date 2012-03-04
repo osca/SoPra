@@ -13,6 +13,7 @@ import angebote.typen.Flug;
 import angebote.typen.Hoteluebernachtung;
 import buchungen.Bestaetigung;
 import buchungen.Buchung;
+import buchungen.InvalidDateException;
 
 /**
  * @author Benjamin, stephan	
@@ -27,9 +28,23 @@ public class Angebotsverwaltung {
 	}
 	
 	
-	
+	/**
+	 * Erstellt ein Angebot
+	 * @param anbieter
+	 * @param name
+	 * @param beschr
+	 * @param typ
+	 * @param preis
+	 * @param kapazitaet
+	 * @param daten
+	 * @param krit
+	 * @return
+	 * @throws InvalidDateException falls Daten nicht zumindest teilweise in der Zukunft liegen
+	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
-			Date[] daten, String[] krit) {
+			Date[] daten, String[] krit) throws InvalidDateException {
+		if(daten==null || daten[0].before(new Date()))
+			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:
 			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, daten, krit[Autovermietung.ORT]);
@@ -38,7 +53,7 @@ public class Angebotsverwaltung {
 		case Angebot.HOTEL:
 			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, daten, 
 					krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
-					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.VERPFLEGUNGSART]);
+					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.BIERPREIS]);
 		case Angebot.FLUG:
 			return createFlug(anbieter, name, beschr, kapazitaet, preis, daten, krit[Flug.START], krit[Flug.ZIEL], 
 						krit[Flug.KLASSE], krit[Flug.BIERPREIS]);

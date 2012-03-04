@@ -1,5 +1,8 @@
 package testcases;
 
+import graphic.Methods;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,13 +20,20 @@ import accounts.Kunde;
 import angebote.Angebotsverarbeitung;
 import angebote.Angebotsverwaltung;
 import angebote.Kommentar;
+import angebote.kriterien.Bierpreis;
+import angebote.kriterien.Klasse;
+import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Sterne;
+import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
 import angebote.typen.Autovermietung;
 import angebote.typen.Flug;
+import angebote.typen.Hoteluebernachtung;
 import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
+import buchungen.InvalidDateException;
 
 /**
  * Testcase fuer Angebote/Angebotsverarbeitung/Angebotsverwaltung
@@ -50,10 +60,14 @@ public class AngebotTest {
 	@Before
 	public void setUp() throws Exception {
 		//Accounts erstellen
-		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
-		accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
-		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
-		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
+		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
+		} catch(AlreadyInUseException aiu){}		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
+		try{		accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
+		} catch(AlreadyInUseException aiu){}
+		try{		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
+		} catch(AlreadyInUseException aiu){}
+		try{		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
+		} catch(AlreadyInUseException aiu){}
 		
 		//Acounts aufnehmen
 		anbieter1 = accv.getAnbieter().get(0);
@@ -133,10 +147,35 @@ public class AngebotTest {
 		
 	}
 	
-	@Test void smallTestFlug() throws AlreadyInUseException{
-		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Na Me", "safe");
+	@Test 
+	public void testFlug() throws AlreadyInUseException, java.text.ParseException, InvalidDateException{
+		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Unternehmen", "safe");
+		Kunde kunde = (Kunde) Portal.Accountverwaltung().createAccount(Account.KUNDE, "E@Mail.com", "Nah Meh", "blabla");
 		Flug flug = (Flug) Portal.Angebotsverwaltung().createAngebot(anb, "Superabsturz", "s.o.", Angebot.FLUG, 150.99, 125, 
-				new Date[]{new Date(78943216748967489L)}, new String[]{});
+				new Date[]{new Date(78943216748967489L)}, new String[]{"Bremen", "Barcelona", Klasse.wertebereich[1], Bierpreis.wertebereich[2]});
+		Ausflug ausflug = (Ausflug) Portal.Angebotsverwaltung().createAngebot(anb, "Strandtest", "von Strand zu Stand ziehen und einfach nur rumliegen",
+				Angebot.AUSFLUG, 20.00, 35, graphic.Methods.dater("12/12/2012", "14/12/2012", 1), new String[]{"Malediven",Bierpreis.wertebereich[3]});
+		Buchung buchungAusflug = Portal.Buchungsverwaltung().createBuchung(kunde, ausflug, new Date("12/12/2012"), new Date("13/12/2012"));
+		
+		Assert.assertEquals(Portal.Angebotsverwaltung().getAnbieter(flug) .getName(), anb.getName());
+		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
+				Portal.Buchungsverwaltung().getBuchungen(kunde).get(0).getBuchungsnummer());
+		ArrayList<Angebot> alleAngebote = Portal.Angebotsverwaltung().getAllAngebote();
+		for(Angebot angeb : Portal.Angebotsverwaltung().getAngebote(anb))
+			Assert.assertTrue(alleAngebote.contains(angeb));
+	}
+	
+	@Test
+	public void testException() throws AlreadyInUseException, ParseException{
+		try{
+			Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "email@provider.land", "DaFuq", "unsafe");
+			Hoteluebernachtung hotel = (Hoteluebernachtung) Portal.Angebotsverwaltung().createAngebot(anb, "Schlafplatz", "", Angebot.HOTEL, 39.99, 30, 
+					graphic.Methods.dater("01/01/2012", "01/02/2012", 1), 
+					new String[]{"Turin", Klima.wertebereich[3], Sterne.wertebereich[9], Verpflegungsart.wertebereich[1], Bierpreis.wertebereich[0]});
+			Assert.fail("Wegen abgelaufenem Datum sollte Exception fliegen!");
+		} catch(Exception exc){
+			//Do Nothing. Everything's fine.
+		}
 	}
 
 }
