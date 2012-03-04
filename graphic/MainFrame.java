@@ -455,7 +455,18 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			screen.add(new Suchmaske());
+			screen.add(new Suchmaske()
+			{
+				@Override
+				public void onSearch()
+				{
+					screen.removeAll();
+					list = new ListeScreen((MainFrame)scroll.getParent(), this.getList());
+					screen.add(list);
+					scroll.setViewportView(screen);
+					scroll.repaint();
+				}
+			});
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}

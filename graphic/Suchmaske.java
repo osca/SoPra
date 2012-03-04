@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -29,7 +30,7 @@ import angebote.kriterien.Klima;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 
-public class Suchmaske extends JPanel implements ActionListener {
+public class Suchmaske extends JPanel{
 
 	private JPanel up;
 	private JPanel sub_a;
@@ -59,8 +60,9 @@ public class Suchmaske extends JPanel implements ActionListener {
 	private JComboBox klasse;
 	private JButton suche;
 	
-	public Suchmaske(MainFrame m) throws ParseException {
-		
+	private ArrayList<Angebot> list;
+	
+	public Suchmaske() throws ParseException {
 		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new GridLayout(0, 2));
@@ -86,7 +88,14 @@ public class Suchmaske extends JPanel implements ActionListener {
 		typ_list.add("Flug");
 		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
-		typ.addActionListener(this);
+		typ.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				addScreen();
+			}
+		});
 		sub_a.add(typ);
 		
 		//Startpreis+Label
@@ -134,13 +143,19 @@ public class Suchmaske extends JPanel implements ActionListener {
 		sub_b.add(sub_a);
 		sub_b.add(sub_two);
 		
-		
-		
 		up.add(sub_a);
 		up.add(sub_b);
 
 		mid = new JPanel(new FlowLayout());
 		suche = new JButton("Suchen");
+		suche.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				readContent();
+			}
+		});
 		mid.add(suche);
 		
 		down = new JPanel();
@@ -151,17 +166,11 @@ public class Suchmaske extends JPanel implements ActionListener {
 		
 	}
 
-	//@Override
-	public void actionPerformed(ActionEvent e, MainFrame m) {
-		
-		if (e.getSource() == typ) {
-			
+	public void addScreen()
+	{
 			sub_one.removeAll();
 			sub_two.removeAll();
 			sub_b.validate();
-			if (typ.getSelectedItem().toString() == typ_list.elementAt(0)) {
-				
-			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
 				JLabel ort_label = new JLabel("Ort:");
@@ -248,42 +257,46 @@ public class Suchmaske extends JPanel implements ActionListener {
 			sub_b.repaint();
 			this.validate();
 			this.repaint();
-			
-		}
-		else if(e.getSource()==suche){
-			
-			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
-			
-			for(int i=0;i < sub_two.getComponentCount(); i++)
-			{
-			 Component c = sub_two.getComponent(i);
-			  if(c instanceof JComboBox){
-				  k[i]=((JComboBox) c).getSelectedItem().toString();
-			  }
-			  if(c instanceof JFormattedTextField){
-				  k[i]= ((JFormattedTextField) c).getText();
-			  }
-			       
-			}
-			Date[] date = null;
-			try {
-				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
-			} catch (NumberFormatException e1) {
-				e1.printStackTrace();
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			
-			ArrayList<Angebot> x=Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
-					Double.parseDouble(bpreis.getText()), date, k);
-			down.add(new ListeScreen(m ,x));
-			down.validate();
-			down.repaint();
-			this.validate();
-			this.repaint();
-			}
-
 	}
 	
+	public void readContent()
+	{
+		String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
+		
+		for(int i=0;i < sub_two.getComponentCount(); i++)
+		{
+		 Component c = sub_two.getComponent(i);
+		  if(c instanceof JComboBox){
+			  k[i]=((JComboBox) c).getSelectedItem().toString();
+		  }
+		  if(c instanceof JFormattedTextField){
+			  k[i]= ((JFormattedTextField) c).getText();
+		  }
+		       
+		}
+		Date[] date = null;
+		try 
+		{
+			date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
+		}
+		catch(Exception exc)
+		{
+			JOptionPane.showMessageDialog(this, exc.toString());
+		}
+		
+		list = Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Integer.parseInt(kap.getText()), Double.parseDouble(vpreis.getText()), 
+				Double.parseDouble(bpreis.getText()), date, k);
+		
+		onSearch();
+	}
 	
+	public ArrayList<Angebot> getList()
+	{
+		return list;
+	}
+	
+	public void onSearch()
+	{
+		
+	}
 }
