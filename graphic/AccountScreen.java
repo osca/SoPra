@@ -25,6 +25,8 @@ import accounts.Kunde;
 
 public class AccountScreen extends JPanel
 {
+	private JLabel[] labels;
+	
 	public AccountScreen(final Account account)
 	{
 		this.setLayout(new BorderLayout());
@@ -41,7 +43,7 @@ public class AccountScreen extends JPanel
 		
 		JPanel left = new JPanel(grid);
 		
-		JLabel[] labels = new JLabel[10];
+		labels = new JLabel[10];
 		labels[0] = new JLabel("Name:");
 		labels[1] = new JLabel("E-Mail Adresse:");
 		labels[2] = new JLabel("Password:");
@@ -87,11 +89,13 @@ public class AccountScreen extends JPanel
 						{
 							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.NEIN);
 							status.setText("Entsperren");
+							labels[8].setText(account.getStatus());
 						}
 						else
 						{
 							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.JA);
 							status.setText("Sperren");
+							labels[8].setText(account.getStatus());
 						}
 						status.repaint();
 					}

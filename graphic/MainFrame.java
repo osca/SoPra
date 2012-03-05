@@ -251,7 +251,7 @@ public class MainFrame extends JFrame
 
 	public <T extends Listable> void showDetail(T obj) 
 	{
-		if(obj.getListableTyp() == Angebot.ANGEBOT)
+		if(obj.getListableTyp() == Listable.ANGEBOT)
 		{
 			screen.removeAll();
 			screen.add(new AngDetailScreen((Angebot)obj));
@@ -265,7 +265,7 @@ public class MainFrame extends JFrame
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
-		if(obj.getListableTyp() == Account.ACCOUNT)
+		else if(obj.getListableTyp() == Account.ACCOUNT)
 		{
 			screen.removeAll();
 			screen.add(new AccountScreen((Account)obj));
