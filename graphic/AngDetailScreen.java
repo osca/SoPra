@@ -41,9 +41,9 @@ public class AngDetailScreen extends JPanel{
 	private JButton buchen = new JButton("Buchen");
 	private JButton melden = new JButton("Melden");
 	private JButton kommentieren = new JButton("Kommentieren");
-	private JButton loeschen = new JButton("L�schen");
+	private JButton loeschen = new JButton("Loeschen");
 	private JButton editieren = new JButton("Editieren");
-	private JButton kontaktieren = new JButton("kontaktieren");
+	private JButton kontaktieren = new JButton("Kontaktieren");
 	
 	final Angebot angebot;
 	final Anbieter anbieter;
