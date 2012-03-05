@@ -265,6 +265,13 @@ public class MainFrame extends JFrame
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
+		if(obj.getListableTyp() == Account.ACCOUNT)
+		{
+			screen.removeAll();
+			screen.add(new AccountScreen((Account)obj));
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
 		else
 		{
 			try
@@ -272,7 +279,7 @@ public class MainFrame extends JFrame
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
-				dialog.setLabelContent("Absender: " + nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
+				dialog.setLabelContent("Absender: "+nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
