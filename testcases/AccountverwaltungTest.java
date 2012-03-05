@@ -11,6 +11,7 @@ import accounts.Accountverwaltung;
 import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Betreiber;
+import accounts.Gesperrt;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import accounts.LoginException;
@@ -81,7 +82,7 @@ public class AccountverwaltungTest {
 		acv = Portal.Accountverwaltung();
 		
 		try {
-			acv.setEnableAccount(acv.getKunden().get(0));
+			acv.setAccountGesperrt(acv.getKunden().get(0), Gesperrt.NEIN);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
