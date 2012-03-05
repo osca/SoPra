@@ -81,7 +81,7 @@ public class SuchScreen extends JPanel
 		
 		labels[0] = new JLabel("Typ");
 		labels[1] = new JLabel("Name");
-		labels[2] = new JLabel("Laenge");
+		labels[2] = new JLabel("Kapazitaet");
 		labels[3] = new JLabel("Startpreis");
 		labels[4] = new JLabel("Endpreis");
 		labels[5] = new JLabel("Anbieter");
