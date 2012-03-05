@@ -1,8 +1,10 @@
 package angebote;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import main.Portal;
 import angebote.kriterien.Kriterium;
@@ -35,7 +37,16 @@ public class Angebotsverarbeitung {
 		throws SuchException{
 		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
+		//Heutigen Tag initialisieren
 		Date heute = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(heute);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		heute = cal.getTime();
+		
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
 		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote(); 
 		
