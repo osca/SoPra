@@ -110,7 +110,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		//Kapazitaet+Label
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
-		kap = new JFormattedTextField(new Integer("#*0"));
+		NumberFormat nformat = NumberFormat.getIntegerInstance();
+		nformat.setGroupingUsed(false);
+		kap = new JFormattedTextField(nformat);
 		sub_a.add(kap);
 		
 		//Startdatum+Label
@@ -190,6 +192,11 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			final double result = ((Number) preis.getValue()).doubleValue();
 			try {
 				q = Methods.stringToDate(von.getText());
+				if(q.before(new Date())){
+					SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+					
+					q = sd.parse(sd.format(new Date()));
+				}
 			} catch (ParseException e1) {
 				
 				e1.printStackTrace();

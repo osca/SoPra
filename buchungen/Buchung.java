@@ -2,11 +2,11 @@ package buchungen;
 
 import graphic.Listable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import main.Portal;
 
-import accounts.Anbieter;
 import angebote.typen.Angebot;
 
 /**
@@ -117,14 +117,14 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getIdentifier() {
-		return Integer.toString(buchungsNummer);
+		return "["+buchungsNummer+"] "+Portal.Buchungsverwaltung().getReferringAngebot(this).getName();
 	}
 
 	@Override
 	public String getAdditionalInfo() {
 		Angebot ang = Portal.Buchungsverwaltung().getReferringAngebot(this);
-		Anbieter anbieter = Portal.Angebotsverwaltung().getAnbieter(ang);
-		return anbieter.getName()+", "+von+" - "+bis+", "+ang.getAdditionalInfo();
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		return ang.getName() +" ("+ang.getAdditionalInfo()+")  :  "+df.format(von)+" - "+df.format(bis);
 	}
 
 	@Override

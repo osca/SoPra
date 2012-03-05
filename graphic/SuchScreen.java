@@ -75,20 +75,35 @@ public class SuchScreen extends JPanel
 		
 		JPanel labelPanel = new JPanel(grid);
 		JLabel[] labels = new JLabel[8];
-		labels[0] = new JLabel("Name");
-		labels[1] = new JLabel("Länge");
-		labels[2] = new JLabel("Startpreis");
-		labels[3] = new JLabel("Endpreis");
-		labels[4] = new JLabel("Anbieter");
-		labels[5] = new JLabel("Startdatum");
-		labels[6] = new JLabel("Enddatum");
-		labels[7] = new JLabel("Typ");
+		
+		labels[0] = new JLabel("Typ");
+		labels[1] = new JLabel("Name");
+		labels[2] = new JLabel("Laenge");
+		labels[3] = new JLabel("Startpreis");
+		labels[4] = new JLabel("Endpreis");
+		labels[5] = new JLabel("Anbieter");
+		labels[6] = new JLabel("Startdatum");
+		labels[7] = new JLabel("Enddatum");
 		
 		
 		for(int i=0; i<labels.length; i++)
 			labelPanel.add(labels[i]);
 		
 		JPanel felderPanel = new JPanel(grid);
+
+		types = new JComboBox(TYPLIST);
+		types.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				addScreen();
+			}
+		});
+		felderPanel.add(types);
+		
+		////////////////
+		
 		try 
 		{
 			felder = new JFormattedTextField[7];	//entspricht dem labelarray
@@ -107,19 +122,6 @@ public class SuchScreen extends JPanel
 		{
 			e.printStackTrace();
 		}
-		
-		////////////////
-		
-		types = new JComboBox(TYPLIST);
-		types.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				addScreen();
-			}
-		});
-		felderPanel.add(types);
 		
 		////////////////
 		
