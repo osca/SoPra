@@ -113,6 +113,7 @@ public class AngDetailScreen extends JPanel{
 			down.add(BorderLayout.CENTER, nullAcc);
 			break;
 		case Account.KUNDE :
+			kommentieren.setEnabled(false);
 			down.add(kommentieren);
 			down.add(buchen);
 			down.add(melden);
@@ -167,7 +168,7 @@ public class AngDetailScreen extends JPanel{
 						}
 
 						
-						DialogScreen dialog = new DialogScreen(null, "Buchen", DialogScreen.OK_CANCEL_OPTION)
+						DialogScreen dialog = new DialogScreen("Buchen", DialogScreen.OK_CANCEL_OPTION)
 						//TODO vllt. da das datum von bis setten und dann der buchung �bergeben
 						{
 							@Override
@@ -253,6 +254,7 @@ public class AngDetailScreen extends JPanel{
 			{
 				try
 				{
+					DialogScreen dialog = new DialogScreen();
 					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Kontaktaufnahme",JOptionPane.showInputDialog(up.getParent(), "Bitte geben sie Ihre Nachricht ein!"), angebot);
 				}
 				catch(Exception e)

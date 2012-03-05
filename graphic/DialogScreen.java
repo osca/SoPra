@@ -21,9 +21,10 @@ public class DialogScreen extends JDialog
 	private JLabel textLabel;
 	private JLabel starLabel;
 	
-	public DialogScreen(JFrame comp, String title, int flag) 
+	public DialogScreen(String title, int flag) 
 	{
-		super(comp, title);
+		super();
+		this.setTitle(title);
 		
 		if(this.getParent()!=null)
 			this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
