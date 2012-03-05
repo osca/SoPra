@@ -302,7 +302,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getIdentifier() {
-		return Integer.toString(angebotsNummer);
+		return "["+Integer.toString(angebotsNummer)+"] "+name;
 	}
 
 	/**
@@ -310,7 +310,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getAdditionalInfo() {
-		return convertTypToName(typ);
+		return convertTypToName(typ)+ " - "+getAnbieterName();
 	}
 
 	/**

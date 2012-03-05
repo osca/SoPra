@@ -117,7 +117,7 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getIdentifier() {
-		return Portal.Buchungsverwaltung().getReferringAngebot(this).getName();
+		return "["+buchungsNummer+"] "+Portal.Buchungsverwaltung().getReferringAngebot(this).getName();
 	}
 
 	@Override
