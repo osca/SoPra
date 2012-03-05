@@ -183,8 +183,6 @@ public class AngDetailScreen extends JPanel{
 								{
 									e.printStackTrace();
 								}
-								dispose();
-								JOptionPane.showMessageDialog(null, "Ihre Buchungsanfrage wurde an den Anbieter gesendet, bitte warten Sie auf eine Bestaetigung");
 							}
 						};
 						dialog.setEditable(false);
@@ -256,8 +254,15 @@ public class AngDetailScreen extends JPanel{
 			{
 				try
 				{
-					DialogScreen dialog = new DialogScreen();
-					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Kontaktaufnahme",JOptionPane.showInputDialog(up.getParent(), "Bitte geben sie Ihre Nachricht ein!"), angebot);
+					DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+					{
+						@Override
+						public void onOK()
+						{
+							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Kontaktaufnahme",getContent(), angebot);
+						}
+					};
+					dialog.setLabelContent(Portal.Accountverwaltung().getLoggedIn().getName(), DialogScreen.LABEL_LEFT);
 				}
 				catch(Exception e)
 				{
