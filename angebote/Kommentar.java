@@ -52,7 +52,7 @@ public class Kommentar implements Listable{
 
 	@Override
 	public int getListableTyp() {
-		return 4;
+		return Listable.KOMMENTAR;
 	}
 
 	@Override

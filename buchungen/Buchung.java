@@ -124,7 +124,7 @@ public class Buchung implements Listable {
 	public String getAdditionalInfo() {
 		Angebot ang = Portal.Buchungsverwaltung().getReferringAngebot(this);
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		return ang.getName() +" ("+ang.getAdditionalInfo()+")  :  "+df.format(von)+" - "+df.format(bis);
+		return "("+ang.getAdditionalInfo()+")  :  "+df.format(von)+" - "+df.format(bis);
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class Buchung implements Listable {
 
 	@Override
 	public int getListableTyp() {
-		return BUCHUNG;
+		return Listable.BUCHUNG;
 	}
 
 }

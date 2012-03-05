@@ -104,7 +104,7 @@ public abstract class Account implements Listable{
 	}
 	
 	public int getListableTyp(){
-		return ACCOUNT;
+		return Listable.ACCOUNT;
 	}
 	
 }

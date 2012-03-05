@@ -24,6 +24,11 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 							AUTOVERMIETUNG = 12,
 							AUSFLUG = 13,
 							HOTEL = 14;
+
+	private static final String _flug = "Flug",
+								_autoverm = "Autovermietung",
+								_ausflug = "Ausflug",
+								_hotel = "Hotel";
 	
 	private static int anzahl = 0;
 	
@@ -271,20 +276,16 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public static String convertTypToName(int type) {
 		switch(type) {
 			case FLUG:
-				return "Flug";
+				return _flug;
 			case AUTOVERMIETUNG:
-				return "Autovermietung";
+				return _autoverm;
 			case AUSFLUG:
-				return "Ausflug";
+				return _ausflug;
 			case HOTEL:
-				return "Hotel";
+				return _hotel;
 		}
 		return "Not a Type";
 	}
-	private static final String _flug = "Flug",
-								_autoverm = "Autovermietung",
-								_ausflug = "Ausflug",
-								_hotel = "Hotel";
 	public static int convertNameToTyp(String name){
 		if(name.equals(_flug))
 			return FLUG;
@@ -331,7 +332,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 	
 	public int getListableTyp(){
-		return ANGEBOT;
+		return Listable.ANGEBOT;
 	}
 
 	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
@@ -371,16 +372,16 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	public static String typToString(int flag){
 		switch(flag){
-		case 1:{
+		case FLUG:{
 			return "Flug";
 		}
-		case 2:{
+		case AUTOVERMIETUNG:{
 			return "Autovermietung";
 		}
-		case 3:{
+		case AUSFLUG:{
 			return  "Ausflug";
 		}
-		case 4:{
+		case HOTEL:{
 			return "Hotel";
 		}
 		default : return null;
