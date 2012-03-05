@@ -220,7 +220,7 @@ public class AngDetailScreen extends JPanel{
 				try {
 					Portal.Angebotsverwaltung().delAngebot(angebot);
 				} catch (LoeschenNichtMoeglichException e) {
-					// TODO Auto-generated catch block
+					JOptionPane.showConfirmDialog(null, "Loeschen nicht moeglich");
 					e.printStackTrace();
 				}
 			}
