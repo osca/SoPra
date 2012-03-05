@@ -10,6 +10,7 @@ public class MeldeDienst
 	protected static final String MSG_AGB_ERKLAERUNG = "Erklaerung der AGB des Anbieters: ";
 	protected static final String MSG_GESAMMT_BEWERUNG = "Gesammtberwertung dieses Anbieters: ";
 	protected static final String MSG_SAVE_ERROR = "Fehler beim speichern der Dateien";											// 351
+	protected static final String MSG_SEARCH_KEINE = "Es wurden keine Ergebnisse gefunden";
 	
 	protected static final String QSN_ANGEBOT_MELDEN	= "Sind Sie sicher, dass sie dieses Angebot Melden moechten?";
 	protected static final String QSN_BUCHEN = "Moechten Sie das Angebot wirklich Buchen?";
