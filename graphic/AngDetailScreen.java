@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
 import accounts.Kunde;
+import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
 
@@ -80,11 +82,13 @@ public class AngDetailScreen extends JPanel{
 		sub_a.add(bisdatum);
 		JLabel anbieter_label= new JLabel("Anbieter:");
 		sub_a.add(anbieterl);
-		sub_b = new JPanel(new GridLayout(6,0));
-		String k[] = angebot.getErlaubteKriterien(); 
-		for (int i =0;i<k.length;i++){
-			JLabel krit = new JLabel(k[i]);
+		sub_b = new JPanel(new GridLayout(6,2));
+		ArrayList<Kriterium> k = angebot.getKriterien(); 
+		for (int i =0;i<k.size();i++){
+			JLabel krit = new JLabel(k.get(i).name);
 			sub_b.add(krit);
+			JLabel krit1 = new JLabel(k.get(i).getWert());
+			
 		}
 		up.add(sub_a);
 		up.add(sub_b);
