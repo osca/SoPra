@@ -65,14 +65,23 @@ public class AngDetailScreen extends JPanel{
 		bisdatum = new JLabel(formatter.format(angebot.getEnddatum()));
 		anbieterl = new JLabel(); 
 		
-		sub_a = new JPanel(new GridLayout(6,0));
+		sub_a = new JPanel(new GridLayout(6,2));
+		JLabel name_l= new JLabel("Name:");
+		sub_a.add(name_l);
 		sub_a.add(name);
+		JLabel typ_label= new JLabel("Typ:");
+		sub_a.add(typ_label);
 		sub_a.add(typ);
-		sub_a.add(vondatum);		
+		JLabel vd_label= new JLabel("Startdatum:");
+		sub_a.add(vd_label);
+		sub_a.add(vondatum);
+		JLabel bd_label= new JLabel("Enddatum:");
+		sub_a.add(bd_label);
 		sub_a.add(bisdatum);
+		JLabel anbieter_label= new JLabel("Anbieter:");
 		sub_a.add(anbieterl);
 		sub_b = new JPanel(new GridLayout(6,0));
-		String k[] = angebot.getErlaubteKriterien(); //WTF funkt?!
+		String k[] = angebot.getErlaubteKriterien(); 
 		for (int i =0;i<k.length;i++){
 			JLabel krit = new JLabel(k[i]);
 			sub_b.add(krit);
@@ -133,12 +142,13 @@ public class AngDetailScreen extends JPanel{
 					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_BUCHEN) == JOptionPane.OK_OPTION)
 					{
 						DialogScreen dialog = new DialogScreen(null,"Buchen",DialogScreen.OK_CANCEL_OPTION)
+						//TODO vllt. da das datum von bis setten und dann der buchung übergeben
 						{
 							@Override
 							public void onOK()
 							{
 								try 
-								{// TODO scheiss datum
+								{
 									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, angebot.getStartdatum(),angebot.getEnddatum()); //TODO Die daten bei buchung
 								}
 								catch (Exception e) 
@@ -167,7 +177,7 @@ public class AngDetailScreen extends JPanel{
 				try
 				{
 					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_ANGEBOT_MELDEN, "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-					{ //TODO welcher betreiber soll die meldung bekommen
+					{ 
 						
 						Portal.Nachrichtenverwaltung().sendeMeldungAnAlleBetreiber(Portal.Accountverwaltung().getLoggedIn(), MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET,angebot);
 						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET, angebot);

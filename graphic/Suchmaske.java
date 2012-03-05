@@ -279,12 +279,26 @@ public class Suchmaske extends JPanel{
 			}
 //			Date[] date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			if(typ.getSelectedIndex()!=0)
-			{
+			{	
 				int chosenType = Angebot.convertNameToTyp(typ.getSelectedItem().toString());
 				int chosenKapazitaet = Integer.parseInt(kap.getText());
 				double chosenVPreis = Double.parseDouble(vpreis.getText());
 				double chosenBPreis =  Double.parseDouble(bpreis.getText());
-				list = Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),chosenType, chosenKapazitaet, chosenVPreis, chosenBPreis, new Date[]{}, k);
+				Date q=null;
+				Date w=null;
+				try {
+					q = Methods.stringToDate(von.getText());
+				} catch (ParseException e1) {
+
+					e1.printStackTrace();
+				}
+				try {
+					w = Methods.stringToDate(bis.getText());
+				} catch (ParseException e1) {
+					
+					e1.printStackTrace();
+				}
+				list = Portal.Angebotsverarbeitung().sucheAngebote(name.getText(),chosenType, chosenKapazitaet, chosenVPreis, chosenBPreis,q,w , k);
 				onSearch();
 			}
 			else
