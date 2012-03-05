@@ -166,7 +166,8 @@ public class SuchScreen extends JPanel
 		try
 		{
 			if(types.getSelectedItem().toString() == TYPLIST[1]) 
-			{
+			{	
+				//labelList.add(new JLabel("Land:"));
 				labelList.add(new JLabel("Ort:"));
 				labelList.add(new JLabel("Sterne:"));
 				labelList.add(new JLabel("Klima:"));
@@ -176,33 +177,45 @@ public class SuchScreen extends JPanel
 				fieldList.add(new JFormattedTextField());
 				fieldList.add(new JFormattedTextField());
 				
+				//boxList.add(new JComboBox(Ort.wertebereich));
+				//boxList.add(new JComboBox(boxList.get(0).getOrte());
 				boxList.add(new JComboBox(Klima.wertebereich));
 				boxList.add(new JComboBox(Verpflegungsart.wertebereich));
 				boxList.add(new JComboBox(Bierpreis.wertebereich));
 			}
 			else if(types.getSelectedItem().toString() == TYPLIST[2]) 
-			{
+			{	
+				//labelList.add(new JLabel("Land:"));
 				labelList.add(new JLabel("Ort:"));
+				//boxList.add(new JComboBox(Ort.wertebereich));
+				//boxList.add(new JComboBox(boxList.get(0).getOrte());
 				fieldList.add(new JFormattedTextField());
 			}
 			else if(types.getSelectedItem().toString() == TYPLIST[3]) 
-			{
+			{	//labelList.add(new JLabel("Land:"));
 				labelList.add(new JLabel("Ort:"));
 				labelList.add(new JLabel("Bierpreis:"));
 				
 				fieldList.add(new JFormattedTextField());
+				//boxList.add(new JComboBox(Ort.wertebereich));
+				//boxList.add(new JComboBox(boxList.get(0).getOrte());
 				boxList.add(new JComboBox(Bierpreis.wertebereich));
 			}
 			else if (types.getSelectedItem().toString() == TYPLIST[4]) 
-			{
+			{	
+				//labelList.add(new JLabel("Startand:"));
 				labelList.add(new JLabel("Startort:"));
+				//labelList.add(new JLabel("Zieland:"));
 				labelList.add(new JLabel("Zielort:"));
 				labelList.add(new JLabel("Klasse:"));
 				labelList.add(new JLabel("Bierpreis:"));
 				
 				fieldList.add(new JFormattedTextField());
 				fieldList.add(new JFormattedTextField());
-				
+				//boxList.add(new JComboBox(Ort.wertebereich));
+				//boxList.add(new JComboBox(boxList.get(0).getOrte());
+				//boxList.add(new JComboBox(Ort.wertebereich));
+				//boxList.add(new JComboBox(boxList.get(0).getOrte());
 				boxList.add(new JComboBox(Klasse.wertebereich));
 				boxList.add(new JComboBox(Bierpreis.wertebereich));
 			}
