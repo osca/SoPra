@@ -38,7 +38,7 @@ import angebote.typen.Angebot;
 
 public class SuchScreen extends JPanel
 {
-	private final static Object[] TYPLIST = new Object[]{"Typ","Hoteluebernachtung","Autovermietung","Ausflueg","Flug"};
+	private final static Object[] TYPLIST = new Object[]{"Typ","Hoteluebernachtung","Autovermietung","Ausflug","Flug"};
 	
 	private JComboBox types;
 	private JPanel newScreen = new JPanel(new BorderLayout());
