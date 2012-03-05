@@ -187,40 +187,33 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 					  k[i]= ((JTextField) c).getText();
 				  }
 			}
-//			Date[] date;
-//			try 
-//			{
-//				date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
-//				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), Double.parseDouble(preis.getText()), Integer.parseInt(kap.getText()), date, k);
-//			}
-//			catch (Exception exc) 
-//			{
-//				JOptionPane.showMessageDialog(this, exc.toString());
-//			}
+
 			Date q=null;
 			Date w=null;
 			final double result = ((Number) preis.getValue()).doubleValue();
 			try {
 				q = Methods.stringToDate(von.getText());
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			try {
 				w = Methods.stringToDate(bis.getText());
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			try {
 				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			} catch (InvalidDateException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
+			//TODO rückmeldung zum angebot
+			
 		}
 		
 		else if(e.getSource()==loeschen){
