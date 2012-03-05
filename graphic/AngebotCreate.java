@@ -16,12 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -89,7 +86,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		typ_list.add("Typ");
 		typ_list.add("Hotel");
 		typ_list.add("Autovermietung");
-		typ_list.add("Ausflueg");
+		typ_list.add("Ausflug");
 		typ_list.add("Flug");
 		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
@@ -279,7 +276,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel ort_label= new JLabel("Ort:");
 				sub_one.add(ort_label);
 				ort = new JTextField();
-				ort.setToolTipText("Bitte geben SIe einen Ort");
+				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_two.add(ort);
 				
 				JLabel bierpreis_label= new JLabel("Bierpreis:");
