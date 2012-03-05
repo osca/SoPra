@@ -171,6 +171,7 @@ public class Accountverwaltung {
 			throw new LoginException("Account wurde nicht gefunden");
 		if (!acc.getPassword().equals(password))
 			throw new LoginException("Passwort war falsch");
+		if (acc.isGesperrt()) throw new LoginException("Sie sind gesperrt. Bitte wenden Sie sich an den Betreiber.");
 		loggedIn = acc;
 	}
 
