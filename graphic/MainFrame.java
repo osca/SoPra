@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
 
+import main.Datenhaltung;
 import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
@@ -69,7 +71,7 @@ public class MainFrame extends JFrame
 	public MainFrame()
 	{
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width);
 	    int y = (d.height - getSize().height);
@@ -155,7 +157,7 @@ public class MainFrame extends JFrame
 		
 //		ArrayList<Angebot> al = new ArrayList<Angebot>();
 //		for(int i=0;i<100;i++)
-//			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
+//			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
 //		list = new ListeScreen(this, al);
 //		
 //		screen.add(list);
@@ -246,11 +248,11 @@ public class MainFrame extends JFrame
 		try {
 			Anbieter a = Portal.Accountverwaltung().createAnbieter("x@y.z","horst","fu.fu");
 			Kunde k = Portal.Accountverwaltung().createKunde("delikat@windowsvista.edu", "delikat", "1");
-//			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, , "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalösdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, , "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
+//			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
 //			Portal.Nachrichtenverwaltung().sendeNachricht(k, a, "2","sadfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",g);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -378,7 +380,7 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Password");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
+			JLabel choice = new JLabel("Wï¿½hlen sie bitte Ihren Accounttypen");
 			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
@@ -392,7 +394,7 @@ public class MainFrame extends JFrame
 				{
 					if(Portal.Accountverwaltung().getAccountByEmail(emailField.getText()) != null)
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschäftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschï¿½ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -415,7 +417,7 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
-					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschäftsbedingungen an!", DialogScreen.LABEL_LEFT);
+					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschï¿½ftsbedingungen an!", DialogScreen.LABEL_LEFT);
 				}
 			}
 		}
@@ -549,5 +551,17 @@ public class MainFrame extends JFrame
 	public static void main(String[] args)
 	{
 		MainFrame f = new MainFrame();
+	}
+	
+	//By Jay - Move anywhere, where it doesn't bother you, please :)
+	@Override
+	public void dispose()
+	{
+		try {
+			Datenhaltung.saveAllData();
+			System.exit(0);		//nur schlieÃŸen wenn Speichern abgeschlossen (sinnvoll?)
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
