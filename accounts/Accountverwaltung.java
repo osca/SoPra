@@ -433,4 +433,20 @@ public class Accountverwaltung {
 				return false;
 		return true;
 	}
+	
+	/**
+	 * Einen Betreiber hinzufuegen
+	 * 
+	 * @param email Email des neuen Betreibers
+	 * @param name Username des neuen Betreibers
+	 * @param password Password des neuen Betreibers
+	 * @throws Exception 
+	 */
+	public void addBetreiber(String email, String name, String password) throws Exception {
+		if(betreiber.contains(loggedIn) && isFreeEmail(email) && isFreeName(name)) {
+			betreiber.add(new Betreiber(email,name,password));
+		}
+		else
+			throw new Exception("Sie sind kein Betreiber");
+	}
 }
