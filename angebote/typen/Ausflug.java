@@ -15,8 +15,8 @@ import angebote.kriterien.Ort;
  */
 public class Ausflug extends Angebot {
 	
-	public static final int ORT = 0,
-							BIERPREIS = 1;
+	public static final int ORT = 20,
+							BIERPREIS = 21;
 	private Ort ort = null;
 	private Bierpreis bierpreis = null;
 

@@ -19,11 +19,11 @@ import angebote.kriterien.Verpflegungsart;
  */
 public class Hoteluebernachtung extends Angebot {
 
-	public static final int ORT = 0,
-			 				KLIMA = 1,
-			 				STERNE = 2,
-			 				VERPFLEGUNGSART = 3,
-			 				BIERPREIS = 4;
+	public static final int ORT = 40,
+			 				KLIMA = 41,
+			 				STERNE = 42,
+			 				VERPFLEGUNGSART = 43,
+			 				BIERPREIS = 44;
 	
 	private Ort ort = null;
 	private Klima klima = null;
