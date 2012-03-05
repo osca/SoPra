@@ -1,5 +1,9 @@
 package accounts;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import graphic.Listable;
 import main.Portal;
 
@@ -29,7 +33,7 @@ public abstract class Account implements Listable{
 	public Account(String em, String nm, String pw){
 		email=em;
 		name =nm;
-		password=pw;
+		password=hashPassword(pw);
 	}
 
 	/** Gibt in Flag aus von welchem Typ der jeweilige Account ist
@@ -58,7 +62,6 @@ public abstract class Account implements Listable{
 	 * @pre Der Aufrufer muss selbst sicherstellen, dass er authorisiert ist
 	 */
 	public String getPassword() {
-		//TODO Sollte noch ersetzt werden durch vernuenftige Sicherheitsabfragen
 		return password;
 	}
 	//Password-getter-und Setter sind doof!!!
@@ -107,4 +110,16 @@ public abstract class Account implements Listable{
 		return Listable.ACCOUNT;
 	}
 	
+	public String hashPassword(String password) {
+		String hashword = null;
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			md5.update(password.getBytes());
+			BigInteger hash = new BigInteger(1, md5.digest());
+			hashword = hash.toString(16);
+		} catch (NoSuchAlgorithmException nsae) {
+			nsae.printStackTrace();
+		}
+		return hashword;
+	}
 }
