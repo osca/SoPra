@@ -275,25 +275,16 @@ public class SuchScreen extends JPanel
 				}
 				if(!felder[6].getText().equals("  /  /    ")){
 					bis = Methods.stringToDate(felder[6].getText());
-					if(bis.before(new Date())){
-						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-						Calendar calendar = new GregorianCalendar();
-						calendar.setTime(new Date());
-						//calendar.add(Calendar.DAY_OF_MONTH, 1);
-						//Date a = calendar.getTime();
-						bis = calendar.getTime();
-						
-					}
 				}
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
 			else
-				JOptionPane.showMessageDialog(this, "Sie müssen einen Angebotstypen wählen");
+				JOptionPane.showMessageDialog(this, "Sie müssen einen Angebotstypen waehlen");
 		}
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
