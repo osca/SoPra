@@ -196,10 +196,10 @@ public class Accountverwaltung {
 	 *            Aktiv oder nicht
 	 * @throws Exception Wenn kein Betreiber eingeloggt ist
 	 */
-	public void setEnableAccount(Account acc) throws Exception {
+	public void setAccountGesperrt(Account acc, Gesperrt pgesperrt) throws Exception {
 		if(!betreiber.contains(loggedIn))
 			throw new Exception("Sie sind nicht als Betreiber eingeloggt!");
-		acc.setGesperrt(Gesperrt.NEIN);
+		acc.setGesperrt(pgesperrt);
 	}
 
 	/**
@@ -454,5 +454,35 @@ public class Accountverwaltung {
 			throw new Exception("Sie sind kein Betreiber");
 	}
 	
+	/**
+	 * Liste neuangemeldeter Anbieter
+	 * 
+	 * @return ArrayList an neuangemeldeten Anbieter
+	 */
+	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() {
+		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
+		
+		for(Anbieter a:anbieter) {
+			if(a.gesperrt == Gesperrt.UNBERARBEITET)
+				result.add(a);
+		}
+		
+		return result;
+	}
 	
+	/**
+	 * Liste der gesperrten Accounts
+	 * 
+	 * @return ArrayList an gesperrten Accounts
+	 */
+	public ArrayList<Account> getGesperrteAccounts() {
+		ArrayList<Account> result = new ArrayList<Account>();
+		
+		for(Account a:getAccounts()) {
+			if(a.gesperrt == Gesperrt.JA)
+				result.add(a);
+		}
+		
+		return result;
+	}
 }
