@@ -260,8 +260,9 @@ public class SuchScreen extends JPanel
 				if(!felder[5].getText().equals("  /  /    ")){
 					von = Methods.stringToDate(felder[5].getText());
 					if(von.before(new Date())){
-						//SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-						von = new Date();
+						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+						von = (Date) sd.parse(sd.format( new Date()));	
+						
 					}
 				}
 				if(!felder[6].getText().equals("  /  /    ")){
@@ -271,8 +272,9 @@ public class SuchScreen extends JPanel
 						Calendar calendar = new GregorianCalendar();
 						calendar.setTime(new Date());
 						calendar.add(Calendar.DAY_OF_MONTH, 1);
-						Date a = calendar.getTime();
-						bis = sd.parse(sd.format(a));
+						//Date a = calendar.getTime();
+						bis = (Date) calendar.getTime();
+						
 					}
 				}
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
