@@ -182,7 +182,7 @@ public class Accountverwaltung {
 	}
 
 	public void logOut() throws IOException {
-		// TODO Exceptions oder Warnungen
+		// TODO Exceptions oder Warnungen (Wahrscheinlich nicht, wenn die JayDialogs OnTop sind und hinterer Thread freezed
 		Datenhaltung.saveAllData();
 		loggedIn = new Default();
 	}
@@ -194,8 +194,11 @@ public class Accountverwaltung {
 	 *            Freizuschaltender Account
 	 * @param enable
 	 *            Aktiv oder nicht
+	 * @throws Exception Wenn kein Betreiber eingeloggt ist
 	 */
-	public void setEnableAccount(Account acc, boolean enable) {
+	public void setEnableAccount(Account acc, boolean enable) throws Exception {
+		if(!betreiber.contains(loggedIn))
+			throw new Exception("Sie sind nicht als Betreiber eingeloggt!");
 		acc.setGesperrt(!enable);
 	}
 
