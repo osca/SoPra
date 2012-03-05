@@ -94,7 +94,11 @@ public class Datenhaltung {
 
 		FileWriter f = new FileWriter(buchFile);
 		f.write(header);
-		xs.toXML(Portal.Buchungsverwaltung().getAllBuchungen(), f);
+		Object[] attr = new Object[]{
+				Portal.Buchungsverwaltung().getAllBuchungen(),
+				Buchung.getAnzahl()
+		};
+		xs.toXML(attr,f);
 		f.close();
 	}
 	
@@ -104,7 +108,11 @@ public class Datenhaltung {
 
 		FileWriter f = new FileWriter(offFile);
 		f.write(header);
-		xs.toXML(Portal.Buchungsverwaltung().getAllBuchungen(), f);
+		Object[] attr = new Object[]{
+				Portal.Angebotsverwaltung().getAllAngebote(),
+				Angebot.getAnzahl()
+		};
+		xs.toXML(attr, f);
 		f.close();
 	}
 
@@ -127,12 +135,19 @@ public class Datenhaltung {
 		ArrayList<Anbieter> anbieter = new ArrayList<Anbieter>();
 		ArrayList<Betreiber> betreiber = new ArrayList<Betreiber>();
 		ArrayList<Kunde> kunden = new ArrayList<Kunde>();
+		int buchungsAnzahl = 0, angebotsAnzahl = 0;
 		if (msgFile.exists())
 			nachrichten = (ArrayList<Nachricht>) xs.fromXML(msgFile);
-		if (buchFile.exists())
-			buchungen = (ArrayList<Buchung>) xs.fromXML(buchFile);
-		if (offFile.exists())
-			angebote = (ArrayList<Angebot>) xs.fromXML(offFile);
+		if (buchFile.exists()){
+			Object[] attr = (Object[]) xs.fromXML(buchFile);
+			buchungen = (ArrayList<Buchung>) attr[0];
+			buchungsAnzahl = (Integer) attr[1];
+		}
+		if (offFile.exists()){
+			Object[] attr = (Object[]) xs.fromXML(offFile);
+			angebote = (ArrayList<Angebot>) attr[0];
+			angebotsAnzahl = (Integer) attr[1];
+		}
 		if (anbFile.exists())
 			anbieter = (ArrayList<Anbieter>) xs.fromXML(anbFile);
 		if (betrFile.exists())
@@ -140,8 +155,8 @@ public class Datenhaltung {
 		if (kundFile.exists())
 			kunden = (ArrayList<Kunde>) xs.fromXML(kundFile);
 		Portal.recover(new Accountverwaltung(anbieter, betreiber, kunden),
-				new Angebotsverwaltung(angebote),
-				new Buchungsverwaltung(buchungen), 
+				new Angebotsverwaltung(angebote), angebotsAnzahl,
+				new Buchungsverwaltung(buchungen), buchungsAnzahl, 
 				new Nachrichtenverwaltung(nachrichten));
 	}
 

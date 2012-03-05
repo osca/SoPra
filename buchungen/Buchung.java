@@ -46,6 +46,9 @@ public class Buchung implements Listable {
 		return anzahl;
 	}
 
+	public static void setAnzahl(int anz){
+		anzahl = anz;
+	}
 	/**
 	 * @return Buchungsnummer für diese Buchung
 	 */

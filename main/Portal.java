@@ -59,10 +59,13 @@ public class Portal {
 	 * @param buchv Buchungsverwaltung mit Buchungslisten
 	 * @param nachv Nachrichtenverwaltung mit Nachrichtenlisten
 	 */
-	public static void recover(Accountverwaltung accv, Angebotsverwaltung angvw, Buchungsverwaltung buchv, Nachrichtenverwaltung nachv){
+	public static void recover(Accountverwaltung accv, Angebotsverwaltung angvw, int angebotsAnzahl, 
+			Buchungsverwaltung buchv, int buchungsAnzahl, Nachrichtenverwaltung nachv){
 		accverw = accv;
 		angebverw = angvw;
 		buchverw = buchv;
 		nachrverw = nachv;
+		angebote.typen.Angebot.setAnzahl(angebotsAnzahl);
+		buchungen.Buchung.setAnzahl(buchungsAnzahl);
 	}
 }
