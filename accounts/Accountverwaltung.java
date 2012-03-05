@@ -458,31 +458,42 @@ public class Accountverwaltung {
 	 * Liste neuangemeldeter Anbieter
 	 * 
 	 * @return ArrayList an neuangemeldeten Anbieter
+	 * @throws Exception 
 	 */
-	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() {
-		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
-		
-		for(Anbieter a:anbieter) {
-			if(a.gesperrt == Gesperrt.UNBERARBEITET)
-				result.add(a);
+	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
+		if(betreiber.contains(loggedIn)) {
+			ArrayList<Anbieter> result = new ArrayList<Anbieter>();
+			
+			for(Anbieter a:anbieter) {
+				if(a.gesperrt == Gesperrt.UNBERARBEITET)
+					result.add(a);
+			}
+			
+			return result;
 		}
-		
-		return result;
+		else
+			throw new Exception("Sie sind kein Betreiber");
+			
 	}
 	
 	/**
 	 * Liste der gesperrten Accounts
 	 * 
 	 * @return ArrayList an gesperrten Accounts
+	 * @throws Exception 
 	 */
-	public ArrayList<Account> getGesperrteAccounts() {
-		ArrayList<Account> result = new ArrayList<Account>();
-		
-		for(Account a:getAccounts()) {
-			if(a.gesperrt == Gesperrt.JA)
-				result.add(a);
+	public ArrayList<Account> getGesperrteAccounts() throws Exception {
+		if(betreiber.contains(loggedIn)) {
+			ArrayList<Account> result = new ArrayList<Account>();
+			
+			for(Account a:getAccounts()) {
+				if(a.gesperrt == Gesperrt.JA)
+					result.add(a);
+			}
+			
+			return result;
 		}
-		
-		return result;
-	}
+		else
+			throw new Exception("Sie sind kein Betreiber");
+		}
 }
