@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -161,10 +160,7 @@ public class AngDetailScreen extends JPanel{
 
 						to.parse(toField.getText());
 						from.parse(fromField.getText());
-						
-						JOptionPane.showMessageDialog(null, to.toString());
-						
-						System.out.println("" + to.toString());
+
 						
 						DialogScreen dialog = new DialogScreen(null, "Buchen", DialogScreen.OK_CANCEL_OPTION)
 						//TODO vllt. da das datum von bis setten und dann der buchung �bergeben
