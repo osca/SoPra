@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +39,7 @@ import accounts.Anbieter;
 import accounts.Betreiber;
 import accounts.Default;
 import accounts.Kunde;
+import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
 import angebote.typen.Flug;
@@ -268,22 +270,22 @@ public class MainFrame extends JFrame
 		}
 		else
 		{
-			try
-			{
+//			try
+//			{
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
-				dialog.setLabelContent("Absender: "+nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
+				dialog.setLabelContent("Absender: " + nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 				this.repaint();
-			}
-			catch(Exception e)
-			{//TODO exceptionhandling
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, e.toString());
-			}
+//			}
+//			catch(Exception e)
+//			{//TODO exceptionhandling
+//				e.printStackTrace();
+//				JOptionPane.showMessageDialog(this, e.toString());
+//			}
 		}
 	}
 
@@ -348,10 +350,15 @@ public class MainFrame extends JFrame
 				logged = false;
 			}
 		}
-		catch(Exception e)
-		{//TODO exceptionhandling
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+		catch(LoginException e)
+		{
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_LOGIN_FEHLERHALFT);
+		}
+		catch (IOException e)
+		{
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_SAVE_ERROR);
 		}
 	}
 
@@ -418,8 +425,8 @@ public class MainFrame extends JFrame
 	
 	private void showEigene()
 	{
-		try
-		{
+//		try
+//		{
 			screen.removeAll();
 			
 			if(account.getTyp() == Account.KUNDE)
@@ -432,12 +439,12 @@ public class MainFrame extends JFrame
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
-		}
-		catch(Exception e)
-		{//TODO exceptionhandling
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
-		}
+//		}
+//		catch(Exception e)
+//		{//TODO exceptionhandling
+//			e.printStackTrace();
+//			JOptionPane.showMessageDialog(this, e.toString());
+//		}
 	}
 	
 	private void showSuche()
