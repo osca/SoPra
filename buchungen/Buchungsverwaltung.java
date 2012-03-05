@@ -50,6 +50,10 @@ public class Buchungsverwaltung {
 		kunde.addBuchung(buchung);
 		angebot.addBuchung(buchung.getBuchungsnummer());
 		buchungen.add(buchung);
+		
+		Portal.Nachrichtenverwaltung().sendeNachricht(kunde, Portal.Angebotsverwaltung().getAnbieter(angebot), "Neue Buchungsanfrage",
+				"Der Kunde moechte Ihr Angebot buchen", angebot);
+		
 		return buchung;
 	}
 	
