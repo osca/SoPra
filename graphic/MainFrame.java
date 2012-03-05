@@ -288,7 +288,7 @@ public class MainFrame extends JFrame
 			catch(Exception e)
 			{//TODO exceptionhandling
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, e.toString());
+				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
 		}
 	}
@@ -357,12 +357,12 @@ public class MainFrame extends JFrame
 		catch(LoginException e)
 		{
 			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_LOGIN_FEHLERHALFT);
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 		catch (IOException e)
 		{
 			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_SAVE_ERROR);
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
@@ -479,7 +479,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -496,7 +496,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());			
+			JOptionPane.showMessageDialog(this, e.getMessage());			
 		}
 	}
 	
@@ -513,7 +513,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -529,7 +529,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -546,7 +546,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 

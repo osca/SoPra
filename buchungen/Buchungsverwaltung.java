@@ -50,6 +50,10 @@ public class Buchungsverwaltung {
 		kunde.addBuchung(buchung);
 		angebot.addBuchung(buchung.getBuchungsnummer());
 		buchungen.add(buchung);
+		
+		Portal.Nachrichtenverwaltung().sendeNachricht(kunde, Portal.Angebotsverwaltung().getAnbieter(angebot), "Neue Buchungsanfrage",
+				"Der Kunde moechte Ihr Angebot buchen", angebot);
+		
 		return buchung;
 	}
 	
@@ -103,6 +107,11 @@ public class Buchungsverwaltung {
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
 		buchung.setBestaetigt(bestaetigt);
+		
+		Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Angebotsverwaltung().getAnbieter(getReferringAngebot(buchung)), 
+				getKunde(buchung), 
+				"Buchung wurde bearbeitet", "Ihre Buchung "+buchung.getBuchungsnummer()+" hat nun den Status "+buchung.getStatus(), 
+				getReferringAngebot(buchung));
 	}
 	
 	/**

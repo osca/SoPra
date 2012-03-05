@@ -41,7 +41,7 @@ public class BuchDetailScreen extends JPanel {
 	private JButton aenderungsanfrage;
 	private JButton stornieren;
 	
-	public BuchDetailScreen(Buchung b){
+	public BuchDetailScreen(final Buchung b){
 		dscroll = new JScrollPane();
 		dPanel = new JPanel(new BorderLayout(5,5));
 		up = new JPanel(new GridLayout(0,2));
@@ -84,10 +84,29 @@ public class BuchDetailScreen extends JPanel {
 			{
 				JTextField betreff = new JTextField("Betreff");
 				JTextArea area = new JTextArea("");
-				JOptionPane.showConfirmDialog(null,new Object[]{betreff,area},"Login",JOptionPane.OK_CANCEL_OPTION);
+				int result = JOptionPane.showConfirmDialog(null,new Object[]{betreff,area},"Login",JOptionPane.OK_CANCEL_OPTION);
+				if(result == JOptionPane.OK_OPTION){
+					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), 
+							Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(b)), betreff.getText(), area.getText(), 
+							Portal.Buchungsverwaltung().getReferringAngebot(b));
+					JOptionPane.showConfirmDialog(null, "Ihre Aenderungsanfrage wurde gesendet");
+				}
 			}
 		});
 		stornieren = new JButton("Stronieren");
+		stornieren.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Wollen Sie wirklich eine Stornierungsanfrage senden?");
+				if(confirm == JOptionPane.OK_OPTION){
+					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), 
+							Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(b)),
+							"Stornierunsganfrage", "Der Kunde moechte seine Buchung stornieren", 
+							Portal.Buchungsverwaltung().getReferringAngebot(b));
+					JOptionPane.showConfirmDialog(null, "Ihre Stornierungsanfrage wurde gesendet");
+				}
+			}
+		});
 		down.add(BorderLayout.EAST, aenderungsanfrage);
 		down.add(BorderLayout.WEST, stornieren);
 		
