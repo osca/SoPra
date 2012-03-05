@@ -1,5 +1,7 @@
 package graphic;
 
+import buchungen.Bestaetigung;
+
 
 public interface  Listable {
 	
@@ -15,7 +17,7 @@ public interface  Listable {
 	
 	public String getFullInfo();
 	
-	public String getStatus(); // vllt. 
+	public Bestaetigung getStatus(); // vllt. 
 	
 	public int getListableTyp();
 	
