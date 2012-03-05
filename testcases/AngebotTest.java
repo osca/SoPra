@@ -2,7 +2,9 @@ package testcases;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
 import main.Portal;
@@ -53,8 +55,19 @@ public class AngebotTest {
 	
 	Buchung b1,b2,b3,b4,b5;
 	
+	Date now;
+	
 	@Before
 	public void setUp() throws Exception {
+		now = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(now);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		now = cal.getTime();
+		
 		//Accounts erstellen
 		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		} catch(AlreadyInUseException aiu){}		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
@@ -72,10 +85,10 @@ public class AngebotTest {
 		kunde2 = accv.getKunden().get(1);
 
 		//Angebote erstellen
-		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster");
-		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
-		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Muenster");
+		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Muenster", "Guenstig");
+		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Muenster", "Guenstig");
 		
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
@@ -131,7 +144,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, Angebotsverarbeitung.KEINEDATEN, Angebotsverarbeitung.KEINEDATEN, new String[]{"Muenster","Guenstig"});
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, now, now, new String[]{"Muenster","Guenstig"});
 		
 		Assert.assertEquals(ang4, suche.get(0));
 		
