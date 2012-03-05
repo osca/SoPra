@@ -17,7 +17,7 @@ public interface  Listable {
 	
 	public String getFullInfo();
 	
-	public Bestaetigung getStatus(); // vllt. 
+	public String getStatus(); // vllt. 
 	
 	public int getListableTyp();
 	
