@@ -90,7 +90,7 @@ public class AngDetailScreen extends JPanel{
 		for (int i =0;i<k.size();i++){
 			JLabel krit = new JLabel(""+k.get(i).name);
 			sub_b.add(krit);
-			JLabel krit1 = new JLabel(k.get(i).getWert());
+			JLabel krit1 = new JLabel(""+k.get(i).getWert());
 			sub_b.add(krit1);
 			
 		}
@@ -176,7 +176,7 @@ public class AngDetailScreen extends JPanel{
 								try 
 								{
 									// edit benjamin: angebot.getStartdatum() durch fromDate ersetzt etc.
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate); 
 								}
 								catch (Exception e) 
 								{
@@ -231,6 +231,7 @@ public class AngDetailScreen extends JPanel{
 			{
 				try {
 					Portal.Angebotsverwaltung().delAngebot(angebot);
+					JOptionPane.showMessageDialog(null, "Angebot erfolgreich geloescht");
 				} catch (LoeschenNichtMoeglichException e) {
 					JOptionPane.showConfirmDialog(null, "Loeschen nicht moeglich");
 					e.printStackTrace();
