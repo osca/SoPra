@@ -22,6 +22,7 @@ import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
 import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
@@ -216,7 +217,12 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				try {
+					Portal.Angebotsverwaltung().delAngebot(angebot);
+				} catch (LoeschenNichtMoeglichException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		editieren.addActionListener(new ActionListener()
