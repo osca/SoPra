@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,8 +113,8 @@ public class SuchScreen extends JPanel
 			felder = new JFormattedTextField[7];	//entspricht dem labelarray
 			felder[0] = new JFormattedTextField(); 
 			felder[1] = new JFormattedTextField(new NumberFormatter());
-			felder[2] = new JFormattedTextField(new NumberFormatter());
-			felder[3] = new JFormattedTextField(new NumberFormatter());
+			felder[2] = new JFormattedTextField(new DecimalFormat("#*0.00"));
+			felder[3] = new JFormattedTextField(new DecimalFormat("#*0.00"));
 			felder[4] = new JFormattedTextField();
 			felder[5] = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			felder[6] = new JFormattedTextField(new MaskFormatter("##/##/####"));
