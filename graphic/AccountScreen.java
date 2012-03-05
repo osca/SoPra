@@ -61,7 +61,8 @@ public class AccountScreen extends JPanel
 		labels[6] = new JLabel(account.getEmail());
 		labels[7] = new JLabel(account.getPassword());
 		labels[8] = new JLabel(account.getStatus());
-
+		
+		
 		if(account.getTyp() == Account.KUNDE)
 			labels[9] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
 		if(account.getTyp() == Account.ANBIETER)

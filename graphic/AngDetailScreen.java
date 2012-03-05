@@ -25,6 +25,7 @@ import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
+import buchungen.InvalidDateException;
 
 
 public class AngDetailScreen extends JPanel{
@@ -157,12 +158,12 @@ public class AngDetailScreen extends JPanel{
 						if (fromField.getText().length() == 0 || toField.getText().length() == 0) throw new IllegalArgumentException();
 						
 						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");
-						
 
-						Date a =to.parse(toField.getText());
-						Date b =to.parse(fromField.getText());
-						if(Methods.checkDate(a,b)){
-							
+						final Date toDate = to.parse(toField.getText());
+						final Date fromDate = to.parse(fromField.getText());
+						
+						if(fromDate.after(toDate) || fromDate.before(angebot.getStartdatum()) || toDate.after(angebot.getEnddatum())){
+							throw new InvalidDateException();
 						}
 
 						
@@ -174,7 +175,8 @@ public class AngDetailScreen extends JPanel{
 							{
 								try 
 								{
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, angebot.getStartdatum(),angebot.getEnddatum()); //TODO Die daten bei buchung
+									// edit benjamin: angebot.getStartdatum() durch fromDate ersetzt etc.
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
 								}
 								catch (Exception e) 
 								{

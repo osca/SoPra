@@ -328,7 +328,7 @@ public class MainFrame extends JFrame
 						erstelleButton.setEnabled(true);
 					}
 					else
-						eigeneButton.setText("Alle Accounds");
+						eigeneButton.setText("Alle Accounts");
 					
 					showTopAngebote();
 					this.repaint();

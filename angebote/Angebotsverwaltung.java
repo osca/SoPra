@@ -1,7 +1,9 @@
 package angebote;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -43,6 +45,20 @@ public class Angebotsverwaltung {
 	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date von, Date bis, String[] krit) throws InvalidDateException {
+		
+		Date now = new Date();
+		if(von.before(now)) {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(now);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			von = cal.getTime();
+		}
+		if(bis.before(von))
+			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
+		
 		int shift = 0;
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:{
@@ -83,11 +99,6 @@ public class Angebotsverwaltung {
 	 * @see Autovermietung
 	 */
 	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String ort) throws InvalidDateException{
-		if(von.before(new Date()))
-			von = new Date();
-		if(bis.before(von))
-			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		
 		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, ort);
 		anbieter.addAngebot(av);
 		angebote.add(av);
@@ -108,12 +119,7 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException 
 	 */
 	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date pvon, Date pbis, String port, String pbierpreis) throws InvalidDateException{
-		if(pvon.before(new Date()))
-			pvon = new Date();
-		if(pbis.before(pvon))
-			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		
+			Date pvon, Date pbis, String port, String pbierpreis) throws InvalidDateException {
 		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, port, pbierpreis);
 		panb.addAngebot(af);
 		angebote.add(af);
@@ -122,11 +128,6 @@ public class Angebotsverwaltung {
 	
 	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date pvon, Date pbis, String pstart, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
-		if(pvon.before(new Date()))
-			pvon = new Date();
-		if(pbis.before(pvon))
-			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		
 		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pstart, pziel, pklasse, pbierpreis);
 		panb.addAngebot(f);
 		angebote.add(f);
@@ -135,11 +136,6 @@ public class Angebotsverwaltung {
 	
 	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date pvon, Date pbis, 
 			String ort, String klima, String sterne, String verpf, String bierpr) throws InvalidDateException{
-		if(pvon.before(new Date()))
-			pvon = new Date();
-		if(pbis.before(pvon))
-			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		
 		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, pvon, pbis, ort, klima, sterne, verpf, bierpr);
 		anb.addAngebot(hu);
 		angebote.add(hu);
