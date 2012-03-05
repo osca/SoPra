@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -20,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -118,13 +118,13 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		//Startdatum+Label
 		JLabel von_label = new JLabel("Startdatum (im DD/MM/YYYY Format):");
 		sub_a.add(von_label);
-		von = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+		von = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		sub_a.add(von);
 		
 		//Enddatum+Label
 		JLabel bis_label = new JLabel("Enddatum (im DD/MM/YYYY Format):");
 		sub_a.add(bis_label);
-		bis = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+		bis = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		sub_a.add(bis);
 		
 //		//Laenge+Label
@@ -206,6 +206,16 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			try {
 				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
 				JOptionPane.showMessageDialog(this, "Erstellung erfolgreich");
+				name.setText(null);
+				typ.setSelectedIndex(0);
+				preis.setText(null);
+				kap.setText(null);
+				von.setText(null);
+				bis.setText(null);
+				interval.setText(null);
+				beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
+				addScreen();
+				
 			} catch (NumberFormatException e1) {
 			
 				e1.printStackTrace();
@@ -217,7 +227,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			
 		}
 		
-		else if(e.getSource()==loeschen){
+		else if(e.getSource()==schen){
 			name.setText(null);
 			typ.setSelectedIndex(0);
 			preis.setText(null);
