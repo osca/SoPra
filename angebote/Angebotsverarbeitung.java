@@ -12,7 +12,7 @@ public class Angebotsverarbeitung {
 	public final static String KEINNAME		= "";
 	public final static int KEINEKAPAZITAET	= 0;
 	public final static double KEINPREIS 	= 0;
-	public final static Date KEINEDATEN	= new Date(0);
+	public final static Date KEINEDATEN	= new Date(31/12/9999);
 	public final static String KEINKRITERIUM = "";
 	/**
 	 * Die Methode geht alle übergebenen Parameter durch für alle Angebote und wenn ein Angebot dabei alle Parameter erfüllen kann wird es der
@@ -42,11 +42,11 @@ public class Angebotsverarbeitung {
 		if(!(typ==Angebot.AUSFLUG||typ==Angebot.AUTOVERMIETUNG||typ==Angebot.FLUG||typ==Angebot.HOTEL)){
 			throw new SuchException("Bei Angebotstyp muss eine Option gewählt werden.");
 		}
-		if(kapazitaet<=0){
+		if(kapazitaet<0){
 			throw new SuchException("Kapazitaet muss mindestens 1 sein.");
 		}
-		if(vonPreis<=bisPreis||bisPreis<=0||vonPreis<=0){
-			throw new SuchException("Preise müssen größer als null sein und der Startpreis muss echtgrößer als der Endpreis sein");
+		if(vonPreis<bisPreis||bisPreis<0||vonPreis<0){
+			throw new SuchException("Preise müssen größer als null sein und der Endpreis muss echtgrößer als der Startpreis sein");
 		}
 		if(von.compareTo(heute)<0||bis.compareTo(heute)<0||von.compareTo(bis)>0){
 			throw new SuchException("Datum darf nicht in der Vergangenheit liegen. Startdatum muss vor dem Enddatum liegen");

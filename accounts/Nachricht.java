@@ -134,7 +134,7 @@ public class Nachricht implements Listable {
 
 	@Override
 	public String getIdentifier() {
-		return ""+id;
+		return "["+id+"] "+absenderName;
 	}
 
 	@Override

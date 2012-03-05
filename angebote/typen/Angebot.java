@@ -270,13 +270,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	public static String convertTypToName(int type) {
 		switch(type) {
-			case 1:
+			case FLUG:
 				return "Flug";
-			case 2:
+			case AUTOVERMIETUNG:
 				return "Autovermietung";
-			case 3:
+			case AUSFLUG:
 				return "Ausflug";
-			case 4:
+			case HOTEL:
 				return "Hotel";
 		}
 		return "Not a Type";

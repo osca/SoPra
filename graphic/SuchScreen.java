@@ -7,8 +7,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -78,7 +81,7 @@ public class SuchScreen extends JPanel
 		
 		labels[0] = new JLabel("Typ");
 		labels[1] = new JLabel("Name");
-		labels[2] = new JLabel("Laenge");
+		labels[2] = new JLabel("Kapazitaet");
 		labels[3] = new JLabel("Startpreis");
 		labels[4] = new JLabel("Endpreis");
 		labels[5] = new JLabel("Anbieter");
@@ -254,11 +257,26 @@ public class SuchScreen extends JPanel
 					vonPreis = new Double(felder[2].getText());
 				if(!felder[3].getText().equals(""))
 					bisPreis = new Double(felder[3].getText());
-				if(!felder[5].getText().equals("  /  /    "))
+				if(!felder[5].getText().equals("  /  /    ")){
 					von = Methods.stringToDate(felder[5].getText());
-				if(!felder[6].getText().equals("  /  /    "))
+					if(von.before(new Date())){
+						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+						von = (Date) sd.parse(sd.format( new Date()));	
+						
+					}
+				}
+				if(!felder[6].getText().equals("  /  /    ")){
 					bis = Methods.stringToDate(felder[6].getText());
-				
+					if(bis.before(new Date())){
+						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+						Calendar calendar = new GregorianCalendar();
+						calendar.setTime(new Date());
+						calendar.add(Calendar.DAY_OF_MONTH, 1);
+						//Date a = calendar.getTime();
+						bis = (Date) calendar.getTime();
+						
+					}
+				}
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
 			else
