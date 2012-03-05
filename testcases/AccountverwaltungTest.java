@@ -80,7 +80,11 @@ public class AccountverwaltungTest {
 	public void testEnableAccount() {
 		acv = Portal.Accountverwaltung();
 		
-		acv.setEnableAccount(acv.getKunden().get(0), false);
+		try {
+			acv.setEnableAccount(acv.getKunden().get(0), false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 		Assert.assertEquals(acv.getKunden().get(0).isGesperrt(), true);
 		
