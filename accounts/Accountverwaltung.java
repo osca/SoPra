@@ -410,7 +410,7 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	public boolean isFreeEmail(String email) {
-		String emailValid = ".+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
+		String emailValid = "[^äöü]+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
 		if(! email.matches(emailValid) && !email.contains(".."))
 			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		for (Account a : getAccounts())
