@@ -88,6 +88,7 @@ public class AngDetailScreen extends JPanel{
 			JLabel krit = new JLabel(k.get(i).name);
 			sub_b.add(krit);
 			JLabel krit1 = new JLabel(k.get(i).getWert());
+			sub_b.add(krit1);
 			
 		}
 		up.add(sub_a);
