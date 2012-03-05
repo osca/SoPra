@@ -11,3 +11,4 @@ public class MeldeDienst
 	protected static final String MSG_GESAMMT_BEWERUNG = "Gesammtberwertung dieses Anbieters: ";
 	
 }
+

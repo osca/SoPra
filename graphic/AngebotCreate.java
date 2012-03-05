@@ -103,7 +103,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		//Preis+Label
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
-		preis =new JFormattedTextField(new DecimalFormat("0.##"));
+		preis =new JFormattedTextField(new DecimalFormat("#*0.00"));
 		//preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		sub_a.add(preis);
 		

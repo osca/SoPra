@@ -94,7 +94,7 @@ public class DialogScreen extends JDialog
 		this.add(main);
 		this.pack();
 		this.setVisible(true);
-		setModal(true);
+		//setModal(true);
 		setAlwaysOnTop(true);
 	}
 	

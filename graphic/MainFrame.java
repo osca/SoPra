@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +31,6 @@ import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
 
-import main.Datenhaltung;
 import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
@@ -50,7 +48,7 @@ public class MainFrame extends JFrame
 {
 	public static final int BUTTONWIDTH = 180;
 	public static final int BUTTONHEIGHT = 38;
-
+	
 	private JButton loginButton;
 	private JButton registerButton;
 	private JButton nachrichtButton;
@@ -67,11 +65,13 @@ public class MainFrame extends JFrame
 	private ListeScreen list;
 	
 	private boolean logged = false;
+	
+	private MainFrame frame = this; //quick'n'dirty  nur vorübergehend
 
 	public MainFrame()
 	{
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width);
 	    int y = (d.height - getSize().height);
@@ -155,15 +155,6 @@ public class MainFrame extends JFrame
 
 		// /////////	
 		
-//		ArrayList<Angebot> al = new ArrayList<Angebot>();
-//		for(int i=0;i<100;i++)
-//			al.add(new Flug(new Anbieter("horst","@","fu.fu"),"name", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar"));
-//		list = new ListeScreen(this, al);
-//		
-//		screen.add(list);
-//		
-		/////////////////
-		
 		homeButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -244,22 +235,19 @@ public class MainFrame extends JFrame
 		this.setVisible(true);
 		
 		//////////////
+
+		showTopAngebote();
 		
-		try {
-			Anbieter a = Portal.Accountverwaltung().createAnbieter("x@y.z","horst","fu.fu");
-			Kunde k = Portal.Accountverwaltung().createKunde("delikat@windowsvista.edu", "delikat", "1");
-//			Angebot g = Portal.Angebotsverwaltung().createFlug(a,"name1", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, , "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name2", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name3", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name4", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Angebotsverwaltung().createFlug(a,"name5", "asdfkjalï¿½sdfmnklamsdlfkmalsdmflamnsdlfmnaklsmdfklmaklsdmflkamsdlfkmasdfasdf", 23, 23.5, new Date[] { new Date() }, "hier", "ziel", "7", "unbezahlbar");
-//			Portal.Nachrichtenverwaltung().sendeNachricht(k, a, "2","sadfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",g);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		try
+		{
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("Bet@Reiber.de", "herr", "pass", "Ihre Seele gehört mir!");
+			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
+			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(1514651435), "hell");
+		}
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
-		
-		//showTopAngebote();
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -292,7 +280,7 @@ public class MainFrame extends JFrame
 				this.repaint();
 			}
 			catch(Exception e)
-			{
+			{//TODO exceptionhandling
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, e.toString());
 			}
@@ -361,7 +349,7 @@ public class MainFrame extends JFrame
 			}
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -380,7 +368,7 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Password");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			JLabel choice = new JLabel("Wï¿½hlen sie bitte Ihren Accounttypen");
+			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
 			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
@@ -392,9 +380,9 @@ public class MainFrame extends JFrame
 				}
 				else
 				{
-					if(Portal.Accountverwaltung().getAccountByEmail(emailField.getText()) != null)
+					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschï¿½ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschäftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -417,12 +405,12 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
-					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschï¿½ftsbedingungen an!", DialogScreen.LABEL_LEFT);
+					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschäftsbedingungen an!", DialogScreen.LABEL_LEFT);
 				}
 			}
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -446,7 +434,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -457,23 +445,28 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			screen.add(new Suchmaske()
+			screen.add(new SuchScreen()
 			{
 				@Override
 				public void onSearch()
 				{
-					screen.removeAll();
-					list = new ListeScreen((MainFrame)scroll.getParent(), this.getList());
-					screen.add(list);
-					scroll.setViewportView(screen);
-					scroll.repaint();
+					if(this.getList() != null)
+					{
+						screen.removeAll();
+						list = new ListeScreen(frame, this.getList());
+						screen.add(list);
+						scroll.setViewportView(screen);
+						scroll.repaint();
+					}
+					else
+						JOptionPane.showMessageDialog(this, "Nichts gefunden");
 				}
 			});
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -490,7 +483,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());			
 		}
@@ -507,7 +500,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -523,7 +516,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -540,7 +533,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{
+		{//TODO exceptionhandling
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.toString());
 		}
@@ -551,17 +544,5 @@ public class MainFrame extends JFrame
 	public static void main(String[] args)
 	{
 		MainFrame f = new MainFrame();
-	}
-	
-	//By Jay - Move anywhere, where it doesn't bother you, please :)
-	@Override
-	public void dispose()
-	{
-		try {
-			Datenhaltung.saveAllData();
-			System.exit(0);		//nur schlieÃŸen wenn Speichern abgeschlossen (sinnvoll?)
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
