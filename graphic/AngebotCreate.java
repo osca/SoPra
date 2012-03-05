@@ -212,7 +212,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				kap.setText(null);
 				von.setText(null);
 				bis.setText(null);
-				interval.setText(null);
 				beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
 				addScreen();
 				

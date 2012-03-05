@@ -86,10 +86,10 @@ public class AngDetailScreen extends JPanel{
 		JLabel anbieter_label= new JLabel("Anbieter:");
 		sub_a.add(anbieterl);
 		sub_b = new JPanel(new GridLayout(6,2));
-		String k[] =angebot.getErlaubteKriterien();
+		//String k[] =angebot.getErlaubteKriterien();
 		ArrayList<Kriterium> w=angebot.getKriterien();
-		for (int i =0;i<k.length;i++){
-			JLabel krit = new JLabel(k[i]);
+		for (int i =0;i<w.size();i++){
+			JLabel krit = new JLabel(w.get(i).name);
 			sub_b.add(krit);
 			JLabel krit1 = new JLabel(w.get(i).getWert());
 			sub_b.add(krit1);
