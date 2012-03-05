@@ -46,7 +46,7 @@ public class DatenhaltungTest {
 	public void testSave() throws Exception {
 		//Accounts erstellen
 		Anbieter anbieter1 = accv.createAnbieter("X@Y.Z", "TUI", "abcxyz"),
-				 anbieter2 = accv.createAnbieter("Edgar Wallace", "LTUR", "hallo123");
+				 anbieter2 = accv.createAnbieter("Edgar@Wallace.de", "LTUR", "hallo123");
 		Kunde kunde1 = accv.createKunde("E@Mail.de", "HansWurst", "xyzabc"),
 			  kunde2 = accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 
