@@ -49,7 +49,7 @@ public class BuchDetailScreen extends JPanel {
 		down = new JPanel(new BorderLayout(5,5));
 		
 		//TODO nachher nochmal die Labels vor den labels^^^
-		name = new JLabel(b.getIdentifier());
+		name = new JLabel(Portal.Buchungsverwaltung().getReferringAngebot(b).getName());
 		typ = new JLabel (""+Portal.Buchungsverwaltung().getReferringAngebot(b).getTyp());		//GUCKEN BITTE
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		vondatum = new JLabel(formatter.format(b.getVon()));	// DATE

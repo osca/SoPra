@@ -16,10 +16,10 @@ import angebote.kriterien.Ort;
  */
 public class Flug extends Angebot {
 
-	public static final int START = 0,
-			 				ZIEL = 1,
-			 				KLASSE = 2,
-			 				BIERPREIS = 3;
+	public static final int START = 30,
+			 				ZIEL = 31,
+			 				KLASSE = 32,
+			 				BIERPREIS = 33;
 
 	private Ort start,ziel = null;
 	private Klasse klasse = null;
