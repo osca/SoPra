@@ -409,10 +409,9 @@ public class Accountverwaltung {
 	 *            E-Mail Adresse
 	 * @return Vergeben oder nicht
 	 */
-	private boolean isFreeEmail(String email) {//TODO gibt bei mir immernoch einen fehler aus
-//		if(! email.matches(".+@.+\\..+"))
-//			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
-		
+	private boolean isFreeEmail(String email) {
+		if(! email.matches(".+@.+\\..+"))
+			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		for (Account a : getAccounts())
 			if (a.getEmail().equals(email))
 				return false;
