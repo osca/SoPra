@@ -176,7 +176,7 @@ public class AngDetailScreen extends JPanel{
 								try 
 								{
 									// edit benjamin: angebot.getStartdatum() durch fromDate ersetzt etc.
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate); 
 								}
 								catch (Exception e) 
 								{
