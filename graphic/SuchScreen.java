@@ -261,7 +261,6 @@ public class SuchScreen extends JPanel
 					von = Methods.stringToDate(felder[5].getText());
 					if(von.before(new Date())){
 						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-						
 						von = sd.parse(sd.format(new Date()));
 					}
 				}
