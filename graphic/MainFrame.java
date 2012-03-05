@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,7 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,26 +23,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
-import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
 import accounts.Anbieter;
-import accounts.Betreiber;
 import accounts.Default;
 import accounts.Kunde;
 import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
-import angebote.typen.Flug;
 import buchungen.Buchung;
-import buchungen.InvalidDateException;
 
 public class MainFrame extends JFrame
 {
@@ -467,7 +460,7 @@ public class MainFrame extends JFrame
 						scroll.repaint();
 					}
 					else
-						JOptionPane.showMessageDialog(this, "Nichts gefunden");
+						JOptionPane.showMessageDialog(this, MeldeDienst.MSG_SEARCH_KEINE);
 				}
 			});
 			scroll.setViewportView(screen);
