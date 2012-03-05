@@ -76,7 +76,7 @@ public class SuchScreen extends JPanel
 		JPanel labelPanel = new JPanel(grid);
 		JLabel[] labels = new JLabel[8];
 		labels[0] = new JLabel("Name");
-		labels[1] = new JLabel("Laenge");
+		labels[1] = new JLabel("Länge");
 		labels[2] = new JLabel("Startpreis");
 		labels[3] = new JLabel("Endpreis");
 		labels[4] = new JLabel("Anbieter");
@@ -97,8 +97,8 @@ public class SuchScreen extends JPanel
 			felder[2] = new JFormattedTextField(new NumberFormatter());
 			felder[3] = new JFormattedTextField(new NumberFormatter());
 			felder[4] = new JFormattedTextField();
-			felder[5] = new JFormattedTextField(new MaskFormatter("##-##-####"));
-			felder[6] = new JFormattedTextField(new MaskFormatter("##-##-####"));
+			felder[5] = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			felder[6] = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			
 			for(int i=0; i<felder.length; i++)
 				felderPanel.add(felder[i]);
@@ -130,6 +130,7 @@ public class SuchScreen extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
+				readContent();
 				onSearch();
 			}
 		});
@@ -239,21 +240,22 @@ public class SuchScreen extends JPanel
 					kriterien[i] = ""+boxList.get(i).getSelectedItem();
 				
 				String name = felder[0].getText();
-				int laenge = 0;
-				double vonPreis = 0;
-				double bisPreis = 0;
-				Date von = null;
-				Date bis = null;
+				int laenge = Portal.Angebotsverarbeitung().KEINEKAPAZITAET;
+				double vonPreis = Portal.Angebotsverarbeitung().KEINPREIS;
+				double bisPreis = Portal.Angebotsverarbeitung().KEINPREIS;
+				Date von = Portal.Angebotsverarbeitung().KEINEDATEN;
+				Date bis = Portal.Angebotsverarbeitung().KEINEDATEN;
+				
 				if(!felder[1].getText().equals(""))
 					laenge = Integer.parseInt(felder[1].getText());
 				if(!felder[2].getText().equals(""))
 					vonPreis = new Double(felder[2].getText());
 				if(!felder[3].getText().equals(""))
 					bisPreis = new Double(felder[3].getText());
-				if(!felder[5].getText().equals(""))
-					von = new Date(Integer.parseInt(felder[5].getText()));
-				if(!felder[6].getText().equals(""))
-					bis = new Date(Integer.parseInt(felder[6].getText()));
+				if(!felder[5].getText().equals("  /  /    "))
+					von = Methods.stringToDate(felder[5].getText());
+				if(!felder[6].getText().equals("  /  /    "))
+					bis = Methods.stringToDate(felder[6].getText());
 				
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
