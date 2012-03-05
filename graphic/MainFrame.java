@@ -235,7 +235,8 @@ public class MainFrame extends JFrame
 		
 		try
 		{
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("Bet@Reiber.de", "herr", "pass", "Ihre Seele gehört mir!");
+			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehört mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
 			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
 		}
@@ -263,8 +264,8 @@ public class MainFrame extends JFrame
 		}
 		else
 		{
-//			try
-//			{
+			try
+			{
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
@@ -273,12 +274,12 @@ public class MainFrame extends JFrame
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 				this.repaint();
-//			}
-//			catch(Exception e)
-//			{//TODO exceptionhandling
-//				e.printStackTrace();
-//				JOptionPane.showMessageDialog(this, e.toString());
-//			}
+			}
+			catch(Exception e)
+			{//TODO exceptionhandling
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.toString());
+			}
 		}
 	}
 
