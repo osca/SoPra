@@ -44,7 +44,7 @@ public class Angebotsverarbeitung {
 		
 		for(Angebot a:erstellteAngebote){
 			treffer = 0;
-			if(a.getName()==name||name==KEINNAME) 
+			if(a.getName().equals(name)||name.equals(KEINNAME)) 
 				treffer++;
 			if(a.getTyp()==typ) {
 				if(a.getKapazitaet()>=kapazitaet||kapazitaet==KEINEKAPAZITAET) 
@@ -61,9 +61,9 @@ public class Angebotsverarbeitung {
 				ArrayList<Kriterium> kritContainer = a.getKriterien();
 				int anzKrit = kriterien.length;
 				for(int i=0;i<anzKrit;i++){
-					if(kriterien[i]==KEINKRITERIUM) 
+					if(kriterien[i].equals("")) 
 						treffer++;
-					else if(kritContainer.get(i).getWert()==kriterien[i]) 
+					else if(kritContainer.get(i).getWert().equals(kriterien[i])) 
 						treffer++;
 				}
 			}

@@ -138,6 +138,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
+	 * Setzt den Angebotszaehler
+	 * @param anz
+	 */
+	public static void setAnzahl(int anz){
+		anzahl = anz;
+	}
+	/**
 	 * Get Angebotsnummer
 	 * 
 	 * @return Angebotsnummer
