@@ -322,6 +322,10 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	public String getFullInfo() {
 		return beschreibung;
 	}
+	
+	public int getListableTyp(){
+		return ANGEBOT;
+	}
 
 	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
 	/**
@@ -356,10 +360,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		result += (this.getWertung()-pangebot.getWertung())*angebotsGewichtung;
 		
 		return (int) Math.round(result);
-	}
-	
-	public int getListableTyp(){
-		return ANGEBOT;
 	}
 	
 	public static String typToString(int flag){

@@ -41,7 +41,7 @@ public class AngDetailScreen extends JPanel{
 	private JButton buchen = new JButton("Buchen");
 	private JButton melden = new JButton("Melden");
 	private JButton kommentieren = new JButton("Kommentieren");
-	private JButton loeschen = new JButton("Löschen");
+	private JButton loeschen = new JButton("Lï¿½schen");
 	private JButton editieren = new JButton("Editieren");
 	private JButton kontaktieren = new JButton("kontaktieren");
 	
@@ -142,7 +142,7 @@ public class AngDetailScreen extends JPanel{
 					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_BUCHEN) == JOptionPane.OK_OPTION)
 					{
 						DialogScreen dialog = new DialogScreen(null,"Buchen",DialogScreen.OK_CANCEL_OPTION)
-						//TODO vllt. da das datum von bis setten und dann der buchung übergeben
+						//TODO vllt. da das datum von bis setten und dann der buchung ï¿½bergeben
 						{
 							@Override
 							public void onOK()
@@ -158,7 +158,7 @@ public class AngDetailScreen extends JPanel{
 							}
 						};
 						dialog.setEditable(false);
-						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLÄRUNG + anbieterl.getText(), DialogScreen.LABEL_LEFT);
+						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLAERUNG + anbieterl.getText(), DialogScreen.LABEL_LEFT);
 						dialog.setLabelContent(MeldeDienst.MSG_GESAMMT_BEWERUNG + anbieter.getWertung(), DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
