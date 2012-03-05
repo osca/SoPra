@@ -342,27 +342,27 @@ public class Accountverwaltung {
 	}
 
 	/**
-	 * Sucht einen Account über seinen Nick-/Unternehmensnamen
+	 * Sucht einen Account über seinen Nick-/Unternehmensnamen - CaseInsensitive
 	 * 
 	 * @param name
 	 * @return passender Account oder null falls nicht gefunden
 	 */
 	public Account getAccountByName(String name) {
 		for (Account acc : getAccounts())
-			if (acc.getName().equals(name))
+			if (acc.getName().toLowerCase().equals(name.toLowerCase()))
 				return acc;
 		return null;
 	}
 
 	/**
-	 * Sucht einen Account über seine E-Mail-Adresse
+	 * Sucht einen Account über seine E-Mail-Adresse - CaseInsensitive
 	 * 
 	 * @param email
 	 * @return passender Account oder null falls nicht gefunden
 	 */
 	public Account getAccountByEmail(String email) {
 		for (Account acc : getAccounts())
-			if (acc.getEmail().equals(email))
+			if (acc.getEmail().toLowerCase().equals(email.toLowerCase()))
 				return acc;
 		return null;
 	}
@@ -410,10 +410,11 @@ public class Accountverwaltung {
 	 * @return Vergeben oder nicht
 	 */
 	public boolean isFreeEmail(String email) {
-		if(! email.matches(".+@.+\\..+"))
+		String emailValid = ".+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
+		if(! email.matches(emailValid) && !email.contains(".."))
 			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		for (Account a : getAccounts())
-			if (a.getEmail().equals(email))
+			if (a.getEmail().toLowerCase().equals(email.toLowerCase()))
 				return false;
 		return true;
 	}
@@ -429,7 +430,7 @@ public class Accountverwaltung {
 		if(name.length()<2)
 			throw new IllegalArgumentException("Bitte wählen Sie einen Namen mit mehr als 2 Zeichen");
 		for (Account a : getAccounts())
-			if (a.getName().equals(name))
+			if (a.getName().toLowerCase().equals(name.toLowerCase()))
 				return false;
 		return true;
 	}
