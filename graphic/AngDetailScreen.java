@@ -60,7 +60,7 @@ public class AngDetailScreen extends JPanel{
 		mid = new JPanel(new GridLayout(1,0));
 		down = new JPanel(new GridLayout(1,0));
 		
-		name = new JLabel(angebot.getIdentifier());
+		name = new JLabel(angebot.getName());
 		typ = new JLabel (""+Angebot.typToString(angebot.getTyp()));
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		vondatum = new JLabel(formatter.format(angebot.getStartdatum()));

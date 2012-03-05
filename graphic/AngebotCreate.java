@@ -105,13 +105,12 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		JLabel preis_label = new JLabel("Preis:");
 		sub_a.add(preis_label);
 		preis =new JFormattedTextField(new DecimalFormat("#*0.00"));
-		//preis = new JFormattedTextField(new DecimalFormat("#*0.##"));
 		sub_a.add(preis);
 		
 		//Kapazitaet+Label
 		JLabel kap_label = new JLabel("Kapazitaet:");
 		sub_a.add(kap_label);
-		kap = new JTextField();
+		kap = new JFormattedTextField(new Integer("#*0"));
 		sub_a.add(kap);
 		
 		//Startdatum+Label
@@ -126,11 +125,11 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		bis = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
 		sub_a.add(bis);
 		
-		//Laenge+Label
-		JLabel interval_label = new JLabel("Laenge:");
-		sub_a.add(interval_label);
-		interval =new JFormattedTextField(NumberFormat.getInstance());
-		sub_a.add(interval);
+//		//Laenge+Label
+//		JLabel interval_label = new JLabel("Laenge:");
+//		sub_a.add(interval_label);
+//		interval =new JFormattedTextField(NumberFormat.getInstance());
+//		sub_a.add(interval);
 		
 		//Anbieter
 		JLabel anbieter_label = new JLabel("Anbieter:");
