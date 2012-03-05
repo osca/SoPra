@@ -242,7 +242,7 @@ public class MainFrame extends JFrame
 		{
 			Anbieter an = Portal.Accountverwaltung().createAnbieter("Bet@Reiber.de", "herr", "pass", "Ihre Seele gehört mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
-			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(1514651435), "hell");
+			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
 		}
 		catch(Exception e)
 		{
