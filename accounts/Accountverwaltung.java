@@ -409,7 +409,7 @@ public class Accountverwaltung {
 	 *            E-Mail Adresse
 	 * @return Vergeben oder nicht
 	 */
-	private boolean isFreeEmail(String email) {
+	public boolean isFreeEmail(String email) {
 		if(! email.matches(".+@.+\\..+"))
 			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		for (Account a : getAccounts())
@@ -425,7 +425,7 @@ public class Accountverwaltung {
 	 *            Username
 	 * @return Vergeben oder nicht
 	 */
-	private boolean isFreeName(String name) {
+	public boolean isFreeName(String name) {
 		if(name.length()<2)
 			throw new IllegalArgumentException("Bitte wählen Sie einen Namen mit mehr als 2 Zeichen");
 		for (Account a : getAccounts())
