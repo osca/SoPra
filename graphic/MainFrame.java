@@ -32,6 +32,7 @@ import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
 import accounts.Anbieter;
+import accounts.Betreiber;
 import accounts.Default;
 import accounts.Kunde;
 import accounts.LoginException;
@@ -61,7 +62,7 @@ public class MainFrame extends JFrame
 	
 	private boolean logged = false;
 	
-	private MainFrame frame = this; //quick'n'dirty  nur vorübergehend
+	private MainFrame frame = this; //quick'n'dirty  nur vorï¿½bergehend
 
 	public MainFrame()
 	{
@@ -236,7 +237,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehört mir!");
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehï¿½rt mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
 			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
 		}
@@ -369,7 +370,7 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Password");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			JLabel choice = new JLabel("Wählen sie bitte Ihren Accounttypen");
+			JLabel choice = new JLabel("Wï¿½hlen sie bitte Ihren Accounttypen");
 			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
@@ -383,7 +384,7 @@ public class MainFrame extends JFrame
 				{
 					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschäftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschï¿½ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -406,7 +407,7 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
-					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschäftsbedingungen an!", DialogScreen.LABEL_LEFT);
+					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Geschï¿½ftsbedingungen an!", DialogScreen.LABEL_LEFT);
 				}
 			}
 		}

@@ -42,10 +42,10 @@ public class Angebotsverarbeitung {
 		if(!(typ==Angebot.AUSFLUG||typ==Angebot.AUTOVERMIETUNG||typ==Angebot.FLUG||typ==Angebot.HOTEL)){
 			throw new SuchException("Bei Angebotstyp muss eine Option gewählt werden.");
 		}
-		if(kapazitaet<=0){
+		if(kapazitaet<0){
 			throw new SuchException("Kapazitaet muss mindestens 1 sein.");
 		}
-		if(vonPreis<=bisPreis||bisPreis<=0||vonPreis<=0){
+		if(vonPreis<bisPreis||bisPreis<0||vonPreis<0){
 			throw new SuchException("Preise müssen größer als null sein und der Startpreis muss echtgrößer als der Endpreis sein");
 		}
 		if(von.compareTo(heute)<0||bis.compareTo(heute)<0||von.compareTo(bis)>0){
