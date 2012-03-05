@@ -43,18 +43,27 @@ public class Angebotsverwaltung {
 	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date von, Date bis, String[] krit) throws InvalidDateException {
+		int shift = 0;
 		switch(typ) {
-		case Angebot.AUTOVERMIETUNG:
-			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.ORT]);
-		case Angebot.AUSFLUG:
-			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.ORT], krit[Ausflug.BIERPREIS]);
-		case Angebot.HOTEL:
+		case Angebot.AUTOVERMIETUNG:{
+			shift = Autovermietung.ORT;
+			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.ORT-shift]);
+		}
+		case Angebot.AUSFLUG:{
+			shift = Ausflug.ORT;
+			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.ORT-shift], krit[Ausflug.BIERPREIS-shift]);
+		}
+		case Angebot.HOTEL:{
+			shift = Hoteluebernachtung.ORT;
 			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, von, bis, 
-					krit[Hoteluebernachtung.ORT], krit[Hoteluebernachtung.KLIMA], krit[Hoteluebernachtung.STERNE], 
-					krit[Hoteluebernachtung.VERPFLEGUNGSART], krit[Hoteluebernachtung.BIERPREIS]);
-		case Angebot.FLUG:
-			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Flug.START], krit[Flug.ZIEL], 
-						krit[Flug.KLASSE], krit[Flug.BIERPREIS]);
+					krit[Hoteluebernachtung.ORT-shift], krit[Hoteluebernachtung.KLIMA-shift], krit[Hoteluebernachtung.STERNE-shift], 
+					krit[Hoteluebernachtung.VERPFLEGUNGSART-shift], krit[Hoteluebernachtung.BIERPREIS-shift]);
+		}
+		case Angebot.FLUG:{
+			shift = Flug.START;
+			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Flug.START-shift], krit[Flug.ZIEL-shift], 
+						krit[Flug.KLASSE-shift], krit[Flug.BIERPREIS-shift]);
+		}
 		default : 
 			return null;
 		}
