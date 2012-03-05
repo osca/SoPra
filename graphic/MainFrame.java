@@ -399,10 +399,10 @@ public class MainFrame extends JFrame
 								Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),this.getContent());
 								JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
 							} 
-							catch (Exception e) 
+							catch (AlreadyInUseException e) 
 							{
 								e.printStackTrace();
-								JOptionPane.showMessageDialog(this, e.toString());
+								JOptionPane.showMessageDialog(this, MeldeDienst.MSG_REG_EXISTIERT);
 							}
 						}
 						
@@ -416,10 +416,10 @@ public class MainFrame extends JFrame
 				}
 			}
 		}
-		catch(Exception e)
-		{//TODO exceptionhandling
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+		catch(AlreadyInUseException e)
+		{
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_REG_EXISTIERT);
 		}
 	}
 	
