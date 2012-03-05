@@ -168,7 +168,8 @@ public class AngDetailScreen extends JPanel{
 				{
 					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_ANGEBOT_MELDEN, "Angebot melden", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 					{ //TODO welcher betreiber soll die meldung bekommen
-						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Accountverwaltung().getBetreiber().get(0), MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET,angebot);
+						
+						Portal.Nachrichtenverwaltung().sendeMeldungAnAlleBetreiber(Portal.Accountverwaltung().getLoggedIn(), MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET,angebot);
 						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, MeldeDienst.MSG_BESCHWERDE, MeldeDienst.MSG_ANGEBOT_GEMELDET, angebot);
 					}
 				}
