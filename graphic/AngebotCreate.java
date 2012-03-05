@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -202,14 +203,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			}
 			try {
 				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
+				JOptionPane.showMessageDialog(this, "Erstellung erfolgreich");
 			} catch (NumberFormatException e1) {
-				
+			
 				e1.printStackTrace();
 			} catch (InvalidDateException e1) {
-				
+				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
 				e1.printStackTrace();
 			}
-			//TODO rückmeldung zum angebot
+			
 			
 		}
 		
