@@ -121,7 +121,8 @@ public class AngDetailScreen extends JPanel{
 			break;
 		
 		case Account.ANBIETER:
-			down.add(loeschen);
+			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
+				down.add(loeschen);
 			down.add(editieren);
 			break;
 		
@@ -232,8 +233,7 @@ public class AngDetailScreen extends JPanel{
 			{
 				try 
 				{
-					if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
-						Portal.Angebotsverwaltung().delAngebot(angebot);
+					Portal.Angebotsverwaltung().delAngebot(angebot);
 					JOptionPane.showMessageDialog(up.getParent(), "Angebot erfolgreich geloescht");
 				} 
 				catch (LoeschenNichtMoeglichException e) 
