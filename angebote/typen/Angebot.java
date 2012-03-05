@@ -20,10 +20,10 @@ import buchungen.Buchung;
 public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	//FLAGS
-	public static final int FLUG = 1,
-							AUTOVERMIETUNG = 2,
-							AUSFLUG = 3,
-							HOTEL = 4;
+	public static final int FLUG = 11,
+							AUTOVERMIETUNG = 12,
+							AUSFLUG = 13,
+							HOTEL = 14;
 	
 	private static int anzahl = 0;
 	
