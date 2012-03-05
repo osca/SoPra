@@ -5,11 +5,11 @@ import buchungen.Bestaetigung;
 
 public interface  Listable {
 	
-	public static final int ANGEBOT = 0,
-							BUCHUNG = 1,
-							NACHRICHT = 2,
-							ACCOUNT = 3,
-							KOMMENTAR = 4;
+	public static final int ANGEBOT = 50,
+							BUCHUNG = 51,
+							NACHRICHT = 52,
+							ACCOUNT = 53,
+							KOMMENTAR = 54;
 	
 	public String getIdentifier();
 	
