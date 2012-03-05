@@ -29,8 +29,8 @@ public class NachrichtenVerwaltungTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		accv.createAnbieter("anbietermail", "anbieter1", "pw");
-		accv.createKunde("kundeemail", "kunde1", "pw");
+		accv.createAnbieter("anbieter@ma.il", "anbieter1", "pw");
+		accv.createKunde("kunde@email.de", "kunde1", "pw");
 		
 		anbieter = accv.getAnbieter().get(0);
 		kunde = accv.getKunden().get(0);
