@@ -342,6 +342,7 @@ public class Accountverwaltung {
 		result.addAll(getAnbieter());
 		result.addAll(getBetreiber());
 		result.addAll(getKunden());
+		result.remove(loggedIn);
 		return result;
 	}
 
