@@ -183,6 +183,8 @@ public class AngDetailScreen extends JPanel{
 								{
 									e.printStackTrace();
 								}
+								dispose();
+								JOptionPane.showMessageDialog(null, "Ihre Buchungsanfrage wurde an den Anbieter gesendet, bitte warten Sie auf eine Bestaetigung");
 							}
 						};
 						dialog.setEditable(false);
