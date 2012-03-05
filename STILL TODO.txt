@@ -2,7 +2,7 @@
 
 2. TopAngebote werden nicht gelistet obwohl rein technisch in der Klasse alles i.o.
 hope fully
-
+3. der betreiber sollte einen button haben der ihn von der beschwerdenachricht direkt zum angebot bringt
 
 
 !!!7. exceptionhandling ist bei der gui n witz. nur jays OptionPanes retten das system vorm zusammenbruch,
