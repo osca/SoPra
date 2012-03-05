@@ -1,9 +1,12 @@
 
 
 2. TopAngebote werden nicht gelistet obwohl rein technisch in der Klasse alles i.o.
+hope fully
 
-5. kann einer rausfinden wie man die JDialogs vor den frame schiebt und der frame nicht mehr anfassbar wird? so wie bei JOptionPanes -> setModal(true); setAlwaysOnTop(true);
-6. hatten wir uns nicht drauf geeinigt die emailadressen nicht zu handeln? 
-beim nachrichten lesen steht der absender oben als email. 
-sowie auch beim erstellen eines neuen angebots der anbieter als emailadresse steht. wozu dann noch nicknames?
-7. exceptionhandling ist bei der gui n witz. nur jays OptionPanes retten das system vorm zusammenbruch, aber die nachricht ist nix für benutzer
+
+5. kann einer rausfinden wie man die JDialogs vor den frame schiebt und der frame nicht mehr anfassbar wird? 
+so wie bei JOptionPanes -> setModal(true) //Solte man evtl im Konstruktor übergebn; setAlwaysOnTop(true);
+
+
+!!!7. exceptionhandling ist bei der gui n witz. nur jays OptionPanes retten das system vorm zusammenbruch,
+aber die nachricht ist nix für benutzer!!!
