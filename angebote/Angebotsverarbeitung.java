@@ -31,12 +31,17 @@ public class Angebotsverarbeitung {
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfüllen.
 	 * @pre Startdatum ist kleiner als das Enddatum
 	 */
-	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien){
+	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien)
+		throws TypIstNoetigException{
 		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
 		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote(); 
-
+		
+		if(!(typ==Angebot.AUSFLUG||typ==Angebot.AUTOVERMIETUNG||typ==Angebot.FLUG||typ==Angebot.HOTEL)){
+			throw new TypIstNoetigException();
+		}
+		
 		for(Angebot a:erstellteAngebote){
 			treffer = 0;
 			if(a.getName()==name||name==KEINNAME) 
