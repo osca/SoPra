@@ -156,7 +156,17 @@ public class AngDetailScreen extends JPanel{
 					{
 						if (fromField.getText().length() == 0 || toField.getText().length() == 0) throw new IllegalArgumentException();
 						
-						DialogScreen dialog = new DialogScreen(null,"Buchen",DialogScreen.OK_CANCEL_OPTION)
+						SimpleDateFormat to = new SimpleDateFormat("dd/mm/yyyy");
+						SimpleDateFormat from = new SimpleDateFormat("dd/mm/yyyy");
+
+						to.parse(toField.getText());
+						from.parse(fromField.getText());
+						
+						JOptionPane.showMessageDialog(null, to.toString());
+						
+						System.out.println("" + to.toString());
+						
+						DialogScreen dialog = new DialogScreen(null, "Buchen", DialogScreen.OK_CANCEL_OPTION)
 						//TODO vllt. da das datum von bis setten und dann der buchung �bergeben
 						{
 							@Override
