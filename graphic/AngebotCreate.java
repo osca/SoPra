@@ -227,7 +227,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			
 		}
 		
-		else if(e.getSource()==schen){
+		else if(e.getSource()==loeschen){
 			name.setText(null);
 			typ.setSelectedIndex(0);
 			preis.setText(null);
