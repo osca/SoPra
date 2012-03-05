@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -155,11 +156,14 @@ public class AngDetailScreen extends JPanel{
 					{
 						if (fromField.getText().length() == 0 || toField.getText().length() == 0) throw new IllegalArgumentException();
 						
-						SimpleDateFormat to = new SimpleDateFormat("dd/mm/yyyy");
-						SimpleDateFormat from = new SimpleDateFormat("dd/mm/yyyy");
+						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");
+						
 
-						to.parse(toField.getText());
-						from.parse(fromField.getText());
+						Date a =to.parse(toField.getText());
+						Date b =to.parse(fromField.getText());
+						if(Methods.checkDate(a,b)){
+							
+						}
 
 						
 						DialogScreen dialog = new DialogScreen(null, "Buchen", DialogScreen.OK_CANCEL_OPTION)
