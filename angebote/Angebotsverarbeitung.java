@@ -32,15 +32,26 @@ public class Angebotsverarbeitung {
 	 * @pre Startdatum ist kleiner als das Enddatum
 	 */
 	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet ,double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien)
-		throws TypIstNoetigException{
+		throws SuchException{
 		int alleTreffer = 4+kriterien.length;
 		int treffer=0;
+		Date heute = new Date();
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
 		ArrayList<Angebot> erstellteAngebote = getAktuelleAngebote(); 
 		
 		if(!(typ==Angebot.AUSFLUG||typ==Angebot.AUTOVERMIETUNG||typ==Angebot.FLUG||typ==Angebot.HOTEL)){
-			throw new TypIstNoetigException();
+			throw new SuchException("Bei Angebotstyp muss eine Option gewählt werden.");
 		}
+		if(kapazitaet<=0){
+			throw new SuchException("Kapazitaet muss mindestens 1 sein.");
+		}
+		if(vonPreis<=bisPreis||bisPreis<=0||vonPreis<=0){
+			throw new SuchException("Preise müssen größer als null sein und der Startpreis muss echtgrößer als der Endpreis sein");
+		}
+		if(von.compareTo(heute)<0||bis.compareTo(heute)<0||von.compareTo(bis)>0){
+			throw new SuchException("Datum darf nicht in der Vergangenheit liegen. Startdatum muss vor dem Enddatum liegen");
+		}
+		
 		
 		for(Angebot a:erstellteAngebote){
 			treffer = 0;
