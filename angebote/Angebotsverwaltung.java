@@ -74,12 +74,12 @@ public class Angebotsverwaltung {
 	 * @see Autovermietung
 	 */
 	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String ort) throws InvalidDateException{
-		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, ort);
 		if(von.before(new Date()))
 			von = new Date();
 		if(bis.before(von))
 			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
 		
+		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, ort);
 		anbieter.addAngebot(av);
 		angebote.add(av);
 		return av;

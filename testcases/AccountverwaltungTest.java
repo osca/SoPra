@@ -81,7 +81,7 @@ public class AccountverwaltungTest {
 		acv = Portal.Accountverwaltung();
 		
 		try {
-			acv.setEnableAccount(acv.getKunden().get(0), false);
+			acv.setEnableAccount(acv.getKunden().get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -12,7 +12,7 @@ import main.Portal;
 public abstract class Account implements Listable{
 	
 	private String email, name, password;
-	protected boolean gesperrt = false;
+	protected Gesperrt gesperrt = Gesperrt.NEIN;
 	
 	public static final int NONE = 0,
 							KUNDE = 1,
@@ -66,14 +66,14 @@ public abstract class Account implements Listable{
 	/**
 	 * @return gibt an ob der Account gesperrt ist
 	 */
-	public boolean isGesperrt() {
+	public Gesperrt isGesperrt() {
 		return gesperrt;
 	}
 
 	/**Setzt den Account auf gesperrt bzw. nicht gesperrt
 	 * @param gesperrt : true - sperrt account, false - entsperrt Account
 	 */
-	void setGesperrt(boolean gesperrt) {		//package
+	void setGesperrt(Gesperrt gesperrt) {		//package
 		this.gesperrt = gesperrt;
 	}
 	//-----------------------------------------------------------------------------

@@ -196,10 +196,10 @@ public class Accountverwaltung {
 	 *            Aktiv oder nicht
 	 * @throws Exception Wenn kein Betreiber eingeloggt ist
 	 */
-	public void setEnableAccount(Account acc, boolean enable) throws Exception {
+	public void setEnableAccount(Account acc) throws Exception {
 		if(!betreiber.contains(loggedIn))
 			throw new Exception("Sie sind nicht als Betreiber eingeloggt!");
-		acc.setGesperrt(!enable);
+		acc.setGesperrt(Gesperrt.NEIN);
 	}
 
 	/**
@@ -453,4 +453,6 @@ public class Accountverwaltung {
 		else
 			throw new Exception("Sie sind kein Betreiber");
 	}
+	
+	
 }
