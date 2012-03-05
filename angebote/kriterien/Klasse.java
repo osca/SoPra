@@ -20,4 +20,8 @@ public class Klasse extends Kriterium{
 	public Klasse(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
+	
+	public String getName(){
+		return name;
+	}
 }

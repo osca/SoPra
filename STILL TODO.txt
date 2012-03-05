@@ -7,5 +7,6 @@ hope fully
 4. Anbieter muss moeglichkeit haben Buchungen zu seinen Angeboten ansehen zu koennen 
 und diese zu bestaetigen oder zu verwerfen
 
+5. Anbieter duerfen nur eigene Angebote loeschen
 !!!7. exceptionhandling ist bei der gui n witz. nur jays OptionPanes retten das system vorm zusammenbruch,
 aber die nachricht ist nix f�r benutzer!!!

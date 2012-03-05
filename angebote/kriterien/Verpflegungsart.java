@@ -20,4 +20,8 @@ public class Verpflegungsart extends Kriterium{
 	public Verpflegungsart(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
+
+	public String getName(){
+		return name;
+	}
 }

@@ -21,4 +21,7 @@ public class Sterne extends Kriterium {
 		super(pwert);
 	}
 
+	public String getName(){
+		return name;
+	}
 }
