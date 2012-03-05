@@ -5,17 +5,18 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import buchungen.InvalidDateException;
+import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Account;
@@ -140,12 +141,20 @@ public class AngDetailScreen extends JPanel{
 		buchen.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void actionPerformed(ActionEvent arg0)
 			{
 				try
 				{
-					if(JOptionPane.showConfirmDialog(up.getParent(), MeldeDienst.QSN_BUCHEN) == JOptionPane.OK_OPTION)
+					JLabel label = new JLabel("Geben Sie den Zeitraum an:");
+					JLabel fromLabel = new JLabel("Von:");
+					JLabel toLabel = new JLabel("Bis:");
+					JFormattedTextField fromField = new JFormattedTextField(new MaskFormatter("##/##/####"));
+					JFormattedTextField toField = new JFormattedTextField(new MaskFormatter("##/##/####"));
+					
+					if(JOptionPane.showConfirmDialog(null, new Object[]{label, fromLabel, fromField, toLabel, toField}, "Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 					{
+						if (fromField.getText().length() == 0 || toField.getText().length() == 0) throw new IllegalArgumentException();
+						
 						DialogScreen dialog = new DialogScreen(null,"Buchen",DialogScreen.OK_CANCEL_OPTION)
 						//TODO vllt. da das datum von bis setten und dann der buchung �bergeben
 						{
