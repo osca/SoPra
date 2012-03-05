@@ -271,8 +271,8 @@ public class MainFrame extends JFrame
 		}
 		else
 		{
-//			try
-//			{
+			try
+			{
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
@@ -281,12 +281,12 @@ public class MainFrame extends JFrame
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 				this.repaint();
-//			}
-//			catch(Exception e)
-//			{//TODO exceptionhandling
-//				e.printStackTrace();
-//				JOptionPane.showMessageDialog(this, e.toString());
-//			}
+			}
+			catch(Exception e)
+			{//TODO exceptionhandling
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.toString());
+			}
 		}
 	}
 
