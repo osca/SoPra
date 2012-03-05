@@ -92,7 +92,12 @@ public abstract class Account implements Listable{
 	}
 	
 	public String getStatus(){ // vllt. 
-		return ""+(Portal.Accountverwaltung().getLoggedIn()).equals(this);
+		switch(gesperrt){
+		case JA : return "gesperrt";
+		case UNBERARBEITET : return "nicht freigeschaltet";
+		case NEIN : return "freigeschaltet";
+		default : return "";
+		}
 	}
 	
 	public int getListableTyp(){
