@@ -52,6 +52,21 @@ public class Nachrichtenverwaltung {
 		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
 		alleNachrichten.add(msg);
 	}
+	
+	/**
+	 * Sende Meldung an alle Betreiber (Meldung eines Angebots)
+	 * 
+	 * @param absender Absender (Meist Kunde)
+	 * @param betreff Betreff
+	 * @param text Text
+	 * @param angebot Zu meldendes Angebot
+	 */
+	public void sendeMeldungAnAlleBetreiber(Account absender, String betreff, String text, Angebot angebot) {
+		ArrayList<Betreiber> betreiberListe = Portal.Accountverwaltung().getBetreiber();
+		for(Betreiber betreiber:betreiberListe) {
+			sendeNachricht(absender, betreiber, betreff, text, angebot);
+		}
+	}
 
 	/**
 	 * Gibt den Posteingang eines Accounts aus
