@@ -230,11 +230,15 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				try {
-					Portal.Angebotsverwaltung().delAngebot(angebot);
-					JOptionPane.showMessageDialog(null, "Angebot erfolgreich geloescht");
-				} catch (LoeschenNichtMoeglichException e) {
-					JOptionPane.showConfirmDialog(null, "Loeschen nicht moeglich");
+				try 
+				{
+					if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
+						Portal.Angebotsverwaltung().delAngebot(angebot);
+					JOptionPane.showMessageDialog(up.getParent(), "Angebot erfolgreich geloescht");
+				} 
+				catch (LoeschenNichtMoeglichException e) 
+				{
+					JOptionPane.showConfirmDialog(up.getParent(), "Loeschen nicht moeglich");
 					e.printStackTrace();
 				}
 			}
