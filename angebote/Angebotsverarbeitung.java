@@ -12,7 +12,7 @@ public class Angebotsverarbeitung {
 	public final static String KEINNAME		= "";
 	public final static int KEINEKAPAZITAET	= 0;
 	public final static double KEINPREIS 	= 0;
-	public final static Date KEINEDATEN	= new Date(00/00/000);
+	public final static Date KEINEDATEN	= new Date(0);
 	public final static String KEINKRITERIUM = "";
 	/**
 	 * Die Methode geht alle übergebenen Parameter durch für alle Angebote und wenn ein Angebot dabei alle Parameter erfüllen kann wird es der
