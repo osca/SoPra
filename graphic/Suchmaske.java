@@ -84,7 +84,7 @@ public class Suchmaske extends JPanel{
 		typ_list.add("Typ");
 		typ_list.add("Hoteluebernachtung");
 		typ_list.add("Autovermietung");
-		typ_list.add("Ausflueg");
+		typ_list.add("Ausflug");
 		typ_list.add("Flug");
 		typ = new JComboBox(typ_list);
 		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
@@ -277,7 +277,6 @@ public class Suchmaske extends JPanel{
 					  k[i]= ((JFormattedTextField) c).getText();
 				 }
 			}
-//			Date[] date = Methods.dater(von.getText(),bis.getText(),Integer.parseInt(interval.getText()));
 			if(typ.getSelectedIndex()!=0)
 			{	
 				int chosenType = Angebot.convertNameToTyp(typ.getSelectedItem().toString());
