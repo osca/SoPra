@@ -270,13 +270,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	public static String convertTypToName(int type) {
 		switch(type) {
-			case 1:
+			case FLUG:
 				return "Flug";
-			case 2:
+			case AUTOVERMIETUNG:
 				return "Autovermietung";
-			case 3:
+			case AUSFLUG:
 				return "Ausflug";
-			case 4:
+			case HOTEL:
 				return "Hotel";
 		}
 		return "Not a Type";
@@ -302,7 +302,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getIdentifier() {
-		return Integer.toString(angebotsNummer);
+		return "["+Integer.toString(angebotsNummer)+"] "+name;
 	}
 
 	/**
@@ -310,7 +310,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getAdditionalInfo() {
-		return convertTypToName(typ);
+		return convertTypToName(typ)+ " - "+getAnbieterName();
 	}
 
 	/**

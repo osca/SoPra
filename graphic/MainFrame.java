@@ -38,6 +38,7 @@ import accounts.Kunde;
 import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
+import angebote.typen.Autovermietung;
 import buchungen.Buchung;
 
 public class MainFrame extends JFrame
@@ -239,7 +240,8 @@ public class MainFrame extends JFrame
 			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
 			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele geh�rt mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
-			Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
+			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
+			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 		}
 		catch(Exception e)
 		{

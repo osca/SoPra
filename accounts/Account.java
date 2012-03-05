@@ -66,8 +66,11 @@ public abstract class Account implements Listable{
 	/**
 	 * @return gibt an ob der Account gesperrt ist
 	 */
-	public Gesperrt isGesperrt() {
-		return gesperrt;
+	public boolean isGesperrt() {
+		if(gesperrt == Gesperrt.JA || gesperrt == Gesperrt.UNBERARBEITET)
+			return true;
+		else
+			return false;
 	}
 
 	/**Setzt den Account auf gesperrt bzw. nicht gesperrt
