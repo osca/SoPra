@@ -279,9 +279,9 @@ public class SuchScreen extends JPanel
 						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 						Calendar calendar = new GregorianCalendar();
 						calendar.setTime(new Date());
-						calendar.add(Calendar.DAY_OF_MONTH, 1);
+						//calendar.add(Calendar.DAY_OF_MONTH, 1);
 						//Date a = calendar.getTime();
-						bis = (Date) calendar.getTime();
+						bis = calendar.getTime();
 						
 					}
 				}
