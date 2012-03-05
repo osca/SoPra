@@ -277,7 +277,7 @@ public class MainFrame extends JFrame
 			try
 			{
 				Nachricht nachricht = (Nachricht)obj;
-				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OPTION);
+				DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
 				dialog.setLabelContent("Absender: "+nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
@@ -288,7 +288,7 @@ public class MainFrame extends JFrame
 			catch(Exception e)
 			{//TODO exceptionhandling
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, e.toString());
+				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
 		}
 	}
@@ -357,12 +357,12 @@ public class MainFrame extends JFrame
 		catch(LoginException e)
 		{
 			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_LOGIN_FEHLERHALFT);
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 		catch (IOException e)
 		{
 			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_SAVE_ERROR);
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
@@ -393,7 +393,7 @@ public class MainFrame extends JFrame
 				{
 					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen(this, "Allgemeine Gesch�ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen("Allgemeine Gesch�ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -479,7 +479,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -496,7 +496,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());			
+			JOptionPane.showMessageDialog(this, e.getMessage());			
 		}
 	}
 	
@@ -513,7 +513,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -529,7 +529,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
@@ -546,7 +546,7 @@ public class MainFrame extends JFrame
 		catch(Exception e)
 		{//TODO exceptionhandling
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.toString());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 

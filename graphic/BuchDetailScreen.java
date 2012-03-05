@@ -97,7 +97,14 @@ public class BuchDetailScreen extends JPanel {
 		stornieren.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showConfirmDialog(null, "Wollen Sie wirklich eine");
+				int confirm = JOptionPane.showConfirmDialog(null, "Wollen Sie wirklich eine Stornierungsanfrage senden?");
+				if(confirm == JOptionPane.OK_OPTION){
+					Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), 
+							Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(b)),
+							"Stornierunsganfrage", "Der Kunde moechte seine Buchung stornieren", 
+							Portal.Buchungsverwaltung().getReferringAngebot(b));
+					JOptionPane.showConfirmDialog(null, "Ihre Stornierungsanfrage wurde gesendet");
+				}
 			}
 		});
 		down.add(BorderLayout.EAST, aenderungsanfrage);

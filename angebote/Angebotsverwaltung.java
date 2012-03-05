@@ -56,8 +56,26 @@ public class Angebotsverwaltung {
 			cal.set(Calendar.MILLISECOND, 0);
 			von = cal.getTime();
 		}
+		else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(von);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			von = cal.getTime();
+		}
 		if(bis.before(von))
 			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
+		else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(bis);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			bis = cal.getTime();
+		}
 		
 		int shift = 0;
 		switch(typ) {

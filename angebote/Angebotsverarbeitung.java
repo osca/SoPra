@@ -56,7 +56,7 @@ public class Angebotsverarbeitung {
 		if(kapazitaet<0){
 			throw new SuchException("Kapazitaet muss mindestens 1 sein.");
 		}
-		if(vonPreis<bisPreis||bisPreis<0||vonPreis<0){
+		if(vonPreis>bisPreis||bisPreis<0||vonPreis<0){
 			throw new SuchException("Preise müssen größer als null sein und der Endpreis muss echtgrößer als der Startpreis sein");
 		}
 		if(von.compareTo(heute)<0||bis.compareTo(heute)<0||von.compareTo(bis)>0){
@@ -77,7 +77,7 @@ public class Angebotsverarbeitung {
 				if(von==KEINEDATEN && bis==KEINEDATEN) 
 					treffer++;
 				else {
-					if(von.after(a.getStartdatum()) && von.before(a.getEnddatum()) && bis.before(a.getEnddatum()))
+					if(!von.before(a.getStartdatum()) && (a.getEnddatum().after(von) || a.getEnddatum().equals(von)) && (a.getEnddatum().after(bis) || a.getEnddatum().equals(bis)))
 						treffer++;
 				}
 				ArrayList<Kriterium> kritContainer = a.getKriterien();
@@ -124,7 +124,15 @@ public class Angebotsverarbeitung {
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
-		Date now = new Date();
+		//Heutigen Tag initialisieren
+				Date now = new Date();
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(now);
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				now = cal.getTime();
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
@@ -138,7 +146,15 @@ public class Angebotsverarbeitung {
 	public ArrayList<Angebot> getAktuelleAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
+		//Heutigen Tag initialisieren
 		Date now = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(now);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		now = cal.getTime();
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
