@@ -14,4 +14,7 @@ public class Land extends Kriterium{
 		super(pwert);
 	}
 
+	public String getName(){
+		return name;
+	}
 }

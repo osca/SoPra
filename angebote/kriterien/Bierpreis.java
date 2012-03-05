@@ -21,4 +21,8 @@ public class Bierpreis extends Kriterium {
 		super(pwert);
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
 }

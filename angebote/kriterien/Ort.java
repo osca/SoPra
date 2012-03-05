@@ -20,5 +20,8 @@ public class Ort extends Kriterium{
 	public Ort(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}
-	
+
+	public String getName(){
+		return name;
+	}
 }

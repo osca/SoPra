@@ -122,7 +122,8 @@ public class AngDetailScreen extends JPanel{
 			break;
 		
 		case Account.ANBIETER:
-			down.add(loeschen);
+			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
+				down.add(loeschen);
 			down.add(editieren);
 			break;
 		
@@ -231,11 +232,14 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				try {
+				try 
+				{
 					Portal.Angebotsverwaltung().delAngebot(angebot);
-					JOptionPane.showMessageDialog(null, "Angebot erfolgreich geloescht");
-				} catch (LoeschenNichtMoeglichException e) {
-					JOptionPane.showConfirmDialog(null, "Loeschen nicht moeglich");
+					JOptionPane.showMessageDialog(up.getParent(), "Angebot erfolgreich geloescht");
+				} 
+				catch (LoeschenNichtMoeglichException e) 
+				{
+					JOptionPane.showConfirmDialog(up.getParent(), "Loeschen nicht moeglich");
 					e.printStackTrace();
 				}
 			}

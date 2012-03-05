@@ -21,4 +21,8 @@ public class Klima extends Kriterium {
 		super(pwert);
 	}
 
+	public String getName(){
+		return name;
+	}
+
 }
