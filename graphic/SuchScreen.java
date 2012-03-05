@@ -295,7 +295,7 @@ public class SuchScreen extends JPanel
 					cal.set(Calendar.SECOND, 0);
 					cal.set(Calendar.MILLISECOND, 0);
 					cal.add(Calendar.YEAR, 20);
-					von = cal.getTime();
+					bis = cal.getTime();
 				}
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
