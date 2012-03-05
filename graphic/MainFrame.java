@@ -263,7 +263,7 @@ public class MainFrame extends JFrame
 			scroll.setViewportView(screen);
 			scroll.repaint();
 		}
-		else if(obj.getListableTyp() == Account.ACCOUNT)
+		if(obj.getListableTyp() == Account.ACCOUNT)
 		{
 			screen.removeAll();
 			screen.add(new AccountScreen((Account)obj));

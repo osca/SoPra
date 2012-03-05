@@ -2,22 +2,30 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import buchungen.Bestaetigung;
 
 import main.Portal;
 
 import accounts.Account;
 import accounts.Anbieter;
+import accounts.Gesperrt;
 import accounts.Kunde;
 
 public class AccountScreen extends JPanel
 {
-	public AccountScreen(Account account)
+	public AccountScreen(final Account account)
 	{
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
@@ -28,8 +36,10 @@ public class AccountScreen extends JPanel
 		
 		////
 		
+		final JPanel main = new JPanel(new GridLayout(1,0));
+		main.setBorder(border);
+		
 		JPanel left = new JPanel(grid);
-		left.setBorder(border);
 		
 		JLabel[] labels = new JLabel[10];
 		labels[0] = new JLabel("Name:");
@@ -54,11 +64,59 @@ public class AccountScreen extends JPanel
 			labels[9] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
 		if(account.getTyp() == Account.ANBIETER)
 			labels[9] = new JLabel(""+Portal.Angebotsverwaltung().getAngebote((Anbieter)account).size());
+		else
+			labels[9] = new JLabel();
 		
 		for(int i=5; i<labels.length; i++)
 			right.add(labels[i]);
 		
-		this.add(left, BorderLayout.WEST);
-		this.add(right, BorderLayout.EAST);
+		//////
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(1,0));
+		final JButton status = new JButton();
+		status.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try
+				{
+					if(JOptionPane.showConfirmDialog(main, "Status aendern?", "Status", JOptionPane.OK_OPTION) == JOptionPane.OK_OPTION)
+					{
+						if(account.isGesperrt())
+						{
+							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.NEIN);
+							status.setText("Entsperren");
+						}
+						else
+						{
+							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.JA);
+							status.setText("Sperren");
+						}
+						status.repaint();
+					}
+				}
+				catch(Exception e)
+				{//TODO exceptionhandling
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(main, e.toString());
+				}
+			}
+			
+		});
+		status.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
+		if(account.isGesperrt())
+			status.setText("Entsperren");
+		else
+			status.setText("Sperren");
+		buttonPanel.add(status);
+		
+		main.add(left);
+		main.add(right);
+		
+		this.add(main, BorderLayout.NORTH);
+		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
+	
+	
 }
