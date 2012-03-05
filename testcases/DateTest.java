@@ -11,10 +11,11 @@ public class DateTest {
 	
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testDatum1() throws ParseException{
 		String start = "01/01/1990",
-				end = "31/01/1990";
+				  end = "31/01/1990";
 		Date[] daten = graphic.Methods.dater(start, end, 1);
 		Assert.assertEquals(new Date("01/01/1990"), daten[0]);
 		Assert.assertEquals(new Date("01/05/1990"), daten[4]);
