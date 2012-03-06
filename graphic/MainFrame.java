@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -67,6 +68,7 @@ public class MainFrame extends JFrame
 	private boolean logged = false;
 	
 	private MainFrame frame = this; //quick'n'dirty  nur vor�bergehend
+	private String agbFromFile;
 
 	public MainFrame()
 	{
@@ -280,13 +282,36 @@ public class MainFrame extends JFrame
 		{
 			try
 			{
-				Nachricht nachricht = (Nachricht)obj;
-				DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
-				dialog.setEditable(false);
-				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
-				dialog.setContent(nachricht.getText());
-				nachricht.setGelesen(true);
-				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				final Nachricht nachricht = (Nachricht)obj;
+				if(Portal.Accountverwaltung().getLoggedIn().getTyp() != Account.BETREIBER)
+				{
+					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
+					dialog.setEditable(false);
+					dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
+					dialog.setContent(nachricht.getText());
+					nachricht.setGelesen(true);
+					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				}
+				else
+				{
+					JButton[] button = new JButton[1];
+					button[0] = new JButton("Zum Angebot");
+					button[0].setPreferredSize(new Dimension(DialogScreen.BUTTONHEIGHT, DialogScreen.BUTTONWIDTH));
+					button[0].addActionListener(new ActionListener()
+					{
+						@Override
+						public void actionPerformed(ActionEvent arg0)
+						{
+							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+						}
+					});
+					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
+					dialog.setEditable(false);
+					dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
+					dialog.setContent(nachricht.getText());
+					nachricht.setGelesen(true);
+					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				}
 				this.repaint();
 			}
 			catch(Exception e)
@@ -398,7 +423,26 @@ public class MainFrame extends JFrame
 				{
 					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					
+					
+					JButton fcb = new JButton("AGB laden");
+					fcb.setPreferredSize(new Dimension(new Dimension(BUTTONWIDTH, BUTTONHEIGHT)));
+					final JFileChooser fc = new JFileChooser();
+					JButton[] button_array = new JButton[1];
+					button_array[0]=fcb;	
+					button_array[0].addActionListener(new ActionListener()
+					{
+						@Override
+						public void actionPerformed(ActionEvent e) 
+						{
+							int x =fc.showOpenDialog(null);
+							if(x==JFileChooser.APPROVE_OPTION)
+							{
+								agbFromFile = Datenhaltung.getStringFromFile(fc.getSelectedFile());
+							}
+						}
+					});
+					DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -421,6 +465,9 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
+					
+					
+					
 					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
 				}
 			}
