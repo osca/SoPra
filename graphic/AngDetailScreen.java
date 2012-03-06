@@ -116,10 +116,16 @@ public class AngDetailScreen extends JPanel{
 		
 		mid.add(fullinfo);
 		
-		/*
-		for(Kommentar k : angebot.getKommentare()) {
+		
+		/*for(Kommentar k : angebot.getKommentare()) {
 			mid.add(new KommentarScreen(k));
 		}*/
+		
+		ArrayList<Kommentar> kommentare = angebot.getKommentare();
+		
+		for(int i = 0; i < kommentare.size(); i++) {
+			mid.add(new KommentarScreen(kommentare.get(i)));
+		}
 		
 		///////////////////
 		
