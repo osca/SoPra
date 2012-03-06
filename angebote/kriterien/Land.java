@@ -23,6 +23,6 @@ public class Land extends Kriterium{
 	}
 	
 	public static String[] getOrte(String laenderName){
-		return Datenhaltung.getStringArrayFromFile(new File("Laender/"+laenderName+".txt"));
+		return Datenhaltung.getStringArrayFromFile(new File("cities/"+laenderName+".txt"));
 	}
 }
