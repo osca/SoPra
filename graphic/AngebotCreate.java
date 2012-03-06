@@ -261,6 +261,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel s_ort_label = new JLabel("Ort:");
 				sub_one.add(s_ort_label);
 				land = new JComboBox(Land.wertebereich);
+				land.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						repaintOrt();
+					}
+					
+				});
 				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
 				sub_two.add(land);
 				sub_two.add(ort);
@@ -299,6 +307,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel s_ort_label = new JLabel("Ort:");
 				sub_one.add(s_ort_label);
 				land = new JComboBox(Land.wertebereich);
+				land.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						repaintOrt();
+					}
+					
+				});
 				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));;
 				sub_two.add(land);
 				sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
@@ -318,7 +334,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				land = new JComboBox(Land.wertebereich);
 				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
 				sub_two.add(land);
-				sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
+				land.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						repaintOrt();
+					}
+					
+				});
+				sub_two.add(ort);
 //				JLabel ort_label = new JLabel("Ort:");
 //				sub_one.add(ort_label);
 //				ort = new JTextField();
@@ -338,6 +362,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				sub_one.add(s_land_label);
 				sub_one.add(s_ort_label);
 				land = new JComboBox(Land.wertebereich);
+				land.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						repaintOrt();
+					}
+					
+				});
 				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
 				sub_two.add(land);
 				sub_two.add(ort);
@@ -352,7 +384,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				sub_one.add(z_land_label);
 				sub_one.add(z_ort_label);
 				landz = new JComboBox(Land.wertebereich);
-				ortz = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
+				landz.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						
+					}
+					
+				});
+				ortz = new JComboBox(((Land.getOrte((String)landz.getSelectedItem()))));
 				sub_two.add(landz);
 				sub_two.add(ortz);
 //				sub_one.add(ortz_label);
@@ -382,19 +422,19 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			this.repaint();
 	}
 	
-//	public void repaintOrt(){
-//		String x = land.getSeletedItem().toString();
-//		ort=new JComboBox(x.getOrte());
-//		sub_one.repaint();
-//		sub_two.repaint();
-//		sub_b.removeAll();
-//		sub_b.add(sub_one);
-//		sub_b.add(sub_two);
-//		sub_b.validate();
-//		sub_b.repaint();
-//		this.validate();
-//		this.repaint();	
-//	}
+	public void repaintOrt(){
+		String x =(String) land.getSelectedItem();
+		ort=new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
+		sub_one.repaint();
+		sub_two.repaint();
+		sub_b.removeAll();
+		sub_b.add(sub_one);
+		sub_b.add(sub_two);
+		sub_b.validate();
+		sub_b.repaint();
+		this.validate();
+		this.repaint();	
+	}
 	
 
 }
