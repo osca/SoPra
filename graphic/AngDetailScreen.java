@@ -301,7 +301,7 @@ public class AngDetailScreen extends JPanel{
 				
 				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat und noch keine bewertung abgegeben hat.
 				if (Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin) &&
-					Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
+					!Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
 					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
 				}
