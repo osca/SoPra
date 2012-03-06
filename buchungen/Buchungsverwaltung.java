@@ -123,6 +123,21 @@ public class Buchungsverwaltung {
 		return reslist;
 	}
 	
+	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter){
+		int r = 0;
+		for(Buchung b : getBuchungen(anbieter))
+			if(b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
+				r++;
+		return r;
+	}
+	public int getAnzahlUnbearbeiteterBuchungen(Kunde kunde){
+		int r = 0;
+		for(Buchung b : getBuchungen(kunde))
+			if(b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
+				r++;
+		return r;
+	}
+	
 	/**
 	 * Gibt eine Buchung ueber die Buchungsnummer aus
 	 * 
