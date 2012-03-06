@@ -208,7 +208,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 			Date q=null;
 			Date w=null;
-			final double result = ((Number) preis.getValue()).doubleValue();
+			double result=0;
+			if(preis.getValue()==null){
+				result=0;
+			}
+			else if(preis.getValue()!=null){
+				result = ((Number) preis.getValue()).doubleValue();
+			}
+			
 			try {
 				q = Methods.stringToDate(von.getText());
 				
