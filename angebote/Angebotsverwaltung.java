@@ -246,10 +246,22 @@ public class Angebotsverwaltung {
 		angebot.delKommentar(kommentar);
 	}
 	
+	/**
+	 * Gibt den Anbieter zu einem Angebot aus
+	 * 
+	 * @param angebot Angebot
+	 * @return Anbieter
+	 */
 	public Anbieter getAnbieter(Angebot angebot){
 		return (Anbieter) Portal.Accountverwaltung().getAccountByName(angebot.getAnbieterName());
 	}
 	
+	/**
+	 * Gibt Angebote zu einem Anbieter aus
+	 * 
+	 * @param anb Anbieter
+	 * @return ArrayList an Angeboten
+	 */
 	public ArrayList<Angebot> getAngebote(Anbieter anb){
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		for(Angebot ang : angebote)
@@ -278,6 +290,12 @@ public class Angebotsverwaltung {
 		return angebote;
 	}
 	
+	/**
+	 * Gibt Erlaubte Kriterien zu einem Angebotsnamen aus
+	 * 
+	 * @param name Angebotsname
+	 * @return Stringarray an erlaubten Kriterien
+	 */
 	public static String[] angebotNameToErlaubteKriterien(String name){
 		switch(Angebot.convertNameToTyp(name)){
 		case Angebot.AUSFLUG : 
@@ -292,6 +310,13 @@ public class Angebotsverwaltung {
 		}
 	}
 	
+	/**
+	 * Wurde das Angebot schon bewertet/kommentiert?
+	 * 
+	 * @param angebot Angebot
+	 * @param kunde Kunde
+	 * @return Ja oder nein
+	 */
 	public boolean isCommentedByKunde(Angebot angebot, Kunde kunde) {
 		ArrayList<Kommentar> kommentare = getKommentare(angebot);
 		
