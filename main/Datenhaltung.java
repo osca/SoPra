@@ -22,7 +22,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Datenhaltung {
-	private static String path = System.getProperty("user.dir")+"/";
+	private static String path = System.getProperty("user.dir")+"/ReisePortal/";
 	private static final File anbFile = new File(path+"Anbieter.xml"),
 			betrFile = new File(path+"Betreiber.xml"), 
 			kundFile = new File(path+"Kunden.xml"), 
