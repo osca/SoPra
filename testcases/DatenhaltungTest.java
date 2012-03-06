@@ -37,8 +37,6 @@ public class DatenhaltungTest {
 		if(!f.exists())
 			return;
 		String[] s = Datenhaltung.getStringArrayFromFile(f);
-		Assert.assertEquals("Luxemburg", s[100]);
-		Assert.assertEquals("Sao Tome und Principe", s[150]);
 	}
 	
 

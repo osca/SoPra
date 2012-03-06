@@ -192,7 +192,7 @@ public class AngebotTest {
 		Assert.assertEquals("Ausflug", Angebot.convertTypToName(Angebot.AUSFLUG));
 		Assert.assertEquals("Autovermietung", Angebot.convertTypToName(Angebot.AUTOVERMIETUNG));
 		Assert.assertEquals("Flug", Angebot.convertTypToName(Angebot.FLUG));
-		Assert.assertEquals("Hotel", Angebot.convertTypToName(Angebot.HOTEL));
+		Assert.assertEquals("Hoteluebernachtung", Angebot.convertTypToName(Angebot.HOTEL));
 		
 	}
 	
