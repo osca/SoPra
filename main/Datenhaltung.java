@@ -187,5 +187,18 @@ public class Datenhaltung {
 			s[i] = (String) reslist.get(i);
 		return s;
 	}
+	
+	/**
+	 * Gibt den Datei-Inhalt als einzelnen String aus. Zeilen werden mit \n getrennt
+	 * @param f File-Objekt als Referenz zur Datei
+	 * @return 
+	 */
+	public static String getStringFromFile(File f){
+		String arr[] = getStringArrayFromFile(f);
+		String res = "";
+		for(String s : arr)
+			res += s+"\n";
+		return res;
+	}
 
 }
