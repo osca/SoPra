@@ -59,7 +59,7 @@ public class AngebotTest {
 	Date now;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws IOException {
 		now = new Date();
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(now);
@@ -72,12 +72,16 @@ public class AngebotTest {
 		//Accounts erstellen
 		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
 		} catch(AlreadyInUseException aiu){}		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
+		catch (IOException e) {	e.printStackTrace();}
 		try{		accv.createAnbieter("Edgar@Walla.ce", "LTUR", "hallo123");
 		} catch(AlreadyInUseException aiu){}
+		catch (IOException e) {	e.printStackTrace();}
 		try{		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
 		} catch(AlreadyInUseException aiu){}
+		catch (IOException e) {	e.printStackTrace();}
 		try{		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 		} catch(AlreadyInUseException aiu){}
+		catch (IOException e) {	e.printStackTrace();}
 		
 		//Acounts aufnehmen
 		anbieter1 = accv.getAnbieter().get(0);
@@ -86,10 +90,26 @@ public class AngebotTest {
 		kunde2 = accv.getKunden().get(1);
 
 		//Angebote erstellen
-		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Germany", "Muenster");
-		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Germany", "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Germany", "Muenster", "Guenstig");
-		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Germany", "Muenster", "Guenstig");
+		try {
+			ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Germany", "Muenster");
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Germany", "Muenster", "Guenstig");
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Germany", "Muenster", "Guenstig");
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Germany", "Munster", "Guenstig");
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
 		
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
@@ -101,11 +121,31 @@ public class AngebotTest {
 		av.addKommentar(ang3, new Kommentar(kunde2.getName(), "Ganz doll dreckig!", 1));
 	
 		//Buchungen von Kunden zu Angeboten erstellen
-		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde2, ang1, new Date(1430609911421L), new Date(1430610011421L));
-		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		try {
+			bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			bv.createBuchung(kunde2, ang1, new Date(1430609911421L), new Date(1430610011421L));
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
+		try {
+			bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		} catch (InvalidDateException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -145,8 +185,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, now, now, new String[]{"Muenster","Guenstig"});
-		
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, now, now, new String[]{"Germany","Munster","Guenstig"});
 		Assert.assertEquals(ang4, suche.get(0));
 		
 		//Typconverter
@@ -162,9 +201,9 @@ public class AngebotTest {
 		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Unternehmen", "safe");
 		Kunde kunde = (Kunde) Portal.Accountverwaltung().createAccount(Account.KUNDE, "E@Mail.com", "Nah Meh", "blabla");
 		Flug flug = (Flug) Portal.Angebotsverwaltung().createAngebot(anb, "Superabsturz", "s.o.", Angebot.FLUG, 150.99, 125, 
-				new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Bremen", "Barcelona", Klasse.wertebereich[1], Bierpreis.wertebereich[2]});
+				new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Germany","Bremen", "Spain","Barcelona", Klasse.wertebereich[1], Bierpreis.wertebereich[2]});
 		Ausflug ausflug = (Ausflug) Portal.Angebotsverwaltung().createAngebot(anb, "Strandtest", "von Strand zu Stand ziehen und einfach nur rumliegen",
-				Angebot.AUSFLUG, 20.00, 35, new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Malediven",Bierpreis.wertebereich[3]});
+				Angebot.AUSFLUG, 20.00, 35, new Date(78943216748967489L), new Date(78943316748967489L), new String[]{"Spain","Malediven",Bierpreis.wertebereich[3]});
 		Buchung buchungAusflug = Portal.Buchungsverwaltung().createBuchung(kunde, ausflug, new Date(78943216748967489L), new Date(78943316748967489L));
 		
 		Assert.assertEquals(Portal.Angebotsverwaltung().getAnbieter(flug) .getName(), anb.getName());

@@ -1,12 +1,19 @@
-3. der betreiber sollte einen button haben der ihn von der beschwerdenachricht direkt zum angebot bringt
 8. Der Betreiber sollte nicht auf diese Art und Weise hart gecodet bleiben.
-9. Orte und Laender muessen eingelesen werden.
-11. -->Entwurfsheft<---
-12. Bad Encoding rausnehmen z.B. im Registrierungsscreen raus
-13. Entsperrenbug
+18. Beschreibung bei Angebot erstellen wird bei Einfügen von Test überdimensional groß
+19. Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
+	Buchungsanfrage..?
+20. Willkommensnachricht beim ersten registrieren
+21. Fokus auf erstes Textfeld
+22  ReisePortal-Ordner anlegen
+23. Bei falsches Passwort wird immer noch gesperrt Account
+24. Design by Contract???
+
+
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
+II) Entwurfsheft Mittwoch zusammen
+III) MouseOver in allen Listen
 
 TESTEN:
 ________________________
