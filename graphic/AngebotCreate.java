@@ -77,7 +77,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	public AngebotCreate(Anbieter a) throws ParseException {
 		
 		setLayout(new BorderLayout(5, 5));
-		up = new JPanel(new GridLayout(2, 1));
+		up = new JPanel(new BorderLayout(5, 5));
 		sub_a = new JPanel(new GridLayout(9, 2));
 		
 		//Name+Label
@@ -152,8 +152,12 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		
 		sub_b.add(sub_one);
 		sub_b.add(sub_two);
-		up.add(sub_a);
-		up.add(sub_b);
+		JPanel center = new JPanel(new BorderLayout(5,5));
+		up.add(BorderLayout.CENTER, sub_a);
+		up.add(BorderLayout.SOUTH, center);
+		center.add(BorderLayout.NORTH,sub_b);
+		
+		up.add(BorderLayout.SOUTH,center);
 
 		
 		//Beschreibung des Angebots
@@ -171,10 +175,12 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		bestaetigen = new JButton("Bestaetigen");
 		bestaetigen.addActionListener(this);
 		down.add(BorderLayout.WEST, bestaetigen);
-
+	
+		center.add(BorderLayout.CENTER,mid);
+		
 		add(BorderLayout.NORTH, up);
-		add(BorderLayout.CENTER, mid);
-		add(BorderLayout.SOUTH, down);
+		//add(BorderLayout.CENTER, mid);
+		add(BorderLayout.CENTER, down);
 		setVisible(true);
 	}
 
