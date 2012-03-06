@@ -39,6 +39,7 @@ public class KommentarListe	extends JPanel {
 		}
 		JScrollPane scroll = new JScrollPane();
 		scroll.add(elementPanel);
+		scroll.getVerticalScrollBar().setUnitIncrement(20);
 		add(scroll);
 	}
 }

@@ -164,10 +164,15 @@ public class AngDetailScreen extends JPanel{
 		}
 		
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-		
+		/////// verändert
 		this.add(BorderLayout.NORTH, up);
 		this.add(BorderLayout.CENTER, mid);
-		this.add(BorderLayout.SOUTH, down);
+		JPanel down_haupt = new JPanel(new BorderLayout(5,5));
+		down_haupt.add(BorderLayout.NORTH,down);
+		JPanel down_kom = new JPanel();
+		KommentarListe kl = new KommentarListe(a);
+		down_kom.add(kl);
+		this.add(BorderLayout.SOUTH, down_haupt);
 		
 		/////////////////
 		
