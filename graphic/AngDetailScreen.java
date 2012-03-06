@@ -223,7 +223,7 @@ public class AngDetailScreen extends JPanel{
 				}
 				catch(Exception e)
 				{
-					JOptionPane.showMessageDialog(up.getParent(), e.toString());
+					JOptionPane.showMessageDialog(up.getParent(), e.getMessage());
 				}
 			}
 		});
