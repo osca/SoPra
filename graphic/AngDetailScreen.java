@@ -25,6 +25,7 @@ import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
+import angebote.Kommentar;
 import buchungen.InvalidDateException;
 
 
@@ -114,7 +115,7 @@ public class AngDetailScreen extends JPanel{
 			down.add(BorderLayout.CENTER, nullAcc);
 			break;
 		case Account.KUNDE :
-			kommentieren.setEnabled(false);
+			kommentieren.setEnabled(true);
 			down.add(kommentieren);
 			down.add(buchen);
 			down.add(melden);
@@ -224,7 +225,23 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-								
+				DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+				{
+					@Override
+					public void onOK()
+					{
+						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
+						if(getContent().length() <= 0){
+							JOptionPane.showMessageDialog(this, "Sie müssen ein Kommentar eingeben, bevor Sie es abschicken");
+						}
+						else {
+							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), 5);
+							Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
+						}
+					}
+				};
+				dialog.setLabelContent(Portal.Accountverwaltung().getLoggedIn().getName(), DialogScreen.LABEL_LEFT);
+				dialog.setLabelContent("Bewertung", DialogScreen.LABEL_RIGHT);
 			}
 		});
 		loeschen.addActionListener(new ActionListener()
