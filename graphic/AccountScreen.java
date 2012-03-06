@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import buchungen.Bestaetigung;
@@ -120,8 +121,11 @@ public class AccountScreen extends JPanel
 		if(account.getTyp() == Account.ANBIETER)
 		{
 			JPanel agbPanel = new JPanel();
-			JLabel agbLabel = new JLabel(((Anbieter)account).getAgb());
-			agbPanel.add(agbLabel);
+			JTextArea agbArea = new JTextArea(((Anbieter)account).getAgb());
+			agbArea.setEditable(false);
+			agbArea.setLineWrap(true);
+			agbArea.setWrapStyleWord(true);
+			agbPanel.add(agbArea);
 			this.add(agbPanel, BorderLayout.CENTER);
 		}
 		
