@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
@@ -77,6 +78,15 @@ public class MainFrame extends JFrame
 	    int y = (d.height - getSize().height);
 	    setLocation(x/4, y/4);
 		this.setPreferredSize(new Dimension(x/2,y/2));
+		
+		try
+		{
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		/////////
 		
@@ -424,7 +434,7 @@ public class MainFrame extends JFrame
 					
 					
 					JButton fcb = new JButton("AGB laden");
-					fcb.setPreferredSize(new Dimension(new Dimension(BUTTONWIDTH, BUTTONHEIGHT)));
+					fcb.setPreferredSize(new Dimension(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT)));
 					final JFileChooser fc = new JFileChooser();
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
