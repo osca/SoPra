@@ -1,7 +1,9 @@
 package buchungen;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -43,8 +45,19 @@ public class Buchungsverwaltung {
 	public Buchung createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
 		
-		if (bis.before(von) || von.before(new Date()))
-			throw new InvalidDateException();
+		Date now = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(now);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		now = cal.getTime();
+		
+		if (bis.before(von)) 
+			throw new InvalidDateException("Das Enddatum ist vor dem Startdatum");
+		if (von.before(now))
+			throw new InvalidDateException("Das Startdatum ist vor dem heutigen Datum");
 		
 		buchung.setBis(bis);
 		buchung.setVon(von);
