@@ -29,6 +29,7 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Land;
+import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
@@ -60,7 +61,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	//private JTextField ort;
 	//private JTextField ortz;
 	private JComboBox klima;
-	private JTextField sterne;
+	private JComboBox sterne;
 	private JComboBox verpflegung;
 	private JComboBox bierpreis;
 	private JComboBox klasse;
@@ -294,7 +295,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				
 				JLabel sterne_label= new JLabel("Sterne:");
 				sub_one.add(sterne_label);
-				sterne = new JTextField();
+				sterne = new JComboBox(Sterne.wertebereich);
 				sterne.setToolTipText("Bitte geben Sie Anzahl der Sterne ein");
 				sub_two.add(sterne);
 				
