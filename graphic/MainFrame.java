@@ -273,14 +273,14 @@ public class MainFrame extends JFrame
 		
 		//////////////
 
-		showTopAngebote();
-		
 		try
 		{
 			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
 			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehoert mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
-			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
+			Angebot auto = null;
+			for(int i=0; i<10; i++)
+				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens. ich schreibe hier einen text damit ihr seht dass es auc nicht mit ohne gehen darf. die tatsache der existenz einer einzelnen materie ist die unscheinbare wirklichkeit der obrichkeiten. diese unterdrückende macht liegt in der staerke des einzelnen und bedarf keiner weiteren funktion als die der wahrnehmungsfreiheit. wer also sind wir zu behaupten die unwirklichkeit wirklich zu verstehen ohne sie jemals in der tatsache des seins einbinden zu koennen.", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 			
 			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
@@ -291,6 +291,8 @@ public class MainFrame extends JFrame
 		{
 			e.printStackTrace();
 		}
+		
+		showTopAngebote();
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -433,12 +435,13 @@ public class MainFrame extends JFrame
 					{
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
-						offeneButton.setText("Kundenbuchungen "+"("+")");
+						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn())+")");
 						offeneButton.setVisible(true);
 					}
 					else if(account.getTyp() == Account.BETREIBER)
 					{
 						eigeneButton.setText("Alle Accounts");
+						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)Portal.Accountverwaltung().getLoggedIn())+")");
 						offeneButton.setVisible(true);
 						betreiberButton.setVisible(true);
 					}
