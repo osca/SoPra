@@ -9,7 +9,6 @@ import main.Portal;
 import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
-import angebote.Angebotsverwaltung;
 import angebote.typen.Angebot;
 
 /**
@@ -109,23 +108,19 @@ public class Buchungsverwaltung {
 				reslist.add(b);
 		return reslist;
 	}
-	
+
 	/**
 	 * Gibt alle Buchungen eines Anbieters aus.
 	 * 
 	 * @param anbieter Anbieter
 	 * @return ArrayList seiner Buchungen
 	 */
-	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
-		ArrayList<Buchung> result = new ArrayList<Buchung>();
-		Angebotsverwaltung angvw = Portal.Angebotsverwaltung();
-		
-		for(Angebot angebot:angvw.getAngebote(anbieter)) {
-			for(int b:angebot.getBuchungsNummern())
-				result.add(getBuchungByBuchungsnummer(b));	
-		}
-		
-		return result;
+	public ArrayList<Buchung> getBuchungen(Anbieter anbieter){
+		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		for(Buchung b : buchungen)
+			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()))
+				reslist.add(b);
+		return reslist;
 	}
 	
 	/**
