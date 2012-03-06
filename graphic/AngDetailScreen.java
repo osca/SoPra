@@ -29,6 +29,7 @@ import accounts.LoeschenNichtMoeglichException;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
+import buchungen.Buchung;
 import buchungen.InvalidDateException;
 
 
@@ -249,41 +250,64 @@ public class AngDetailScreen extends JPanel{
 		});
 		kommentieren.addActionListener(new ActionListener()
 		{
-			JComboBox bewertung = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
-			int iBewertung = 0;
+			int bewertung = 0;
+			JComboBox bewertungCombo = new JComboBox(new String[]{"Auswahl", "1", "2", "3", "4", "5"});
+			
+			JLabel kundeLabel = new JLabel();
+			JLabel bewertungLabel = new JLabel("Bewertung:");
+			
+			JButton okButton = new JButton("Abschicken");
+			JButton cancelButton = new JButton("Abbrechen");
+			
+			DialogScreen dialog;
+			Kommentar kommi;
+			
+			ActionListener okListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					if (dialog.getContent().length() <= 0)
+						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Text eingeben");
+					else if (bewertungCombo.getSelectedIndex() == 0)
+						JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung abgeben");
+					else {
+						bewertung = bewertungCombo.getSelectedIndex();
+						
+						kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
+						Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
+						dialog.dispose();
+					}
+				}
+			};
+			
+			ActionListener cancelListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dialog.dispose();
+				}
+			};
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void actionPerformed(ActionEvent arg0)
 			{
-				bewertung.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						iBewertung = bewertung.getSelectedIndex();
-						iBewertung++;
-					}
-			});
+				Kunde loggedin = (Kunde)Portal.Accountverwaltung().getLoggedIn();
 				
-				DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
-				{
-					@Override
-					public void onOK()
-					{
-						addOnPanel(bewertung, DialogScreen.LABEL_LEFT);
-						
-						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
-						if(getContent().length() <= 0){
-							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben bevor Sie es abschicken");
-						}
-						else {
-							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), iBewertung);
-							Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
-						}
-					}
-				};
-				dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
-				dialog.addOnPanel(new JLabel("Bewertung"), DialogScreen.LABEL_RIGHT);
-			}
+				okButton.addActionListener(okListener);
+				cancelButton.addActionListener(cancelListener);
+				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn().getName());
+				
+				dialog = new DialogScreen("Kommentieren", new JButton[]{okButton, cancelButton});
+				
+				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
+				
+				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat und noch keine bewertung abgegeben hat.
+				if (Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin) &&
+					Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
+					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
+					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
+				}
+			};
 		});
+		
 		loeschen.addActionListener(new ActionListener()
 		{
 			@Override
