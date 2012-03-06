@@ -250,7 +250,7 @@ public class AngDetailScreen extends JPanel{
 						
 						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
 						if(getContent().length() <= 0){
-							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben, bevor Sie es abschicken");
+							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben bevor Sie es abschicken");
 						}
 						else {
 							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), iBewertung);
