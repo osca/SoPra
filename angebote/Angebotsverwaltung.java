@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import main.Portal;
 import accounts.Anbieter;
+import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import angebote.typen.Angebot;
 import angebote.typen.Ausflug;
@@ -289,5 +290,16 @@ public class Angebotsverwaltung {
 			return Hoteluebernachtung.erlaubteKriterien;
 		default : return null;
 		}
+	}
+	
+	public boolean isCommentedByKunde(Angebot angebot, Kunde kunde) {
+		ArrayList<Kommentar> kommentare = getKommentare(angebot);
+		
+		for(Kommentar k:kommentare) {
+			if(k.getAbsender().equals(kunde.getName()))
+				return true;
+		}
+		
+		return false;
 	}
 }
