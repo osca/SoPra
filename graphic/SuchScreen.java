@@ -1,6 +1,7 @@
 package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -33,6 +34,7 @@ import main.Portal;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
+import angebote.kriterien.Land;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 
@@ -54,6 +56,8 @@ public class SuchScreen extends JPanel
 	
 	private JFormattedTextField[] felder;
 	private ArrayList<Angebot> result;
+	
+	private ActionListener ortListener;
 	
 	public SuchScreen()
 	{
@@ -80,14 +84,14 @@ public class SuchScreen extends JPanel
 		JPanel labelPanel = new JPanel(grid);
 		JLabel[] labels = new JLabel[8];
 		
-		labels[0] = new JLabel("Typ");
-		labels[1] = new JLabel("Name");
-		labels[2] = new JLabel("Kapazitaet");
-		labels[3] = new JLabel("Startpreis");
-		labels[4] = new JLabel("Endpreis");
-		labels[5] = new JLabel("Anbieter");
-		labels[6] = new JLabel("Startdatum");
-		labels[7] = new JLabel("Enddatum");
+		labels[0] = new JLabel("  Angebots-Typ");
+		labels[1] = new JLabel("  Name");
+		labels[2] = new JLabel("  Kapazitaet");
+		labels[3] = new JLabel("  Startpreis");
+		labels[4] = new JLabel("  Endpreis");
+		labels[5] = new JLabel("  Anbieter");
+		labels[6] = new JLabel("  Startdatum");
+		labels[7] = new JLabel("  Enddatum");
 		
 		
 		for(int i=0; i<labels.length; i++)
@@ -143,7 +147,7 @@ public class SuchScreen extends JPanel
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		buttonPanel.add(search);
 		
-		/////////////////
+		///////////////
 		
 		north.add(labelPanel, BorderLayout.WEST);
 	    north.add(felderPanel, BorderLayout.EAST);
@@ -166,59 +170,13 @@ public class SuchScreen extends JPanel
 		try
 		{
 			if(types.getSelectedItem().toString() == TYPLIST[1]) 
-			{	
-				//labelList.add(new JLabel("Land:"));
-				labelList.add(new JLabel("Ort:"));
-				labelList.add(new JLabel("Sterne:"));
-				labelList.add(new JLabel("Klima:"));
-				labelList.add(new JLabel("Verpflegung:"));
-				labelList.add(new JLabel("Bierpreis:"));
-				
-				fieldList.add(new JFormattedTextField());
-				fieldList.add(new JFormattedTextField());
-				
-				//boxList.add(new JComboBox(Ort.wertebereich));
-				//boxList.add(new JComboBox(boxList.get(0).getOrte());
-				boxList.add(new JComboBox(Klima.wertebereich));
-				boxList.add(new JComboBox(Verpflegungsart.wertebereich));
-				boxList.add(new JComboBox(Bierpreis.wertebereich));
-			}
+				type1();
 			else if(types.getSelectedItem().toString() == TYPLIST[2]) 
-			{	
-				//labelList.add(new JLabel("Land:"));
-				labelList.add(new JLabel("Ort:"));
-				//boxList.add(new JComboBox(Ort.wertebereich));
-				//boxList.add(new JComboBox(boxList.get(0).getOrte());
-				fieldList.add(new JFormattedTextField());
-			}
+				type2();
 			else if(types.getSelectedItem().toString() == TYPLIST[3]) 
-			{	//labelList.add(new JLabel("Land:"));
-				labelList.add(new JLabel("Ort:"));
-				labelList.add(new JLabel("Bierpreis:"));
-				
-				fieldList.add(new JFormattedTextField());
-				//boxList.add(new JComboBox(Ort.wertebereich));
-				//boxList.add(new JComboBox(boxList.get(0).getOrte());
-				boxList.add(new JComboBox(Bierpreis.wertebereich));
-			}
+				type3();
 			else if (types.getSelectedItem().toString() == TYPLIST[4]) 
-			{	
-				//labelList.add(new JLabel("Startand:"));
-				labelList.add(new JLabel("Startort:"));
-				//labelList.add(new JLabel("Zieland:"));
-				labelList.add(new JLabel("Zielort:"));
-				labelList.add(new JLabel("Klasse:"));
-				labelList.add(new JLabel("Bierpreis:"));
-				
-				fieldList.add(new JFormattedTextField());
-				fieldList.add(new JFormattedTextField());
-				//boxList.add(new JComboBox(Ort.wertebereich));
-				//boxList.add(new JComboBox(boxList.get(0).getOrte());
-				//boxList.add(new JComboBox(Ort.wertebereich));
-				//boxList.add(new JComboBox(boxList.get(0).getOrte());
-				boxList.add(new JComboBox(Klasse.wertebereich));
-				boxList.add(new JComboBox(Bierpreis.wertebereich));
-			}
+				type4();
 			
 
 			JPanel newLeft = new JPanel(grid);
@@ -273,7 +231,8 @@ public class SuchScreen extends JPanel
 					bisPreis = new Double(felder[3].getText());
 				if(!felder[5].getText().equals("  /  /    ")){
 					von = Methods.stringToDate(felder[5].getText());
-					if(von.before(new Date())){
+				if(von.before(new Date()))
+					{
 //						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 //						von = (Date) sd.parse(sd.format( new Date()));	
 //						//Heutigen Tag initialisieren
@@ -287,7 +246,8 @@ public class SuchScreen extends JPanel
 						von = cal.getTime();
 					}
 				}
-				else {
+				else 
+				{
 					Date heute = new Date();
 					Calendar cal = new GregorianCalendar();
 					cal.setTime(heute);
@@ -297,10 +257,12 @@ public class SuchScreen extends JPanel
 					cal.set(Calendar.MILLISECOND, 0);
 					von = cal.getTime();
 				}
-				if(!felder[6].getText().equals("  /  /    ")){
+				if(!felder[6].getText().equals("  /  /    "))
+				{
 					bis = Methods.stringToDate(felder[6].getText());
 				}
-				else {
+				else 
+				{
 					Date heute = new Date();
 					Calendar cal = new GregorianCalendar();
 					cal.setTime(heute);
@@ -314,7 +276,7 @@ public class SuchScreen extends JPanel
 				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
 			else
-				JOptionPane.showMessageDialog(this, "Sie müssen einen Angebotstypen waehlen");
+				JOptionPane.showMessageDialog(this, "Sie muessen einen Angebotstypen waehlen");
 		}
 		catch(Exception e)
 		{//TODO exceptionhandling
@@ -322,6 +284,79 @@ public class SuchScreen extends JPanel
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
+	
+	private void type1() 
+	{
+		labelList.add(new JLabel("Land:"));
+		labelList.add(new JLabel("Ort:"));
+		labelList.add(new JLabel("Sterne:"));
+		labelList.add(new JLabel("Klima:"));
+		labelList.add(new JLabel("Verpflegung:"));
+		labelList.add(new JLabel("Bierpreis:"));
+		
+		final JComboBox land = new JComboBox(Land.wertebereich);
+		final JComboBox ort = new JComboBox();
+		land.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				repaintOrt(ort, land);
+			}
+			
+		});
+		boxList.add(land);
+		boxList.add(ort);
+		boxList.add(new JComboBox(Klima.wertebereich));
+		boxList.add(new JComboBox(Verpflegungsart.wertebereich));
+		boxList.add(new JComboBox(Bierpreis.wertebereich));
+	}
+	private void type2()
+	{
+		//labelList.add(new JLabel("Land:"));
+		labelList.add(new JLabel("Ort:"));
+		//boxList.add(new JComboBox(Ort.wertebereich));
+		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		fieldList.add(new JFormattedTextField());
+	}
+	private void type3()
+	{
+		//labelList.add(new JLabel("Land:"));
+		labelList.add(new JLabel("Ort:"));
+		labelList.add(new JLabel("Bierpreis:"));
+		
+		fieldList.add(new JFormattedTextField());
+		//boxList.add(new JComboBox(Ort.wertebereich));
+		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		boxList.add(new JComboBox(Bierpreis.wertebereich));
+	}
+	private void type4()
+	{
+		//labelList.add(new JLabel("Startand:"));
+		labelList.add(new JLabel("Startort:"));
+		//labelList.add(new JLabel("Zieland:"));
+		labelList.add(new JLabel("Zielort:"));
+		labelList.add(new JLabel("Klasse:"));
+		labelList.add(new JLabel("Bierpreis:"));
+		
+		fieldList.add(new JFormattedTextField());
+		fieldList.add(new JFormattedTextField());
+		//boxList.add(new JComboBox(Ort.wertebereich));
+		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		//boxList.add(new JComboBox(Ort.wertebereich));
+		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		boxList.add(new JComboBox(Klasse.wertebereich));
+		boxList.add(new JComboBox(Bierpreis.wertebereich));
+	}
+	
+	public void repaintOrt(JComboBox ort, JComboBox land)
+	{		
+		String[] laender = (Land.getOrte((String)land.getSelectedItem()));
+		for(String s: laender)
+			ort.addItem(s);
+		ort.repaint();
+	}
+	
 	
 	public ArrayList<Angebot> getList()
 	{

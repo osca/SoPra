@@ -28,7 +28,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	private static final String _flug = "Flug",
 								_autoverm = "Autovermietung",
 								_ausflug = "Ausflug",
-								_hotel = "Hotel";
+								_hotel = "Hoteluebernachtung";
 	
 	private static int anzahl = 0;
 	
