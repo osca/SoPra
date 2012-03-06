@@ -43,34 +43,33 @@ public class AccountScreen extends JPanel
 		
 		JPanel left = new JPanel(grid);
 		
+		int linkeSeite = 4;
 		labels = new JLabel[10];
 		labels[0] = new JLabel("Name:");
 		labels[1] = new JLabel("E-Mail Adresse:");
-		labels[2] = new JLabel("Password:");
-		labels[3] = new JLabel("Status:");
-		labels[4] = new JLabel("Anzahl Buchungen/Angebote");
+		labels[2] = new JLabel("Status:");
+		labels[3] = new JLabel("Anzahl Buchungen/Angebote");
 		
-		for(int i=0; i<labels.length-5; i++)
+		for(int i=0; i<labels.length-linkeSeite; i++)
 			left.add(labels[i]);
 		
 		/////
 		
 		JPanel right = new JPanel(grid);
 		
-		labels[5] = new JLabel(account.getName());
-		labels[6] = new JLabel(account.getEmail());
-		labels[7] = new JLabel(account.getPassword());
-		labels[8] = new JLabel(account.getStatus());
+		labels[4] = new JLabel(account.getName());
+		labels[5] = new JLabel(account.getEmail());
+		labels[6] = new JLabel(account.getStatus());
 		
 		
 		if(account.getTyp() == Account.KUNDE)
-			labels[9] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
+			labels[6] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
 		if(account.getTyp() == Account.ANBIETER)
-			labels[9] = new JLabel(""+Portal.Angebotsverwaltung().getAngebote((Anbieter)account).size());
+			labels[6] = new JLabel(""+Portal.Angebotsverwaltung().getAngebote((Anbieter)account).size());
 		else
-			labels[9] = new JLabel();
+			labels[6] = new JLabel();
 		
-		for(int i=5; i<labels.length; i++)
+		for(int i=linkeSeite; i<labels.length; i++)
 			right.add(labels[i]);
 		
 		//////
