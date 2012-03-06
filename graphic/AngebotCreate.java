@@ -94,7 +94,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		sub_a.add(typ_label);
 		typ_list = new Vector<String>();
 		typ_list.add("Typ");
-		typ_list.add("Hotel");
+		typ_list.add("Hoteluebernachtung");
 		typ_list.add("Autovermietung");
 		typ_list.add("Ausflug");
 		typ_list.add("Flug");
@@ -189,7 +189,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 		 if(e.getSource()==bestaetigen){
 			String[] k =Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 			
@@ -208,9 +208,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 			Date q=null;
 			Date w=null;
-			double result=0;
-			if(preis.getValue()==null){
-				result=0;
+			double result =0;
+			
+			if(kap.getText()==null||((String) kap.getText()).isEmpty()){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltige Kapazitaet ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
+			}
+			
+			if(preis.getValue()==null||((String) preis.getValue()).isEmpty()){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltigen Preis ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
 			else if(preis.getValue()!=null){
 				result = ((Number) preis.getValue()).doubleValue();
@@ -220,14 +225,13 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				q = Methods.stringToDate(von.getText());
 				
 			} catch (ParseException e1) {
-				
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
 			try {
 				w = Methods.stringToDate(bis.getText());
 			} catch (ParseException e1) {
 				
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
 			try {
 				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
