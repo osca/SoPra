@@ -90,7 +90,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		typ_list.add("Ausflug");
 		typ_list.add("Flug");
 		typ = new JComboBox(typ_list);
-		typ.setToolTipText("Bitte waehlen Sie eine Typ aus");
+		typ.setToolTipText("Bitte waehlen Sie einen Typ aus");
 		typ.addActionListener(new ActionListener()
 		{
 			@Override
@@ -219,7 +219,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			
 				e1.printStackTrace();
 			} catch (InvalidDateException e1) {
-				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellen", JOptionPane.OK_OPTION);
 				e1.printStackTrace();
 			}
 			
@@ -295,7 +295,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				//sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
 				JLabel ort_label = new JLabel("Ort:");
 				ort = new JTextField();
-				ort.setToolTipText("Bitte geben SIe einen Ort");
+				ort.setToolTipText("Bitte geben Sie einen Ort");
 				sub_one.add(ort_label);
 				sub_two.add(ort);
 			
@@ -335,7 +335,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel ort_label= new JLabel("Startort:");
 				sub_one.add(ort_label);
 				ort = new JTextField();
-				ort.setToolTipText("Bitte geben Sie einen Startort");
+				ort.setToolTipText("Bitte geben Sie einen Startort an");
 				sub_two.add(ort);
 				JLabel ortz_label= new JLabel("Zielort:");
 				//JLabel z_land_label = new JLabel("Zielland:);
@@ -348,7 +348,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				//sub_two.add(ortz);
 				sub_one.add(ortz_label);
 				ortz = new JTextField();
-				ortz.setToolTipText("Bitte geben Sie einen Zielort");
+				ortz.setToolTipText("Bitte geben Sie einen Zielort an");
 				sub_two.add(ortz);
 				
 				JLabel klasse_label= new JLabel("Klasse:");
