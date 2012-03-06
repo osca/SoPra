@@ -59,6 +59,7 @@ public class MainFrame extends JFrame
 	private JButton alleButton;
 	private JButton erstelleButton;
 	private JButton betreiberButton;
+	private JButton offeneButton;
 	
 	private Account account;
 	private JPanel screen;
@@ -155,9 +156,12 @@ public class MainFrame extends JFrame
 		erstelleButton = new JButton("Angebot erstellen");
 		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		erstelleButton.setEnabled(false);
-		betreiberButton= new JButton("Betreiber hinzufügen");
+		betreiberButton = new JButton("Betreiber hinzufügen");
 		betreiberButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		betreiberButton.setVisible(false);
+		offeneButton = new JButton("Kundenbuchungen");
+		offeneButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		offeneButton.setVisible(false);
 		
 		buttonPanel.add(loginButton);
 		buttonPanel.add(eigeneButton);
@@ -166,6 +170,7 @@ public class MainFrame extends JFrame
 		buttonPanel.add(erstelleButton);
 		buttonPanel.add(topButton);
 		buttonPanel.add(alleButton);
+		buttonPanel.add(offeneButton);
 		buttonPanel.add(betreiberButton);
 		registerPanel.add(registerButton);
 
@@ -251,6 +256,14 @@ public class MainFrame extends JFrame
 				addBetreiber();
 			}
 		});
+		offeneButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showOffeneBuchungen();
+			}
+		});
 		
 		
 		////////////////
@@ -328,7 +341,6 @@ public class MainFrame extends JFrame
 								}
 							};
 							dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
-							dispose();
 						}
 					});
 					
@@ -416,15 +428,18 @@ public class MainFrame extends JFrame
 					loginButton.setText("Logout");
 					
 					if(account.getTyp() == Account.KUNDE)
-						eigeneButton.setText("Eigene Buchungen");
+						eigeneButton.setText("Eigene Buchungen"+"("+")");
 					else if(account.getTyp() == Account.ANBIETER)
 					{
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
+						offeneButton.setText("Kundenbuchungen "+"("+")");
+						offeneButton.setVisible(true);
 					}
 					else if(account.getTyp() == Account.BETREIBER)
 					{
 						eigeneButton.setText("Alle Accounts");
+						offeneButton.setVisible(true);
 						betreiberButton.setVisible(true);
 					}
 					
@@ -449,7 +464,7 @@ public class MainFrame extends JFrame
 				nachrichtButton.setText("Nachrichten");
 				registerButton.setEnabled(true);
 				betreiberButton.setVisible(false);
-				
+				offeneButton.setVisible(false);
 
 				this.setTitle("Eingeloggt als: "+account.getName());
 				this.repaint();
@@ -485,7 +500,6 @@ public class MainFrame extends JFrame
 				{
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 					JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
-					Portal.Nachrichtenverwaltung().sendeNachricht(null, Portal.Accountverwaltung().getLoggedIn(), "Willkommen", "Willkommen im Angeboteportal!", null);
 				}
 				else
 				{
@@ -665,6 +679,20 @@ public class MainFrame extends JFrame
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
+	}
+	
+	private void showOffeneBuchungen()
+	{
+		try
+		{
+			screen.removeAll();
+			list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn()));
+			screen.add(list);
+			scroll.setViewportView(screen);
+			scroll.repaint();
+		}
+		catch(Exception e)
+		{}
 	}
 	
 	private void addBetreiber()
