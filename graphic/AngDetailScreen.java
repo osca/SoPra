@@ -150,7 +150,7 @@ public class AngDetailScreen extends JPanel{
 		
 		
 		buchen.addActionListener(new ActionListener()
-		{
+		{			
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
