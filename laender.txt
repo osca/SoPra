@@ -1,205 +1,155 @@
-Abchasien
 Afghanistan
-Aegypten
-Albanien
-Algerien
+Albania
+Algeria
 Andorra
 Angola
-Antigua und Barbuda
-Aequatorialguinea
-Argentinien
-Armenien
-Aserbaidschan
-Aethiopien
-Australien
-Bahamas
+Argentina
+Armenia
+Australia
+Austria
+Azerbaijan
 Bahrain
-Bangladesch
+Bangladesh
 Barbados
-Belgien
+Belarus
+Belgium
 Belize
 Benin
-Bergkarabach
 Bhutan
-Bolivien
-Bosnien und Herzegowina
-Botsuana
-Brasilien
+Bolivia
+Bosnia and Herzegovina
+Brazil
 Brunei
-Bulgarien
-Burkina Faso
-Burundi
+Bulgaria
+Cambodia
+Cameroon
+Canada
+Cape Verde
+Central African Republic
+Chad
 Chile
-Republik China
-Volksrepublik China mit Hongkong (HK) und Macao (MO)
-Cookinseln
+China
+Colombi
+Comoros
 Costa Rica
-Daenemark mit Faeroeer (FO) und Groenland (GL)
-Deutschland
-Dominica
-Dominikanische Republik
-Dschibuti
+Croatia
+Cuba
+Cyprus
+Czech Republic
+Denmark
+Djibouti
 Ecuador
 El Salvador
-Elfenbeinkueste
+Equatorial Guinea
 Eritrea
-Estland
-Fidschi
-Finnland
-Frankreich (ohne Franzoesische ueberseegebiete)
-Gabun
-Gambia
-Georgien (mit Abchasien und Suedossetien)
+Estonia
+Ethiopia
+Fiji
+Finland
+France
+Gabon
+Gambia, The
+Georgia
+Germany
 Ghana
+Greece
 Grenada
-Griechenland
 Guatemala
-Guinea
-Guinea-Bissau
 Guyana
 Haiti
 Honduras
-Indien (mit Kaschmir)
-Indonesien
-Irak
+Hungary
+Iceland
+India
+Indonesia
 Iran
-Irland
-Island
-Israel (ohne Gazastreifen, Golanhoehen und Westjordanland)
-Italien
-Jamaika
+Iraq
+Ireland
+Israel
+Italy
+Jamaica
 Japan
-Jemen
-Jordanien
-Kambodscha
-Kamerun
-Kanada
-Kap Verde
-Kasachstan
-Katar
-Kenia
-Kirgisistan
+Jordan
+Kazakhstan
+Kenya
 Kiribati
-Kolumbien
-Komoren
-Kongo, Demokratische Republik
-Kongo, Republik
-Korea, Nord
-Korea, Sued
-Kosovo
-Kroatien
-Kuba
+Korea, South
 Kuwait
-Laos
-Lesotho
-Lettland
-Libanon
+Latvia
+Lebanon
 Liberia
-Libyen
+Libya
 Liechtenstein
-Litauen
-Luxemburg
-Madagaskar
+Lithuania
+Luxembourg
+Macedonia
 Malawi
 Malaysia
-Malediven
+Maldives
 Mali
 Malta
-Marokko (ohne Westsahara)
-Marshallinseln
-Mauretanien
+Marshall Islands
+Mauritania
 Mauritius
-Mazedonien
-Mexiko
-Mikronesien
-Moldawien (mit Transnistrien)
+Mexico
+Micronesia
+Moldova
 Monaco
-Mongolei
-Montenegro
-Mosambik
+Morocco
+Mozambique
 Myanmar
-Namibia
-Nauru
-Nepal
-Neuseeland
+Nepa
+Netherlands
+New Zealand
 Nicaragua
-Koenigreich der Niederlande (ohne Curaçao, Sint Maarten und Aruba)
 Niger
 Nigeria
-Niue
-Nordzypern
-Norwegen (ohne Svalbard)
+Norway
 Oman
-Oesterreich
-Osttimor / Timor-Leste
-Pakistan(ohne Kaschmir)
+Pakistan
 Palau
 Panama
-Papua-Neuguinea
+Papua New Guinea
 Paraguay
 Peru
-Philippinen
-Polen
+Philippines
+Poland
 Portugal
-Ruanda
-Rumaenien
-Russland
-Salomonen
-Sambia
+Qatar
+Romania
+Russia
+Saint Kitts and Nevis
 Samoa
-San Marino
-São Tomé und Príncipe
-Saudi-Arabien
-Schweden
-Schweiz
+Sao Tome and Principe
 Senegal
-Serbien (ohne Kosovo)
-Seychellen
-Sierra Leone
-Simbabwe
-Singapur
-Slowakei
-Slowenien
-Somalia (mit Somaliland)
-Somaliland
-Spanien
+Seychelles
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+Spain
 Sri Lanka
-St. Kitts und Nevis
-St. Lucia
-St. Vincent und die Grenadinen
-Suedafrika
 Sudan
-Suedossetien
-Suedsudan
 Suriname
-Swasiland
-Syrien(mit Golanhoehen)
-Tadschikistan
-Tansania
+Swaziland
+Sweden
+Switzerland
+Syria
+Tajikistan
+Tanzania
 Thailand
 Togo
 Tonga
-Transnistrien
-Trinidad und Tobago
-Tschad
-Tschechien
-Tunesien
-Tuerkei
-Turkmenistan
+Tunisia
+Turkey
 Tuvalu
 Uganda
 Ukraine
-Ungarn
+United Kingdom
+United States
 Uruguay
-Usbekistan
-Vanuatu
-Vatikanstadt
 Venezuela
-Vereinigte Arabische Emirate
-Vereinigte Staaten (ohne Außengebiete)
-Vereinigtes Koenigreich (ohne ueberseegebiete und Kronbesitz)
 Vietnam
-Weißrussland (Belarus)
-Westsahara
-Zentralafrikanische Republik
-Zypern (mit Nordzypern)
+Yemen
+Zambia
+Zimbabwe

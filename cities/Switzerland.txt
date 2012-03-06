@@ -1,0 +1,100 @@
+Aarau
+Adliswil
+Allschwil
+Aussersihl
+Baar
+Baden
+Basel
+Bellinzona
+Bern
+Biel
+Binningen
+Bulach
+Burgdorf
+Carouge
+Cham
+Chur
+Dietikon
+Dubendorf
+Einsiedeln
+Emmen
+Frauenfeld
+Freienbach
+Fribourg
+Geneve
+Gossau
+Grenchen
+Herisau
+Horgen
+Jona
+Kloten
+Koniz
+Kreuzlingen
+Kriens
+La Chaux-de-Fonds
+Lancy
+Langenthal
+Lausanne
+Le Chatelard
+Littau
+Locarno
+Lugano
+Luzern
+Martigny-Ville
+Meyrin
+Monthey
+Montreux
+Morges
+Muttenz
+Neuchatel
+Nyon
+Oberwinterthur (Kreis 2)
+Olten
+Onex
+Pratteln
+Pully
+Rapperswil
+Renens
+Sankt Gallen
+Schaffhausen
+Schwyz
+Seen (Kreis 3)
+Sierre
+Sion
+Solothurn
+Stadt Winterthur (Kreis 1)
+Steffisburg
+Thalwil
+Thonex
+Thun
+Uster
+Vernier
+Vevey
+Wadenswil
+Wettingen
+Wil
+Winterthur
+Wohlen
+Yverdon-les-Bains
+Zuerich (Kreis 10)
+Zuerich (Kreis 10) / Hoengg
+Zuerich (Kreis 10) / Wipkingen
+Zuerich (Kreis 11)
+Zuerich (Kreis 11) / Affoltern
+Zuerich (Kreis 11) / Oerlikon
+Zuerich (Kreis 11) / Seebach
+Zuerich (Kreis 12)
+Zuerich (Kreis 2)
+Zuerich (Kreis 2) / Wollishofen
+Zuerich (Kreis 3)
+Zuerich (Kreis 3) / Alt-Wiedikon
+Zuerich (Kreis 3) / Sihlfeld
+Zuerich (Kreis 6)
+Zuerich (Kreis 6) / Unterstrass
+Zuerich (Kreis 7)
+Zuerich (Kreis 8)
+Zuerich (Kreis 9)
+Zuerich (Kreis 9) / Albisrieden
+Zuerich (Kreis 9) / Altstetten
+Zug
+Zurich

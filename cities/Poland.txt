@@ -1,0 +1,100 @@
+Bedzin
+Belchatow
+Biala Podlaska
+Bialystok
+Bielsko-Biala
+Bydgoszcz
+Bytom
+Chelm
+Chorzow
+Ciechanow
+Czestochowa
+Dabrowa Gornicza
+Debica
+Elblag
+Elk
+Gdansk
+Gdynia
+Gliwice
+Glogow
+Gniezno
+Gorzow Wielkopolski
+Grudziadz
+Inowroclaw
+Jastrzebie Zdroj
+Jaworzno
+Jelenia Gora
+Kalisz
+Katowice
+Kedzierzyn-Kozle
+Kielce
+Konin
+Koszalin
+Krakow
+Krosno
+Kutno
+Legionowo
+Legnica
+Leszno
+Lodz
+Lomza
+Lubin
+Lublin
+Mielec
+Myslowice
+Nowe Tychy
+Nowy Sacz
+Nysa Zamlmie
+Olsztyn
+Opole
+Ostroleka
+Ostrow Wielkopolski
+Ostrowiec Swietokrzyski
+Pabianice
+Piekary Slaskie
+Pila
+Piotrkow Trybunalski
+Plock
+Poznan
+Pruszkow
+Przemysl
+Pulawy
+Raciborz
+Radom
+Radomsko
+Ruda Slaska
+Rumia
+Rybnik
+Rzeszow
+Siedlce
+Siemianowice Slaskie
+Skarzysko-Kamienna
+Skierniewice
+Slupsk
+Sosnowiec
+Stalowa Wola
+Starachowice
+Stargard Szczecinski
+Starogard Gdanski
+Suwalki
+Swidnica
+Swietochlowice
+Szczecin
+Tarnobrzeg
+Tarnow
+Tarnowskie Gory
+Tczew
+Tomaszow Mazowiecki
+Torun
+Walbrzych
+Warsaw
+Wejherowo
+Wloclawek
+Wodzislaw Slaski
+Wroclaw
+Zabrze
+Zamosc
+Zawiercie
+Zgierz
+Zielona Gora
+Zory
