@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JToolTip;
 import javax.swing.text.MaskFormatter;
 
 import main.Portal;
@@ -29,7 +30,6 @@ import accounts.LoeschenNichtMoeglichException;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
-import buchungen.Buchung;
 import buchungen.InvalidDateException;
 
 
@@ -65,7 +65,7 @@ public class AngDetailScreen extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0,2));
-		mid = new JPanel(new GridLayout(1,0));
+		mid = new JPanel(new GridLayout(0,1));
 		down = new JPanel(new GridLayout(1,0));
 		
 		name = new JLabel(angebot.getName());
@@ -114,6 +114,11 @@ public class AngDetailScreen extends JPanel{
 		fullinfo.setEditable(false);
 		
 		mid.add(fullinfo);
+		
+		/*
+		for(Kommentar k : angebot.getKommentare()) {
+			mid.add(new KommentarScreen(k));
+		}*/
 		
 		///////////////////
 		
@@ -302,6 +307,7 @@ public class AngDetailScreen extends JPanel{
 				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat und noch keine bewertung abgegeben hat.
 				if (Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin) &&
 					!Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
+					bewertungCombo.setToolTipText("Je höher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
 					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
 				}
