@@ -74,8 +74,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JComboBox landz;
 	private JComboBox ortz;
 	
+	private Anbieter anb;
+	
 
-	public AngebotCreate(Anbieter a) throws ParseException {
+	public AngebotCreate(Anbieter a) throws ParseException{
+		anb=a;
+		init(anb);
+	}
+	
+	private void init(Anbieter a) throws ParseException {
 		
 		setLayout(new BorderLayout(5, 5));
 		up = new JPanel(new BorderLayout(5, 5));
@@ -235,14 +242,10 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				try {
 					Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
 					JOptionPane.showMessageDialog(this, "Erstellung erfolgreich");
-					name.setText(null);
-					typ.setSelectedIndex(0);
-					preis.setText(null);
-					kap.setText(null);
-					von.setText(null);
-					bis.setText(null);
-					beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
-					addScreen();
+					this.removeAll();
+					this.validate();
+					this.repaint();
+					init(anb);
 				} catch (NumberFormatException e1) {	
 					e1.printStackTrace();
 				} catch (InvalidDateException e1) {
@@ -255,12 +258,15 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		}
 		
 		else if(e.getSource()==loeschen){
-			name.setText("");
-			typ.setSelectedIndex(0);
-			preis.setText("");
-			kap.setText("");
-			von.setText("");
-			bis.setText("");
+			this.removeAll();
+			this.validate();
+			this.repaint();
+			try {
+				init(anb);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
 			addScreen();
 			
