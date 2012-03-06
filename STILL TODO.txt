@@ -14,6 +14,7 @@
 29. alle angeben löschen  als button ist auf der falschen seite!
 30. "sie müssen eine bewertung abgeben" - aber ich kann nicht!
 31. die gesammtbewerung eines kunden sollte a) auch in einem angebot stehen und b) gerundet werden (0.989898988)
+32. der betreiber sollte an accounts nachrichten senden können, per button
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
