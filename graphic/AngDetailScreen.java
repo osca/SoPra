@@ -194,8 +194,8 @@ public class AngDetailScreen extends JPanel{
 							}
 						};
 						dialog.setEditable(false);
-						dialog.setLabelContent(MeldeDienst.MSG_AGB_ERKLAERUNG + anbieterl.getText(), DialogScreen.LABEL_LEFT);
-						dialog.setLabelContent(MeldeDienst.MSG_GESAMMT_BEWERUNG + anbieter.getWertung(), DialogScreen.LABEL_RIGHT);
+						dialog.addOnPanel(new JLabel(MeldeDienst.MSG_AGB_ERKLAERUNG + anbieterl.getText()), DialogScreen.LABEL_LEFT);
+						dialog.addOnPanel(new JLabel(MeldeDienst.MSG_GESAMMT_BEWERUNG + anbieter.getWertung()), DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
 				}
@@ -227,7 +227,7 @@ public class AngDetailScreen extends JPanel{
 		});
 		kommentieren.addActionListener(new ActionListener()
 		{
-			JComboBox<String> bewertung = new JComboBox<String>(new String[]{"1", "2", "3", "4", "5"});
+			JComboBox bewertung = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
 			int iBewertung = 0;
 			
 			@Override
@@ -246,7 +246,7 @@ public class AngDetailScreen extends JPanel{
 					@Override
 					public void onOK()
 					{
-						addOnLayout(bewertung, DialogScreen.LABEL_LEFT);
+						addOnPanel(bewertung, DialogScreen.LABEL_LEFT);
 						
 						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
 						if(getContent().length() <= 0){
@@ -258,8 +258,8 @@ public class AngDetailScreen extends JPanel{
 						}
 					}
 				};
-				dialog.setLabelContent(Portal.Accountverwaltung().getLoggedIn().getName(), DialogScreen.LABEL_LEFT);
-				dialog.setLabelContent("Bewertung", DialogScreen.LABEL_RIGHT);
+				dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
+				dialog.addOnPanel(new JLabel("Bewertung"), DialogScreen.LABEL_RIGHT);
 			}
 		});
 		loeschen.addActionListener(new ActionListener()
@@ -302,7 +302,7 @@ public class AngDetailScreen extends JPanel{
 							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Kontaktaufnahme",getContent(), angebot);
 						}
 					};
-					dialog.setLabelContent(Portal.Accountverwaltung().getLoggedIn().getName(), DialogScreen.LABEL_LEFT);
+					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 				catch(Exception e)
 				{

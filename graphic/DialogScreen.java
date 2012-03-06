@@ -19,8 +19,8 @@ public class DialogScreen extends JDialog
 	public final static int LABEL_RIGHT = 88;
 	
 	private JTextArea area;
-	private JLabel textLabel;
-	private JLabel starLabel;
+	private JPanel leftPanel;
+	private JPanel rightPanel;
 	
 	public DialogScreen()
 	{
@@ -65,7 +65,7 @@ public class DialogScreen extends JDialog
 		if(this.getParent()!=null)
 			this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
 		JPanel main = new JPanel(new BorderLayout());
-		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*2, MainFrame.BUTTONHEIGHT*8));
+		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*3, MainFrame.BUTTONHEIGHT*10));
 		
 		Border border = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.LIGHT_GRAY);
 		
@@ -80,11 +80,11 @@ public class DialogScreen extends JDialog
 		south.setBorder(border);
 		
 		JPanel labelPanel = new JPanel(new GridLayout(1,0));
-		textLabel = new JLabel();
-		labelPanel.add(textLabel);
+		leftPanel = new JPanel();
+		labelPanel.add(leftPanel);
 		JPanel starPanel = new JPanel();
-		starLabel = new JLabel();
-		starPanel.add(starLabel);
+		rightPanel = new JPanel();
+		starPanel.add(rightPanel);
 		area = new JTextArea();
 		JPanel buttons = new JPanel();
 		
@@ -139,17 +139,10 @@ public class DialogScreen extends JDialog
 		setAlwaysOnTop(true);
 	}
 	
-	public void setLabelContent(String text, int flag)
-	{
-		if(flag == LABEL_LEFT)
-			textLabel.setText(text);
-		else if(flag == LABEL_RIGHT)
-			starLabel.setText(text);
-	}
-	
 	public void setContent(String t)
 	{
 		area.setText(t);
+		this.repaint();
 	}
 	
 	public String getContent()
@@ -162,12 +155,13 @@ public class DialogScreen extends JDialog
 		area.setEditable(b);
 	}
 	
-	public void addOnLayout(Component component, int flag)
+	public void addOnPanel(Component component, int flag)
 	{
 		if(flag == LABEL_LEFT)
-			textLabel.add(component);
+			leftPanel.add(component);
 		else if(flag == LABEL_RIGHT)
-			starLabel.add(component);
+			rightPanel.add(component);
+		this.repaint();
 	}
 	
 	public void onOK()
