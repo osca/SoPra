@@ -69,7 +69,7 @@ public class MainFrame extends JFrame
 	
 	private boolean logged = false;
 	
-	private MainFrame frame = this; //quick'n'dirty  nur vor�bergehend
+	private MainFrame frame = this; //quick'n'dirty  nur voruebergehend
 	private String agbFromFile;
 
 	public MainFrame()
@@ -430,7 +430,7 @@ public class MainFrame extends JFrame
 					loginButton.setText("Logout");
 					
 					if(account.getTyp() == Account.KUNDE)
-						eigeneButton.setText("Eigene Buchungen"+"("+")");
+						eigeneButton.setText("Eigene Buchungen");
 					else if(account.getTyp() == Account.ANBIETER)
 					{
 						eigeneButton.setText("Eigene Angebote");
@@ -441,7 +441,6 @@ public class MainFrame extends JFrame
 					else if(account.getTyp() == Account.BETREIBER)
 					{
 						eigeneButton.setText("Alle Accounts");
-						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)Portal.Accountverwaltung().getLoggedIn())+")");
 						offeneButton.setVisible(true);
 						betreiberButton.setVisible(true);
 					}
