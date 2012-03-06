@@ -22,12 +22,13 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Datenhaltung {
-	private static final File anbFile = new File("Anbieter.xml"),
-			betrFile = new File("Betreiber.xml"), 
-			kundFile = new File("Kunden.xml"), 
-			msgFile = new File("Nachrichten.xml"),
-			offFile = new File("Angebote.xml"),
-			buchFile = new File("Buchungen.xml");
+	private static String path = System.getProperty("user.dir")+"/";
+	private static final File anbFile = new File(path+"Anbieter.xml"),
+			betrFile = new File(path+"Betreiber.xml"), 
+			kundFile = new File(path+"Kunden.xml"), 
+			msgFile = new File(path+"Nachrichten.xml"),
+			offFile = new File(path+"Angebote.xml"),
+			buchFile = new File(path+"Buchungen.xml");
 
 	private final static String header = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 
