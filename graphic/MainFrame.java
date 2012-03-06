@@ -332,7 +332,7 @@ public class MainFrame extends JFrame
 						}
 					});
 					
-					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
+					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(), button,DialogScreen.OK_OPTION);
 					dialog.setEditable(false);
 					dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 					dialog.setContent(nachricht.getText());
