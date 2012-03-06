@@ -197,4 +197,20 @@ public class Buchungsverwaltung {
 				"Buchung wurde bearbeitet", "Ihre Buchung "+buchung.getBuchungsnummer()+" hat nun den Status "+buchung.getStatus(), 
 				getReferringAngebot(buchung));
 	}
+	
+	/**
+	 * Wurde das Angebot von einem Kunden gebucht?
+	 * 
+	 * @param angebot Angebot
+	 * @param kunde Kunde
+	 * @return Ja oder nein
+	 */
+	public boolean isBookedByKunde(Angebot angebot, Kunde kunde) {
+		for(Buchung b:getBuchungen(kunde)) {
+			if(b.getKundenName().equals(kunde.getName()))
+				return true;
+		}
+		
+		return false;
+	}
 }
