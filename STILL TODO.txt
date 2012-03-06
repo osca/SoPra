@@ -12,14 +12,15 @@
 27. suche funktioniert nicht: weil kriterien irgendwie nicht richtig übgergeben!?
 28. agb erklaerung bei buchen überarbeiten
 29. alle angeben löschen  als button ist auf der falschen seite!
-30. "sie müssen eine bewertung abgeben" - aber ich kann nicht!
-31. die gesammtbewerung eines kunden sollte a) auch in einem angebot stehen und b) gerundet werden (0.989898988)
+30. "sie müssen eine bewertung abgeben" - aber ich kann nicht! Wo eine Bewertung abgeben? (Benjamin)
+31. die gesammtbewerung eines kunden sollte a) auch in einem angebot stehen und b) gerundet werden (0.989898988) BEWERTUNG EINES KUNDEN?! WHY?! (Benjamin)
 32. der betreiber sollte an accounts nachrichten senden können, per button
 33. Das Editieren der Angebote funktioniert noch nicht! Umleiten auf AngebotCreate o.ae.
 33. a. Nach Versuch zu Editieren funkt loeschen nicht
 33. b. Loescht man dann ein anderes angebot werden beide nicht mehr unter eigeneAngebote angezeigt. Das nicht zu loeschende existiert aber weiterhin
 34. Top-Angebote zeigt mehr als 10 Angebote an!
-
+35. bei der Suche von Angeboten: wenn ein Land auswaehlt wird, werden die Staedte in das DropDown geladen.. wenn danach ein anderes Land ausgesucht wird, existieren die Staedte der vorherigen
+	Auswahl aber noch.. => erst clear, dann parse? Sprich: Ich kann von Hamburg, Niederlande nach Muenchen, Tuerkei fliegen :D
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
