@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import main.Portal;
+import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
+import angebote.Angebotsverwaltung;
 import angebote.typen.Angebot;
 
 /**
  * @author Benjamin
- * @edit Jay
+ * @edit Jay, Osca
  */
 public class Buchungsverwaltung {
 	
@@ -58,6 +60,7 @@ public class Buchungsverwaltung {
 	}
 	
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
+	 * 
 	 * @param b zu loeschende Buchung
 	 */
 	public void delBuchung(Buchung b) throws LoeschenNichtMoeglichException {
@@ -66,6 +69,12 @@ public class Buchungsverwaltung {
 		buchungen.remove(b);
 	}
 	
+	/**
+	 * Gibt eine Liste an Buchungen ueber ein Angebot aus
+	 * 
+	 * @param angebot Angebot
+	 * @return ArrayList an Buchungen zu dem Angebot
+	 */
 	public ArrayList<Buchung> getBuchungen(Angebot angebot){
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		for (Buchung b : buchungen)
@@ -88,6 +97,30 @@ public class Buchungsverwaltung {
 		return reslist;
 	}
 	
+	/**
+	 * Gibt alle Buchungen eines Anbieters aus.
+	 * 
+	 * @param anbieter Anbieter
+	 * @return ArrayList seiner Buchungen
+	 */
+	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
+		ArrayList<Buchung> result = new ArrayList<Buchung>();
+		Angebotsverwaltung angvw = Portal.Angebotsverwaltung();
+		
+		for(Angebot angebot:angvw.getAngebote(anbieter)) {
+			for(int b:angebot.getBuchungsNummern())
+				result.add(getBuchungByBuchungsnummer(b));	
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Gibt eine Buchung ueber die Buchungsnummer aus
+	 * 
+	 * @param id Buchungsnummer
+	 * @return Buchung mit der gegebenen Buchungsnummer
+	 */
 	public Buchung getBuchungByBuchungsnummer(int id){
 		for(Buchung b : getAllBuchungen())
 			if(b.getBuchungsnummer() == id)
@@ -95,10 +128,48 @@ public class Buchungsverwaltung {
 		return null;
 	}
 	
-	
+	/**
+	 * Gibt die Liste aller Buchungen aus
+	 * 
+	 * @return ArrayList aller Buchungen
+	 */
 	public ArrayList<Buchung> getAllBuchungen(){
 		return buchungen;
 	}
+	
+	/**
+	 * Getter.
+	 * 
+	 * @param buchung		zu bestaetigenede Buchung.
+	 * @return				Art der Bestaetigung wird ausgegeben.
+	 */
+	public Bestaetigung getBestaetigt(Buchung buchung) {
+		return buchung.getBestaetigt();
+	}
+	
+	/**
+	 * Gibt den Kunden zu einer Buchung aus
+	 * 
+	 * @param buchung Buchung
+	 * @return Kunde zu der jeweiligen Buchung
+	 */
+	public Kunde getKunde(Buchung buchung){
+		for (Buchung b : buchungen)
+			if(b.getBuchungsnummer() == buchung.getBuchungsnummer())
+				return (Kunde) Portal.Accountverwaltung().getAccountByName(buchung.getKundenName());
+		return null;
+	}
+	
+	/**
+	 * Gibt das Angebot einer Buchung aus
+	 * 
+	 * @param buchung Buchung
+	 * @return Angebot der jeweiligen Buchung
+	 */
+	public Angebot getReferringAngebot(Buchung buchung){
+		return Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
+	}
+	
 	/**
 	 * Setter.
 	 * 
@@ -112,26 +183,5 @@ public class Buchungsverwaltung {
 				getKunde(buchung), 
 				"Buchung wurde bearbeitet", "Ihre Buchung "+buchung.getBuchungsnummer()+" hat nun den Status "+buchung.getStatus(), 
 				getReferringAngebot(buchung));
-	}
-	
-	/**
-	 * Getter.
-	 * 
-	 * @param buchung		zu bestaetigenede Buchung.
-	 * @return				Art der Bestaetigung wird ausgegeben.
-	 */
-	public Bestaetigung getBestaetigt(Buchung buchung) {
-		return buchung.getBestaetigt();
-	}
-	
-	public Kunde getKunde(Buchung buchung){
-		for (Buchung b : buchungen)
-			if(b.getBuchungsnummer() == buchung.getBuchungsnummer())
-				return (Kunde) Portal.Accountverwaltung().getAccountByName(buchung.getKundenName());
-		return null;
-	}
-	
-	public Angebot getReferringAngebot(Buchung buchung){
-		return Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
 	}
 }
