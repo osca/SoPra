@@ -56,7 +56,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JLabel anbieter;
 
 	// Kriterien
-	private JTextField ort;
+	//private JTextField ort;
 	//private JTextField ortz;
 	private JComboBox klima;
 	private JTextField sterne;
@@ -69,6 +69,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JButton loeschen;
 	private JButton bestaetigen;
 	private JComboBox land;
+	private JComboBox ort;
 	private JComboBox landz;
 	private JComboBox ortz;
 	
@@ -167,7 +168,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		loeschen = new JButton("Alle Eingaben Loeschen");
 		loeschen.addActionListener(this);
 		down.add(BorderLayout.EAST, loeschen);
-		bestaetigen = new JButton("Bestätigen");
+		bestaetigen = new JButton("Bestaetigen");
 		bestaetigen.addActionListener(this);
 		down.add(BorderLayout.WEST, bestaetigen);
 
@@ -255,19 +256,19 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_b.validate();
 			//TODO anzahl der elemente pruefen
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(1)) {
-				//JLabel land_label = new JLabel("Land:");
-				//sub_one.add(land_label);
-				//JLabel s_ort_label = new JLabel("Ort:");
-				//sub_one.add(ort_label);
-				//land = new JComboBox(Ort.wertebereich);
-				//ort = new JComboBox(land.getSelectedItem().getOrte());
-				//sub_two.add(land);
-				//sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
-				JLabel ort_label = new JLabel("Ort:");
-				sub_one.add(ort_label);
-				ort = new JTextField();
-				ort.setToolTipText("Bitte geben Sie einen Ort");
+				JLabel land_label = new JLabel("Land:");
+				sub_one.add(land_label);
+				JLabel s_ort_label = new JLabel("Ort:");
+				sub_one.add(s_ort_label);
+				land = new JComboBox(Land.wertebereich);
+				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
+				sub_two.add(land);
 				sub_two.add(ort);
+//				JLabel ort_label = new JLabel("Ort:");
+//				sub_one.add(ort_label);
+//				ort = new JTextField();
+//				ort.setToolTipText("Bitte geben Sie einen Ort");
+//				sub_two.add(ort);
 				
 				JLabel klima_label= new JLabel("Klima:");
 				sub_one.add(klima_label);
@@ -293,36 +294,36 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(2)) {
-				//JLabel land_label = new JLabel("Land:");
-				//sub_one.add(land_label);
-				//JLabel s_ort_label = new JLabel("Ort:");
-				//sub_one.add(ort_label);
-				//land = new JComboBox(Ort.wertebereich);
-				//ort = new JComboBox(land.getSelectedItem().getOrte());
-				//sub_two.add(land);
-				//sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
-				JLabel ort_label = new JLabel("Ort:");
-				ort = new JTextField();
-				ort.setToolTipText("Bitte geben SIe einen Ort");
-				sub_one.add(ort_label);
-				sub_two.add(ort);
+				JLabel land_label = new JLabel("Land:");
+				sub_one.add(land_label);
+				JLabel s_ort_label = new JLabel("Ort:");
+				sub_one.add(s_ort_label);
+				land = new JComboBox(Land.wertebereich);
+				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));;
+				sub_two.add(land);
+				sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
+//				JLabel ort_label = new JLabel("Ort:");
+//				ort = new JTextField();
+//				ort.setToolTipText("Bitte geben SIe einen Ort");
+//				sub_one.add(ort_label);
+//				sub_two.add(ort);
 			
 			}
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(3)) {
-				//JLabel land_label = new JLabel("Land:");
-				//sub_one.add(land_label);
-				//JLabel s_ort_label = new JLabel("Ort:");
-				//sub_one.add(ort_label);
-				//land = new JComboBox(Ort.wertebereich);
-				//ort = new JComboBox(land.getSelectedItem().getOrte());
-				//sub_two.add(land);
-				//sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
-				JLabel ort_label = new JLabel("Ort:");
-				sub_one.add(ort_label);
-				ort = new JTextField();
-				ort.setToolTipText("Bitte geben Sie einen Ort");
-				sub_two.add(ort);
+				JLabel land_label = new JLabel("Land:");
+				sub_one.add(land_label);
+				JLabel s_ort_label = new JLabel("Ort:");
+				sub_one.add(s_ort_label);
+				land = new JComboBox(Land.wertebereich);
+				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
+				sub_two.add(land);
+				sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
+//				JLabel ort_label = new JLabel("Ort:");
+//				sub_one.add(ort_label);
+//				ort = new JTextField();
+//				ort.setToolTipText("Bitte geben Sie einen Ort");
+//				sub_two.add(ort);
 				
 				JLabel bierpreis_label= new JLabel("Bierpreis:");
 				sub_one.add(bierpreis_label);
@@ -336,8 +337,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel s_ort_label = new JLabel("Startort:");
 				sub_one.add(s_land_label);
 				sub_one.add(s_ort_label);
-				land = new JComboBox(Land.getWertebereich());
-				ort = new JComboBox(Land.getOrte(land.getSelectedItem()));
+				land = new JComboBox(Land.wertebereich);
+				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
 				sub_two.add(land);
 				sub_two.add(ort);
 //				JLabel ort_label= new JLabel("Startort:");
@@ -350,8 +351,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				JLabel z_ort_label = new JLabel("Zielort:");
 				sub_one.add(z_land_label);
 				sub_one.add(z_ort_label);
-				landz = new JComboBox(Land.getWertebereich());
-				ortz = new JComboBox(land.getSelectedItem().getOrte());
+				landz = new JComboBox(Land.wertebereich);
+				ortz = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
 				sub_two.add(landz);
 				sub_two.add(ortz);
 //				sub_one.add(ortz_label);
