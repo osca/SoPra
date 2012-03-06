@@ -2,6 +2,7 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -129,20 +130,28 @@ public class AngDetailScreen extends JPanel{
 			break;
 		case Account.KUNDE :
 			kommentieren.setEnabled(true);
+			kommentieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(kommentieren);
+			buchen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(buchen);
+			melden.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(melden);
+			kontaktieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(kontaktieren);
 			break;
 		
 		case Account.ANBIETER:
 			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
 				down.add(loeschen);
+			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
+			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(editieren);
 			break;
 		
 		case Account.BETREIBER:
+			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(loeschen);
+			kontaktieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			down.add(kontaktieren);
 			break;
 		
