@@ -294,7 +294,10 @@ public class SuchScreen extends JPanel
 		labelList.add(new JLabel("Verpflegung:"));
 		labelList.add(new JLabel("Bierpreis:"));
 		
-		final JComboBox land = new JComboBox(Land.wertebereich);
+		final JComboBox land = new JComboBox();
+		land.addItem("");
+		for(String s: Land.wertebereich)
+			land.addItem(s);
 		final JComboBox ort = new JComboBox();
 		land.addActionListener(new ActionListener()
 		{
@@ -313,40 +316,51 @@ public class SuchScreen extends JPanel
 	}
 	private void type2()
 	{
-		//labelList.add(new JLabel("Land:"));
+		labelList.add(new JLabel("Land:"));
 		labelList.add(new JLabel("Ort:"));
-		//boxList.add(new JComboBox(Ort.wertebereich));
-		//boxList.add(new JComboBox(boxList.get(0).getOrte());
-		fieldList.add(new JFormattedTextField());
+		setComboBox();
 	}
 	private void type3()
 	{
-		//labelList.add(new JLabel("Land:"));
+		labelList.add(new JLabel("Land:"));
 		labelList.add(new JLabel("Ort:"));
 		labelList.add(new JLabel("Bierpreis:"));
 		
-		fieldList.add(new JFormattedTextField());
-		//boxList.add(new JComboBox(Ort.wertebereich));
-		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		setComboBox();
 		boxList.add(new JComboBox(Bierpreis.wertebereich));
 	}
 	private void type4()
 	{
-		//labelList.add(new JLabel("Startand:"));
+		labelList.add(new JLabel("Startland:"));
 		labelList.add(new JLabel("Startort:"));
-		//labelList.add(new JLabel("Zieland:"));
+		labelList.add(new JLabel("Zieland:"));
 		labelList.add(new JLabel("Zielort:"));
 		labelList.add(new JLabel("Klasse:"));
 		labelList.add(new JLabel("Bierpreis:"));
 		
-		fieldList.add(new JFormattedTextField());
-		fieldList.add(new JFormattedTextField());
-		//boxList.add(new JComboBox(Ort.wertebereich));
-		//boxList.add(new JComboBox(boxList.get(0).getOrte());
-		//boxList.add(new JComboBox(Ort.wertebereich));
-		//boxList.add(new JComboBox(boxList.get(0).getOrte());
+		setComboBox();
+		setComboBox();
 		boxList.add(new JComboBox(Klasse.wertebereich));
 		boxList.add(new JComboBox(Bierpreis.wertebereich));
+	}
+	private void setComboBox()
+	{
+		final JComboBox land = new JComboBox();
+		land.addItem("");
+		for(String s: Land.wertebereich)
+			land.addItem(s);
+		final JComboBox ort = new JComboBox();
+		land.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				repaintOrt(ort, land);
+			}
+			
+		});
+		boxList.add(land);
+		boxList.add(ort);
 	}
 	
 	public void repaintOrt(JComboBox ort, JComboBox land)
