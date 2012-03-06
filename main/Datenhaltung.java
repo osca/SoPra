@@ -34,7 +34,7 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xs = new XStream();
+	private static XStream xs = initXStream();
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
@@ -202,4 +202,15 @@ public class Datenhaltung {
 		return res;
 	}
 
+	private static XStream initXStream() {
+		XStream res = new XStream();
+		String osWithDom[] = new String[]{"Linux"},
+				os = System.getProperty("os.name");
+		for(String s : osWithDom)
+			if(os.matches(".*"+s+".*"))
+				res = new XStream(new DomDriver());
+//		res.alias(name, type);
+		return res;
+	}
+	
 }
