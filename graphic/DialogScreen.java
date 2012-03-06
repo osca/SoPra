@@ -17,6 +17,8 @@ public class DialogScreen extends JDialog
 	public final static int OK_CANCEL_OPTION = 42;
 	public final static int LABEL_LEFT = 666;
 	public final static int LABEL_RIGHT = 88;
+	public final static int BUTTONWIDTH = MainFrame.BUTTONWIDTH-(MainFrame.BUTTONWIDTH/4);
+	public final static int BUTTONHEIGHT = MainFrame.BUTTONHEIGHT-(MainFrame.BUTTONHEIGHT/4);
 	
 	private JTextArea area;
 	private JPanel leftPanel;
@@ -95,7 +97,7 @@ public class DialogScreen extends JDialog
 		if(flag == OK_OPTION || flag == OK_CANCEL_OPTION)
 		{
 			JButton ok = new JButton("OK");
-			ok.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH-(MainFrame.BUTTONWIDTH/4), MainFrame.BUTTONHEIGHT-(MainFrame.BUTTONHEIGHT/4)));
+			ok.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 			buttons.add(ok);
 		    ok.addActionListener(new ActionListener() 
 		    { 
@@ -109,7 +111,7 @@ public class DialogScreen extends JDialog
 	    if(flag == OK_CANCEL_OPTION)
 	    {
 			JButton cancel = new JButton("Abbrechen");
-			cancel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH-(MainFrame.BUTTONWIDTH/4), MainFrame.BUTTONHEIGHT-(MainFrame.BUTTONHEIGHT/4)));
+			cancel.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		    buttons.add(cancel);
 		    cancel.addActionListener(new ActionListener() 
 		    {  

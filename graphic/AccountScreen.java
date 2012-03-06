@@ -89,13 +89,13 @@ public class AccountScreen extends JPanel
 						{
 							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.NEIN);
 							status.setText("Sperren");
-							labels[8].setText(account.getStatus());
+							labels[6].setText(account.getStatus());
 						}
 						else
 						{
 							Portal.Accountverwaltung().setAccountGesperrt(account, Gesperrt.JA);
 							status.setText("Entsperren");
-							labels[8].setText(account.getStatus());
+							labels[6].setText(account.getStatus());
 						}
 						status.repaint();
 					}
