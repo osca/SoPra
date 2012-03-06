@@ -37,6 +37,7 @@ import accounts.AlreadyInUseException;
 import accounts.Anbieter;
 import accounts.Betreiber;
 import accounts.Default;
+import accounts.Gesperrt;
 import accounts.Kunde;
 import accounts.LoginException;
 import accounts.Nachricht;
@@ -57,6 +58,7 @@ public class MainFrame extends JFrame
 	private JButton topButton;
 	private JButton alleButton;
 	private JButton erstelleButton;
+	private JButton betreiberButton;
 	
 	private Account account;
 	private JPanel screen;
@@ -153,6 +155,9 @@ public class MainFrame extends JFrame
 		erstelleButton = new JButton("Angebot erstellen");
 		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		erstelleButton.setEnabled(false);
+		betreiberButton= new JButton("Betreiber hinzufügen");
+		betreiberButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		betreiberButton.setVisible(false);
 		
 		buttonPanel.add(loginButton);
 		buttonPanel.add(eigeneButton);
@@ -161,6 +166,7 @@ public class MainFrame extends JFrame
 		buttonPanel.add(erstelleButton);
 		buttonPanel.add(topButton);
 		buttonPanel.add(alleButton);
+		buttonPanel.add(betreiberButton);
 		registerPanel.add(registerButton);
 
 		// /////////	
@@ -237,6 +243,14 @@ public class MainFrame extends JFrame
 				showErstelle();
 			}
 		});
+		betreiberButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				addBetreiber();
+			}
+		});
 		
 		
 		////////////////
@@ -255,6 +269,10 @@ public class MainFrame extends JFrame
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
 			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
+			
+			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
+			Portal.Accountverwaltung().setAccountGesperrt(an, Gesperrt.NEIN);
+			Portal.Accountverwaltung().logOut();
 		}
 		catch(Exception e)
 		{
@@ -264,32 +282,33 @@ public class MainFrame extends JFrame
 
 	public <T extends Listable> void showDetail(T obj) 
 	{
-		if(obj.getListableTyp() == Listable.ANGEBOT)
+		try
 		{
-			screen.removeAll();
-			screen.add(new AngDetailScreen((Angebot)obj));
-			scroll.setViewportView(screen);
-			scroll.repaint();
-		}
-		else if(obj.getListableTyp() == Buchung.BUCHUNG)
-		{
-			screen.removeAll();
-			screen.add(new BuchDetailScreen((Buchung)obj));
-			scroll.setViewportView(screen);
-			scroll.repaint();
-		}
-		else if(obj.getListableTyp() == Account.ACCOUNT)
-		{
-			screen.removeAll();
-			screen.add(new AccountScreen((Account)obj));
-			scroll.setViewportView(screen);
-			scroll.repaint();
-		}
-		else
-		{
-			try
+			if(obj.getListableTyp() == Listable.ANGEBOT)
+			{
+				screen.removeAll();
+				screen.add(new AngDetailScreen((Angebot)obj));
+				scroll.setViewportView(screen);
+				scroll.repaint();
+			}
+			else if(obj.getListableTyp() == Buchung.BUCHUNG)
+			{
+				screen.removeAll();
+				screen.add(new BuchDetailScreen((Buchung)obj));
+				scroll.setViewportView(screen);
+				scroll.repaint();
+			}
+			else if(obj.getListableTyp() == Account.ACCOUNT)
+			{
+				screen.removeAll();
+				screen.add(new AccountScreen((Account)obj));
+				scroll.setViewportView(screen);
+				scroll.repaint();
+			}
+			else
 			{
 				final Nachricht nachricht = (Nachricht)obj;
+				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
 				if(Portal.Accountverwaltung().getLoggedIn().getTyp() != Account.BETREIBER)
 				{
 					JButton[] button = new JButton[1];
@@ -305,8 +324,7 @@ public class MainFrame extends JFrame
 								@Override
 								public void onOK()
 								{
-									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender()), "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-									dispose();
+									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 								}
 							};
 							dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
@@ -332,7 +350,6 @@ public class MainFrame extends JFrame
 						public void actionPerformed(ActionEvent arg0)
 						{
 							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-							dispose();
 						}
 					});
 					button[1] = new JButton("Antworten");
@@ -347,12 +364,10 @@ public class MainFrame extends JFrame
 								@Override
 								public void onOK()
 								{
-									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender()), "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-									dispose();
+									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 								}
 							};
 							dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
-							dispose();
 						}
 					});
 					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
@@ -364,11 +379,11 @@ public class MainFrame extends JFrame
 				}
 				this.repaint();
 			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, e.getMessage());
-			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
@@ -382,7 +397,7 @@ public class MainFrame extends JFrame
 			{
 				JLabel nameLabel = new JLabel("Name");
 				JTextField nameField = new JTextField();
-				JLabel passwordLabel = new JLabel("Password");
+				JLabel passwordLabel = new JLabel("Passwort");
 				JPasswordField passwordField = new JPasswordField();
 				JLabel label = new JLabel("Bitte geben Sie die Anmeldeinformationen an");
 		
@@ -399,6 +414,7 @@ public class MainFrame extends JFrame
 					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 					
 					loginButton.setText("Logout");
+					
 					if(account.getTyp() == Account.KUNDE)
 						eigeneButton.setText("Eigene Buchungen");
 					else if(account.getTyp() == Account.ANBIETER)
@@ -406,8 +422,11 @@ public class MainFrame extends JFrame
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
 					}
-					else
+					else if(account.getTyp() == Account.BETREIBER)
+					{
 						eigeneButton.setText("Alle Accounts");
+						betreiberButton.setVisible(true);
+					}
 					
 					showTopAngebote();
 					this.repaint();
@@ -429,19 +448,15 @@ public class MainFrame extends JFrame
 				loginButton.setText("Login");
 				nachrichtButton.setText("Nachrichten");
 				registerButton.setEnabled(true);
+				betreiberButton.setVisible(false);
 				
 				this.repaint();
 				logged = false;
 			}
 		}
-		catch(LoginException e)
+		catch(Exception e)
 		{
-			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-		catch (IOException e)
-		{
-			//e.printStackTrace();
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
@@ -456,7 +471,7 @@ public class MainFrame extends JFrame
 			final JTextField nameField = new JTextField();
 			JLabel emailLabel = new JLabel("E-Mail-Adresse");
 			final JTextField emailField = new JTextField();
-			JLabel passwordLabel = new JLabel("Password");
+			JLabel passwordLabel = new JLabel("Passwort");
 			final JPasswordField passwordField = new JPasswordField();
 			
 			JLabel choice = new JLabel("Waehlen sie bitte Ihren Accounttypen");
@@ -468,6 +483,7 @@ public class MainFrame extends JFrame
 				{
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 					JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
+					Portal.Nachrichtenverwaltung().sendeNachricht(null, Portal.Accountverwaltung().getLoggedIn(), "Willkommen", "Willkommen im Angeboteportal!", null);
 				}
 				else
 				{
@@ -515,24 +531,21 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
-					
-					
-					
 					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
 				}
 			}
 		}
-		catch(AlreadyInUseException e)
+		catch(Exception e)
 		{
-			//e.printStackTrace();
-			JOptionPane.showMessageDialog(this, MeldeDienst.MSG_REG_EXISTIERT);
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
 	private void showEigene()
 	{
-//		try
-//		{
+		try
+		{
 			screen.removeAll();
 			
 			if(account.getTyp() == Account.KUNDE)
@@ -545,12 +558,12 @@ public class MainFrame extends JFrame
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
-//		}
-//		catch(Exception e)
-//		{//TODO exceptionhandling
-//			e.printStackTrace();
-//			JOptionPane.showMessageDialog(this, e.toString());
-//		}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
 	}
 	
 	private void showSuche()
@@ -644,6 +657,31 @@ public class MainFrame extends JFrame
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
+	
+	private void addBetreiber()
+	{
+		try
+		{
+			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
+			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
+			JLabel nameLabel = new JLabel("Name");
+			final JTextField nameField = new JTextField();
+			JLabel emailLabel = new JLabel("E-Mail-Adresse");
+			final JTextField emailField = new JTextField();
+			JLabel passwordLabel = new JLabel("Passwort");
+			final JPasswordField passwordField = new JPasswordField();
+			
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufügen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			{
+				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText());
+			}
 		}
 		catch(Exception e)
 		{
