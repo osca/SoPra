@@ -53,7 +53,7 @@ public class Accountverwaltung {
 	}
 
 	public Account createAccount(int typFlag, String email, String name,
-			String password) throws AlreadyInUseException {
+			String password) throws AlreadyInUseException, IOException {
 		switch (typFlag) {
 		case Account.NONE:
 			return new Default();
@@ -79,13 +79,15 @@ public class Accountverwaltung {
 	 *            Password
 	 * @throws AlreadyInUseException
 	 *             Account E-Mail oder Username schon vergeben
+	 * @throws IOException 
 	 */
 	public Kunde createKunde(String email, String name, String password)
-			throws AlreadyInUseException {
+			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		Kunde k = new Kunde(email, name, password);
 		kunden.add(k);
+		Datenhaltung.saveAllData();
 		return k;
 	}
 
@@ -100,13 +102,15 @@ public class Accountverwaltung {
 	 *            Password
 	 * @throws AlreadyInUseException
 	 *             Account E-Mail oder Username schon vergeben
+	 * @throws IOException 
 	 */
 	public Anbieter createAnbieter(String email, String name, String password)
-			throws AlreadyInUseException {
+			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		Anbieter a = new Anbieter(email, name, password);
 		anbieter.add(a);
+		Datenhaltung.saveAllData();
 		return a;
 	}
 	
@@ -123,13 +127,15 @@ public class Accountverwaltung {
 	 * 			  Allgemeine Gesch�ftsbedingungen
 	 * @throws AlreadyInUseException
 	 *             Account E-Mail oder Username schon vergeben
+	 * @throws IOException 
 	 */
 	public Anbieter createAnbieter(String email, String name, String password, String agb)
-			throws AlreadyInUseException {
+			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		Anbieter a = new Anbieter(email, name, password, agb);
 		anbieter.add(a);
+		Datenhaltung.saveAllData();
 		return a;
 	}
 
@@ -144,13 +150,15 @@ public class Accountverwaltung {
 	 *            Password
 	 * @throws AlreadyInUseException
 	 *             Account E-Mail oder Username schon vergeben
+	 * @throws IOException 
 	 */
 	public Betreiber createBetreiber(String email, String name, String password)
-			throws AlreadyInUseException {
+			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
 			throw new AlreadyInUseException();
 		Betreiber b = new Betreiber(email, name, password);
 		betreiber.add(b);
+		Datenhaltung.saveAllData();
 		return b;
 	}
 
