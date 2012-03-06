@@ -75,7 +75,7 @@ public class AccountScreen extends JPanel
 		
 		//////
 		
-		JPanel buttonPanel = new JPanel(new GridLayout(1,0));
+		JPanel buttonPanel = new JPanel();
 		final JButton status = new JButton();
 		status.addActionListener(new ActionListener()
 		{
@@ -120,8 +120,9 @@ public class AccountScreen extends JPanel
 		
 		if(account.getTyp() == Account.ANBIETER)
 		{
-			JPanel agbPanel = new JPanel();
+			JPanel agbPanel = new JPanel(grid);
 			JTextArea agbArea = new JTextArea(((Anbieter)account).getAgb());
+			agbArea.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT*6));
 			agbArea.setEditable(false);
 			agbArea.setLineWrap(true);
 			agbArea.setWrapStyleWord(true);

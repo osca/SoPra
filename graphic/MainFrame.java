@@ -267,7 +267,7 @@ public class MainFrame extends JFrame
 			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
 			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehoert mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
-			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
+			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 			
 			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
@@ -429,10 +429,10 @@ public class MainFrame extends JFrame
 					}
 					
 					showTopAngebote();
-					this.repaint();
 					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
+					this.setTitle("Eingeloggt als: "+account.getName());
+					this.repaint();
 					logged = true;
-					setTitle("Eingeloggt als: "+account.getName());
 				}
 			}
 			else
@@ -450,6 +450,8 @@ public class MainFrame extends JFrame
 				registerButton.setEnabled(true);
 				betreiberButton.setVisible(false);
 				
+
+				this.setTitle("Eingeloggt als: "+account.getName());
 				this.repaint();
 				logged = false;
 			}
