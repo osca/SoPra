@@ -518,10 +518,10 @@ public class MainFrame extends JFrame
 								Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),this.getContent());
 								JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
 							} 
-							catch (AlreadyInUseException e) 
+							catch (Exception e) 
 							{
 								e.printStackTrace();
-								JOptionPane.showMessageDialog(this, MeldeDienst.MSG_REG_EXISTIERT);
+								JOptionPane.showMessageDialog(this, e.getMessage());
 							}
 						}
 						
