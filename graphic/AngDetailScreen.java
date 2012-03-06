@@ -184,7 +184,7 @@ public class AngDetailScreen extends JPanel{
 			{
 				try
 				{
-					JLabel label = new JLabel("Geben Sie den Zeitraum an:");
+					JLabel label = new JLabel("Geben Sie den Zeitraum im Format dd/MM/yyyy an:");
 					JLabel fromLabel = new JLabel("Von:");
 					JLabel toLabel = new JLabel("Bis:");
 					JFormattedTextField fromField = new JFormattedTextField(new MaskFormatter("##/##/####"));
@@ -212,7 +212,7 @@ public class AngDetailScreen extends JPanel{
 						}*/
 						
 						if (fromDate.before(heute) || toDate.before(heute)) {
-							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor heute.");
+							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
 						}
 						else if (fromDate.after(toDate)) {
 							throw new InvalidDateException("Ihr Enddatum liegt vor dem Startdatum");
