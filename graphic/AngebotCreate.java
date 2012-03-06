@@ -220,7 +220,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 			}
 			else if(typ.getSelectedIndex()==0){
-				JOptionPane.showMessageDialog(this, "Bitte ", "Angebot Erstellung", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(this, "Bitte waehlen Sie einen Typ aus ", "Angebot Erstellung", JOptionPane.OK_OPTION);
 
 			}		
 			else if(preis.getValue()==null){
