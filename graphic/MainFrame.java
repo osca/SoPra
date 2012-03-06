@@ -286,7 +286,7 @@ public class MainFrame extends JFrame
 				this.repaint();
 			}
 			catch(Exception e)
-			{//TODO exceptionhandling
+			{
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
@@ -477,7 +477,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -494,7 +494,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());			
 		}
@@ -511,7 +511,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -527,7 +527,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -544,7 +544,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
