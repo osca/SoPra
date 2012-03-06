@@ -293,6 +293,8 @@ public class AngDetailScreen extends JPanel{
 				{
 					Portal.Angebotsverwaltung().delAngebot(angebot);
 					JOptionPane.showMessageDialog(up.getParent(), "Angebot erfolgreich geloescht");
+					if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
+						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), anbieter, "Angebot wurde Gelöscht", "Ihr Angebot wurde vom Betreiber gelöscht!", angebot);
 					removeAll();
 					repaint();
 				} 

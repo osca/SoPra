@@ -118,7 +118,6 @@ public class MainFrame extends JFrame
 		screen.setBorder(border);
 		
 		scroll = new JScrollPane(screen);
-		scroll.setMaximumSize(new Dimension(BUTTONWIDTH * 2,BUTTONWIDTH * 50));
 		this.add(scroll, BorderLayout.CENTER);
 
 		JPanel homeButtonPanel = new JPanel();

@@ -76,7 +76,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	public AngebotCreate(Anbieter a) throws ParseException {
 		
 		setLayout(new BorderLayout(5, 5));
-		up = new JPanel(new GridLayout(0, 2));
+		up = new JPanel(new GridLayout(2, 1));
 		sub_a = new JPanel(new GridLayout(9, 2));
 		
 		//Name+Label
@@ -159,6 +159,8 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		mid = new JPanel(new GridLayout(1, 0));
 		beschreibung = new JTextArea("Bitte geben Sie hier die Beschreibung ein");
 		beschreibung.setEditable(true);
+		beschreibung.setLineWrap(true);
+		beschreibung.setWrapStyleWord(true);
 		mid.add(beschreibung);
 
 		down = new JPanel(new BorderLayout(5, 5));
@@ -331,7 +333,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				JLabel s_land_label = new JLabel("Startland:");
-				JLabel s_ort_label = new JLabel("Startort:")
+				JLabel s_ort_label = new JLabel("Startort:");
 				sub_one.add(s_land_label);
 				sub_one.add(s_ort_label);
 				land = new JComboBox(Land.getWertebereich());
