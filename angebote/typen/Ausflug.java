@@ -6,6 +6,7 @@ import java.util.Date;
 import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Land;
 import angebote.kriterien.Ort;
 
 /**
@@ -15,12 +16,14 @@ import angebote.kriterien.Ort;
  */
 public class Ausflug extends Angebot {
 	
-	public static final int ORT = 20,
-							BIERPREIS = 21;
+	public static final int LAND = 100,
+										ORT = 101,
+										BIERPREIS = 102;
+	private Land land = null;
 	private Ort ort = null;
 	private Bierpreis bierpreis = null;
 
-	public static final String[] erlaubteKriterien = {Ort.name,Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Land.name, Ort.name,Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -36,9 +39,11 @@ public class Ausflug extends Angebot {
 	 * @param port Ort des Ausflugs
 	 * @param pbierpreis Bierpreis
 	 */
-	public Ausflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String port, String pbierpreis) {
+	public Ausflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String pland, String port, String pbierpreis) {
 		super(panb, pname, pbeschreibung, Angebot.AUSFLUG, pkapazitaet, ppreis, pvon, pbis);
+		land = new Land(pland);
 		ort = new Ort(port); 
+		kriterien.add(land);
 		kriterien.add(ort);
 		bierpreis = new Bierpreis(pbierpreis);
 		kriterien.add(bierpreis);

@@ -1,5 +1,6 @@
 package testcases;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import junit.framework.Assert;
@@ -34,6 +35,9 @@ public class AccountverwaltungTest {
 			Assert.assertEquals("KundenPasswort", kunde.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
@@ -55,6 +59,9 @@ public class AccountverwaltungTest {
 			Assert.assertEquals("AnbieterPasswort", bieter.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -73,6 +80,9 @@ public class AccountverwaltungTest {
 			Assert.assertEquals("Betreiber1@betreiber.de", treiber.getEmail());
 			Assert.assertEquals("BetreiberPasswort", treiber.getPassword());
 		} catch (AlreadyInUseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -130,6 +140,9 @@ public class AccountverwaltungTest {
 			e.printStackTrace();
 		} catch (LoeschenNichtMoeglichException e1) {
 			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -154,6 +167,9 @@ public class AccountverwaltungTest {
 		} catch (LoginException e) {
 			e.printStackTrace();
 		} catch (LoeschenNichtMoeglichException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

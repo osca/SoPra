@@ -7,6 +7,7 @@ import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Land;
 import angebote.kriterien.Ort;
 
 /**
@@ -16,16 +17,19 @@ import angebote.kriterien.Ort;
  */
 public class Flug extends Angebot {
 
-	public static final int START = 30,
-			 				ZIEL = 31,
-			 				KLASSE = 32,
-			 				BIERPREIS = 33;
+	public static final int STARTLAND = 120,
+										STARTORT = 121,
+										ZIELLAND = 122,
+										ZIELORT = 123,
+										KLASSE = 124,
+										BIERPREIS = 125;
 
-	private Ort start,ziel = null;
+	private Ort start = null,ziel = null;
+	private Land startL = null, zielL = null;
 	private Klasse klasse = null;
 	private Bierpreis bierpreis = null;
 	
-	public static final String[] erlaubteKriterien = {Ort.name, Ort.name, Klasse.name, Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Land.name,Ort.name, Land.name, Ort.name, Klasse.name, Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -43,13 +47,18 @@ public class Flug extends Angebot {
 	 * @param pklasse Welche Klasse?
 	 * @param pbierpreis Bierpreis
 	 */
-	public Flug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String pstart, String pziel, String pklasse, String pbierpreis) {
+	public Flug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, 
+			String pstartland, String pstartort, String pzielland, String pzielort, String pklasse, String pbierpreis) {
 		super(panb, pname, pbeschreibung, Angebot.FLUG, pkapazitaet, ppreis, pvon, pbis);
-		start = new Ort(pstart);
-		ziel = new Ort(pziel);
+		startL = new Land(pstartland);
+		start = new Ort(pstartort);
+		zielL = new Land(pzielland);
+		ziel = new Ort(pzielort);
 		klasse = new Klasse(pklasse);
 		bierpreis = new Bierpreis(pbierpreis);
+		kriterien.add(startL);
 		kriterien.add(start);
+		kriterien.add(zielL);
 		kriterien.add(ziel);
 		kriterien.add(klasse);
 		kriterien.add(bierpreis);

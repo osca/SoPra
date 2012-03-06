@@ -51,10 +51,10 @@ public class DatenhaltungTest {
 			  kunde2 = accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 
 		//Angebote erstellen
-		Autovermietung ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster");
-		Ausflug	ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig"),
-				ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
-		av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
+		Autovermietung ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster");
+		Ausflug	ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L),"Germany",  "Muenster", "Guenstig"),
+				ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster", "Guenstig");
+		av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster", "Guenstig");
 		
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));

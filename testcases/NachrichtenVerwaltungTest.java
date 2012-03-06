@@ -35,8 +35,8 @@ public class NachrichtenVerwaltungTest {
 		anbieter = accv.getAnbieter().get(0);
 		kunde = accv.getKunden().get(0);
 
-		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(78943216748967489L), new Date(78943316748967489L), "Muenster");
-		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(78943216748967489L), new Date(78943316748967489L), "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(78943216748967489L), new Date(78943316748967489L),"Germany",  "Muenster");
+		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(78943216748967489L), new Date(78943316748967489L), "Germany", "Muenster", "Guenstig");
 		
 		nv.sendeNachricht(kunde, anbieter, "Hallo Mr.Anbieter", "Cooles Angebot haben sie da...", ang1);
 		nv.sendeNachricht(anbieter, kunde, "Re: Hallo Mr.Anbieter", "Danke, dann buch es doch!", ang1);

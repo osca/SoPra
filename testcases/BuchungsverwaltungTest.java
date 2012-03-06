@@ -50,9 +50,9 @@ public class BuchungsverwaltungTest {
 		kunde2 = accv.getKunden().get(1);
 		
 		//Angebote erstellen
-		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster");
-		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter, "Auto Auto", "Hier gibts Autos", 2, 10.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster");
+		ang2 = av.createAusflug(anbieter, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, new Date(1430609911421L),new Date(1430610011421L), "Germany", "Muenster", "Guenstig");
 		
 		//Buchungen erstellen
 		b1 = bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));

@@ -1,5 +1,6 @@
 package testcases;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,10 +86,10 @@ public class AngebotTest {
 		kunde2 = accv.getKunden().get(1);
 
 		//Angebote erstellen
-		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Muenster");
-		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Muenster", "Guenstig");
-		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Muenster", "Guenstig");
-		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Muenster", "Guenstig");
+		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Germany", "Muenster");
+		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Germany", "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Germany", "Muenster", "Guenstig");
+		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Germany", "Muenster", "Guenstig");
 		
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
@@ -157,7 +158,7 @@ public class AngebotTest {
 	}
 	
 	@Test 
-	public void testFlug() throws AlreadyInUseException, java.text.ParseException, InvalidDateException{
+	public void testFlug() throws AlreadyInUseException, java.text.ParseException, InvalidDateException, IOException{
 		Anbieter anb = (Anbieter) Portal.Accountverwaltung().createAccount(Account.ANBIETER, "E@Ma.il", "Unternehmen", "safe");
 		Kunde kunde = (Kunde) Portal.Accountverwaltung().createAccount(Account.KUNDE, "E@Mail.com", "Nah Meh", "blabla");
 		Flug flug = (Flug) Portal.Angebotsverwaltung().createAngebot(anb, "Superabsturz", "s.o.", Angebot.FLUG, 150.99, 125, 

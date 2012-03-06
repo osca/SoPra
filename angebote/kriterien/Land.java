@@ -9,7 +9,7 @@ public class Land extends Kriterium{
 	public final static String name = "Land";
 	private static File laenderFile = new File("laender.txt");
 	public final static String[] wertebereich = Datenhaltung.getStringArrayFromFile(laenderFile);
-
+	
 	public Land(String pwert) throws IllegalArgumentException {
 		super(pwert);
 	}

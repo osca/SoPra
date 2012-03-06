@@ -7,6 +7,7 @@ import accounts.Anbieter;
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Land;
 import angebote.kriterien.Ort;
 import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
@@ -19,19 +20,21 @@ import angebote.kriterien.Verpflegungsart;
  */
 public class Hoteluebernachtung extends Angebot {
 
-	public static final int ORT = 40,
-			 				KLIMA = 41,
-			 				STERNE = 42,
-			 				VERPFLEGUNGSART = 43,
-			 				BIERPREIS = 44;
+	public static final int LAND = 130,
+										ORT = 131,
+										KLIMA = 132,
+										STERNE = 133,
+										VERPFLEGUNGSART = 134,
+										BIERPREIS = 135;
 	
+	private Land land = null;
 	private Ort ort = null;
 	private Klima klima = null;
 	private Sterne sterne = null;
 	private Verpflegungsart verpflegungsart = null;
 	private Bierpreis bierpreis = null;
 	
-	public static final String[] erlaubteKriterien = {Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
+	public static final String[] erlaubteKriterien = {Land.name, Ort.name,Klima.name,Sterne.name,Verpflegungsart.name,Bierpreis.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 	
 	/**
@@ -51,13 +54,15 @@ public class Hoteluebernachtung extends Angebot {
 	 * @param pbierpreis Bierpreis
 	 */
 	public Hoteluebernachtung(Anbieter panbieter, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date pvon, Date pbis, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
+			Date pvon, Date pbis, String pland, String port, String pklima, String psterne, String pverpflegungsart, String pbierpreis) {
 		super(panbieter, pname, pbeschreibung, Angebot.HOTEL, pkapazitaet, ppreis, pvon, pbis);
+		land = new Land(pland);
 		ort = new Ort(port);
 		klima = new Klima(pklima);
 		sterne = new Sterne(psterne);
 		verpflegungsart = new Verpflegungsart(pverpflegungsart);
 		bierpreis = new Bierpreis(pbierpreis);
+		kriterien.add(land);
 		kriterien.add(ort);
 		kriterien.add(klima);
 		kriterien.add(sterne);

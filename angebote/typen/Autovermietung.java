@@ -5,6 +5,7 @@ import java.util.Date;
 
 import accounts.Anbieter;
 import angebote.kriterien.Kriterium;
+import angebote.kriterien.Land;
 import angebote.kriterien.Ort;
 
 /**
@@ -13,10 +14,12 @@ import angebote.kriterien.Ort;
  * @author osca
  */
 public class Autovermietung extends Angebot {
-	public static final int ORT = 0;
+	public static final int LAND = 110,
+										ORT = 111;
+	private Land land = null;
 	private Ort ort = null;
 	
-	public static final String[] erlaubteKriterien = {Ort.name};
+	public static final String[] erlaubteKriterien = {Land.name, Ort.name};
 	private ArrayList<Kriterium> kriterien = new ArrayList<Kriterium>();
 
 	/**
@@ -31,9 +34,11 @@ public class Autovermietung extends Angebot {
 	 * @param pdaten Von wann, bis wann laeuft das Angebot
 	 * @param port Von wo wird das Auto abgeholt?
 	 */
-	public Autovermietung(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String port) {
+	public Autovermietung(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, Date pvon, Date pbis, String pland, String port) {
 		super(panb, pname, pbeschreibung, Angebot.AUTOVERMIETUNG, pkapazitaet, ppreis, pvon, pbis);
+		land = new Land(pland);
 		ort = new Ort(port);
+		kriterien.add(land);
 		kriterien.add(ort);
 	}
 	

@@ -80,23 +80,24 @@ public class Angebotsverwaltung {
 		int shift = 0;
 		switch(typ) {
 		case Angebot.AUTOVERMIETUNG:{
-			shift = Autovermietung.ORT;
-			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.ORT-shift]);
+			shift = Autovermietung.LAND;
+			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.LAND-shift], krit[Autovermietung.ORT-shift]);
 		}
 		case Angebot.AUSFLUG:{
-			shift = Ausflug.ORT;
-			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.ORT-shift], krit[Ausflug.BIERPREIS-shift]);
+			shift = Ausflug.LAND;
+			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.LAND-shift], krit[Ausflug.ORT-shift], krit[Ausflug.BIERPREIS-shift]);
 		}
 		case Angebot.HOTEL:{
-			shift = Hoteluebernachtung.ORT;
+			shift = Hoteluebernachtung.LAND;
 			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, von, bis, 
-					krit[Hoteluebernachtung.ORT-shift], krit[Hoteluebernachtung.KLIMA-shift], krit[Hoteluebernachtung.STERNE-shift], 
+					krit[Hoteluebernachtung.LAND-shift], krit[Hoteluebernachtung.ORT-shift], krit[Hoteluebernachtung.KLIMA-shift], krit[Hoteluebernachtung.STERNE-shift], 
 					krit[Hoteluebernachtung.VERPFLEGUNGSART-shift], krit[Hoteluebernachtung.BIERPREIS-shift]);
 		}
 		case Angebot.FLUG:{
-			shift = Flug.START;
-			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Flug.START-shift], krit[Flug.ZIEL-shift], 
-						krit[Flug.KLASSE-shift], krit[Flug.BIERPREIS-shift]);
+			shift = Flug.STARTLAND;
+			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, 
+					krit[Flug.STARTLAND-shift], krit[Flug.STARTORT-shift], krit[Flug.ZIELLAND-shift], krit[Flug.ZIELORT-shift], 
+					krit[Flug.KLASSE-shift], krit[Flug.BIERPREIS-shift]);
 		}
 		default : 
 			return null;
@@ -116,8 +117,8 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException 
 	 * @see Autovermietung
 	 */
-	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String ort) throws InvalidDateException{
-		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, ort);
+	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String land, String ort) throws InvalidDateException{
+		Autovermietung av = new Autovermietung(anbieter, name, beschr, kapaz, preis, von, bis, land, ort);
 		anbieter.addAngebot(av);
 		angebote.add(av);
 		return av;
@@ -137,24 +138,24 @@ public class Angebotsverwaltung {
 	 * @throws InvalidDateException 
 	 */
 	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date pvon, Date pbis, String port, String pbierpreis) throws InvalidDateException {
-		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, port, pbierpreis);
+			Date pvon, Date pbis, String pland, String port, String pbierpreis) throws InvalidDateException {
+		Ausflug af = new Ausflug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pland, port, pbierpreis);
 		panb.addAngebot(af);
 		angebote.add(af);
 		return af;
 	}
 	
 	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
-			Date pvon, Date pbis, String pstart, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
-		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pstart, pziel, pklasse, pbierpreis);
+			Date pvon, Date pbis, String pstartLand, String pstart, String pzielLand, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
+		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pstartLand, pstart, pzielLand, pziel, pklasse, pbierpreis);
 		panb.addAngebot(f);
 		angebote.add(f);
 		return f;
 	}
 	
 	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date pvon, Date pbis, 
-			String ort, String klima, String sterne, String verpf, String bierpr) throws InvalidDateException{
-		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, pvon, pbis, ort, klima, sterne, verpf, bierpr);
+			String land, String ort, String klima, String sterne, String verpf, String bierpr) throws InvalidDateException{
+		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, pvon, pbis, land, ort, klima, sterne, verpf, bierpr);
 		anb.addAngebot(hu);
 		angebote.add(hu);
 		return hu;
