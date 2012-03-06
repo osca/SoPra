@@ -2,6 +2,7 @@ package buchungen;
 
 public class InvalidDateException extends Exception {
 	public InvalidDateException(String string) {
+		super(string);
 	}
 	public InvalidDateException(){}
 
