@@ -139,6 +139,8 @@ public class DialogScreen extends JDialog
 		this.setVisible(true);
 		//setModal(true);
 		setAlwaysOnTop(true);
+		area.setLineWrap(true);
+		area.setWrapStyleWord(true);
 	}
 	
 	public void setContent(String t)

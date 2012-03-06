@@ -26,10 +26,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-<<<<<<< HEAD
-import javax.swing.UnsupportedLookAndFeelException;
-=======
->>>>>>> 2963f07aaa214f31c744febc0e77d2246946998d
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
