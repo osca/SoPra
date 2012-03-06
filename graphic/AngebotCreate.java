@@ -159,6 +159,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		mid = new JPanel(new GridLayout(1, 0));
 		beschreibung = new JTextArea("Bitte geben Sie hier die Beschreibung ein");
 		beschreibung.setEditable(true);
+		beschreibung.setLineWrap(true);
 		beschreibung.setWrapStyleWord(true);
 		mid.add(beschreibung);
 
