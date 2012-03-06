@@ -44,7 +44,7 @@ public class AccountScreen extends JPanel
 		JPanel left = new JPanel(grid);
 		
 		int linkeSeite = 4;
-		labels = new JLabel[10];
+		labels = new JLabel[8];
 		labels[0] = new JLabel("Name:");
 		labels[1] = new JLabel("E-Mail Adresse:");
 		labels[2] = new JLabel("Status:");
@@ -63,11 +63,11 @@ public class AccountScreen extends JPanel
 		
 		
 		if(account.getTyp() == Account.KUNDE)
-			labels[6] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
+			labels[7] = new JLabel(""+Portal.Buchungsverwaltung().getBuchungen((Kunde)account).size());
 		if(account.getTyp() == Account.ANBIETER)
-			labels[6] = new JLabel(""+Portal.Angebotsverwaltung().getAngebote((Anbieter)account).size());
+			labels[7] = new JLabel(""+Portal.Angebotsverwaltung().getAngebote((Anbieter)account).size());
 		else
-			labels[6] = new JLabel();
+			labels[7] = new JLabel();
 		
 		for(int i=linkeSeite; i<labels.length; i++)
 			right.add(labels[i]);
@@ -114,6 +114,19 @@ public class AccountScreen extends JPanel
 		else
 			status.setText("Sperren");
 		buttonPanel.add(status);
+		
+		////
+		
+		if(account.getTyp() == Account.ANBIETER)
+		{
+			JPanel agbPanel = new JPanel();
+			JLabel agbLabel = new JLabel(((Anbieter)account).getAgb());
+			agbPanel.add(agbLabel);
+			this.add(agbPanel, BorderLayout.CENTER);
+		}
+		
+		////
+		
 		
 		main.add(left);
 		main.add(right);
