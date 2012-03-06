@@ -157,7 +157,7 @@ public class MainFrame extends JFrame
 		erstelleButton = new JButton("Angebot erstellen");
 		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		erstelleButton.setEnabled(false);
-		betreiberButton = new JButton("Betreiber hinzuf�gen");
+		betreiberButton = new JButton("Betreiber hinzufuegen");
 		betreiberButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		betreiberButton.setVisible(false);
 		offeneButton = new JButton("Kundenbuchungen");
