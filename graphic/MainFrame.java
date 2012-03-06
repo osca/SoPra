@@ -157,7 +157,7 @@ public class MainFrame extends JFrame
 		erstelleButton = new JButton("Angebot erstellen");
 		erstelleButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		erstelleButton.setEnabled(false);
-		betreiberButton = new JButton("Betreiber hinzufügen");
+		betreiberButton = new JButton("Betreiber hinzufï¿½gen");
 		betreiberButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		betreiberButton.setVisible(false);
 		offeneButton = new JButton("Kundenbuchungen");
@@ -281,7 +281,7 @@ public class MainFrame extends JFrame
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
 			Angebot auto = null;
 			for(int i=0; i<10; i++)
-				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens. ich schreibe hier einen text damit ihr seht dass es auc nicht mit ohne gehen darf. die tatsache der existenz einer einzelnen materie ist die unscheinbare wirklichkeit der obrichkeiten. diese unterdrückende macht liegt in der staerke des einzelnen und bedarf keiner weiteren funktion als die der wahrnehmungsfreiheit. wer also sind wir zu behaupten die unwirklichkeit wirklich zu verstehen ohne sie jemals in der tatsache des seins einbinden zu koennen.", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
+				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens. ich schreibe hier einen text damit ihr seht dass es auc nicht mit ohne gehen darf. die tatsache der existenz einer einzelnen materie ist die unscheinbare wirklichkeit der obrichkeiten. diese unterdrï¿½ckende macht liegt in der staerke des einzelnen und bedarf keiner weiteren funktion als die der wahrnehmungsfreiheit. wer also sind wir zu behaupten die unwirklichkeit wirklich zu verstehen ohne sie jemals in der tatsache des seins einbinden zu koennen.", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 			
 			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
@@ -472,6 +472,7 @@ public class MainFrame extends JFrame
 				this.setTitle("Eingeloggt als: "+account.getName());
 				this.repaint();
 				logged = false;
+				setTitle("");
 			}
 		}
 		catch(Exception e)
@@ -711,7 +712,7 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Passwort");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufügen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufï¿½gen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
 				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText());
 			}
