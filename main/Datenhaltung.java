@@ -19,6 +19,7 @@ import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
@@ -32,7 +33,7 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xs = new XStream();
+	private static XStream xs = new XStream(new DomDriver("UTF-8"));
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
