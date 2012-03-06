@@ -121,6 +121,7 @@ public class MainFrame extends JFrame
 		screen.setBorder(border);
 		
 		scroll = new JScrollPane(screen);
+		scroll.getVerticalScrollBar().setUnitIncrement(20);
 		this.add(scroll, BorderLayout.CENTER);
 
 		JPanel homeButtonPanel = new JPanel();
