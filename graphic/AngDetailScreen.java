@@ -181,13 +181,25 @@ public class AngDetailScreen extends JPanel{
 						cal.set(Calendar.MILLISECOND, 0);
 						heute = cal.getTime();
 						
-						if(fromDate.before(heute) || fromDate.after(toDate) || fromDate.before(angebot.getStartdatum()) || toDate.after(angebot.getEnddatum())){
-							throw new InvalidDateException();
+						/*if(fromDate.before(heute) || fromDate.after(toDate) || fromDate.before(angebot.getStartdatum()) || toDate.after(angebot.getEnddatum())){
+							throw new InvalidDateException("Das Date ist falsch");
+						}*/
+						
+						if (fromDate.before(heute) || toDate.before(heute)) {
+							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor heute.");
+						}
+						else if (fromDate.after(toDate)) {
+							throw new InvalidDateException("Ihr Enddatum liegt vor dem Startdatum");
+						}
+						else if (fromDate.before(angebot.getStartdatum())) {
+							throw new InvalidDateException("Ihr Anfangsdatum liegt vor Beginn des Angebots");
+						}
+						else if (toDate.after(angebot.getEnddatum())) {
+							throw new InvalidDateException("Ihr Enddatum liegt nach Ende des Angebots");
 						}
 
 						
 						DialogScreen dialog = new DialogScreen("Buchen", DialogScreen.OK_CANCEL_OPTION)
-						//TODO vllt. da das datum von bis setten und dann der buchung �bergeben
 						{
 							@Override
 							public void onOK()
@@ -237,7 +249,7 @@ public class AngDetailScreen extends JPanel{
 		});
 		kommentieren.addActionListener(new ActionListener()
 		{
-			JComboBox bewertung = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
+			JComboBox<String> bewertung = new JComboBox<String>(new String[]{"1", "2", "3", "4", "5"});
 			int iBewertung = 0;
 			
 			@Override
