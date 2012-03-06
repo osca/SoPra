@@ -433,7 +433,7 @@ public class Accountverwaltung {
 	 */
 	public boolean isFreeName(String name) {
 		if(name.length()<2)
-			throw new IllegalArgumentException("Bitte wählen Sie einen Namen mit mehr als 2 Zeichen");
+			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
 		for (Account a : getAccounts())
 			if (a.getName().toLowerCase().equals(name.toLowerCase()))
 				return false;

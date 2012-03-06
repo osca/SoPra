@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.text.DateFormatter;
 
+import main.Datenhaltung;
 import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
@@ -68,7 +69,7 @@ public class MainFrame extends JFrame
 	public MainFrame()
 	{
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width);
 	    int y = (d.height - getSize().height);
@@ -286,7 +287,7 @@ public class MainFrame extends JFrame
 				this.repaint();
 			}
 			catch(Exception e)
-			{//TODO exceptionhandling
+			{
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
@@ -334,6 +335,7 @@ public class MainFrame extends JFrame
 					this.repaint();
 					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
 					logged = true;
+					setTitle("Eingeloggt als: "+account.getName());
 				}
 			}
 			else
@@ -477,7 +479,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -494,7 +496,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());			
 		}
@@ -511,7 +513,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -527,7 +529,7 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
@@ -544,13 +546,22 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
+		{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
 	/////////////////////////
+	
+	public void dispose(){
+		try{
+			Datenhaltung.saveAllData();
+			System.exit(0);
+		}catch(IOException ioe){
+			//TODO maybe something?
+		}
+	}
 	
 	public static void main(String[] args)
 	{
