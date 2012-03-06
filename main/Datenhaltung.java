@@ -30,7 +30,8 @@ public class Datenhaltung {
 			offFile = new File(path+"Angebote.xml"),
 			buchFile = new File(path+"Buchungen.xml");
 
-	private final static String header = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
+	private final static String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+//	private final static String header = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 
 	private Datenhaltung() {}
 
@@ -207,8 +208,10 @@ public class Datenhaltung {
 		String osWithDom[] = new String[]{"Linux"},
 				os = System.getProperty("os.name");
 		for(String s : osWithDom)
-			if(os.matches(".*"+s+".*"))
+			if(os.matches(".*"+s+".*")){
 				res = new XStream(new DomDriver());
+				System.out.println("Dom initialized");
+			}
 //		res.alias(name, type);
 		return res;
 	}

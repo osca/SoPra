@@ -18,6 +18,8 @@
 33. Das Editieren der Angebote funktioniert noch nicht! Umleiten auf AngebotCreate o.ae.
 33. a. Nach Versuch zu Editieren funkt loeschen nicht
 33. b. Loescht man dann ein anderes angebot werden beide nicht mehr unter eigeneAngebote angezeigt. Das nicht zu loeschende existiert aber weiterhin
+34. Top-Angebote zeigt mehr als 10 Angebote an!
+
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
