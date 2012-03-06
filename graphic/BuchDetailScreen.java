@@ -91,15 +91,15 @@ public class BuchDetailScreen extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					JTextField betreff = new JTextField("Betreff");
-					JTextArea area = new JTextArea("");
-					int result = JOptionPane.showConfirmDialog(null,new Object[]{betreff,area},"Anfragentext",JOptionPane.OK_CANCEL_OPTION);
-					if(result == JOptionPane.OK_OPTION){
-						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), 
-								Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(b)), betreff.getText(), area.getText(), 
-								Portal.Buchungsverwaltung().getReferringAngebot(b));
-						JOptionPane.showConfirmDialog(null, "Ihre Aenderungsanfrage wurde gesendet", "Anfrage gesendet", JOptionPane.OK_OPTION);
-					}
+					DialogScreen dialog = new DialogScreen("Aenderungsanfrage", JOptionPane.OK_CANCEL_OPTION)
+					{
+						@Override
+						public void onOK()
+						{
+							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(b)), "Aenderungsanfrage", getContent(), Portal.Buchungsverwaltung().getReferringAngebot(b));
+						}
+					};
+					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 			});
 			stornieren = new JButton("Stronieren");

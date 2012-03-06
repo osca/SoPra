@@ -137,7 +137,7 @@ public class AccountScreen extends JPanel
 		main.add(right);
 		
 		this.add(main, BorderLayout.NORTH);
-		this.add(buttonPanel, BorderLayout.SOUTH);
+		this.add(buttonPanel, BorderLayout.CENTER);
 	}
 	
 	

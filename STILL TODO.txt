@@ -7,8 +7,13 @@
 22  ReisePortal-Ordner anlegen
 23. Bei falsches Passwort wird immer noch gesperrt Account
 24. Design by Contract??? --> noch viel zu tun !!!
-
-
+25. der anbieter muss die storrnierungsanfrage bearbeiten
+26. angebot detail buttonsize ist hässlich
+27. suche funktioniert nicht: weil kriterien irgendwie nicht richtig übgergeben!?
+28. agb erklaerung bei buchen überarbeiten
+29. alle angeben löschen  als button ist auf der falschen seite!
+30. "sie müssen eine bewertung abgeben" - aber ich kann nicht!
+31. die gesammtbewerung eines kunden sollte a) auch in einem angebot stehen und b) gerundet werden (0.989898988)
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
