@@ -34,7 +34,7 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xs = new XStream(new DomDriver("UTF-8"));
+	private static XStream xs = new XStream();
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
