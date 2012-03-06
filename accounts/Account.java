@@ -110,7 +110,7 @@ public abstract class Account implements Listable{
 		return Listable.ACCOUNT;
 	}
 	
-	public String hashPassword(String password) {
+	public static String hashPassword(String password) {
 		String hashword = null;
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");

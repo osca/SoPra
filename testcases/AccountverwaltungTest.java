@@ -8,6 +8,7 @@ import main.Portal;
 
 import org.junit.Test;
 
+import accounts.Account;
 import accounts.Accountverwaltung;
 import accounts.AlreadyInUseException;
 import accounts.Anbieter;
@@ -32,7 +33,7 @@ public class AccountverwaltungTest {
 			Kunde kunde = kunden.get(0);
 			Assert.assertEquals("Kunde", kunde.getName());
 			Assert.assertEquals("Kunde1@kunde.de", kunde.getEmail());
-			Assert.assertEquals("KundenPasswort", kunde.getPassword());
+			Assert.assertEquals(Account.hashPassword("KundenPasswort"), kunde.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -56,7 +57,7 @@ public class AccountverwaltungTest {
 			
 			Assert.assertEquals("Anbieter", bieter.getName());
 			Assert.assertEquals("Anbieter1@anbieter.de", bieter.getEmail());
-			Assert.assertEquals("AnbieterPasswort", bieter.getPassword());
+			Assert.assertEquals(Account.hashPassword("AnbieterPasswort"), bieter.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -78,7 +79,7 @@ public class AccountverwaltungTest {
 
 			Assert.assertEquals("Betreiber", treiber.getName());
 			Assert.assertEquals("Betreiber1@betreiber.de", treiber.getEmail());
-			Assert.assertEquals("BetreiberPasswort", treiber.getPassword());
+			Assert.assertEquals(Account.hashPassword("BetreiberPasswort"), treiber.getPassword());
 		} catch (AlreadyInUseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -156,7 +157,7 @@ public class AccountverwaltungTest {
 			Kunde kunde = (Kunde)acv.getAccountByIdentifier("Kundenspasst");
 			Kunde test = null;
 			
-			acv.logIn(kunde.getEmail(), kunde.getPassword());
+			acv.logIn(kunde.getEmail(), "passwort");
 			
 			test = (Kunde) acv.getLoggedIn();
 			Assert.assertEquals(kunde.getName(), test.getName());
