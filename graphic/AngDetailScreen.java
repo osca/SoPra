@@ -249,7 +249,7 @@ public class AngDetailScreen extends JPanel{
 		});
 		kommentieren.addActionListener(new ActionListener()
 		{
-			JComboBox<String> bewertung = new JComboBox<String>(new String[]{"1", "2", "3", "4", "5"});
+			JComboBox bewertung = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
 			int iBewertung = 0;
 			
 			@Override
