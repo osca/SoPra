@@ -28,12 +28,12 @@ import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
 import angebote.kriterien.Land;
-import angebote.kriterien.Ort;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
 
 
+@SuppressWarnings("serial")
 public class AngebotCreate<FormattedTextField> extends JPanel implements ActionListener {
 
 	private JPanel up;
@@ -317,7 +317,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				});
 				ort = new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));;
 				sub_two.add(land);
-				sub_two.add(ort);JLabel ort_label= new JLabel("Ort:");
+				sub_two.add(ort);
+				@SuppressWarnings("unused")
+				JLabel ort_label = new JLabel("Ort:");
 //				JLabel ort_label = new JLabel("Ort:");
 //				ort = new JTextField();
 //				ort.setToolTipText("Bitte geben SIe einen Ort");
@@ -378,6 +380,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 //				ort = new JTextField();
 //				ort.setToolTipText("Bitte geben Sie einen Startort");
 //				sub_two.add(ort);
+				@SuppressWarnings("unused")
 				JLabel ortz_label= new JLabel("Zielort:");
 				JLabel z_land_label = new JLabel("Zielland:");
 				JLabel z_ort_label = new JLabel("Zielort:");
@@ -388,7 +391,19 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						Component[] comps = sub_two.getComponents();
+						int pos = -1;
+						for(int i=0;i<comps.length;i++) {
+							if(comps[i].equals(ortz))
+								pos = i;
+						}
 						
+						sub_two.remove(ortz);
+						ortz=new JComboBox(((Land.getOrte((String)landz.getSelectedItem()))));
+						sub_two.add(ortz, null, pos);
+						
+						sub_two.revalidate();
+						sub_two.repaint();
 					}
 					
 				});
@@ -422,18 +437,20 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			this.repaint();
 	}
 	
-	public void repaintOrt(){
-		String x =(String) land.getSelectedItem();
+	public void repaintOrt(){		
+		Component[] comps = sub_two.getComponents();
+		int pos = -1;
+		for(int i=0;i<comps.length;i++) {
+			if(comps[i].equals(ort))
+				pos = i;
+		}
+		
+		sub_two.remove(ort);
 		ort=new JComboBox(((Land.getOrte((String)land.getSelectedItem()))));
-		sub_one.repaint();
+		sub_two.add(ort, null, pos);
+		
+		sub_two.revalidate();
 		sub_two.repaint();
-		sub_b.removeAll();
-		sub_b.add(sub_one);
-		sub_b.add(sub_two);
-		sub_b.validate();
-		sub_b.repaint();
-		this.validate();
-		this.repaint();	
 	}
 	
 
