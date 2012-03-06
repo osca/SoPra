@@ -209,61 +209,60 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			Date q=null;
 			Date w=null;
 			double result =0;
-			
-			if(kap.getText()==null||((String) kap.getText()).isEmpty()){
-				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltige Kapazitaet ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
+			if(name.getText().isEmpty()){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen gueltigen Namen ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
+
 			}
-			
-			if(preis.getValue()==null||((String) preis.getValue()).isEmpty()){
+			else if(typ.getSelectedIndex()==0){
+				JOptionPane.showMessageDialog(this, "Bitte waehlen Sie einen gueltigen Typ aus", "Angebot Erstellung", JOptionPane.OK_OPTION);
+
+			}
+			else if(kap.getText()==null||((String) kap.getText()).isEmpty()){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltige Kapazitaet ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
+			}			
+			else if(preis.getValue()==null){
 				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltigen Preis ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
 			else if(preis.getValue()!=null){
 				result = ((Number) preis.getValue()).doubleValue();
 			}
-			
-			try {
+			if(result == 0){
+				
+			}
+			else try {
 				q = Methods.stringToDate(von.getText());
-				
-			} catch (ParseException e1) {
-				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
-			}
-			try {
 				w = Methods.stringToDate(bis.getText());
+
+				try {
+					Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
+					JOptionPane.showMessageDialog(this, "Erstellung erfolgreich");
+					name.setText(null);
+					typ.setSelectedIndex(0);
+					preis.setText(null);
+					kap.setText(null);
+					von.setText(null);
+					bis.setText(null);
+					beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
+					addScreen();
+				} catch (NumberFormatException e1) {	
+					e1.printStackTrace();
+				} catch (InvalidDateException e1) {
+					JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
+					e1.printStackTrace();
+				}
 			} catch (ParseException e1) {
-				
 				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
-			try {
-				Portal.Angebotsverwaltung().createAngebot((Anbieter) Portal.Accountverwaltung().getLoggedIn(), name.getText(), beschreibung.getText(), Angebot.convertNameToTyp(typ.getSelectedItem().toString()), result, Integer.parseInt(kap.getText()), q,w, k);
-				JOptionPane.showMessageDialog(this, "Erstellung erfolgreich");
-				name.setText(null);
-				typ.setSelectedIndex(0);
-				preis.setText(null);
-				kap.setText(null);
-				von.setText(null);
-				bis.setText(null);
-				beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
-				addScreen();
-				
-			} catch (NumberFormatException e1) {
-			
-				e1.printStackTrace();
-			} catch (InvalidDateException e1) {
-				JOptionPane.showMessageDialog(this, "Ueberpruefen Sie das Datum", "Angebot Erstellung", JOptionPane.OK_OPTION);
-				e1.printStackTrace();
-			}
-			
-			
 		}
 		
 		else if(e.getSource()==loeschen){
-			name.setText(null);
+			name.setText("");
 			typ.setSelectedIndex(0);
-			preis.setText(null);
-			kap.setText(null);
-			von.setText(null);
-			bis.setText(null);
-			interval.setText(null);
+			preis.setText("");
+			kap.setText("");
+			von.setText("");
+			bis.setText("");
+			interval.setText("");
 			beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
 			addScreen();
 			
