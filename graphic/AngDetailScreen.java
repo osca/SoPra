@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -150,7 +152,7 @@ public class AngDetailScreen extends JPanel{
 		
 		
 		buchen.addActionListener(new ActionListener()
-		{
+		{			
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -170,8 +172,16 @@ public class AngDetailScreen extends JPanel{
 
 						final Date toDate = to.parse(toField.getText());
 						final Date fromDate = to.parse(fromField.getText());
+						Date heute = new Date();
+						Calendar cal = new GregorianCalendar();
+						cal.setTime(heute);
+						cal.set(Calendar.HOUR_OF_DAY, 0);
+						cal.set(Calendar.MINUTE, 0);
+						cal.set(Calendar.SECOND, 0);
+						cal.set(Calendar.MILLISECOND, 0);
+						heute = cal.getTime();
 						
-						if(fromDate.after(toDate) || fromDate.before(angebot.getStartdatum()) || toDate.after(angebot.getEnddatum())){
+						if(fromDate.before(heute) || fromDate.after(toDate) || fromDate.before(angebot.getStartdatum()) || toDate.after(angebot.getEnddatum())){
 							throw new InvalidDateException();
 						}
 
