@@ -2,6 +2,7 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -168,11 +169,13 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		beschreibung.setWrapStyleWord(true);
 		mid.add(beschreibung);
 
-		down = new JPanel(new BorderLayout(5, 5));
+		down = new JPanel();
 		loeschen = new JButton("Alle Eingaben Loeschen");
+		loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 		loeschen.addActionListener(this);
 		down.add(BorderLayout.EAST, loeschen);
 		bestaetigen = new JButton("Bestaetigen");
+		bestaetigen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 		bestaetigen.addActionListener(this);
 		down.add(BorderLayout.WEST, bestaetigen);
 	
