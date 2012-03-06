@@ -222,13 +222,13 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			else if(typ.getSelectedIndex()==0){
 				JOptionPane.showMessageDialog(this, "Bitte ", "Angebot Erstellung", JOptionPane.OK_OPTION);
 
-			}
-			else if(kap.getText()==null||((String) kap.getText()).isEmpty()){
-				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltige Kapazitaet ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
-			}			
+			}		
 			else if(preis.getValue()==null){
 				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltigen Preis ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
 			}
+			else if(kap.getText()==null||((String) kap.getText()).isEmpty()){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gueltige Kapazitaet ein", "Angebot Erstellung", JOptionPane.OK_OPTION);
+			}	
 			else if(preis.getValue()!=null){
 				result = ((Number) preis.getValue()).doubleValue();
 			}
