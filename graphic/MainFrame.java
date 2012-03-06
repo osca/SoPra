@@ -106,6 +106,7 @@ public class MainFrame extends JFrame
 		screen.setBorder(border);
 		
 		scroll = new JScrollPane(screen);
+		scroll.setMaximumSize(new Dimension(BUTTONWIDTH * 2,BUTTONWIDTH * 50));
 		this.add(scroll, BorderLayout.CENTER);
 
 		JPanel homeButtonPanel = new JPanel();
@@ -239,7 +240,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele geh�rt mir!");
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehoert mir!");
 			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
 			Autovermietung auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens", 4, 532, new Date(1), new Date(151465143512312L), "hell");
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
@@ -280,7 +281,7 @@ public class MainFrame extends JFrame
 				Nachricht nachricht = (Nachricht)obj;
 				DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
-				dialog.setLabelContent("Absender: "+nachricht.getAbsender(), DialogScreen.LABEL_LEFT);
+				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
@@ -381,7 +382,7 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Password");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			JLabel choice = new JLabel("W�hlen sie bitte Ihren Accounttypen");
+			JLabel choice = new JLabel("Waehlen sie bitte Ihren Accounttypen");
 			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
@@ -395,7 +396,7 @@ public class MainFrame extends JFrame
 				{
 					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
 						throw new AlreadyInUseException();
-					DialogScreen dialog = new DialogScreen("Allgemeine Gesch�ftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -418,7 +419,7 @@ public class MainFrame extends JFrame
 							JOptionPane.showMessageDialog(this, "Registrierung abgebrochen!");
 						}
 					};
-					dialog.setLabelContent("Bitte geben Sie Ihre allgemeinen Gesch�ftsbedingungen an!", DialogScreen.LABEL_LEFT);
+					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
 				}
 			}
 		}
