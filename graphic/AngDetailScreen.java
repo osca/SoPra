@@ -271,6 +271,8 @@ public class AngDetailScreen extends JPanel{
 				{
 					Portal.Angebotsverwaltung().delAngebot(angebot);
 					JOptionPane.showMessageDialog(up.getParent(), "Angebot erfolgreich geloescht");
+					removeAll();
+					repaint();
 				} 
 				catch (LoeschenNichtMoeglichException e) 
 				{
