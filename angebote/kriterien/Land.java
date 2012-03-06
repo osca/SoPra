@@ -6,9 +6,9 @@ import main.Datenhaltung;
 
 public class Land extends Kriterium{
 	
-	final static String name = "Land";
-	private static File laenderFile = new File("laender");
-	final static String[] wertebereich = Datenhaltung.getStringArrayFromFile(laenderFile);
+	public final static String name = "Land";
+	private static File laenderFile = new File("laender.txt");
+	public final static String[] wertebereich = Datenhaltung.getStringArrayFromFile(laenderFile);
 
 	public Land(String pwert) throws IllegalArgumentException {
 		super(pwert);
@@ -16,5 +16,13 @@ public class Land extends Kriterium{
 
 	public String getName(){
 		return name;
+	}
+	
+	public String[] getOrte(){
+		return getOrte(wert);
+	}
+	
+	public static String[] getOrte(String laenderName){
+		return Datenhaltung.getStringArrayFromFile(new File("Laender/"+laenderName+".txt"));
 	}
 }
