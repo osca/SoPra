@@ -490,7 +490,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.Nachrichtenverwaltung().getErhalteneNachrichten(account));
+			list = new ListeScreen<Nachricht>(this, Portal.Nachrichtenverwaltung().getErhalteneNachrichten(account));
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
@@ -507,7 +507,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.Angebotsverarbeitung().getTopAngebote());
+			list = new ListeScreen<Angebot>(this, Portal.Angebotsverarbeitung().getTopAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();

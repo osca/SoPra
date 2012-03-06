@@ -10,7 +10,7 @@ package angebote.kriterien;
 public class Ort extends Kriterium{
 	
 	public final static String name = "Ort";
-	public final static String[] wertebereich = null;
+	public final static String[] wertebereich = new String[0];
 	/**
 	 * Konstruktor
 	 * 

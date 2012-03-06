@@ -19,6 +19,7 @@ import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Datenhaltung {
 	private static final File anbFile = new File("Anbieter.xml"),
@@ -32,7 +33,7 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xs = new XStream();
+	private static XStream xs = new XStream(new DomDriver("UTF-8"));
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
@@ -185,6 +186,19 @@ public class Datenhaltung {
 		for (int i = 0; i < s.length; i++)
 			s[i] = (String) reslist.get(i);
 		return s;
+	}
+	
+	/**
+	 * Gibt den Datei-Inhalt als einzelnen String aus. Zeilen werden mit \n getrennt
+	 * @param f File-Objekt als Referenz zur Datei
+	 * @return 
+	 */
+	public static String getStringFromFile(File f){
+		String arr[] = getStringArrayFromFile(f);
+		String res = "";
+		for(String s : arr)
+			res += s+"\n";
+		return res;
 	}
 
 }

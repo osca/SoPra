@@ -2,7 +2,7 @@
 8. Der Betreiber sollte nicht auf diese Art und Weise hart gecodet bleiben.
 9. Orte und Laender muessen eingelesen werden.
 11. -->Entwurfsheft<---
-12. Bad Encoding rausnehmen z.B. im Registrierungsscreen, im Bestaetigungsbutton im Angebotserstellenscreen raus
+12. Bad Encoding rausnehmen z.B. im Registrierungsscreen raus
 13. Entsperrenbug
 
 OPTIONAL:

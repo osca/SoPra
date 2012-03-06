@@ -25,6 +25,7 @@ import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
+import angebote.Kommentar;
 import buchungen.InvalidDateException;
 
 
@@ -85,16 +86,20 @@ public class AngDetailScreen extends JPanel{
 		sub_a.add(bisdatum);
 		JLabel anbieter_label= new JLabel("Anbieter:");
 		sub_a.add(anbieterl);
-		sub_b = new JPanel(new GridLayout(6,2));
+		sub_b = new JPanel(new GridLayout(0,2));
+		JPanel sub_1=new JPanel(new GridLayout(6,1));
+		JPanel sub_2= new JPanel(new GridLayout(6,1));
 		//String k[] =angebot.getErlaubteKriterien();
 		ArrayList<Kriterium> w=angebot.getKriterien();
 		for (int i =0;i<w.size();i++){
 			JLabel krit = new JLabel(w.get(i).getName());
-			sub_b.add(krit);
+			sub_1.add(krit);
 			JLabel krit1 = new JLabel(w.get(i).getWert());
-			sub_b.add(krit1);
+			sub_2.add(krit1);
 			
 		}
+		sub_b.add(sub_1);
+		sub_b.add(sub_2);
 		up.add(sub_a);
 		up.add(sub_b);
 		
@@ -114,7 +119,7 @@ public class AngDetailScreen extends JPanel{
 			down.add(BorderLayout.CENTER, nullAcc);
 			break;
 		case Account.KUNDE :
-			kommentieren.setEnabled(false);
+			kommentieren.setEnabled(true);
 			down.add(kommentieren);
 			down.add(buchen);
 			down.add(melden);
@@ -224,7 +229,23 @@ public class AngDetailScreen extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-								
+				DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+				{
+					@Override
+					public void onOK()
+					{
+						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
+						if(getContent().length() <= 0){
+							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben, bevor Sie es abschicken");
+						}
+						else {
+							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), 5);
+							Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
+						}
+					}
+				};
+				dialog.setLabelContent(Portal.Accountverwaltung().getLoggedIn().getName(), DialogScreen.LABEL_LEFT);
+				dialog.setLabelContent("Bewertung", DialogScreen.LABEL_RIGHT);
 			}
 		});
 		loeschen.addActionListener(new ActionListener()
