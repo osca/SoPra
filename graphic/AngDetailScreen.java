@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,9 +24,9 @@ import accounts.Account;
 import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
+import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
-import angebote.Kommentar;
 import buchungen.InvalidDateException;
 
 
@@ -226,20 +227,33 @@ public class AngDetailScreen extends JPanel{
 		});
 		kommentieren.addActionListener(new ActionListener()
 		{
+			JComboBox<String> bewertung = new JComboBox<String>(new String[]{"1", "2", "3", "4", "5"});
+			int iBewertung = 0;
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
+				bewertung.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						iBewertung = bewertung.getSelectedIndex();
+						iBewertung++;
+					}
+			});
+				
 				DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
 				{
 					@Override
 					public void onOK()
 					{
+						addOnLayout(bewertung, DialogScreen.LABEL_LEFT);
+						
 						// TODO andere Warnungsmethode, da dispose() onOK auselöst wird und Bewertung einfügen
 						if(getContent().length() <= 0){
-							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben, bevor Sie es abschicken");
+							JOptionPane.showMessageDialog(this, "Sie muessen ein Kommentar eingeben bevor Sie es abschicken");
 						}
 						else {
-							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), 5);
+							Kommentar kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), getContent(), iBewertung);
 							Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 						}
 					}
