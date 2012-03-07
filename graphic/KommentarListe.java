@@ -34,12 +34,12 @@ public class KommentarListe	extends JPanel {
 			JPanel eventPanel = new JPanel(new GridLayout(2,1));
 			JPanel komPanel = new JPanel(new GridLayout(1,2));
 			JPanel fullp = new JPanel(new GridLayout(1,1));
-			JLabel name = new JLabel(kliste.get(i).getIdentifier());
+			JLabel name = new JLabel(kliste.get(i).getAbsender());
 			komPanel.add(name);
 			if(kliste.get(i).getBewertung()==Kommentar.KEINEWERTUNG){
 				
 			}
-			else {
+			else if(kliste.get(i).getBewertung()!=Kommentar.KEINEWERTUNG){
 			JLabel info = new JLabel(df.format(kliste.get(i).getZeitstempel())+" , Wertung: "+kliste.get(i).getBewertung());
 			komPanel.add(info);
 			}
