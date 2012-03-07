@@ -206,11 +206,29 @@ public class SuchScreen extends JPanel
 	{
 		try
 		{
-			if(types.getSelectedIndex()!=0)
-			{
-				int typ = Angebot.convertNameToTyp(types.getSelectedItem().toString());
+			if(types.getSelectedIndex() == 0)
+				JOptionPane.showMessageDialog(this, "Sie muessen einen Angebotstypen waehlen");
+			
+			else if((!felder[2].getText().equals("") && (new Double(felder[2].getText()).compareTo(0.00)) >= 0 )
+					|| (!felder[3].getText().equals("") && (new Double(felder[3].getText()).compareTo(0.00)) >= 0 ))
+				if(!(new Double(felder[2].getText()).compareTo(new Double(felder[3].getText())) <= 0))
+					JOptionPane.showMessageDialog(this, "Es gibt keinen negativen Preis");
+				else
+					JOptionPane.showMessageDialog(this, "Der Startpreis ist groesser als der Endpreis");
+			
+			else {
+				//Heutigen Tag initialisieren
+				Date heute = new Date();
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(heute);
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
 				
+				int typ = Angebot.convertNameToTyp(types.getSelectedItem().toString());
 				String[] kriterien = new String[fieldList.size()+boxList.size()];
+				
 				for(int i=0; i<fieldList.size(); i++)
 					kriterien[i] = fieldList.get(i).getText();
 				for(int i=0; i<boxList.size(); i++)
@@ -225,58 +243,27 @@ public class SuchScreen extends JPanel
 				
 				if(!felder[1].getText().equals(""))
 					laenge = Integer.parseInt(felder[1].getText());
+
 				if(!felder[2].getText().equals(""))
 					vonPreis = new Double(felder[2].getText());
+				
 				if(!felder[3].getText().equals(""))
 					bisPreis = new Double(felder[3].getText());
-				if(!felder[5].getText().equals("  /  /    ")){
+				
+				if(!felder[5].getText().equals("  /  /    "))
 					von = Methods.stringToDate(felder[5].getText());
-				if(von.before(new Date()))
-					{
-//						SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-//						von = (Date) sd.parse(sd.format( new Date()));	
-//						//Heutigen Tag initialisieren
-						Date heute = new Date();
-						Calendar cal = new GregorianCalendar();
-						cal.setTime(heute);
-						cal.set(Calendar.HOUR_OF_DAY, 0);
-						cal.set(Calendar.MINUTE, 0);
-						cal.set(Calendar.SECOND, 0);
-						cal.set(Calendar.MILLISECOND, 0);
-						von = cal.getTime();
-					}
-				}
-				else 
-				{
-					Date heute = new Date();
-					Calendar cal = new GregorianCalendar();
-					cal.setTime(heute);
-					cal.set(Calendar.HOUR_OF_DAY, 0);
-					cal.set(Calendar.MINUTE, 0);
-					cal.set(Calendar.SECOND, 0);
-					cal.set(Calendar.MILLISECOND, 0);
-					von = cal.getTime();
-				}
+				
 				if(!felder[6].getText().equals("  /  /    "))
-				{
 					bis = Methods.stringToDate(felder[6].getText());
-				}
-				else 
-				{
-					Date heute = new Date();
-					Calendar cal = new GregorianCalendar();
-					cal.setTime(heute);
-					cal.set(Calendar.HOUR_OF_DAY, 0);
-					cal.set(Calendar.MINUTE, 0);
-					cal.set(Calendar.SECOND, 0);
-					cal.set(Calendar.MILLISECOND, 0);
-					cal.add(Calendar.YEAR, 20);
-					bis = cal.getTime();
-				}
-				result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
+				
+				if(von.before(cal.getTime()))
+					von = cal.getTime();
+				
+				if(!von.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && !bis.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && bis.before(von))
+					JOptionPane.showMessageDialog(this, "Startdatum liegt nach dem Enddatum!");
+				else
+					result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 			}
-			else
-				JOptionPane.showMessageDialog(this, "Sie muessen einen Angebotstypen waehlen");
 		}
 		catch(Exception e)
 		{//TODO exceptionhandling
@@ -294,7 +281,22 @@ public class SuchScreen extends JPanel
 		labelList.add(new JLabel("Verpflegung:"));
 		labelList.add(new JLabel("Bierpreis:"));
 		
-		setComboBox();
+		final JComboBox land = new JComboBox();
+		land.addItem("");
+		for(String s: Land.wertebereich)
+			land.addItem(s);
+		final JComboBox ort = new JComboBox();
+		land.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				repaintOrt(ort, land);
+			}
+			
+		});
+		boxList.add(land);
+		boxList.add(ort);
 		boxList.add(new JComboBox(Klima.wertebereich));
 		boxList.add(new JComboBox(Verpflegungsart.wertebereich));
 		boxList.add(new JComboBox(Bierpreis.wertebereich));
@@ -335,6 +337,7 @@ public class SuchScreen extends JPanel
 		for(String s: Land.wertebereich)
 			land.addItem(s);
 		final JComboBox ort = new JComboBox();
+		ort.addItem("");
 		land.addActionListener(new ActionListener()
 		{
 			@Override
@@ -350,10 +353,17 @@ public class SuchScreen extends JPanel
 	
 	public void repaintOrt(JComboBox ort, JComboBox land)
 	{		
-		ort.removeAllItems();
-		String[] laender = (Land.getOrte((String)land.getSelectedItem()));
-		for(String s: laender)
-			ort.addItem(s);
+		if(!land.getSelectedItem().equals("")) {
+			String[] laender = (Land.getOrte((String)land.getSelectedItem()));
+			ort.removeAllItems();
+			ort.addItem("");
+			for(String s: laender)
+				ort.addItem(s);
+		}
+		else {
+			ort.removeAllItems();
+			ort.addItem("");
+		}
 		ort.repaint();
 	}
 	
