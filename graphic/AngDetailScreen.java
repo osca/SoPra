@@ -126,12 +126,7 @@ public class AngDetailScreen extends JPanel{
 //		for(int i = 0; i < kommentare.size(); i++) {
 //			mid.add(new KommentarScreen(kommentare.get(i)));
 //		}
-<<<<<<< HEAD
-//		
-=======
-		
->>>>>>> 19123e00d041e4b09306cdab35758b550bfd3a9c
-		///////////////////
+
 		
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()){
 		case Account.NONE:
