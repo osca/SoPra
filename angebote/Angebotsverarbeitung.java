@@ -53,7 +53,7 @@ public class Angebotsverarbeitung {
 		
 		assert !von.before(heute): "Startdatum liegt vor dem heutigen Datum";
 		
-		int alleTreffer = 5+kriterien.length;
+		int alleTreffer = 4+kriterien.length;
 		int treffer = 0;
 		
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
@@ -75,13 +75,7 @@ public class Angebotsverarbeitung {
 				if(von == KEINEDATEN) 
 					treffer++;
 				else {
-					if(!von.before(a.getStartdatum()) && !von.after(a.getEnddatum()))
-						treffer++;
-				}
-				if(bis == KEINEDATEN)
-					treffer++;
-				else {
-					if(!bis.after(a.getEnddatum()))
+					if(!von.after(a.getEnddatum()) && (!bis.before(a.getStartdatum()) || bis == KEINEDATEN))
 						treffer++;
 				}
 				ArrayList<Kriterium> kritContainer = a.getKriterien();
@@ -139,13 +133,15 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(ang.getEnddatum().before(now)) {
+			if(ang.getEnddatum().before(now) || !ang.isAuffindbar()) {
 				result.add(ang);
 			}
 		}
 		
 		return result;
 	}
+	
+	
 	public ArrayList<Angebot> getAktuelleAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
@@ -161,7 +157,7 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(!(ang.getEnddatum().before(now))) {
+			if(!(ang.getEnddatum().before(now)) && ang.isAuffindbar()) {
 				result.add(ang);
 			}
 		}

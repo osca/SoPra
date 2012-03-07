@@ -246,10 +246,10 @@ public class SuchScreen extends JPanel
 					laenge = Integer.parseInt(felder[1].getText());
 
 				if(!felder[2].getText().equals(""))
-					vonPreis = Double.parseDouble(felder[2].getText());
+					vonPreis = Double.parseDouble(felder[2].getText().replace(",", "."));
 				
 				if(!felder[3].getText().equals(""))
-					bisPreis = Double.parseDouble(felder[3].getText());
+					bisPreis = Double.parseDouble(felder[3].getText().replace(",", "."));
 				
 				if(!felder[5].getText().equals("  /  /    "))
 					von = Methods.stringToDate(felder[5].getText());
