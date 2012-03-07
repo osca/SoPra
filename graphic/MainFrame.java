@@ -649,7 +649,7 @@ public class MainFrame extends JFrame
 		try
 		{
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.Angebotsverwaltung().getAllAngebote());
+			list = new ListeScreen(this, Portal.Angebotsverarbeitung().getAktuelleAngebote());
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
