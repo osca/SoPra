@@ -290,12 +290,14 @@ public class MainFrame extends JFrame
 
 		try
 		{
-			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehoert mir!");
-			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
+			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Betreiber@betreiber.de", "admin", "boss");
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("Anbieter@anbieter.de", "Anbieter", "1", "Hier steht Ihre AGB!");
+			Kunde kuh = Portal.Accountverwaltung().createKunde("Kunde@kunde.de", "Max Mustermann", "1");
 			Angebot auto = null;
+			
 			for(int i=0; i<10; i++)
-				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens. ich schreibe hier einen text damit ihr seht dass es auc nicht mit ohne gehen darf. die tatsache der existenz einer einzelnen materie ist die unscheinbare wirklichkeit der obrichkeiten. diese unterdrï¿½ckende macht liegt in der staerke des einzelnen und bedarf keiner weiteren funktion als die der wahrnehmungsfreiheit. wer also sind wir zu behaupten die unwirklichkeit wirklich zu verstehen ohne sie jemals in der tatsache des seins einbinden zu koennen.", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
+				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "Automiethaus", "Hier koennen Sie alle Autos mieten", 4, 532, new Date(1), new Date(151465143512312L), "Deutschland","Muenster");
+			
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 			
 			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
@@ -718,6 +720,24 @@ public class MainFrame extends JFrame
 				}
 			}
 			break;
+			
+			case Account.ANBIETER:
+			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
+				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					return;
+			}
+			else {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					try {
+						Portal.Accountverwaltung().delAccount(acc);
+								
+						logOut();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			break;
 				
 			case Account.BETREIBER:				
 			try {
@@ -730,12 +750,6 @@ public class MainFrame extends JFrame
 				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
 			break;
-			
-			case Account.ANBIETER:
-			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
-				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					return;
-			}
 		}
 	}
 	
