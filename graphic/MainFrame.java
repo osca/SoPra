@@ -667,8 +667,12 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
+
 			screen.removeAll();
-			list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn()));
+			if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
+				list = new ListeScreen(this, Portal.Buchungsverwaltung().getAllBuchungen());
+			else
+				list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn()));
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
