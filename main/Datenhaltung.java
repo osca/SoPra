@@ -202,7 +202,17 @@ public class Datenhaltung {
 		return res;
 	}
 
+	/**
+	 * erzeugt ein XStream-Objekt mit systemabhaengigem Encoding und erzeugt 
+	 * @return
+	 */
 	private static XStream initXStream() {
+		File d = new File(path);
+		if(!d.exists()){
+			d.mkdir();
+			createDefaultBetreiber(d);
+		}
+		
 		XStream res = null;
 		String	osn = System.getProperty("os.name");/*,
 					osv = System.getProperty("os.version");*/
@@ -214,7 +224,34 @@ public class Datenhaltung {
 			System.out.println("UTF-8-Dom initialized");			
 		}
 //		res.alias(name, type);
+		
 		return res;
+	}
+	
+	/**
+	 * Erstellt den ersten Betreiber im vorgegebenen Verzeichnis  mit dem uebergebenen XStream-Objekt
+	 * @param dir das Ziel-Verzeichnis
+	 * @param x XStream-Objekt mit dem gespeichert wird
+	 * @pre betreiberFile darf nicht existieren
+	 */
+	private static void createDefaultBetreiber(File dir){
+		assert !betrFile.exists() : "BetreiberFile ist existent und kann nicht ueberschrieben werden";
+		try {
+			betrFile.createNewFile();
+			String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><list>\n" +
+					"  <accounts.Betreiber>\n" +
+					"    <email></email>\n" +
+					"    <name>Administrator</name>\n" +
+					"    <password>827ccb0eea8a706c4c34a16891f84e7b</password>\n" +
+					"    <gesperrt>NEIN</gesperrt>\n" +
+					"  </accounts.Betreiber>\n" +
+					"</list>\n";
+			FileWriter fw = new FileWriter(betrFile);
+			fw.write(s);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
