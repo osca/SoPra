@@ -82,12 +82,14 @@ public class BuchDetailScreen extends JPanel
 		JPanel right = new JPanel(grid);
 		Angebot angebot = Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
 		Kunde kunde = Portal.Buchungsverwaltung().getKunde(buchung);
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
 		labels[6] = new JLabel(angebot.getName());
 		labels[7] = new JLabel(kunde.getName());
 		labels[8] = new JLabel(Angebot.convertTypToName(angebot.getAngebotsNummer()));
-		labels[9] = new JLabel(angebot.getStartdatum().toString());
-		labels[10] = new JLabel(angebot.getEnddatum().toString());
+		labels[9] = new JLabel(formatter.format(angebot.getStartdatum()));
+		labels[10] = new JLabel(formatter.format(angebot.getStartdatum()));
 		
 		final JLabel status = new JLabel(buchung.getStatus());
 		
@@ -133,16 +135,15 @@ public class BuchDetailScreen extends JPanel
 				}
 			});
 			buttonRechts = new JButton("Stornieren");
-			buttonRechts.addActionListener(new ActionListener(){
+			buttonRechts.addActionListener(new ActionListener()
+			{
 				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					int confirm = JOptionPane.showConfirmDialog(null, "Wollen Sie wirklich eine Stornierungsanfrage senden?", "Sicher?", JOptionPane.OK_CANCEL_OPTION);
-					if(confirm == JOptionPane.OK_OPTION){
-						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), 
-								Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(buchung)),
-								"Stornierunsganfrage", "Der Kunde moechte seine Buchung stornieren", 
-								Portal.Buchungsverwaltung().getReferringAngebot(buchung));
-						JOptionPane.showConfirmDialog(null, "Ihre Stornierungsanfrage wurde gesendet", "Anfrage gesendet", JOptionPane.OK_OPTION);
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					if(JOptionPane.showConfirmDialog(fullinfo.getParent(), "Wollen Sie wirklich eine Stornierungsanfrage senden?", "Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+					{
+						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(buchung)),"Stornierunsganfrage", "Der Kunde moechte seine Buchung stornieren", Portal.Buchungsverwaltung().getReferringAngebot(buchung));
+						JOptionPane.showMessageDialog(fullinfo.getParent(), "Ihre Stornierungsanfrage wurde gesendet");
 					}
 				}
 			});
