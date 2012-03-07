@@ -11,17 +11,13 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import main.Portal;
-
 import accounts.Account;
 import accounts.Anbieter;
 import accounts.Kunde;
@@ -29,6 +25,7 @@ import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
 import buchungen.Buchung;
 
+@SuppressWarnings("serial")
 public class BuchDetailScreen extends JPanel 
 {
 
@@ -92,7 +89,7 @@ public class BuchDetailScreen extends JPanel
 		
 		labels[6] = new JLabel(angebot.getName());
 		labels[7] = new JLabel(kunde.getName());
-		labels[8] = new JLabel(Angebot.convertTypToName(angebot.getAngebotsNummer()));
+		labels[8] = new JLabel(Angebot.convertTypToName(angebot.getTyp()));
 		labels[9] = new JLabel(formatter.format(angebot.getStartdatum()));
 		labels[10] = new JLabel(formatter.format(angebot.getStartdatum()));
 		
