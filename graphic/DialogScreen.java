@@ -23,33 +23,37 @@ public class DialogScreen extends JDialog
 	private JPanel leftPanel;
 	private JPanel rightPanel;
 	
+	private MainFrame mainFrame;
+	
 	public DialogScreen(MainFrame frame, String title)
 	{
 		super();
-		init(title, null, OK_OPTION);
+		init(frame, title, null, OK_OPTION);
 	}
 	
 	public DialogScreen(MainFrame frame, String title, int flag)
 	{
 		super();
-		init(title, null, flag);
+		init(frame, title, null, flag);
 	}
 	
 	public DialogScreen(MainFrame frame, String title, JButton[] buttons)
 	{
 		super();
-		init(title, buttons, NAN_OPTION);
+		init(frame, title, buttons, NAN_OPTION);
 	}
 	
 	public DialogScreen(MainFrame frame, String title, JButton[] buttons, int flag)
 	{
-		super(frame, title);
-		init(title, buttons, flag);
+		super();
+		init(frame, title, buttons, flag);
 	}
 	
-	private void init(String title, JButton[] but ,int flag) 
+	private void init(MainFrame frame, String title, JButton[] but ,int flag) 
 	{
 		this.setTitle(title);
+		mainFrame = frame;
+		mainFrame.setEnabled(false);
 		
 		if(this.getParent()!=null)
 			this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
@@ -128,6 +132,13 @@ public class DialogScreen extends JDialog
 		this.pack();
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		mainFrame.setEnabled(true);
+		System.exit(0);
 	}
 	
 	public void setContent(String t)

@@ -4,8 +4,6 @@
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
 38. [gui]	Stornierungsanfrage nur OK Button
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
-41. [anbieter]	Anbieter löschen wirft eine NullPointerException
-43. [date][gui]	 Nach Angebot verstecken, Angebot zeigen wirft Fehlder (Datum abgelaufen)
 45. [gui] 	anzeigelisten invertieren, damit aktuellstes oben
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
 52. [gui]	angebottyp "not a type" bei buchungsdetails
@@ -17,9 +15,7 @@ Zweitrangig:
 20. [gui]	Willkommensnachricht beim ersten registrieren
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
-46. [gui]	buttons bei den detailscreens anpassen
-47. [gui]	startposition des opcionscreens
-48. [gui]	angebotcreatescreen sind die buttons falschrum
+47. [gui]	startposition des dialogscreens
 49. [gui]	angebote sollten schom im screen die gesamtbewertung des anbieters anzeigen
 51. [gui]	ist es möglich das (+) als "aktuell" zu schreiben? ist verwirrend
 
