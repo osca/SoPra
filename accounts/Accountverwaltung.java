@@ -4,6 +4,7 @@ import graphic.Methods;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import main.Datenhaltung;
@@ -258,7 +259,7 @@ public class Accountverwaltung {
 				// Hat der Kunde noch anstehende bestaetigte Buchungen?
 				for (Buchung b : kundenbuchungen) {
 					if (b.getBestaetigt() == Bestaetigung.JA
-							&& b.getBis().compareTo(heute) > 0) {
+							&& !b.getBis().before(heute)) {
 						throw new LoeschenNichtMoeglichException(
 								"Sie haben noch anstehende bestaetigte Buchungen");
 					}
@@ -303,7 +304,11 @@ public class Accountverwaltung {
 	 * @return Anbieterliste
 	 */
 	public ArrayList<Anbieter> getAnbieter() {
-		return anbieter;
+		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
+		
+		result.addAll(anbieter);
+		Collections.reverse(result);
+		return result;
 	}
 
 	/**
@@ -312,7 +317,11 @@ public class Accountverwaltung {
 	 * @return Betreiberliste
 	 */
 	public ArrayList<Betreiber> getBetreiber() {
-		return betreiber;
+		ArrayList<Betreiber> result = new ArrayList<Betreiber>();
+		
+		result.addAll(betreiber);
+		Collections.reverse(result);
+		return result;
 	}
 
 	/**
@@ -321,7 +330,11 @@ public class Accountverwaltung {
 	 * @return Kundenliste
 	 */
 	public ArrayList<Kunde> getKunden() {
-		return kunden;
+		ArrayList<Kunde> result = new ArrayList<Kunde>();
+		
+		result.addAll(kunden);
+		Collections.reverse(result);
+		return result;
 	}
 
 	/**
