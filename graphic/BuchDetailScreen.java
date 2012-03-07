@@ -136,7 +136,7 @@ public class BuchDetailScreen extends JPanel
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 			});
-			buttonRechts = new JButton("Stornieren");
+			buttonRechts.setText("Stornieren");
 			buttonRechts.addActionListener(new ActionListener()
 			{
 				@Override
