@@ -1,9 +1,9 @@
 package buchungen;
 
+import graphic.Methods;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -44,14 +44,7 @@ public class Buchungsverwaltung {
 	public Buchung createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
 		
-		Date now = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(now);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		now = cal.getTime();
+		Date now = Methods.getHeuteNullUhr();
 		
 		if (bis.before(von)) 
 			throw new InvalidDateException("Das Enddatum ist vor dem Startdatum");
@@ -110,36 +103,42 @@ public class Buchungsverwaltung {
 	}
 
 	/**
-	 * Gibt alle Buchungen eines Anbieters aus.
+	 * Gibt alle Buchungen eines Anbieters aus die noch nicht angetreten wurden
 	 * 
 	 * @param anbieter Anbieter
 	 * @return ArrayList seiner Buchungen
 	 */
-	public ArrayList<Buchung> getBuchungen(Anbieter anbieter){
+	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
-		Date now = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(now);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		now = cal.getTime();
+		Date now = Methods.getHeuteNullUhr();
 		
 		for(Buchung b : buchungen)
-			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getBis().after(now))
+			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getVon().before(now))
 				reslist.add(b);
 		return reslist;
 	}
 	
-	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter){
+	/**
+	 * Gibt die Anzahl unbearbeiteter Buchungen eines Anbieters zurueck
+	 * 
+	 * @param anbieter Anbieter
+	 * @return Anzahl unbearbeiteter Buchungen
+	 */
+	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter) {
 		int r = 0;
 		for(Buchung b : getBuchungen(anbieter))
 			if(b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
 				r++;
 		return r;
 	}
+	
+	/**
+	 * Gibt die Anzahl unbearbeiteter Buchungen eines Kunden zurueck
+	 * 
+	 * @param kunde Kunde
+	 * @return Anzahl unbearbeiteter Buchungen
+	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Kunde kunde){
 		int r = 0;
 		for(Buchung b : getBuchungen(kunde))

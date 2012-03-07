@@ -51,9 +51,21 @@ public class Methods {
 		}
 		else return false;
 	}
+	
 	public static Date stringToDate(String s) throws ParseException{
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date x=df.parse(s);
 		return x;
+	}
+	
+	public static Date getHeuteNullUhr() {
+		Date heute = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(heute);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
 	}
 }
