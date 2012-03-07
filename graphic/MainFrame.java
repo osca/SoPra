@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -28,6 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DateFormatter;
 
 import main.Datenhaltung;
@@ -460,6 +462,13 @@ public class MainFrame extends JFrame
 					JButton fcb = new JButton("AGB laden");
 					fcb.setPreferredSize(new Dimension(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT)));
 					final JFileChooser fc = new JFileChooser();
+					  fc.addChoosableFileFilter(new FileFilter() {
+						    public boolean accept(File f) {
+						      if (f.isDirectory()) return true;
+						      return f.getName().toLowerCase().endsWith(".txt");
+						    }
+						    public String getDescription () { return "TXT"; }  
+						  });
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
 					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
