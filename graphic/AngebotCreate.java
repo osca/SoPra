@@ -231,7 +231,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 						"Bitte geben Sie eine gueltige Kapazitaet ein",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
 			} else if (preis.getText() != null || !preis.getText().isEmpty()) {
-				result = Double.parseDouble(preis.getText());
+				result = Double.parseDouble(preis.getText().replace(",", "."));
 			}
 			if (result == 0) {
 
