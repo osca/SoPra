@@ -318,23 +318,10 @@ public class MainFrame extends JFrame
 				final Nachricht nachricht = (Nachricht)obj;
 				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
 
-				JButton[] button = new JButton[2];
-				button[0] = new JButton("Zum Angebot");
-				button[0].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
-				button[0].addActionListener(new ActionListener()
+				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OFFER_ANSWER_OPTION)
 				{
 					@Override
-					public void actionPerformed(ActionEvent arg0)
-					{
-						showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-					}
-				});
-				button[1] = new JButton("Antworten");
-				button[1].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
-				button[1].addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent arg0)
+					public void onAnswer()
 					{
 						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
 						{
@@ -346,8 +333,12 @@ public class MainFrame extends JFrame
 						};
 						dialog.addOnPanel(new JLabel(account.getName()), DialogScreen.LABEL_LEFT);
 					}
-				});
-				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
+					
+					public void onOffer()
+					{
+						showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+					}
+				};
 				dialog.setEditable(false);
 				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());

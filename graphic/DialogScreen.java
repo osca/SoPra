@@ -17,7 +17,13 @@ public class DialogScreen extends JDialog
 {
 	public final static int NAN_OPTION = 300;
 	public final static int OK_OPTION = 23;
-	public final static int OK_CANCEL_OPTION = 42;
+	public final static int OK_CANCEL_OPTION = 40;
+	public final static int OK_CANCEL_ANSWER_OPTION = 13;
+	public final static int OK_ANSWER_OPTION = 12;
+	public final static int OK_OFFER_OPTION = 10;
+	public final static int OK_OFFER_CANCEL_OPTION = 41;
+	public final static int OK_OFFER_ANSWER_OPTION = 39;
+	public final static int ALL_OPTION = 42;
 	public final static int LABEL_LEFT = 666;
 	public final static int LABEL_RIGHT = 88;
 	public final static int BUTTONWIDTH = MainFrame.BUTTONWIDTH-(MainFrame.BUTTONWIDTH/4);
@@ -95,7 +101,7 @@ public class DialogScreen extends JDialog
 			for(JButton b: but)
 				buttons.add(b);
 		
-		if(flag == OK_OPTION || flag == OK_CANCEL_OPTION)
+		if(flag != NAN_OPTION)
 		{
 			JButton ok = new JButton("OK");
 			ok.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
@@ -109,7 +115,7 @@ public class DialogScreen extends JDialog
 		      }
 		    });
 		}
-	    if(flag == OK_CANCEL_OPTION)
+	    if(flag == OK_CANCEL_OPTION || flag == OK_CANCEL_ANSWER_OPTION || flag == OK_OFFER_CANCEL_OPTION)
 	    {
 			JButton cancel = new JButton("Abbrechen");
 			cancel.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
@@ -123,6 +129,35 @@ public class DialogScreen extends JDialog
 		    	}
 		    });
 	    }
+	    if(flag == OK_CANCEL_ANSWER_OPTION || flag == OK_CANCEL_ANSWER_OPTION || flag == OK_OFFER_ANSWER_OPTION)
+	    {
+	    	JButton answer = new JButton("Antworten");
+	    	answer.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		    buttons.add(answer);
+		    answer.addActionListener(new ActionListener() 
+		    {  
+		    	public void actionPerformed(ActionEvent evt)  
+		    	{ 
+		    		onAnswer();
+		    		close();  
+		    	}
+		    });
+	    }
+	    if(flag == OK_OFFER_OPTION || flag == OK_OFFER_CANCEL_OPTION || flag == OK_OFFER_ANSWER_OPTION)
+	    {
+	    	JButton offer = new JButton("Zum Angebot");
+	    	offer.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
+		    buttons.add(offer);
+		    offer.addActionListener(new ActionListener() 
+		    {  
+		    	public void actionPerformed(ActionEvent evt)  
+		    	{ 
+		    		onOffer();
+		    		close();  
+		    	}
+		    });
+	    }
+	    
 		
 	    ////
 	    
@@ -179,5 +214,11 @@ public class DialogScreen extends JDialog
 	{}
 	
 	public void onCancel()
+	{}
+	
+	public void onAnswer()
+	{}
+	
+	public void onOffer()
 	{}
 }
