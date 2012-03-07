@@ -1,26 +1,24 @@
-8. Der Betreiber sollte nicht auf diese Art und Weise hart gecodet bleiben.
-18. Beschreibung bei Angebot erstellen wird bei EinfÃ¼gen von Test Ã¼berdimensional groÃŸ
 19. Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
-	Buchungsanfrage..?
-20. Willkommensnachricht beim ersten registrieren
-21. Fokus auf erstes Textfeld
-22  ReisePortal-Ordner anlegen
-23. Bei falsches Passwort wird immer noch gesperrt Account
+	Buchungsanfrage..? [Fast Weg]
 24. Design by Contract??? --> noch viel zu tun !!!
 25. der anbieter muss die storrnierungsanfrage bearbeiten
-26. angebot detail buttonsize ist hässlich
-27. suche funktioniert nicht: weil kriterien irgendwie nicht richtig übgergeben!?
 28. agb erklaerung bei buchen überarbeiten
-29. alle angeben löschen  als button ist auf der falschen seite!
 30. "sie müssen eine bewertung abgeben" - aber ich kann nicht! Wo eine Bewertung abgeben? (Benjamin)
-31. die gesammtbewerung eines kunden sollte a) auch in einem angebot stehen und b) gerundet werden (0.989898988) BEWERTUNG EINES KUNDEN?! WHY?! (Benjamin)
-32. der betreiber sollte an accounts nachrichten senden können, per button
-33. Das Editieren der Angebote funktioniert noch nicht! Umleiten auf AngebotCreate o.ae.
-33. a. Nach Versuch zu Editieren funkt loeschen nicht
-33. b. Loescht man dann ein anderes angebot werden beide nicht mehr unter eigeneAngebote angezeigt. Das nicht zu loeschende existiert aber weiterhin
-34. Top-Angebote zeigt mehr als 10 Angebote an!
-35. bei der Suche von Angeboten: wenn ein Land auswaehlt wird, werden die Staedte in das DropDown geladen.. wenn danach ein anderes Land ausgesucht wird, existieren die Staedte der vorherigen
-	Auswahl aber noch.. => erst clear, dann parse? Sprich: Ich kann von Hamburg, Niederlande nach Muenchen, Tuerkei fliegen :D
+37. Bei Alle angebote auf getaktuelleangebote zugreifen!!!
+38. Stornierungsanfrage nur OK Button
+39. Bei Buchungsnachricht Buchungsbestätigungsbutton???
+41. Anbieter löschen wirft eine NullPointerException
+42. GetAktuelleBuchungen?
+43. Nach Angebot verstecken, Angebot zeigen wirft Fehlder (Datum abgelaufen)
+44. Nach Buchung stornieren kommt Popup Buchung bestaetigt
+
+
+Zweitrangig:
+20. Willkommensnachricht beim ersten registrieren
+21. Fokus auf erstes Textfeld
+23. Bei falsches Passwort wird immer noch gesperrt Account
+40. Die Berechnung der Bewertung funktioniert nicht, da leere Kommentare die Wertung beeinflussen.
+
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik

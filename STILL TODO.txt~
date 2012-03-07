@@ -1,13 +1,22 @@
-8. Der Betreiber sollte nicht auf diese Art und Weise hart gecodet bleiben.
-18. Beschreibung bei Angebot erstellen wird bei EinfÃ¼gen von Test Ã¼berdimensional groÃŸ
 19. Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
-	Buchungsanfrage..?
+	Buchungsanfrage..? [Fast Weg]
+24. Design by Contract??? --> noch viel zu tun !!!
+25. der anbieter muss die storrnierungsanfrage bearbeiten
+28. agb erklaerung bei buchen überarbeiten
+30. "sie müssen eine bewertung abgeben" - aber ich kann nicht! Wo eine Bewertung abgeben? (Benjamin)
+37. Bei Alle angebote auf getaktuelleangebote zugreifen!!!
+38. Stornierungsanfrage nur OK Button
+39. Bei Buchungsnachricht Buchungsbestätigungsbutton???
+41. Anbieter löschen wirft eine NullPointerException
+42. GetAktuelleBuchungen?
+43. Nach Angebot verstecken, Angebot zeigen wirft Fehlder (Datum abgelaufen)
+
+
+Zweitrangig:
 20. Willkommensnachricht beim ersten registrieren
 21. Fokus auf erstes Textfeld
-22  ReisePortal-Ordner anlegen
 23. Bei falsches Passwort wird immer noch gesperrt Account
-24. Design by Contract???
-
+40. Die Berechnung der Bewertung funktioniert nicht, da leere Kommentare die Wertung beeinflussen.
 
 
 OPTIONAL:
