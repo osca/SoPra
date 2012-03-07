@@ -33,6 +33,7 @@ public class Angebotsverarbeitung {
 	 * @return	Die ArrayList an Angeboten, die die genannten Kriterien erfuellen.
 	 * @pre Startdatum ist kleinergleich als das Enddatum
 	 * @pre Startdatum ist groessergleich dem heutigen Datum
+	 * @pre Startpreis ist groesser als der Endpreis
 	 */
 	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet, double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien)
 		throws SuchException {
