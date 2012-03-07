@@ -702,21 +702,34 @@ public class MainFrame extends JFrame
 		
 		switch(acc.getTyp()) {
 			case Account.KUNDE:
-				if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0) {
-					JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					return;
-				}
-				else {
-					if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?") == JOptionPane.OK_OPTION) {
-						try {
-							Portal.Accountverwaltung().delAccount(acc);
+			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0) {
+				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+				return;
+			}
+			else {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					try {
+						Portal.Accountverwaltung().delAccount(acc);
 							
-							logOut();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						logOut();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
+			}
+			break;
+				
+			case Account.BETREIBER:				
+			try {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					Portal.Accountverwaltung().delAccount(acc);
+				
+					logOut();
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
+			}
+			break;
 		}
 	}
 	

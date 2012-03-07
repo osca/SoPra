@@ -294,7 +294,7 @@ public class Accountverwaltung {
 			// Ist er der letzte Betreiber? Hoffentlich nicht...
 			if (getBetreiber().size() < 2)
 				throw new LoeschenNichtMoeglichException(
-						"You're the last unicorn!");
+						"You're the last unicorn!" + "\n" + "You can't delete yourself!");
 
 			break;
 		}
