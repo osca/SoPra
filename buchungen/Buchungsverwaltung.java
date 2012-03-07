@@ -201,11 +201,6 @@ public class Buchungsverwaltung {
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
 		buchung.setBestaetigt(bestaetigt);
-		
-		Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Angebotsverwaltung().getAnbieter(getReferringAngebot(buchung)), 
-				getKunde(buchung), 
-				"Buchung wurde bearbeitet", "Ihre Buchung "+buchung.getBuchungsnummer()+" hat nun den Status "+buchung.getStatus(), 
-				getReferringAngebot(buchung));
 	}
 	
 	/**
