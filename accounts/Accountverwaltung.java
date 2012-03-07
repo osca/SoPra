@@ -84,7 +84,7 @@ public class Accountverwaltung {
 	public Kunde createKunde(String email, String name, String password)
 			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
-			throw new AlreadyInUseException();
+			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Kunde k = new Kunde(email, name, password);
 		kunden.add(k);
 		Datenhaltung.saveAllData();
@@ -107,7 +107,7 @@ public class Accountverwaltung {
 	public Anbieter createAnbieter(String email, String name, String password)
 			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
-			throw new AlreadyInUseException();
+			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Anbieter a = new Anbieter(email, name, password);
 		anbieter.add(a);
 		Datenhaltung.saveAllData();
@@ -132,7 +132,7 @@ public class Accountverwaltung {
 	public Anbieter createAnbieter(String email, String name, String password, String agb)
 			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
-			throw new AlreadyInUseException();
+			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Anbieter a = new Anbieter(email, name, password, agb);
 		anbieter.add(a);
 		Datenhaltung.saveAllData();
@@ -155,7 +155,7 @@ public class Accountverwaltung {
 	public Betreiber createBetreiber(String email, String name, String password)
 			throws AlreadyInUseException, IOException {
 		if (!isFreeEmail(email) || !isFreeName(name))
-			throw new AlreadyInUseException();
+			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Betreiber b = new Betreiber(email, name, password);
 		betreiber.add(b);
 		Datenhaltung.saveAllData();
