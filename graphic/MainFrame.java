@@ -79,9 +79,9 @@ public class MainFrame extends JFrame
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (d.width - getSize().width);
-	    int y = (d.height - getSize().height);
-	    setLocation(x/4, y/4);
+	    int x = (d.width - getSize().width/2);
+	    int y = (d.height - getSize().height/2);
+	    setLocation(x/8, y/8);
 		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
 		try
@@ -324,7 +324,7 @@ public class MainFrame extends JFrame
 			else if(obj.getListableTyp() == Buchung.BUCHUNG)
 			{
 				screen.removeAll();
-				screen.add(new BuchDetailScreen((Buchung)obj));
+				screen.add(new BuchDetailScreen(offeneButton,(Buchung)obj));
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
@@ -693,7 +693,10 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
 	}
 	
 	private void showLoeschen()
@@ -730,12 +733,6 @@ public class MainFrame extends JFrame
 				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
 			break;
-			
-			case Account.ANBIETER:
-			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
-				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					return;
-			}
 		}
 	}
 	
@@ -757,7 +754,6 @@ public class MainFrame extends JFrame
 		registerButton.setEnabled(true);
 		betreiberButton.setVisible(false);
 		offeneButton.setVisible(false);
-		loeschenButton.setEnabled(false);
 
 		this.setTitle("Eingeloggt als: "+account.getName());
 		this.repaint();

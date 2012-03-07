@@ -44,7 +44,7 @@ public class BuchDetailScreen extends JPanel {
 	private JButton buttonLinks;
 	private JButton buttonRechts;
 	
-	public BuchDetailScreen(final Buchung b)
+	public BuchDetailScreen(final JButton buchungsbutton, final Buchung b)
 	{
 		this.setLayout(new BorderLayout());
 		
@@ -168,6 +168,8 @@ public class BuchDetailScreen extends JPanel {
 							JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
 							buttonRechts.setText("Buchung bestaetigen");
 						}
+						buchungsbutton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn())+")");
+
 					}
 					catch(Exception e)
 					{
