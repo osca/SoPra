@@ -4,6 +4,7 @@ import graphic.Methods;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -271,8 +272,11 @@ public class Angebotsverwaltung {
 	 * gibt alle im System befindlichen Angebote zurueck
 	 * @return
 	 */
-	public ArrayList<Angebot> getAllAngebote(){
-		return angebote;
+	public ArrayList<Angebot> getAllAngebote() {
+		ArrayList<Angebot> result = new ArrayList<Angebot>();
+		result.addAll(angebote);
+		Collections.reverse(result);
+		return result;
 	}
 	
 	/**

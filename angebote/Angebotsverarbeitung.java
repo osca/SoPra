@@ -138,6 +138,8 @@ public class Angebotsverarbeitung {
 			}
 		}
 		
+		Collections.reverse(result);
+		
 		return result;
 	}
 	
@@ -161,6 +163,8 @@ public class Angebotsverarbeitung {
 				result.add(ang);
 			}
 		}
+		
+		Collections.reverse(result);
 		
 		return result;
 	}

@@ -3,6 +3,7 @@ package buchungen;
 import graphic.Methods;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import main.Portal;
@@ -82,9 +83,12 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Angebot angebot){
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		
 		for (Buchung b : buchungen)
 			if(b.getAngebotsNummer() == angebot.getAngebotsNummer())
 				reslist.add(b);
+		
+		Collections.reverse(reslist);
 		return reslist;
 	}
 	
@@ -96,9 +100,12 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		
 		for(Buchung b : buchungen)
 			if(kunde.getBuchungsNummern().contains(b.getBuchungsnummer()))
 				reslist.add(b);
+		
+		Collections.reverse(reslist);
 		return reslist;
 	}
 
@@ -116,6 +123,8 @@ public class Buchungsverwaltung {
 		for(Buchung b : buchungen)
 			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getVon().before(now))
 				reslist.add(b);
+		
+		Collections.reverse(reslist);
 		return reslist;
 	}
 	
@@ -127,9 +136,11 @@ public class Buchungsverwaltung {
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter) {
 		int r = 0;
+		
 		for(Buchung b : getBuchungen(anbieter))
 			if(b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
 				r++;
+		
 		return r;
 	}
 	
@@ -141,9 +152,11 @@ public class Buchungsverwaltung {
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Kunde kunde){
 		int r = 0;
+		
 		for(Buchung b : getBuchungen(kunde))
 			if(b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
 				r++;
+		
 		return r;
 	}
 	

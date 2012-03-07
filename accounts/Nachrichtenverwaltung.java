@@ -1,9 +1,9 @@
 package accounts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import main.Portal;
-
 import angebote.typen.Angebot;
 
 /**
@@ -80,6 +80,7 @@ public class Nachrichtenverwaltung {
 		for (Nachricht msg : alleNachrichten)
 			if(acc.getName() .equals(msg.getEmpfaenger()))
 				posteingang.add(msg);
+		Collections.reverse(posteingang);
 		return posteingang;
 	}
 
@@ -95,6 +96,7 @@ public class Nachrichtenverwaltung {
 		for (Nachricht msg : alleNachrichten)
 			if (acc.getName() .equals(msg.getAbsender()))
 				postausgang.add(msg);
+		Collections.reverse(postausgang);
 		return postausgang;
 	}
 
