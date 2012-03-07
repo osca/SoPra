@@ -6,7 +6,6 @@
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
 45. [gui] 	anzeigelisten invertieren, damit aktuellstes oben
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
-52. [gui]	angebottyp "not a type" bei buchungsdetails
 
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt

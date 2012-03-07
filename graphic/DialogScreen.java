@@ -3,6 +3,9 @@ package graphic;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -95,7 +98,7 @@ public class DialogScreen extends JDialog
 		      public void actionPerformed(ActionEvent evt)
 		      { 
 				  onOK();
-				  dispose();
+				  close();
 		      }
 		    });
 		}
@@ -109,7 +112,7 @@ public class DialogScreen extends JDialog
 		    	public void actionPerformed(ActionEvent evt)  
 		    	{ 
 		    		onCancel();
-		    		dispose();  
+		    		close();  
 		    	}
 		    });
 	    }
@@ -132,13 +135,20 @@ public class DialogScreen extends JDialog
 		this.pack();
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
+		
+		this.addWindowListener(new WindowAdapter() 
+        { 
+            public void windowClosing(WindowEvent evt) 
+            {
+            	close();
+            }
+        });
 	}
 	
-	@Override
-	public void dispose()
+	public void close()
 	{
 		mainFrame.setEnabled(true);
-		System.exit(0);
+		this.dispose();
 	}
 	
 	public void setContent(String t)
