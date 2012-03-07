@@ -3,6 +3,7 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,7 +84,7 @@ public class AngDetailScreen extends JPanel {
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0, 2));
 		mid = new JPanel(new GridLayout(0, 1));
-		down = new JPanel(new GridLayout(1, 0));
+		down = new JPanel(new BorderLayout());
 
 		name = new JLabel(angebot.getName());
 		typ = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
@@ -156,49 +157,49 @@ public class AngDetailScreen extends JPanel {
 		// for(int i = 0; i < kommentare.size(); i++) {
 		// mid.add(new KommentarScreen(kommentare.get(i)));
 		// }
-
+		JPanel button_panel = new JPanel(new FlowLayout());
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()) {
 		case Account.NONE:
 			nullAcc = new JLabel(MeldeDienst.MSG_LOGIN_FEHLT);
-			down.add(BorderLayout.CENTER, nullAcc);
+			button_panel.add(nullAcc);
 			break;
 		case Account.KUNDE:
 			kommentieren.setEnabled(true);
 			kommentieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(kommentieren);
+			button_panel.add(kommentieren);
 			buchen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(buchen);
+			button_panel.add(buchen);
 			melden.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(melden);
+			button_panel.add(melden);
 			kontaktieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(kontaktieren);
+			button_panel.add(kontaktieren);
 			break;
 
 		case Account.ANBIETER:
 
 			if (Portal.Accountverwaltung().getLoggedIn().getName()
 					.equals(angebot.getAnbieterName())) {
-				down.add(loeschen);
+				button_panel.add(loeschen);
 				loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
 				hide.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
-				down.add(hide);
+				button_panel.add(hide);
 //				down.add(editsave);
 //				editsave.disable();
 //				editsave.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 //						MainFrame.BUTTONHEIGHT));
 			}
 
-			down.add(hide);
+		//	down.add(hide);
 
 			if (Portal.Accountverwaltung().getLoggedIn().getName()
 					.equals(angebot.getAnbieterName()))
-				down.add(loeschen);
+				button_panel.add(loeschen);
 			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
 			hide.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
@@ -209,14 +210,14 @@ public class AngDetailScreen extends JPanel {
 		case Account.BETREIBER:
 			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(loeschen);
+			button_panel.add(loeschen);
 			kontaktieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			down.add(kontaktieren);
+			button_panel.add(kontaktieren);
 			break;
 
 		}
-
+		down.add(button_panel,BorderLayout.CENTER);
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2,
 				Color.LIGHT_GRAY));
 		// ///// veraendert
