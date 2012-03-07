@@ -35,7 +35,7 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xsRead = new XStream();//initXStream();
+	private static XStream xsRead = new XStream(new DomDriver("UTF-8"));//initXStream();
 	private static XStream xsWrite = new XStream(new DomDriver("UTF-8"));
 
 	/**
