@@ -701,6 +701,7 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
