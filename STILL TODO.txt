@@ -3,8 +3,10 @@
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
-45. [gui] 	anzeigelisten invertieren, damit aktuellstes oben
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
+53. [gui]	filechooser einrichten: 
+				- nur bestimmte dateien annehmen (.txt)
+				- nur in bestimmten ordnern rumschnüffeln
 
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
@@ -13,9 +15,10 @@ Zweitrangig:
 20. [gui]	Willkommensnachricht beim ersten registrieren
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
-47. [gui]	startposition des dialogscreens
-49. [gui]	angebote sollten schom im screen die gesamtbewertung des anbieters anzeigen
 51. [gui]	wenn man beim dialogscreen "antworten" anklickt, geht das bis in die unendlichkeit oft
+
+Drittranging:
+52. [gui]	filechooser und bilder bei angeboten
 
 GENERAL:
 I) testen
