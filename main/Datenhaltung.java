@@ -213,16 +213,18 @@ public class Datenhaltung {
 			createDefaultBetreiber(d);
 		}
 		
-		XStream res = null;
-		String	osn = System.getProperty("os.name");/*,
-					osv = System.getProperty("os.version");*/
-		if(	osn.matches(".*Mac.*")){
-			res = new XStream(new DomDriver("MacRoman"));
-			System.out.println("MacRoman-Dom initialized");
-		}else{
-			res = new XStream(new DomDriver("UTF-8"));
-			System.out.println("UTF-8-Dom initialized");			
-		}
+//		XStream res = null;
+//		String	osn = System.getProperty("os.name");/*,
+//					osv = System.getProperty("os.version");*/
+//		if(	osn.matches(".*Mac.*")){
+//			res = new XStream(new DomDriver("MacRoman"));
+//			System.out.println("MacRoman-Dom initialized");
+//		}else{
+//			res = new XStream(new DomDriver("UTF-8"));
+//			System.out.println("UTF-8-Dom initialized");			
+//		}
+		String enc = System.getProperty("file.encoding");
+		XStream res = new XStream(new DomDriver(enc));
 //		res.alias(name, type);
 		
 		return res;
