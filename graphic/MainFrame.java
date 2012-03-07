@@ -39,6 +39,7 @@ import accounts.Betreiber;
 import accounts.Default;
 import accounts.Gesperrt;
 import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
@@ -81,7 +82,7 @@ public class MainFrame extends JFrame
 	    int x = (d.width - getSize().width);
 	    int y = (d.height - getSize().height);
 	    setLocation(x/4, y/4);
-		this.setPreferredSize(new Dimension(x/2,y/2));
+		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
 		try
 		{
@@ -442,6 +443,7 @@ public class MainFrame extends JFrame
 					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 					
 					loginButton.setText("Logout");
+					loeschenButton.setEnabled(true);
 					
 					if(account.getTyp() == Account.KUNDE)
 						eigeneButton.setText("Eigene Buchungen");
@@ -468,24 +470,7 @@ public class MainFrame extends JFrame
 			}
 			else
 			{
-				Portal.Accountverwaltung().logOut();
-				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
-				showTopAngebote();
-				
-				eigeneButton.setEnabled(false);
-				eigeneButton.setText("Angebote/Buchungen");
-				nachrichtButton.setEnabled(false);
-				erstelleButton.setEnabled(false);
-				loginButton.setText("Login");
-				nachrichtButton.setText("Nachrichten");
-				registerButton.setEnabled(true);
-				betreiberButton.setVisible(false);
-				offeneButton.setVisible(false);
-
-				this.setTitle("Eingeloggt als: "+account.getName());
-				this.repaint();
-				logged = false;
-				setTitle("");
+				logOut();
 			}
 		}
 		catch(Exception e)
@@ -717,7 +702,47 @@ public class MainFrame extends JFrame
 		
 		switch(acc.getTyp()) {
 			case Account.KUNDE:
+				if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0) {
+					JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					return;
+				}
+				else {
+					if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?") == JOptionPane.OK_OPTION) {
+						try {
+							Portal.Accountverwaltung().delAccount(acc);
+							
+							logOut();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
 		}
+	}
+	
+	private void logOut() {
+		try {
+			Portal.Accountverwaltung().logOut();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+		showTopAngebote();
+		
+		eigeneButton.setEnabled(false);
+		eigeneButton.setText("Angebote/Buchungen");
+		nachrichtButton.setEnabled(false);
+		erstelleButton.setEnabled(false);
+		loginButton.setText("Login");
+		nachrichtButton.setText("Nachrichten");
+		registerButton.setEnabled(true);
+		betreiberButton.setVisible(false);
+		offeneButton.setVisible(false);
+
+		this.setTitle("Eingeloggt als: "+account.getName());
+		this.repaint();
+		logged = false;
+		setTitle("");
 	}
 	
 	private void addBetreiber()
