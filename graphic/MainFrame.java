@@ -39,6 +39,7 @@ import accounts.Betreiber;
 import accounts.Default;
 import accounts.Gesperrt;
 import accounts.Kunde;
+import accounts.LoeschenNichtMoeglichException;
 import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
@@ -60,6 +61,7 @@ public class MainFrame extends JFrame
 	private JButton erstelleButton;
 	private JButton betreiberButton;
 	private JButton offeneButton;
+	private JButton loeschenButton;
 	
 	private Account account;
 	private JPanel screen;
@@ -77,10 +79,10 @@ public class MainFrame extends JFrame
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (d.width - getSize().width);
-	    int y = (d.height - getSize().height);
-	    setLocation(x/4, y/4);
-		this.setPreferredSize(new Dimension(x/2,y/2));
+	    int x = (d.width - getSize().width/2);
+	    int y = (d.height - getSize().height/2);
+	    setLocation(x/8, y/8);
+		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
 		try
 		{
@@ -163,6 +165,9 @@ public class MainFrame extends JFrame
 		offeneButton = new JButton("Kundenbuchungen");
 		offeneButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		offeneButton.setVisible(false);
+		loeschenButton = new JButton("Account Loeschen");
+		loeschenButton.setEnabled(false);
+		loeschenButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		
 		buttonPanel.add(loginButton);
 		buttonPanel.add(eigeneButton);
@@ -173,6 +178,7 @@ public class MainFrame extends JFrame
 		buttonPanel.add(alleButton);
 		buttonPanel.add(offeneButton);
 		buttonPanel.add(betreiberButton);
+		buttonPanel.add(loeschenButton);
 		registerPanel.add(registerButton);
 
 		// /////////	
@@ -265,6 +271,14 @@ public class MainFrame extends JFrame
 				showOffeneBuchungen();
 			}
 		});
+		loeschenButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				showLoeschen();
+			}
+		});
 		
 		
 		////////////////
@@ -276,12 +290,14 @@ public class MainFrame extends JFrame
 
 		try
 		{
-			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Bet@Reiber.de", "admin", "boss");
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("a@hit.er", "dolf", "1", "Ihre Seele gehoert mir!");
-			Kunde kuh = Portal.Accountverwaltung().createKunde("med@wurst.de", "dr", "1");
+			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Betreiber@betreiber.de", "admin", "boss");
+			Anbieter an = Portal.Accountverwaltung().createAnbieter("Anbieter@anbieter.de", "Anbieter", "1", "Hier steht Ihre AGB!");
+			Kunde kuh = Portal.Accountverwaltung().createKunde("Kunde@kunde.de", "Max Mustermann", "1");
 			Angebot auto = null;
+			
 			for(int i=0; i<10; i++)
-				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "automiethaus", "wir habens. ich schreibe hier einen text damit ihr seht dass es auc nicht mit ohne gehen darf. die tatsache der existenz einer einzelnen materie ist die unscheinbare wirklichkeit der obrichkeiten. diese unterdrï¿½ckende macht liegt in der staerke des einzelnen und bedarf keiner weiteren funktion als die der wahrnehmungsfreiheit. wer also sind wir zu behaupten die unwirklichkeit wirklich zu verstehen ohne sie jemals in der tatsache des seins einbinden zu koennen.", 4, 532, new Date(1), new Date(151465143512312L), "mordor","hell");
+				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "Automiethaus", "Hier koennen Sie alle Autos mieten", 4, 532, new Date(1), new Date(151465143512312L), "Deutschland","Muenster");
+			
 			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
 			
 			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
@@ -310,7 +326,7 @@ public class MainFrame extends JFrame
 			else if(obj.getListableTyp() == Buchung.BUCHUNG)
 			{
 				screen.removeAll();
-				screen.add(new BuchDetailScreen((Buchung)obj));
+				screen.add(new BuchDetailScreen(offeneButton,(Buchung)obj));
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
@@ -429,6 +445,7 @@ public class MainFrame extends JFrame
 					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 					
 					loginButton.setText("Logout");
+					loeschenButton.setEnabled(true);
 					
 					if(account.getTyp() == Account.KUNDE)
 						eigeneButton.setText("Eigene Buchungen");
@@ -455,24 +472,7 @@ public class MainFrame extends JFrame
 			}
 			else
 			{
-				Portal.Accountverwaltung().logOut();
-				JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
-				showTopAngebote();
-				
-				eigeneButton.setEnabled(false);
-				eigeneButton.setText("Angebote/Buchungen");
-				nachrichtButton.setEnabled(false);
-				erstelleButton.setEnabled(false);
-				loginButton.setText("Login");
-				nachrichtButton.setText("Nachrichten");
-				registerButton.setEnabled(true);
-				betreiberButton.setVisible(false);
-				offeneButton.setVisible(false);
-
-				this.setTitle("Eingeloggt als: "+account.getName());
-				this.repaint();
-				logged = false;
-				setTitle("");
+				logOut();
 			}
 		}
 		catch(Exception e)
@@ -487,7 +487,6 @@ public class MainFrame extends JFrame
 		try
 		{
 			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
 			JLabel nameLabel = new JLabel("Name");
 			final JTextField nameField = new JTextField();
 			JLabel emailLabel = new JLabel("E-Mail-Adresse");
@@ -696,7 +695,90 @@ public class MainFrame extends JFrame
 			scroll.repaint();
 		}
 		catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
+	
+	private void showLoeschen()
+	{
+		Account acc = Portal.Accountverwaltung().getLoggedIn();
+		
+		switch(acc.getTyp()) {
+			case Account.KUNDE:
+			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0) {
+				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+				return;
+			}
+			else {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					try {
+						Portal.Accountverwaltung().delAccount(acc);
+							
+						logOut();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			break;
+			
+			case Account.ANBIETER:
+			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
+				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					return;
+			}
+			else {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					try {
+						Portal.Accountverwaltung().delAccount(acc);
+								
+						logOut();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			break;
+				
+			case Account.BETREIBER:				
+			try {
+				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					Portal.Accountverwaltung().delAccount(acc);
+				
+					logOut();
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
+			}
+			break;
+		}
+	}
+	
+	private void logOut() {
+		try {
+			Portal.Accountverwaltung().logOut();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+		showTopAngebote();
+		
+		eigeneButton.setEnabled(false);
+		eigeneButton.setText("Angebote/Buchungen");
+		nachrichtButton.setEnabled(false);
+		erstelleButton.setEnabled(false);
+		loginButton.setText("Login");
+		nachrichtButton.setText("Nachrichten");
+		registerButton.setEnabled(true);
+		betreiberButton.setVisible(false);
+		offeneButton.setVisible(false);
+
+		this.setTitle("Eingeloggt als: "+account.getName());
+		this.repaint();
+		logged = false;
+		setTitle("");
 	}
 	
 	private void addBetreiber()
@@ -704,7 +786,6 @@ public class MainFrame extends JFrame
 		try
 		{
 			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
 			JLabel nameLabel = new JLabel("Name");
 			final JTextField nameField = new JTextField();
 			JLabel emailLabel = new JLabel("E-Mail-Adresse");
@@ -712,9 +793,9 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Passwort");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufï¿½gen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufuegen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
-				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText());
+				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText()); // TODO depracted
 			}
 		}
 		catch(Exception e)

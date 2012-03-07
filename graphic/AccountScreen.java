@@ -115,6 +115,7 @@ public class AccountScreen extends JPanel
 		else
 			status.setText("Sperren");
 		buttonPanel.add(status);
+		status.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 		
 		////
 		

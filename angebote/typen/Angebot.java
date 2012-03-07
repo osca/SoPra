@@ -319,8 +319,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getStatus() {
-		//TODO Was kommt hier hin?!
-		return "STATUS HERE :)";
+		return (auffindbar)? "(+)": "(-)";
 	}
 	
 	/**
@@ -386,6 +385,14 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		}
 		default : return null;
 		}
-		
+	}
+	
+	public static ArrayList<Integer> getFlagList(){
+		ArrayList<Integer> reslist = new ArrayList<Integer>();
+		reslist.add(FLUG);
+		reslist.add(AUTOVERMIETUNG);
+		reslist.add(AUSFLUG);
+		reslist.add(HOTEL);
+		return reslist;
 	}
 }

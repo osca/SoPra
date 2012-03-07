@@ -134,13 +134,12 @@ public class Buchung implements Listable {
 
 	@Override
 	public String getStatus() {
-		String result = "";
 		switch(bestaetigt) {
-		case JA : result = "Bestätigt";
-		case NEIN : result = "Abgelehnt";
-		case UNBEARBEITET : result = "Unbearbeitet";
+		case JA : return "		Bestätigt";
+		case NEIN : return "		Abgelehnt";
+		case UNBEARBEITET : return "		Unbearbeitet";
 		}
-		return result;
+		return "";
 	}
 
 	@Override

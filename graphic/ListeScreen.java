@@ -28,17 +28,23 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		
 		for (int i=0;i<list.size();i++){
 			final int j = i;
-			JPanel eventPanel = new JPanel();
+			final JPanel eventPanel = new JPanel();
 			eventPanel.addMouseListener(new MouseListener(){
 
 				@Override
 				public void mouseClicked(MouseEvent e) {}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {}
+				public void mouseEntered(MouseEvent e) 
+				{
+					eventPanel.setBackground(Color.white);
+				}
 
 				@Override
-				public void mouseExited(MouseEvent e) {}
+				public void mouseExited(MouseEvent e) 
+				{
+					eventPanel.setBackground(null);
+				}
 
 				@Override
 				public void mousePressed(MouseEvent e) {}
@@ -53,6 +59,8 @@ public class ListeScreen <T extends Listable> extends JPanel {
 			eventPanel.add(name);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
 			eventPanel.add(info);
+			JLabel status = new JLabel(list.get(i).getStatus());
+			eventPanel.add(status);
 			eventPanel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			elementPanel.add(eventPanel);

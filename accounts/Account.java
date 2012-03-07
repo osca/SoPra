@@ -99,9 +99,9 @@ public abstract class Account implements Listable{
 	
 	public String getStatus(){ // vllt. 
 		switch(gesperrt){
-		case JA : return "gesperrt";
-		case UNBERARBEITET : return "nicht freigeschaltet";
-		case NEIN : return "freigeschaltet";
+		case JA : return "		gesperrt";
+		case UNBERARBEITET : return "		nicht freigeschaltet";
+		case NEIN : return "		freigeschaltet";
 		default : return "";
 		}
 	}

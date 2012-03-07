@@ -166,6 +166,7 @@ public class AngDetailScreen extends JPanel {
 			break;
 
 		case Account.ANBIETER:
+<<<<<<< HEAD
 			if (Portal.Accountverwaltung().getLoggedIn().getName()
 					.equals(angebot.getAnbieterName())) {
 				down.add(loeschen);
@@ -179,6 +180,14 @@ public class AngDetailScreen extends JPanel {
 				editsave.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
 			}
+=======
+			down.add(editieren);
+			
+			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
+				down.add(loeschen);
+			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
+			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
+>>>>>>> 5d96aed161947c9718c089e5bda8de99841e583e
 			break;
 
 		case Account.BETREIBER:

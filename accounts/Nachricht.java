@@ -150,9 +150,9 @@ public class Nachricht implements Listable {
 	@Override
 	public String getStatus() {
 		if(gelesen)
-			return "gelesen";
+			return "		gelesen";
 		else
-			return "ungelesen";
+			return "		ungelesen";
 	}
 
 	@Override
