@@ -326,7 +326,7 @@ public class MainFrame extends JFrame
 			else if(obj.getListableTyp() == Buchung.BUCHUNG)
 			{
 				screen.removeAll();
-				screen.add(new BuchDetailScreen(offeneButton,(Buchung)obj));
+				screen.add(new BuchDetailScreen(this,offeneButton,(Buchung)obj));
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}

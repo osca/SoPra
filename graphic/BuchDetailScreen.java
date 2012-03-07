@@ -2,6 +2,7 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,15 +45,16 @@ public class BuchDetailScreen extends JPanel {
 	
 	private JButton buttonLinks;
 	private JButton buttonRechts;
+	private JButton buttonAngebot;
 	
-	public BuchDetailScreen(final JButton buchungsbutton, final Buchung b)
+	public BuchDetailScreen(final JFrame mainframe,final JButton buchungsbutton, final Buchung b)
 	{
 		this.setLayout(new BorderLayout());
 		
 		dPanel = new JPanel(new BorderLayout(5,5));
 		up = new JPanel(new GridLayout(0,2));
 		mid = new JPanel(new GridLayout(1,0));
-		down = new JPanel(new BorderLayout(5,5));
+		down = new JPanel(new GridLayout(1,0));
 		
 		//TODO nachher nochmal die Labels vor den labels^^^
 		name = new JLabel(Portal.Buchungsverwaltung().getReferringAngebot(b).getName());
@@ -86,6 +89,10 @@ public class BuchDetailScreen extends JPanel {
 		
 		buttonLinks = new JButton();
 		buttonRechts = new JButton();
+		buttonAngebot = new JButton("Zum Angebot");
+		buttonLinks.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
+		buttonRechts.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
+		
 		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.KUNDE)
 		{
 			buttonLinks.setText("Aenderungsanfrage");
@@ -151,7 +158,7 @@ public class BuchDetailScreen extends JPanel {
 				{
 					try
 					{
-						int choice = JOptionPane.showConfirmDialog(dPanel.getParent(), "Wollen Sie die Buchung bestaetigen?", "Buchungsbestaetigung", JOptionPane.YES_NO_CANCEL_OPTION);
+						int choice = JOptionPane.showConfirmDialog(dPanel.getParent(), "Wollen Sie die "+buttonRechts.getText()+"?", "Buchungsbestaetigung", JOptionPane.YES_NO_CANCEL_OPTION);
 						if(choice == JOptionPane.OK_OPTION)
 						{
 							Portal.Buchungsverwaltung().setBestaetigt(b, Bestaetigung.JA);
@@ -178,8 +185,19 @@ public class BuchDetailScreen extends JPanel {
 				}
 			});
 		}
-		down.add(BorderLayout.EAST, buttonRechts);
-		down.add(BorderLayout.WEST, buttonLinks);
+		
+		buttonAngebot.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				((MainFrame)mainframe).showDetail(Portal.Buchungsverwaltung().getReferringAngebot(b));
+			}
+			
+		});
+		down.add(buttonRechts);
+		down.add(buttonAngebot);
+		down.add(buttonLinks);
 		
 		dPanel.add(BorderLayout.NORTH, up);
 		dPanel.add(BorderLayout.CENTER, mid);

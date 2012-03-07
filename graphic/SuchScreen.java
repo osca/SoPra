@@ -266,8 +266,7 @@ public class SuchScreen extends JPanel
 			}
 		}
 		catch(Exception e)
-		{//TODO exceptionhandling
-			e.printStackTrace();
+		{
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
