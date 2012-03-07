@@ -105,7 +105,7 @@ public class BuchDetailScreen extends JPanel {
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 			});
-			buttonRechts = new JButton("Stronieren");
+			buttonRechts = new JButton("Stornieren");
 			buttonRechts.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -120,7 +120,7 @@ public class BuchDetailScreen extends JPanel {
 				}
 			});
 		}
-		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.ANBIETER && b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
+		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.ANBIETER)
 		{
 			buttonLinks.setText("Kontaktieren");
 			buttonLinks.addActionListener(new ActionListener()
@@ -139,7 +139,11 @@ public class BuchDetailScreen extends JPanel {
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 			});
-			buttonRechts.setText("Buchung bestätigen");
+			if(b.getBestaetigt() == Bestaetigung.JA)
+				buttonRechts.setText("Buchung stornieren");
+			else
+				buttonRechts.setText("Buchung bestaetigen");
+			
 			buttonRechts.addActionListener(new ActionListener()
 			{
 				@Override
@@ -153,12 +157,16 @@ public class BuchDetailScreen extends JPanel {
 							Portal.Buchungsverwaltung().setBestaetigt(b, Bestaetigung.JA);
 							Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
 							Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(b.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung bestaetigt!", Portal.Angebotsverwaltung().getAngebotByNummer(b.getAngebotsNummer()));
+							JOptionPane.showMessageDialog(null, "Buchung bestaetigt");
+							buttonRechts.setText("Buchung stornieren");
 						}
 						else if(choice == JOptionPane.NO_OPTION)
 						{
 							Portal.Buchungsverwaltung().setBestaetigt(b, Bestaetigung.NEIN);
 							Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
 							Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(b.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(b.getAngebotsNummer()));
+							JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
+							buttonRechts.setText("Buchung bestaetigen");
 						}
 					}
 					catch(Exception e)
