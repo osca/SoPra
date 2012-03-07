@@ -13,14 +13,12 @@ public abstract class Kriterium {
 	 * Abstrakter Konstruktor mit einer Wertevalidierung (IllegalArgumentException)
 	 * 
 	 * @param pwerte Uebergebener Wert
-	 * @throws IllegalArgumentException Wenn der Wert nicht valide ist, throw!
+	 * @pre pwerte muss isValid erfuellen
+	 * @see isValid
 	 */
 	public Kriterium(String pwerte) throws IllegalArgumentException{
-		if(isValid(pwerte)){
+		assert isValid(pwerte) : "Ungueltiger Wert fuer Kriterienauspraegung";
 			wert = pwerte;
-		} else {
-			throw new IllegalArgumentException();
-		}
 	}
 	
 	/**

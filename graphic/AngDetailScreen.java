@@ -62,7 +62,8 @@ public class AngDetailScreen extends JPanel {
 	private JButton editieren = new JButton("Editieren");
 	private JButton kontaktieren = new JButton("Kontaktieren");
 	private JButton editsave = new JButton("Aenderungen Speichern");
-
+	private Date q;
+	private Date w;
 	final Angebot angebot;
 	final Anbieter anbieter;
 
@@ -70,8 +71,8 @@ public class AngDetailScreen extends JPanel {
 
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
-		String preis_str = (new Double(angebot.getPreis()).toString());
-		String kap_str = String.valueOf(kap);
+		String preis_str = 	""+a.getPreis();
+		String kap_str = ""+a.getKapazitaet();
 
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0, 2));
@@ -482,10 +483,12 @@ public class AngDetailScreen extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String[] k = Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.toString());
+				String[] k = Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getText());
 				for (int i = 0; i < sub_2.getComponentCount(); i++) {
-					Component c = sub_2.getComponent(i);
-						k[i] = ((JLabel) c).getText();
+					Component c =  sub_2.getComponent(i);
+					if(c instanceof JLabel){			
+						k[i]=((JLabel) c).getText();
+					}
 				}
 				Date q = null;
 				Date w = null;
