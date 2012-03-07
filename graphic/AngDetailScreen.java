@@ -46,6 +46,7 @@ public class AngDetailScreen extends JPanel {
 	private JLabel bisdatum;
 	private JLabel anbieterlabel;
 	private JLabel angebotwert;
+	private JLabel anbieter_wertung;
 
 	private JTextArea fullinfo;
 	private JLabel nullAcc;
@@ -94,6 +95,7 @@ public class AngDetailScreen extends JPanel {
 		DecimalFormat f = new DecimalFormat("#0.00"); 
 		angebotwert = new JLabel(""+f.format(angebot.getWertung()));
 		anbieterlabel = new JLabel(anbieter.getName());
+		anbieter_wertung = new JLabel(f.format(anbieter.getWertung()));
 		preis = new JLabel(preis_str);
 		kap = new JLabel(kap_str);
 
@@ -120,8 +122,8 @@ public class AngDetailScreen extends JPanel {
 		sub_a.add(angebotwert_label);
 		sub_a.add(angebotwert);
 		sub_b = new JPanel(new GridLayout(0, 2));
-		JPanel sub_1 = new JPanel(new GridLayout(7, 1));
-		final JPanel sub_2 = new JPanel(new GridLayout(7, 1));
+		JPanel sub_1 = new JPanel(new GridLayout(8, 1));
+		final JPanel sub_2 = new JPanel(new GridLayout(8, 1));
 		// String k[] =angebot.getErlaubteKriterien();
 		ArrayList<Kriterium> w = angebot.getKriterien();
 		for (int i = 0; i < w.size(); i++) {
@@ -133,6 +135,9 @@ public class AngDetailScreen extends JPanel {
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_1.add(anbieter_label);
 		sub_2.add(anbieterlabel);
+		JLabel anb_wert_label = new JLabel("Gesamtwertung des Anbieters:");
+		sub_1.add(anb_wert_label);
+		sub_2.add(anbieter_wertung);
 		sub_b.add(sub_1);
 		sub_b.add(sub_2);
 		
