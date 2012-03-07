@@ -209,11 +209,12 @@ public class SuchScreen extends JPanel
 			if(types.getSelectedIndex() == 0)
 				JOptionPane.showMessageDialog(this, "Sie muessen einen Angebotstypen waehlen");
 			
-			else if((!felder[2].getText().equals("") && (new Double(felder[2].getText()).compareTo(0.00)) >= 0 )
-					|| (!felder[3].getText().equals("") && (new Double(felder[3].getText()).compareTo(0.00)) >= 0 ))
-				if(!(new Double(felder[2].getText()).compareTo(new Double(felder[3].getText())) <= 0))
-					JOptionPane.showMessageDialog(this, "Es gibt keinen negativen Preis");
-				else
+			else if((!felder[2].getText().equals("") && Double.parseDouble(felder[2].getText()) < 0)
+					|| (!felder[3].getText().equals("") && (Double.parseDouble(felder[3].getText()) < 0)))
+				JOptionPane.showMessageDialog(this, "Es gibt keinen negativen Preis");
+			
+			else if((!felder[2].getText().equals("") && !felder[3].getText().equals(""))
+					&& !(Double.parseDouble(felder[2].getText()) <= Double.parseDouble(felder[3].getText())))
 					JOptionPane.showMessageDialog(this, "Der Startpreis ist groesser als der Endpreis");
 			
 			else {

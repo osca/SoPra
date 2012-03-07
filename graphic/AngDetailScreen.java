@@ -59,20 +59,29 @@ public class AngDetailScreen extends JPanel {
 	private JButton melden = new JButton("Melden");
 	private JButton kommentieren = new JButton("Kommentieren");
 	private JButton loeschen = new JButton("Loeschen");
-	private JButton editieren = new JButton("Editieren");
+	private JButton hide;
 	private JButton kontaktieren = new JButton("Kontaktieren");
-	private JButton editsave = new JButton("Aenderungen Speichern");
+	//private JButton editsave = new JButton("Aenderungen Speichern");
 	private Date q;
 	private Date u;
 	final Angebot angebot;
 	final Anbieter anbieter;
 
 	public AngDetailScreen(Angebot a) {
-
+			
+		
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		String preis_str = "" + a.getPreis();
 		String kap_str = "" + a.getKapazitaet();
+		hide = new JButton();
+		if(angebot.isAuffindbar()){
+			hide.setText("Angebot verstecken");
+		}
+		else if(angebot.isAuffindbar()==false){
+			hide.setText("Angebot zeigen");
+		}
+		
 
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0, 2));
@@ -80,7 +89,7 @@ public class AngDetailScreen extends JPanel {
 		down = new JPanel(new GridLayout(1, 0));
 
 		name = new JLabel(angebot.getName());
-		typ = new JLabel("" + Angebot.typToString(angebot.getTyp()));
+		typ = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		vondatum = new JLabel(formatter.format(angebot.getStartdatum()));
 		bisdatum = new JLabel(formatter.format(angebot.getEnddatum()));
@@ -173,23 +182,23 @@ public class AngDetailScreen extends JPanel {
 				down.add(loeschen);
 				loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
-				editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+				hide.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
-				down.add(editieren);
-				down.add(editsave);
-				editsave.disable();
-				editsave.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
-						MainFrame.BUTTONHEIGHT));
+				down.add(hide);
+//				down.add(editsave);
+//				editsave.disable();
+//				editsave.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+//						MainFrame.BUTTONHEIGHT));
 			}
 
-			down.add(editieren);
+			down.add(hide);
 
 			if (Portal.Accountverwaltung().getLoggedIn().getName()
 					.equals(angebot.getAnbieterName()))
 				down.add(loeschen);
 			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
-			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+			hide.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 					MainFrame.BUTTONHEIGHT));
 
 			break;
@@ -422,20 +431,42 @@ public class AngDetailScreen extends JPanel {
 				}
 			}
 		});
-		editieren.addActionListener(new ActionListener() {
+		hide.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					repaint(sub_a, vondatum);
-					repaint(sub_a, bisdatum);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					repaint(sub_a, vondatum);
+//					repaint(sub_a, bisdatum);
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				}
 
-				fullinfo.setEditable(true);
-				editsave.setEnabled(true);
-				editieren.setEnabled(false);
+//				fullinfo.setEditable(true);
+//				editsave.setEnabled(true);
+				if(angebot.isAuffindbar()){
+					try{
+						Portal.Angebotsverwaltung().setAngebot(angebot, false);
+					hide.setText("Angebot anzeigen");
+					}
+					catch(IllegalArgumentException e){
+						JOptionPane.showMessageDialog(null,
+								e.getMessage(), "Angebot Erstellung",
+								JOptionPane.OK_OPTION);
+					}
+					
+				}
+				else if(angebot.isAuffindbar()==false){
+					try{
+						Portal.Angebotsverwaltung().setAngebot(angebot,true);
+					hide.setText("Angebot verstecken");
+					}
+					catch(IllegalArgumentException e){
+						JOptionPane.showMessageDialog(null,
+								e.getMessage(), "Angebot Erstellung",
+								JOptionPane.OK_OPTION);
+					}
+				}
 
 			}
 		});
@@ -460,67 +491,68 @@ public class AngDetailScreen extends JPanel {
 				}
 			}
 		});
-		editsave.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String[] k = Angebotsverwaltung
-						.angebotNameToErlaubteKriterien(typ.getText());
-				for (int i = 0; i < sub_2.getComponentCount(); i++) {
-					Component c = sub_2.getComponent(i);
-					if (c instanceof JLabel) {
-						k[i] = ((JLabel) c).getText();
-					}
-				}
-				q = null;
-				u = null;
-				double result = 0;
-				result = Double.parseDouble(preis.getText());
-
-				try {
-					q = Methods.stringToDate(vondatum.getText());
-					u = Methods.stringToDate(bisdatum.getText());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					Portal.Angebotsverwaltung()
-							.createAngebot(
-									(Anbieter) Portal.Accountverwaltung()
-											.getLoggedIn(), name.getText(),
-									fullinfo.getText(),
-									Angebot.convertNameToTyp(typ.getText()),
-									result, Integer.parseInt(kap.getText()), q,
-									u, k);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidDateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-			
-		});
+//		editsave.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				fullinfo.setEditable(false);
+//				String[] k = Angebotsverwaltung
+//						.angebotNameToErlaubteKriterien(typ.getText());
+//				for (int i = 0; i < sub_2.getComponentCount(); i++) {
+//					Component c = sub_2.getComponent(i);
+//					if (c instanceof JLabel) {
+//						k[i] = ((JLabel) c).getText();
+//					}
+//				}
+//				q = null;
+//				u = null;
+//				double result = 0;
+//				result = Double.parseDouble(preis.getText());
+//
+//				try {
+//					q = Methods.stringToDate(vondatum.getText());
+//					u = Methods.stringToDate(bisdatum.getText());
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				try {
+//					Portal.Angebotsverwaltung()
+//							.createAngebot(
+//									(Anbieter) Portal.Accountverwaltung()
+//											.getLoggedIn(), name.getText(),
+//									fullinfo.getText(),
+//									Angebot.convertNameToTyp(typ.getText()),
+//									result, Integer.parseInt(kap.getText()), q,
+//									u, k);
+//				} catch (NumberFormatException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (InvalidDateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//
+//			}
+//			
+//		});
 	}
 
-	public void repaint(JPanel panel, Component datum) throws ParseException {
-		Component[] comps = panel.getComponents();
-		int pos = -1;
-		for (int i = 0; i < comps.length; i++) {
-			if (comps[i].equals(datum))
-				pos = i;
-		}
-
-		panel.remove(datum);
-		JFormattedTextField von = new JFormattedTextField(new MaskFormatter(
-				"##/##/####"));
-		datum = von;
-		panel.add(datum, null, pos);
-
-		panel.revalidate();
-		panel.repaint();
-	}
+//	public void repaint(JPanel panel, Component datum) throws ParseException {
+//		Component[] comps = panel.getComponents();
+//		int pos = -1;
+//		for (int i = 0; i < comps.length; i++) {
+//			if (comps[i].equals(datum))
+//				pos = i;
+//		}
+//
+//		panel.remove(datum);
+//		JFormattedTextField von = new JFormattedTextField(new MaskFormatter(
+//				"##/##/####"));
+//		datum = von;
+//		panel.add(datum, null, pos);
+//
+//		panel.revalidate();
+//		panel.repaint();
+//	}
 }
