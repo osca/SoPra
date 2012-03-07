@@ -257,7 +257,6 @@ public class Accountverwaltung {
 	
 					for (Buchung b : buchungen) {
 						buchungsVerwaltung.delBuchung(b);
-						Portal.Buchungsverwaltung().delBuchung(b);
 						// TODO Duerfen Buchungen wirklich geloescht werden? Nicht
 						// besser canceln?
 					}
