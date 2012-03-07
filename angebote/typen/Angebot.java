@@ -322,7 +322,7 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	@Override
 	public String getStatus() {
-		return (auffindbar)? "(+)": "(-)";
+		return (auffindbar)? "(Das Angebot ist aktuell)": "(nicht aktuell)";
 	}
 	
 	/**
