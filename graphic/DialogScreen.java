@@ -55,11 +55,16 @@ public class DialogScreen extends JDialog
 	private void init(MainFrame frame, String title, JButton[] but ,int flag) 
 	{
 		this.setTitle(title);
+		this.addWindowListener(new WindowAdapter() 
+        { 
+            public void windowClosing(WindowEvent evt) 
+            {
+            	close();
+            }
+        });
 		mainFrame = frame;
 		mainFrame.setEnabled(false);
 		
-		if(this.getParent()!=null)
-			this.setLocation(this.getParent().getWidth()/4, this.getParent().getHeight()/4);
 		JPanel main = new JPanel(new BorderLayout());
 		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*3, MainFrame.BUTTONHEIGHT*10));
 		
@@ -135,14 +140,6 @@ public class DialogScreen extends JDialog
 		this.pack();
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
-		
-		this.addWindowListener(new WindowAdapter() 
-        { 
-            public void windowClosing(WindowEvent evt) 
-            {
-            	close();
-            }
-        });
 	}
 	
 	public void close()

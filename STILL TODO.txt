@@ -16,7 +16,7 @@ Zweitrangig:
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
 47. [gui]	startposition des dialogscreens
 49. [gui]	angebote sollten schom im screen die gesamtbewertung des anbieters anzeigen
-51. [gui]	ist es möglich das (+) als "aktuell" zu schreiben? ist verwirrend
+51. [gui]	wenn man beim dialogscreen "antworten" anklickt, geht das bis in die unendlichkeit oft
 
 GENERAL:
 I) testen
