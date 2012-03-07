@@ -63,7 +63,7 @@ public class AngDetailScreen extends JPanel {
 	private JButton kontaktieren = new JButton("Kontaktieren");
 	private JButton editsave = new JButton("Aenderungen Speichern");
 	private Date q;
-	private Date w;
+	private Date u;
 	final Angebot angebot;
 	final Anbieter anbieter;
 
@@ -71,8 +71,8 @@ public class AngDetailScreen extends JPanel {
 
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
-		String preis_str = 	""+a.getPreis();
-		String kap_str = ""+a.getKapazitaet();
+		String preis_str = "" + a.getPreis();
+		String kap_str = "" + a.getKapazitaet();
 
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0, 2));
@@ -183,11 +183,14 @@ public class AngDetailScreen extends JPanel {
 			}
 
 			down.add(editieren);
-			
-			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
+
+			if (Portal.Accountverwaltung().getLoggedIn().getName()
+					.equals(angebot.getAnbieterName()))
 				down.add(loeschen);
-			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
-			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
+			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+					MainFrame.BUTTONHEIGHT));
+			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+					MainFrame.BUTTONHEIGHT));
 
 			break;
 
@@ -236,7 +239,7 @@ public class AngDetailScreen extends JPanel {
 							"Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 						if (fromField.getText().length() == 0
 								|| toField.getText().length() == 0)
-							throw new IllegalArgumentException();
+							throw new IllegalArgumentException("Zeitraum nicht gueltig");
 
 						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -444,6 +447,7 @@ public class AngDetailScreen extends JPanel {
 			}
 		});
 		editieren.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -454,7 +458,8 @@ public class AngDetailScreen extends JPanel {
 				}
 
 				fullinfo.setEditable(true);
-				editsave.enable();
+				editsave.setEnabled(true);
+				editieren.setEnabled(false);
 
 			}
 		});
@@ -483,33 +488,35 @@ public class AngDetailScreen extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String[] k = Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getText());
+				String[] k = Angebotsverwaltung
+						.angebotNameToErlaubteKriterien(typ.getText());
 				for (int i = 0; i < sub_2.getComponentCount(); i++) {
-					Component c =  sub_2.getComponent(i);
-					if(c instanceof JLabel){			
-						k[i]=((JLabel) c).getText();
+					Component c = sub_2.getComponent(i);
+					if (c instanceof JLabel) {
+						k[i] = ((JLabel) c).getText();
 					}
 				}
-				Date q = null;
-				Date w = null;
+				q = null;
+				u = null;
 				double result = 0;
 				result = Double.parseDouble(preis.getText());
-				
+
 				try {
 					q = Methods.stringToDate(vondatum.getText());
-					w = Methods.stringToDate(bisdatum.getText());
+					u = Methods.stringToDate(bisdatum.getText());
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
-					Portal.Angebotsverwaltung().createAngebot(
-							(Anbieter) Portal.Accountverwaltung()
-									.getLoggedIn(),
-							name.getText(),
-							fullinfo.getText(),
-							Angebot.convertNameToTyp(typ.getText()), result,
-							Integer.parseInt(kap.getText()), q, w, k);
+					Portal.Angebotsverwaltung()
+							.createAngebot(
+									(Anbieter) Portal.Accountverwaltung()
+											.getLoggedIn(), name.getText(),
+									fullinfo.getText(),
+									Angebot.convertNameToTyp(typ.getText()),
+									result, Integer.parseInt(kap.getText()), q,
+									u, k);
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -517,10 +524,9 @@ public class AngDetailScreen extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-			}
 
+			}
+			
 		});
 	}
 
