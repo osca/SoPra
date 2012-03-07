@@ -181,7 +181,7 @@ public class Datenhaltung {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace(); // TODO Handling??
+			e.printStackTrace();
 		}
 
 		String[] s = new String[reslist.size()];
@@ -205,13 +205,13 @@ public class Datenhaltung {
 
 	private static XStream initXStream() {
 		XStream res = new XStream();
-		String osWithDom[] = new String[]{"Linux"},
-				os = System.getProperty("os.name");
-		for(String s : osWithDom)
-			if(os.matches(".*"+s+".*")){
-				res = new XStream(new DomDriver());
-				System.out.println("Dom initialized");
-			}
+		String	osn = System.getProperty("os.name"),
+					osv = System.getProperty("os.version");
+		if(		(osn.matches(".*Linux.*") && osv.startsWith("2.6."))
+				|| osn.matches(".*OS X.*")){
+			res = new XStream(new DomDriver());
+			System.out.println("Dom initialized");
+		}
 //		res.alias(name, type);
 		return res;
 	}
