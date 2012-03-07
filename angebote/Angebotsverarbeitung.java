@@ -104,21 +104,19 @@ public class Angebotsverarbeitung {
 	 * in den Angeboten spezifiziert.
 	 */
 	public ArrayList<Angebot> getTopAngebote(){
-		ArrayList<Angebot> aktAngebote = getAktuelleAngebote();
-		ArrayList<Angebot> topAngebote = new ArrayList<Angebot>();
+		ArrayList<Angebot> aktAngebote = new ArrayList<Angebot>();
+		aktAngebote.addAll(getAktuelleAngebote());
+		
 		final int numberOfEntries=10;
 		
-		for(Angebot a:aktAngebote){
-			int curBuchungen = Portal.Buchungsverwaltung().getBuchungen(a).size();
-			topAngebote.add(a);
-			Collections.sort(topAngebote);
-			if(curBuchungen>numberOfEntries) {
-				topAngebote.remove(0);
-			}
-			
-		}
-		Collections.reverse(topAngebote); 		//absteigende Ordnung
-		return topAngebote;
+		//sortiere mit ueberschriebenen compareTo()
+		Collections.sort(aktAngebote);
+		//absteigende Ordnung
+		Collections.reverse(aktAngebote); 
+		//liste trimmen
+		aktAngebote = new ArrayList<Angebot>(aktAngebote.subList(0, numberOfEntries));
+		
+		return aktAngebote;
 	}
 	
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
