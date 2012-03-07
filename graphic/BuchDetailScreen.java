@@ -42,13 +42,17 @@ public class BuchDetailScreen extends JPanel
 	private JButton buttonRechts;
 	private JButton buttonAngebot;
 	
-	public BuchDetailScreen(final JFrame mainframe,final JButton buchungsbutton, final Buchung buchung)
+	private MainFrame frame;
+	
+	public BuchDetailScreen(final MainFrame mainframe, final JButton buchungsbutton, final Buchung buchung)
 	{
 		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
 		grid = new GridLayout(0,1);
 		grid.setHgap(4);
 		this.setLayout(new BorderLayout());
 		this.setBorder(border);
+		
+		frame = mainframe;
 		
 		////////////
 		
@@ -123,7 +127,7 @@ public class BuchDetailScreen extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					DialogScreen dialog = new DialogScreen("Aenderungsanfrage", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen(frame, "Aenderungsanfrage", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -157,7 +161,7 @@ public class BuchDetailScreen extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					DialogScreen dialog = new DialogScreen("Kontaktaufnahme", DialogScreen.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen(frame, "Kontaktaufnahme", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()

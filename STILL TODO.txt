@@ -23,6 +23,10 @@ Zweitrangig:
 49. [gui]	angebote sollten schom im screen die gesamtbewertung des anbieters anzeigen
 51. [gui]	ist es möglich das (+) als "aktuell" zu schreiben? ist verwirrend
 
+GENERAL:
+I) testen
+II) testen
+III) ein bisschen testen
 
 OPTIONAL:
 I) Produkt- und Angebotstypfabrik
