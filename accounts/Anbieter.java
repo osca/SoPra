@@ -56,7 +56,7 @@ public class Anbieter extends Account{
 			return result;
 		
 		for(Angebot a: Portal.Angebotsverwaltung().getAngebote(this)) {
-			result+=a.getWertung();
+			result += a.getWertung();
 		}
 		
 		return result/angebote.size();

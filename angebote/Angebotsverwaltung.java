@@ -304,7 +304,7 @@ public class Angebotsverwaltung {
 		ArrayList<Kommentar> kommentare = getKommentare(angebot);
 
 		for(Kommentar k:kommentare) {
-			if(k.getAbsender().equals(kunde.getName()))
+			if(k.getAbsender().equals(kunde.getName()) && k.getBewertung() != Kommentar.KEINEWERTUNG)
 				return true;
 		}
 		

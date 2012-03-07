@@ -2,17 +2,14 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -22,22 +19,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JToolTip;
 import javax.swing.text.MaskFormatter;
 
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
 import accounts.Kunde;
-import accounts.LoeschenNichtMoeglichException;
-import angebote.Angebotsverwaltung;
 import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
-import angebote.kriterien.Land;
 import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
 
+@SuppressWarnings("serial")
 public class AngDetailScreen extends JPanel {
 	private JPanel up;
 	private JPanel sub_a;
@@ -50,7 +43,8 @@ public class AngDetailScreen extends JPanel {
 	private JLabel kap;
 	private JLabel vondatum;
 	private JLabel bisdatum;
-	private JLabel anbieterl;
+	private JLabel anbieterlabel;
+	private JLabel angebotwert;
 
 	private JTextArea fullinfo;
 	private JLabel nullAcc;
@@ -62,8 +56,8 @@ public class AngDetailScreen extends JPanel {
 	private JButton hide;
 	private JButton kontaktieren = new JButton("Kontaktieren");
 	//private JButton editsave = new JButton("Aenderungen Speichern");
-	private Date q;
-	private Date u;
+	protected Date q;
+	protected Date u;
 	final Angebot angebot;
 	final Anbieter anbieter;
 
@@ -92,7 +86,9 @@ public class AngDetailScreen extends JPanel {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		vondatum = new JLabel(formatter.format(angebot.getStartdatum()));
 		bisdatum = new JLabel(formatter.format(angebot.getEnddatum()));
-		anbieterl = new JLabel();
+		DecimalFormat f = new DecimalFormat("#0.00"); 
+		angebotwert = new JLabel(""+f.format(angebot.getWertung()));
+		anbieterlabel = new JLabel(anbieter.getName());
 		preis = new JLabel(preis_str);
 		kap = new JLabel(kap_str);
 
@@ -115,11 +111,12 @@ public class AngDetailScreen extends JPanel {
 		JLabel bd_label = new JLabel("Enddatum:");
 		sub_a.add(bd_label);
 		sub_a.add(bisdatum);
-		JLabel anbieter_label = new JLabel("Anbieter:");
-		sub_a.add(anbieterl);
+		JLabel angebotwert_label = new JLabel("Wertung:");
+		sub_a.add(angebotwert_label);
+		sub_a.add(angebotwert);
 		sub_b = new JPanel(new GridLayout(0, 2));
-		JPanel sub_1 = new JPanel(new GridLayout(6, 1));
-		final JPanel sub_2 = new JPanel(new GridLayout(6, 1));
+		JPanel sub_1 = new JPanel(new GridLayout(7, 1));
+		final JPanel sub_2 = new JPanel(new GridLayout(7, 1));
 		// String k[] =angebot.getErlaubteKriterien();
 		ArrayList<Kriterium> w = angebot.getKriterien();
 		for (int i = 0; i < w.size(); i++) {
@@ -127,13 +124,16 @@ public class AngDetailScreen extends JPanel {
 			sub_1.add(krit);
 			JLabel krit1 = new JLabel(w.get(i).getWert());
 			sub_2.add(krit1);
-
 		}
+		JLabel anbieter_label = new JLabel("Anbieter:");
+		sub_1.add(anbieter_label);
+		sub_2.add(anbieterlabel);
 		sub_b.add(sub_1);
 		sub_b.add(sub_2);
+		
 		up.add(sub_a);
 		up.add(sub_b);
-
+		
 		fullinfo = new JTextArea(angebot.getFullInfo());
 		fullinfo.setLineWrap(true);
 		fullinfo.setWrapStyleWord(true);
@@ -215,7 +215,7 @@ public class AngDetailScreen extends JPanel {
 
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2,
 				Color.LIGHT_GRAY));
-		// ///// verändert
+		// ///// veraendert
 		this.add(BorderLayout.NORTH, up);
 		this.add(BorderLayout.CENTER, mid);
 		JPanel down_haupt = new JPanel(new BorderLayout(5, 5));
@@ -247,14 +247,7 @@ public class AngDetailScreen extends JPanel {
 
 						final Date toDate = to.parse(toField.getText());
 						final Date fromDate = to.parse(fromField.getText());
-						Date heute = new Date();
-						Calendar cal = new GregorianCalendar();
-						cal.setTime(heute);
-						cal.set(Calendar.HOUR_OF_DAY, 0);
-						cal.set(Calendar.MINUTE, 0);
-						cal.set(Calendar.SECOND, 0);
-						cal.set(Calendar.MILLISECOND, 0);
-						heute = cal.getTime();
+						Date heute = Methods.getHeuteNullUhr();
 
 						if (fromDate.before(heute) || toDate.before(heute)) {
 							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
@@ -278,12 +271,11 @@ public class AngDetailScreen extends JPanel {
 							
 						};
 						
-						double bewertung = anbieter.getWertung() * 100;
-						int wertung = (int)bewertung;
-						bewertung = wertung/100;
+						DecimalFormat f2 = new DecimalFormat("#0.00"); 
+						String bewertung = f2.format(anbieter.getWertung());
 						
 						dialog.setEditable(false);
-						dialog.addOnPanel(new JLabel("AGB des Anbieters: " + anbieterl.getText()), DialogScreen.LABEL_LEFT);
+						dialog.addOnPanel(new JLabel("AGB des Anbieters: " + anbieterlabel.getText()), DialogScreen.LABEL_LEFT);
 						dialog.addOnPanel(new JLabel("Bewertung: " + bewertung), DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
@@ -409,7 +401,7 @@ public class AngDetailScreen extends JPanel {
 						angebot, loggedin); // kommentiert => bewertung bereits
 											// erfolgt
 				if (gebucht && !kommentiert) {
-					bewertungCombo.setToolTipText("Je höher, desto besser.");
+					bewertungCombo.setToolTipText("Je hoeher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
 					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
 				}
