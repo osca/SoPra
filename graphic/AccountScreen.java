@@ -44,14 +44,14 @@ public class AccountScreen extends JPanel
 		
 		JPanel left = new JPanel(grid);
 		
-		int linkeSeite = 4;
-		labels = new JLabel[8];
+		int length = 8;
+		labels = new JLabel[length];
 		labels[0] = new JLabel("Name:");
 		labels[1] = new JLabel("E-Mail Adresse:");
 		labels[2] = new JLabel("Status:");
 		labels[3] = new JLabel("Anzahl Buchungen/Angebote");
 		
-		for(int i=0; i<labels.length-linkeSeite; i++)
+		for(int i=0; i<labels.length/2; i++)
 			left.add(labels[i]);
 		
 		/////
@@ -70,7 +70,7 @@ public class AccountScreen extends JPanel
 		else
 			labels[7] = new JLabel();
 		
-		for(int i=linkeSeite; i<labels.length; i++)
+		for(int i=length/2; i<labels.length; i++)
 			right.add(labels[i]);
 		
 		//////

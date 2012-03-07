@@ -280,15 +280,13 @@ public class MainFrame extends JFrame
 			}
 		});
 		
-		
 		////////////////
+		
+		showTopAngebote();
 		
 		this.pack();
 		this.setVisible(true);
 		
-		//////////////
-		
-		showTopAngebote();
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
