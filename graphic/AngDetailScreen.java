@@ -276,8 +276,8 @@ public class AngDetailScreen extends JPanel{
 		kommentieren.addActionListener(new ActionListener()
 		{
 			int bewertung = 0;
-			boolean gebucht = false;	// dirty, aber so geht es
-			boolean kommentiert = false;
+			boolean gebucht = false;		// dirty, aber so geht es
+			boolean kommentiert = false;	// dirty, aber so geht es
 			JComboBox bewertungCombo = new JComboBox(new String[]{"Auswahl", "1", "2", "3", "4", "5"});
 			
 			JLabel kundeLabel = new JLabel();
@@ -296,7 +296,6 @@ public class AngDetailScreen extends JPanel{
 						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Kommentar eingeben.");
 						return;
 					}
-					// es wurde gebucht und noch nicht bewertet => bewertungCombo checken!
 					else if (gebucht && !kommentiert) {
 						if (bewertungCombo.getSelectedIndex() == 0) {
 							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung auswaehlen.");
@@ -317,7 +316,6 @@ public class AngDetailScreen extends JPanel{
 				}
 			};
 			
-			// kommentieren button actionListener
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
