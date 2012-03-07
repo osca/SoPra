@@ -364,6 +364,8 @@ public class AngDetailScreen extends JPanel {
 					}
 
 					bewertung = bewertungCombo.getSelectedIndex();
+					if(bewertung == 0)
+						bewertung = Kommentar.KEINEWERTUNG;
 					kommi = new Kommentar(Portal.Accountverwaltung()
 							.getLoggedIn().getName(), dialog.getContent(),
 							bewertung);
