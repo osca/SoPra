@@ -29,7 +29,7 @@ public class KommentarListe	extends JPanel {
 		ArrayList<Kommentar> kliste= a.getKommentare();
 		
 		for (int i=0;i<kliste.size();i++){
-		//	onElement.setLayout(new GridLayout(1+i,0));
+		
 			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			JPanel eventPanel = new JPanel(new GridLayout(2,1));
 			JPanel komPanel = new JPanel(new GridLayout(1,2));
@@ -39,8 +39,8 @@ public class KommentarListe	extends JPanel {
 			JLabel info = new JLabel(df.format(kliste.get(i).getZeitstempel())+" , Wertung: "+kliste.get(i).getBewertung());
 			komPanel.add(info);
 			eventPanel.add(komPanel);
-			//JLabel full = new JLabel(kliste.get(i).getFullInfo());
 			final JTextArea full = new JTextArea();
+			full.setBackground(null);
 			full.setLineWrap(true);
 			full.setWrapStyleWord(true);
 			full.setEditable(false);

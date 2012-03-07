@@ -222,7 +222,7 @@ public class AngDetailScreen extends JPanel {
 		JPanel down_haupt = new JPanel(new BorderLayout(5, 5));
 		down_haupt.add(BorderLayout.NORTH, down);
 		JPanel down_kom = new JPanel();
-		KommentarListe kl = new KommentarListe(a);
+		final KommentarListe kl = new KommentarListe(a);
 		down_kom.add(kl);
 		down_haupt.add(BorderLayout.CENTER, down_kom);
 		this.add(BorderLayout.SOUTH, down_haupt);
@@ -369,6 +369,10 @@ public class AngDetailScreen extends JPanel {
 							bewertung);
 					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
+					kl.validate();
+					kl.repaint();
+					validate();
+					repaint();
 					kommentieren.setEnabled(false);
 				}
 			};
@@ -430,8 +434,8 @@ public class AngDetailScreen extends JPanel {
 					}
 				} 
 				catch (Exception e) {
-					JOptionPane.showMessageDialog(up.getParent(),e.getMessage());
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(up.getParent(),e.getMessage()+". Das Angebot wurde versteckt.");
+					Portal.Angebotsverwaltung().setAngebot(angebot, false);
 				}
 			}
 		});
