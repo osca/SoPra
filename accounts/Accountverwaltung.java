@@ -151,7 +151,7 @@ public class Accountverwaltung {
 	 *             Falls Passwort nicht passend oder Account nicht gefunden (mit
 	 *             entspr. Nachricht)
 	 */
-	public void logIn(String identifier, String password) throws LoginException {
+	public Account logIn(String identifier, String password) throws LoginException {
 		Account acc = getAccountByIdentifier(identifier);
 		if (acc == null)
 			throw new LoginException("Account wurde nicht gefunden");
@@ -160,6 +160,8 @@ public class Accountverwaltung {
 		if (!acc.getPassword().equals(Account.hashPassword(password)))
 			throw new LoginException("Passwort war falsch");
 		loggedIn = acc;
+		
+		return acc;
 	}
 
 	/**
