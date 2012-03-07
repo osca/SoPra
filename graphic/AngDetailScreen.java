@@ -146,11 +146,12 @@ public class AngDetailScreen extends JPanel{
 			break;
 		
 		case Account.ANBIETER:
+			down.add(editieren);
+			
 			if(Portal.Accountverwaltung().getLoggedIn().getName().equals(angebot.getAnbieterName()))
 				down.add(loeschen);
 			loeschen.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
 			editieren.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,MainFrame.BUTTONHEIGHT));
-			down.add(editieren);
 			break;
 		
 		case Account.BETREIBER:

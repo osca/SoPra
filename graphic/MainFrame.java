@@ -60,6 +60,7 @@ public class MainFrame extends JFrame
 	private JButton erstelleButton;
 	private JButton betreiberButton;
 	private JButton offeneButton;
+	private JButton loeschenButton;
 	
 	private Account account;
 	private JPanel screen;
@@ -163,6 +164,9 @@ public class MainFrame extends JFrame
 		offeneButton = new JButton("Kundenbuchungen");
 		offeneButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		offeneButton.setVisible(false);
+		loeschenButton = new JButton("Account Loeschen");
+		loeschenButton.setEnabled(false);
+		loeschenButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		
 		buttonPanel.add(loginButton);
 		buttonPanel.add(eigeneButton);
@@ -173,6 +177,7 @@ public class MainFrame extends JFrame
 		buttonPanel.add(alleButton);
 		buttonPanel.add(offeneButton);
 		buttonPanel.add(betreiberButton);
+		buttonPanel.add(loeschenButton);
 		registerPanel.add(registerButton);
 
 		// /////////	
@@ -263,6 +268,14 @@ public class MainFrame extends JFrame
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				showOffeneBuchungen();
+			}
+		});
+		loeschenButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				showLoeschen();
 			}
 		});
 		
@@ -487,7 +500,6 @@ public class MainFrame extends JFrame
 		try
 		{
 			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
 			JLabel nameLabel = new JLabel("Name");
 			final JTextField nameField = new JTextField();
 			JLabel emailLabel = new JLabel("E-Mail-Adresse");
@@ -699,12 +711,20 @@ public class MainFrame extends JFrame
 		{}
 	}
 	
+	private void showLoeschen()
+	{
+		Account acc = Portal.Accountverwaltung().getLoggedIn();
+		
+		switch(acc.getTyp()) {
+			case Account.KUNDE:
+		}
+	}
+	
 	private void addBetreiber()
 	{
 		try
 		{
 			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
-			JFormattedTextField tf = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance (DateFormat.SHORT, Locale.GERMAN)));
 			JLabel nameLabel = new JLabel("Name");
 			final JTextField nameField = new JTextField();
 			JLabel emailLabel = new JLabel("E-Mail-Adresse");
@@ -712,9 +732,9 @@ public class MainFrame extends JFrame
 			JLabel passwordLabel = new JLabel("Passwort");
 			final JPasswordField passwordField = new JPasswordField();
 			
-			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzuf�gen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufuegen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
-				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText());
+				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText()); // TODO depracted
 			}
 		}
 		catch(Exception e)
