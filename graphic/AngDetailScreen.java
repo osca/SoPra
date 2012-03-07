@@ -369,6 +369,7 @@ public class AngDetailScreen extends JPanel {
 							bewertung);
 					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
+					kommentieren.setEnabled(false);
 				}
 			};
 
