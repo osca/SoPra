@@ -35,7 +35,8 @@ public class Datenhaltung {
 
 	private Datenhaltung() {}
 
-	private static XStream xs = initXStream();
+	private static XStream xsRead = new XStream();//initXStream();
+	private static XStream xsWrite = new XStream(new DomDriver("UTF-8"));
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
@@ -57,17 +58,17 @@ public class Datenhaltung {
 
 		FileWriter f = new FileWriter(anbFile);
 		f.write(header);
-		xs.toXML(av.getAnbieter(), f);
+		xsWrite.toXML(av.getAnbieter(), f);
 		f.close();
 
 		f = new FileWriter(betrFile);
 		f.write(header);
-		xs.toXML(av.getBetreiber(), f);
+		xsWrite.toXML(av.getBetreiber(), f);
 		f.close();
 
 		f = new FileWriter(kundFile);
 		f.write(header);
-		xs.toXML(av.getKunden(), f);
+		xsWrite.toXML(av.getKunden(), f);
 		f.close();
 	}
 
@@ -82,7 +83,7 @@ public class Datenhaltung {
 
 		FileWriter f = new FileWriter(msgFile);
 		f.write(header);
-		xs.toXML(Portal.Nachrichtenverwaltung().getAlleNachrichten(), f);
+		xsWrite.toXML(Portal.Nachrichtenverwaltung().getAlleNachrichten(), f);
 		f.close();
 	}
 
@@ -101,7 +102,7 @@ public class Datenhaltung {
 				Portal.Buchungsverwaltung().getAllBuchungen(),
 				Buchung.getAnzahl()
 		};
-		xs.toXML(attr,f);
+		xsWrite.toXML(attr,f);
 		f.close();
 	}
 	
@@ -115,7 +116,7 @@ public class Datenhaltung {
 				Portal.Angebotsverwaltung().getAllAngebote(),
 				Angebot.getAnzahl()
 		};
-		xs.toXML(attr, f);
+		xsWrite.toXML(attr, f);
 		f.close();
 	}
 
@@ -140,23 +141,23 @@ public class Datenhaltung {
 		ArrayList<Kunde> kunden = new ArrayList<Kunde>();
 		int buchungsAnzahl = 0, angebotsAnzahl = 0;
 		if (msgFile.exists())
-			nachrichten = (ArrayList<Nachricht>) xs.fromXML(msgFile);
+			nachrichten = (ArrayList<Nachricht>) xsRead.fromXML(msgFile);
 		if (buchFile.exists()){
-			Object[] attr = (Object[]) xs.fromXML(buchFile);
+			Object[] attr = (Object[]) xsRead.fromXML(buchFile);
 			buchungen = (ArrayList<Buchung>) attr[0];
 			buchungsAnzahl = (Integer) attr[1];
 		}
 		if (offFile.exists()){
-			Object[] attr = (Object[]) xs.fromXML(offFile);
+			Object[] attr = (Object[]) xsRead.fromXML(offFile);
 			angebote = (ArrayList<Angebot>) attr[0];
 			angebotsAnzahl = (Integer) attr[1];
 		}
 		if (anbFile.exists())
-			anbieter = (ArrayList<Anbieter>) xs.fromXML(anbFile);
+			anbieter = (ArrayList<Anbieter>) xsRead.fromXML(anbFile);
 		if (betrFile.exists())
-			betreiber = (ArrayList<Betreiber>) xs.fromXML(betrFile);
+			betreiber = (ArrayList<Betreiber>) xsRead.fromXML(betrFile);
 		if (kundFile.exists())
-			kunden = (ArrayList<Kunde>) xs.fromXML(kundFile);
+			kunden = (ArrayList<Kunde>) xsRead.fromXML(kundFile);
 		Portal.recover(new Accountverwaltung(anbieter, betreiber, kunden),
 				new Angebotsverwaltung(angebote), angebotsAnzahl,
 				new Buchungsverwaltung(buchungen), buchungsAnzahl, 
@@ -209,7 +210,7 @@ public class Datenhaltung {
 					osv = System.getProperty("os.version");
 		if(		(osn.matches(".*Linux.*") && osv.startsWith("2.6."))
 				|| osn.matches(".*OS X.*")){
-			res = new XStream(new DomDriver());
+			res = new XStream(new DomDriver("UTF-8"));
 			System.out.println("Dom initialized");
 		}
 //		res.alias(name, type);
