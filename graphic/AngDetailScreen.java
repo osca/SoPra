@@ -413,21 +413,24 @@ public class AngDetailScreen extends JPanel {
 		loeschen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					Portal.Angebotsverwaltung().delAngebot(angebot);
-					JOptionPane.showMessageDialog(up.getParent(),
-							"Angebot erfolgreich geloescht");
-					if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
-						Portal.Nachrichtenverwaltung().sendeNachricht(
-								Portal.Accountverwaltung().getLoggedIn(),
-								anbieter, "Angebot wurde Gelöscht",
-								"Ihr Angebot wurde vom Betreiber gelöscht!",
-								angebot);
-					removeAll();
-					repaint();
-				} catch (LoeschenNichtMoeglichException e) {
-					JOptionPane.showConfirmDialog(up.getParent(),
-							"Loeschen nicht moeglich");
+				try
+				{
+					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass Sie das Angebot loeschen moechten?","Loeschen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+					{
+						Portal.Angebotsverwaltung().delAngebot(angebot);
+						JOptionPane.showMessageDialog(up.getParent(),"Angebot erfolgreich geloescht");
+						if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
+							Portal.Nachrichtenverwaltung().sendeNachricht(
+									Portal.Accountverwaltung().getLoggedIn(),
+									anbieter, "Angebot wurde Gelöscht",
+									"Ihr Angebot wurde vom Betreiber gelöscht!",
+									angebot);
+						removeAll();
+						repaint();
+					}
+				} 
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(up.getParent(),e.getMessage());
 					e.printStackTrace();
 				}
 			}

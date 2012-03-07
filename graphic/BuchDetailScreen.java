@@ -176,7 +176,7 @@ public class BuchDetailScreen extends JPanel
 					{
 						if(buchung.getBestaetigt() == Bestaetigung.NEIN)
 						{
-							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung bestaetigen?") == JOptionPane.OK_OPTION)
+							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung bestaetigen?","Buchungsanfrage", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 							{
 								Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.JA);
 								Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
@@ -187,7 +187,7 @@ public class BuchDetailScreen extends JPanel
 						}
 						else
 						{
-							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung stornieren?") == JOptionPane.OK_OPTION)
+							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung stornieren?","Buchungsanfrage", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 							{
 								Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.NEIN);
 								Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
