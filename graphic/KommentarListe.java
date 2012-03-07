@@ -2,8 +2,8 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -26,12 +26,13 @@ public class KommentarListe	extends JPanel {
 		
 		for (int i=0;i<kliste.size();i++){
 		//	onElement.setLayout(new GridLayout(1+i,0));
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			JPanel eventPanel = new JPanel(new GridLayout(2,1));
 			JPanel komPanel = new JPanel(new GridLayout(1,2));
 			JPanel fullp = new JPanel(new GridLayout(1,1));
 			JLabel name = new JLabel(kliste.get(i).getIdentifier());
 			komPanel.add(name);
-			JLabel info = new JLabel(kliste.get(i).getAdditionalInfo());
+			JLabel info = new JLabel(df.format(kliste.get(i).getZeitstempel())+" , Wertung: "+kliste.get(i).getBewertung());
 			komPanel.add(info);
 			eventPanel.add(komPanel);
 			//JLabel full = new JLabel(kliste.get(i).getFullInfo());

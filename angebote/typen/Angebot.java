@@ -107,6 +107,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	}
 
 	/**
+	 * Setzt den Status auf nicht auffindbar, falls Parameter false, oder auf auffindbar falls true
+	 * @param auffindbar
+	 */
+	public void setAuffindbar(boolean auffindbar){
+		this.auffindbar = auffindbar;
+	}
+	/**
 	 * Get Preis
 	 * 
 	 * @return Preis
@@ -201,15 +208,10 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	public double getWertung() {
 		double result = 0.00;
-		
-		if(kommentare.size() == 0) {
+		if(kommentare.size() == 0) 
 			return result;
-		}
-		
-		for(Kommentar k:kommentare) {
+		for(Kommentar k:kommentare)
 			result+=k.getBewertung();
-		}
-		
 		return result/kommentare.size();
 	}
 	
@@ -369,24 +371,10 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return (int) Math.round(result);
 	}
 	
-	public static String typToString(int flag){
-		switch(flag){
-		case FLUG:{
-			return "Flug";
-		}
-		case AUTOVERMIETUNG:{
-			return "Autovermietung";
-		}
-		case AUSFLUG:{
-			return  "Ausflug";
-		}
-		case HOTEL:{
-			return "Hotel";
-		}
-		default : return null;
-		}
-	}
-	
+	/**
+	 * Gibt eine Liste aller Flags derAngebotstypen als Integer-ArrayList aus
+	 * @return
+	 */
 	public static ArrayList<Integer> getFlagList(){
 		ArrayList<Integer> reslist = new ArrayList<Integer>();
 		reslist.add(FLUG);

@@ -40,7 +40,7 @@ public class Buchung implements Listable {
 	}
 
 	/**
-	 * @return Anzahl der insgesamt getätigten Buchungen
+	 * @return Anzahl der insgesamt getaetigten Buchungen
 	 */
 	public static int getAnzahl() {
 		return anzahl;
@@ -50,7 +50,7 @@ public class Buchung implements Listable {
 		anzahl = anz;
 	}
 	/**
-	 * @return Buchungsnummer für diese Buchung
+	 * @return Buchungsnummer fuer diese Buchung
 	 */
 	public int getBuchungsnummer() {
 		return buchungsNummer;
@@ -64,7 +64,7 @@ public class Buchung implements Listable {
 	}
 
 	/**
-	 * @param bestaetigt setzt die Bestaetigung für die Buchung
+	 * @param bestaetigt setzt die Bestaetigung fuer die Buchung
 	 * @pre es muss vorher sichergestellt sein, dass der Aufrufer berechtigt ist die Buchung zu bestaetigen
 	 */
 	public void setBestaetigt(Bestaetigung bestaetigt) {
@@ -80,7 +80,7 @@ public class Buchung implements Listable {
 
 	/**
 	 * @param von neues Startdatum
-	 * @pre Berechtigung vorher prüfen
+	 * @pre Berechtigung vorher pruefen
 	 */
 	public void setVon(Date von) {
 		this.von = von;
@@ -95,7 +95,7 @@ public class Buchung implements Listable {
 
 	/**
 	 * @param bis neues Enddatum
-	 * @pre Berechtigung muss vorher geprüft werden
+	 * @pre Berechtigung muss vorher geprueft werden
 	 */
 	public void setBis(Date bis) {
 		this.bis = bis;
@@ -135,7 +135,7 @@ public class Buchung implements Listable {
 	@Override
 	public String getStatus() {
 		switch(bestaetigt) {
-		case JA : return "		Bestätigt";
+		case JA : return "		Bestaetigt";
 		case NEIN : return "		Abgelehnt";
 		case UNBEARBEITET : return "		Unbearbeitet";
 		}

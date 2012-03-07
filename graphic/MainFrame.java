@@ -714,6 +714,7 @@ public class MainFrame extends JFrame
 						logOut();
 					} catch (Exception e) {
 						e.printStackTrace();
+						JOptionPane.showMessageDialog(this, e.toString());
 					}
 				}
 			}
@@ -751,6 +752,7 @@ public class MainFrame extends JFrame
 		registerButton.setEnabled(true);
 		betreiberButton.setVisible(false);
 		offeneButton.setVisible(false);
+		loeschenButton.setEnabled(false);
 
 		this.setTitle("Eingeloggt als: "+account.getName());
 		this.repaint();

@@ -221,17 +221,17 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 						"Bitte waehlen Sie einen Typ aus ",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
 
-			} else if (preis.getValue() == null) {
+			} else if (preis.getValue() == null || preis.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie eine gueltigen Preis ein",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
 			} else if (kap.getText() == null
-					|| ((String) kap.getText()).isEmpty()) {
+					|| kap.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie eine gueltige Kapazitaet ein",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
-			} else if (preis.getValue() != null) {
-				result = ((Number) preis.getValue()).doubleValue();
+			} else if (preis.getText() != null || !preis.getText().isEmpty()) {
+				result = Double.parseDouble(preis.getText().replace(",", "."));
 			}
 			if (result == 0) {
 
