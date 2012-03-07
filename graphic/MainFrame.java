@@ -81,7 +81,7 @@ public class MainFrame extends JFrame
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width/2);
 	    int y = (d.height - getSize().height/2);
-	    setLocation(x/8, y/8);
+	    this.setLocation(x/8, y/8);
 		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
 		try
