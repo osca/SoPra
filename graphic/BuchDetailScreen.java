@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 import main.Portal;
 
 import accounts.Account;
+import accounts.Anbieter;
+import buchungen.Bestaetigung;
 import buchungen.Buchung;
 
 public class BuchDetailScreen extends JPanel {
@@ -118,18 +120,52 @@ public class BuchDetailScreen extends JPanel {
 				}
 			});
 		}
-		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.ANBIETER)
+		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.ANBIETER && b.getBestaetigt() == Bestaetigung.UNBEARBEITET)
 		{
-			buttonLinks.setText("Buchung bestätigen");
+			buttonLinks.setText("Kontaktieren");
 			buttonLinks.addActionListener(new ActionListener()
 			{
 				@Override
 				public void actionPerformed(ActionEvent arg0) 
 				{
-//					if(JOptionPane.showConfirmDialog(dPanel.getParent(), ) == JOptionPane.OK_OPTION)
-						
+					DialogScreen dialog = new DialogScreen("Kontaktaufnahme", DialogScreen.OK_CANCEL_OPTION)
+					{
+						@Override
+						public void onOK()
+						{
+							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Accountverwaltung().getAccountByName(b.getKundenName()), "Kontaktaufnahme", getContent(), Portal.Buchungsverwaltung().getReferringAngebot(b));
+						}
+					};
+					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
-				
+			});
+			buttonRechts.setText("Buchung bestätigen");
+			buttonRechts.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					try
+					{
+						int choice = JOptionPane.showConfirmDialog(dPanel.getParent(), "Wollen Sie die Buchung bestaetigen?", "Buchungsbestaetigung", JOptionPane.YES_NO_CANCEL_OPTION);
+						if(choice == JOptionPane.OK_OPTION)
+						{
+							Portal.Buchungsverwaltung().setBestaetigt(b, Bestaetigung.JA);
+							Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+							Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(b.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung bestaetigt!", Portal.Angebotsverwaltung().getAngebotByNummer(b.getAngebotsNummer()));
+						}
+						else if(choice == JOptionPane.NO_OPTION)
+						{
+							Portal.Buchungsverwaltung().setBestaetigt(b, Bestaetigung.NEIN);
+							Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+							Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(b.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(b.getAngebotsNummer()));
+						}
+					}
+					catch(Exception e)
+					{
+						JOptionPane.showMessageDialog(null, e.getMessage());
+					}
+				}
 			});
 		}
 		down.add(BorderLayout.EAST, buttonRechts);
