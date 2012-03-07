@@ -1,5 +1,7 @@
 package angebote;
 
+import graphic.Methods;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -317,10 +319,10 @@ public class Angebotsverwaltung {
 	 * @param angebot
 	 * @param auffindbar
 	 */
-	public void setAngebot(Angebot angebot, boolean auffindbar) {
-		if(auffindbar && !Portal.Angebotsverarbeitung().getAktuelleAngebote().contains(angebot))
-			throw new IllegalArgumentException("Angebot bereits abgelaufen");
-
-		angebot.setAuffindbar(auffindbar);	
+	public void setAuffindbar(Angebot angebot, boolean auffindbar) {
+		if(angebot.getEnddatum().before(Methods.getHeuteNullUhr()))
+			throw new IllegalArgumentException("Das Angebot ist bereits abgelaufen");
+			
+		angebot.setAuffindbar(auffindbar);
 	}
 }

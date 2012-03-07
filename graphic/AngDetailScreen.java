@@ -435,7 +435,7 @@ public class AngDetailScreen extends JPanel {
 				} 
 				catch (Exception e) {
 					JOptionPane.showMessageDialog(up.getParent(),e.getMessage()+". Das Angebot wurde versteckt.");
-					Portal.Angebotsverwaltung().setAngebot(angebot, false);
+					Portal.Angebotsverwaltung().setAuffindbar(angebot, false);
 				}
 			}
 		});
@@ -454,7 +454,7 @@ public class AngDetailScreen extends JPanel {
 //				editsave.setEnabled(true);
 				if(angebot.isAuffindbar()){
 					try{
-						Portal.Angebotsverwaltung().setAngebot(angebot, false);
+						Portal.Angebotsverwaltung().setAuffindbar(angebot, false);
 					hide.setText("Angebot anzeigen");
 					}
 					catch(IllegalArgumentException e){
@@ -466,7 +466,7 @@ public class AngDetailScreen extends JPanel {
 				}
 				else if(angebot.isAuffindbar()==false){
 					try{
-						Portal.Angebotsverwaltung().setAngebot(angebot,true);
+						Portal.Angebotsverwaltung().setAuffindbar(angebot,true);
 					hide.setText("Angebot verstecken");
 					}
 					catch(IllegalArgumentException e){
