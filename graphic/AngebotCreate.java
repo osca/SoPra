@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -210,6 +212,16 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 
 			Date q = null;
 			Date w = null;
+			
+			//Heutigen Tag initialisieren
+			Date heute = new Date();
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(heute);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			
 			double result = 0;
 			if (name.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,
@@ -226,50 +238,58 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 						"Bitte geben Sie eine gueltigen Preis ein",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
 			} else if (kap.getText() == null
-					|| kap.getText().isEmpty()) {
+					|| kap.getText().isEmpty() || Integer.parseInt(kap.getText()) <= 0) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie eine gueltige Kapazitaet ein",
 						"Angebot Erstellung", JOptionPane.OK_OPTION);
 			} else if (preis.getText() != null || !preis.getText().isEmpty()) {
 				result = Double.parseDouble(preis.getText().replace(",", "."));
 			}
-			if (result == 0) {
-
-			} else
+			if (result != 0) {
 				try {
 					q = Methods.stringToDate(von.getText());
 					w = Methods.stringToDate(bis.getText());
-
-					try {
-						Portal.Angebotsverwaltung().createAngebot(
-								(Anbieter) Portal.Accountverwaltung()
-										.getLoggedIn(),
-								name.getText(),
-								beschreibung.getText(),
-								Angebot.convertNameToTyp(typ.getSelectedItem()
-										.toString()), result,
-								Integer.parseInt(kap.getText()), q, w, k);
+					
+					if(w.before(q))
 						JOptionPane.showMessageDialog(this,
-								"Erstellung erfolgreich");
-						this.removeAll();
-						this.validate();
-						this.repaint();
-						init(anb);
-					} catch (NumberFormatException e1) {
-						e1.printStackTrace();
-					} catch (InvalidDateException e1) {
-						JOptionPane.showMessageDialog(this,
-								"Ueberpruefen Sie das Datum",
+								"Das Enddatum ist vor dem Startdatum",
 								"Angebot Erstellung", JOptionPane.OK_OPTION);
-						e1.printStackTrace();
+					else if(heute.after(q))
+						JOptionPane.showMessageDialog(this,
+								"Das Startdatum ist vor dem heutigen Datum",
+								"Angebot Erstellung", JOptionPane.OK_OPTION);
+					else {
+						try {
+							Portal.Angebotsverwaltung().createAngebot(
+									(Anbieter) Portal.Accountverwaltung()
+											.getLoggedIn(),
+									name.getText(),
+									beschreibung.getText(),
+									Angebot.convertNameToTyp(typ.getSelectedItem()
+											.toString()), result,
+									Integer.parseInt(kap.getText()), q, w, k);
+							JOptionPane.showMessageDialog(this,
+									"Erstellung erfolgreich");
+							this.removeAll();
+							this.validate();
+							this.repaint();
+							init(anb);
+						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (InvalidDateException e1) {
+							JOptionPane.showMessageDialog(this,
+									"Ueberpruefen Sie das Datum",
+									"Angebot Erstellung", JOptionPane.OK_OPTION);
+							e1.printStackTrace();
+						}
 					}
-				} catch (ParseException e1) {
+				} catch (ParseException e2) {
 					JOptionPane.showMessageDialog(this,
-							"Ueberpruefen Sie das Datum", "Angebot Erstellung",
-							JOptionPane.OK_OPTION);
+							"Ueberpruefen Sie das Datum",
+							"Angebot Erstellung", JOptionPane.OK_OPTION);
 				}
+			}
 		}
-
 		else if (e.getSource() == loeschen) {
 			this.removeAll();
 			this.validate();
