@@ -19,44 +19,31 @@ public class DialogScreen extends JDialog
 	public final static int LABEL_RIGHT = 88;
 	public final static int BUTTONWIDTH = MainFrame.BUTTONWIDTH-(MainFrame.BUTTONWIDTH/4);
 	public final static int BUTTONHEIGHT = MainFrame.BUTTONHEIGHT-(MainFrame.BUTTONHEIGHT/4);
-	
 	private JTextArea area;
 	private JPanel leftPanel;
 	private JPanel rightPanel;
 	
-	public DialogScreen()
-	{
-		super();
-		init("", null, NAN_OPTION);
-	}
-	
-	public DialogScreen(String title)
+	public DialogScreen(MainFrame frame, String title)
 	{
 		super();
 		init(title, null, OK_OPTION);
 	}
 	
-	public DialogScreen(String title, int flag)
+	public DialogScreen(MainFrame frame, String title, int flag)
 	{
 		super();
 		init(title, null, flag);
 	}
 	
-	public DialogScreen(JFrame frame, String title, int flag)
-	{
-		super(frame);
-		init(title, null, flag);
-	}
-	
-	public DialogScreen(String title, JButton[] buttons)
+	public DialogScreen(MainFrame frame, String title, JButton[] buttons)
 	{
 		super();
 		init(title, buttons, NAN_OPTION);
 	}
 	
-	public DialogScreen(String title, JButton[] buttons, int flag)
+	public DialogScreen(MainFrame frame, String title, JButton[] buttons, int flag)
 	{
-		super();
+		super(frame, title);
 		init(title, buttons, flag);
 	}
 	

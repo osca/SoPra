@@ -286,7 +286,6 @@ public class MainFrame extends JFrame
 		
 		this.pack();
 		this.setVisible(true);
-		
 	}
 
 	public <T extends Listable> void showDetail(T obj) 
@@ -296,7 +295,7 @@ public class MainFrame extends JFrame
 			if(obj.getListableTyp() == Listable.ANGEBOT)
 			{
 				screen.removeAll();
-				screen.add(new AngDetailScreen((Angebot)obj));
+				screen.add(new AngDetailScreen(this, (Angebot)obj));
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
@@ -337,7 +336,7 @@ public class MainFrame extends JFrame
 					@Override
 					public void actionPerformed(ActionEvent arg0)
 					{
-						DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
 						{
 							@Override
 							public void onOK()
@@ -348,7 +347,7 @@ public class MainFrame extends JFrame
 						dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 					}
 				});
-				DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
+				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
 				dialog.setEditable(false);
 				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
@@ -463,7 +462,7 @@ public class MainFrame extends JFrame
 					final JFileChooser fc = new JFileChooser();
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
-					final DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
+					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()

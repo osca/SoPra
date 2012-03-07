@@ -60,9 +60,13 @@ public class AngDetailScreen extends JPanel {
 	protected Date u;
 	final Angebot angebot;
 	final Anbieter anbieter;
+	
+	final MainFrame frame;
 
-	public AngDetailScreen(Angebot a) {
+	public AngDetailScreen(final MainFrame mainframe, Angebot a) {
 			
+		frame = mainframe;
+		
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		String preis_str = "" + a.getPreis();
@@ -259,7 +263,7 @@ public class AngDetailScreen extends JPanel {
 							throw new InvalidDateException("Ihr Enddatum liegt nach Ende des Angebots");
 						}
 
-						DialogScreen dialog = new DialogScreen("Buchen", DialogScreen.OK_CANCEL_OPTION) {
+						DialogScreen dialog = new DialogScreen(frame,"Buchen", DialogScreen.OK_CANCEL_OPTION) {
 							@Override
 							public void onOK() {
 								try {
@@ -388,7 +392,7 @@ public class AngDetailScreen extends JPanel {
 				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn()
 						.getName());
 
-				dialog = new DialogScreen("Kommentieren", new JButton[] {
+				dialog = new DialogScreen(frame,"Kommentieren", new JButton[] {
 						okButton, cancelButton });
 
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
@@ -476,14 +480,10 @@ public class AngDetailScreen extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					DialogScreen dialog = new DialogScreen("Kontaktieren",
-							DialogScreen.OK_CANCEL_OPTION) {
+					DialogScreen dialog = new DialogScreen(frame, "Kontaktieren",DialogScreen.OK_CANCEL_OPTION) {
 						@Override
 						public void onOK() {
-							Portal.Nachrichtenverwaltung().sendeNachricht(
-									Portal.Accountverwaltung().getLoggedIn(),
-									anbieter, "Kontaktaufnahme", getContent(),
-									angebot);
+							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(),anbieter, "Kontaktaufnahme", getContent(),angebot);
 						}
 					};
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung()
