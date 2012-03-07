@@ -134,13 +134,13 @@ public class DialogScreen extends JDialog
 		main.add(center, BorderLayout.CENTER);
 		main.add(south, BorderLayout.SOUTH);
 		
+		area.setLineWrap(true);
+		area.setWrapStyleWord(true);
+		
 		this.add(main);
 		this.pack();
 		this.setVisible(true);
-		//setModal(true);
-		setAlwaysOnTop(true);
-		area.setLineWrap(true);
-		area.setWrapStyleWord(true);
+		this.setAlwaysOnTop(true);
 	}
 	
 	public void setContent(String t)

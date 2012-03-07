@@ -318,73 +318,43 @@ public class MainFrame extends JFrame
 			{
 				final Nachricht nachricht = (Nachricht)obj;
 				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
-				if(Portal.Accountverwaltung().getLoggedIn().getTyp() != Account.BETREIBER)
+
+				JButton[] button = new JButton[2];
+				button[0] = new JButton("Zum Angebot");
+				button[0].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
+				button[0].addActionListener(new ActionListener()
 				{
-					JButton[] button = new JButton[1];
-					button[0] = new JButton("Antworten");
-					button[0].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
-					button[0].addActionListener(new ActionListener()
+					@Override
+					public void actionPerformed(ActionEvent arg0)
 					{
-						@Override
-						public void actionPerformed(ActionEvent arg0)
-						{
-							DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
-							{
-								@Override
-								public void onOK()
-								{
-									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-								}
-							};
-							dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
-						}
-					});
-					
-					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(), button,DialogScreen.OK_OPTION);
-					dialog.setEditable(false);
-					dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
-					dialog.setContent(nachricht.getText());
-					nachricht.setGelesen(true);
-					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
-				}
-				else
+						showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+					}
+				});
+				button[1] = new JButton("Antworten");
+				button[1].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
+				button[1].addActionListener(new ActionListener()
 				{
-					JButton[] button = new JButton[2];
-					button[0] = new JButton("Zum Angebot");
-					button[0].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
-					button[0].addActionListener(new ActionListener()
+					@Override
+					public void actionPerformed(ActionEvent arg0)
 					{
-						@Override
-						public void actionPerformed(ActionEvent arg0)
+						DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
 						{
-							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-						}
-					});
-					button[1] = new JButton("Antworten");
-					button[1].setPreferredSize(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT));
-					button[1].addActionListener(new ActionListener()
-					{
-						@Override
-						public void actionPerformed(ActionEvent arg0)
-						{
-							DialogScreen dialog = new DialogScreen("Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+							@Override
+							public void onOK()
 							{
-								@Override
-								public void onOK()
-								{
-									Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-								}
-							};
-							dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
-						}
-					});
-					DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
-					dialog.setEditable(false);
-					dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
-					dialog.setContent(nachricht.getText());
-					nachricht.setGelesen(true);
-					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
-				}
+								Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+							}
+						};
+						dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
+					}
+				});
+				DialogScreen dialog = new DialogScreen(nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
+				dialog.setEditable(false);
+				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
+				dialog.setContent(nachricht.getText());
+				nachricht.setGelesen(true);
+				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				
 				this.repaint();
 			}
 		}
@@ -437,6 +407,7 @@ public class MainFrame extends JFrame
 					{
 						eigeneButton.setText("Alle Accounts");
 						offeneButton.setVisible(true);
+						offeneButton.setText("Alle Buchungen");
 						betreiberButton.setVisible(true);
 					}
 					
@@ -522,11 +493,18 @@ public class MainFrame extends JFrame
 						@Override
 						public void actionPerformed(ActionEvent e) 
 						{
-							int x =fc.showOpenDialog(null);
-							if(x==JFileChooser.APPROVE_OPTION)
+							try
 							{
-								agbFromFile = Datenhaltung.getStringFromFile(fc.getSelectedFile());
-								dialog.setContent(agbFromFile);
+								int x =fc.showOpenDialog(null);
+								if(x==JFileChooser.APPROVE_OPTION)
+								{
+									agbFromFile = Datenhaltung.getStringFromFile(fc.getSelectedFile());
+									dialog.setContent(agbFromFile);
+								}
+							}
+							catch(Exception ex)
+							{
+								JOptionPane.showMessageDialog(null, ex.getMessage());
 							}
 						}
 					});
@@ -686,84 +664,74 @@ public class MainFrame extends JFrame
 	
 	private void showLoeschen()
 	{
-		Account acc = Portal.Accountverwaltung().getLoggedIn();
-		
-		switch(acc.getTyp()) {
-			case Account.KUNDE:
-			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0) {
-				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-				return;
-			}
-			else {
-				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-					try {
-						Portal.Accountverwaltung().delAccount(acc);
-							
-						logOut();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			break;
+		try
+		{
+			Account acc = Portal.Accountverwaltung().getLoggedIn();
 			
-			case Account.ANBIETER:
-			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
-				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					return;
-			}
-			else {
-				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-					try {
+			switch(acc.getTyp())
+			{
+				case Account.KUNDE:
+					if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0)
+						JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
+					{
 						Portal.Accountverwaltung().delAccount(acc);
-								
 						logOut();
-					} catch (Exception e) {
-						e.printStackTrace();
-						JOptionPane.showMessageDialog(this, e.toString());
 					}
-				}
-			}
-			break;
+				break;
 				
-			case Account.BETREIBER:				
-			try {
-				if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-					Portal.Accountverwaltung().delAccount(acc);
-				
-					logOut();
-				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, e.getMessage());
+				case Account.ANBIETER:
+					//if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) 
+					//	JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					//else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
+					//{
+						Portal.Accountverwaltung().delAccount(acc);
+						logOut();
+					//}
+				break;
+					
+				case Account.BETREIBER:	
+					if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
+					{
+						Portal.Accountverwaltung().delAccount(acc);
+						logOut();
+					}
+				break;
 			}
-			break;
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 	
-	private void logOut() {
-		try {
+	private void logOut() 
+	{
+		try
+		{
 			Portal.Accountverwaltung().logOut();
-		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
+			showTopAngebote();
+			
+			eigeneButton.setEnabled(false);
+			eigeneButton.setText("Angebote/Buchungen");
+			nachrichtButton.setEnabled(false);
+			erstelleButton.setEnabled(false);
+			loginButton.setText("Login");
+			nachrichtButton.setText("Nachrichten");
+			registerButton.setEnabled(true);
+			betreiberButton.setVisible(false);
+			offeneButton.setVisible(false);
+			loeschenButton.setEnabled(false);
+	
+			this.setTitle("");
+			this.repaint();
+			logged = false;
 		}
-		JOptionPane.showMessageDialog(this, "Erfolgreich Abgemeldet"+"\n"+"Danke und auf Wiedersehen!");
-		showTopAngebote();
-		
-		eigeneButton.setEnabled(false);
-		eigeneButton.setText("Angebote/Buchungen");
-		nachrichtButton.setEnabled(false);
-		erstelleButton.setEnabled(false);
-		loginButton.setText("Login");
-		nachrichtButton.setText("Nachrichten");
-		registerButton.setEnabled(true);
-		betreiberButton.setVisible(false);
-		offeneButton.setVisible(false);
-		loeschenButton.setEnabled(false);
-
-		this.setTitle("Eingeloggt als: "+account.getName());
-		this.repaint();
-		logged = false;
-		setTitle("");
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
 	}
 	
 	private void addBetreiber()

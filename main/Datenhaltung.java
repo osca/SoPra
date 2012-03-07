@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -194,12 +195,21 @@ public class Datenhaltung {
 	 * @param f File-Objekt als Referenz zur Datei
 	 * @return 
 	 */
-	public static String getStringFromFile(File f){
-		String arr[] = getStringArrayFromFile(f);
-		String res = "";
-		for(String s : arr)
-			res += s+"\n";
-		return res;
+//	public static String getStringFromFile(File f){
+//		String arr[] = getStringArrayFromFile(f);
+//		String res = "";
+//		for(String s : arr)
+//			res += s+"\n";
+//		return res;
+//	}
+	
+	public static String getStringFromFile(File f) throws FileNotFoundException, IOException
+	{
+		char[] content = new char[(int)f.length()];
+		FileReader fr = new FileReader(f);
+		fr.read(content);
+		fr.close();
+		return new String(content);
 	}
 
 	/**

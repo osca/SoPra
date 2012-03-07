@@ -30,7 +30,7 @@ public class KommentarListe	extends JPanel {
 		
 		ArrayList<Kommentar> kliste= a.getKommentare();
 		
-		for (int i=0;i<kliste.size();i++){
+		for (int i=kliste.size()-1;i>=0;i--){
 		
 			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			JPanel eventPanel = new JPanel(new GridLayout(2,1));
