@@ -669,9 +669,7 @@ public class MainFrame extends JFrame
 			switch(account.getTyp())
 			{
 				case Account.KUNDE:
-					if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)account) > 0)
-						JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
+					if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
 					{
 						Portal.Accountverwaltung().delAccount(account);
 						logOut();
@@ -679,13 +677,11 @@ public class MainFrame extends JFrame
 				break;
 				
 				case Account.ANBIETER:
-					//if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) 
-					//	JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
-					//else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
-					//{
+					if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
+					{
 						Portal.Accountverwaltung().delAccount(account);
 						logOut();
-					//}
+					}
 				break;
 					
 				case Account.BETREIBER:	
