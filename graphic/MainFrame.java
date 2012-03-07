@@ -492,19 +492,7 @@ public class MainFrame extends JFrame
 					final JFileChooser fc = new JFileChooser();
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
-					button_array[0].addActionListener(new ActionListener()
-					{
-						@Override
-						public void actionPerformed(ActionEvent e) 
-						{
-							int x =fc.showOpenDialog(null);
-							if(x==JFileChooser.APPROVE_OPTION)
-							{
-								agbFromFile = Datenhaltung.getStringFromFile(fc.getSelectedFile());
-							}
-						}
-					});
-					DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
+					final DialogScreen dialog = new DialogScreen("Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -528,6 +516,20 @@ public class MainFrame extends JFrame
 						}
 					};
 					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
+					
+					button_array[0].addActionListener(new ActionListener()
+					{
+						@Override
+						public void actionPerformed(ActionEvent e) 
+						{
+							int x =fc.showOpenDialog(null);
+							if(x==JFileChooser.APPROVE_OPTION)
+							{
+								agbFromFile = Datenhaltung.getStringFromFile(fc.getSelectedFile());
+								dialog.setContent(agbFromFile);
+							}
+						}
+					});
 				}
 			}
 		}

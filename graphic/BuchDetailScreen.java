@@ -215,7 +215,6 @@ public class BuchDetailScreen extends JPanel
 			{
 				((MainFrame)mainframe).showDetail(Portal.Buchungsverwaltung().getReferringAngebot(buchung));
 			}
-			
 		});
 		
 		////////////
@@ -224,6 +223,7 @@ public class BuchDetailScreen extends JPanel
 		north.add(right, BorderLayout.EAST);
 		
 		labelPanel.add(north, BorderLayout.WEST);
+		labelPanel.add();
 		
 		south.add(buttonLinks);
 		south.add(buttonRechts);
@@ -231,6 +231,6 @@ public class BuchDetailScreen extends JPanel
 		
 		this.add(labelPanel, BorderLayout.NORTH);
 		this.add(center, BorderLayout.CENTER);
-		this.add(south, BorderLayout.SOUTH);
+		this.add(south, BorderLayout.CENTER);
 	}
 }
