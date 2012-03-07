@@ -117,8 +117,18 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Anbieter anbieter){
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
+		
+		Date now = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(now);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		now = cal.getTime();
+		
 		for(Buchung b : buchungen)
-			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && b.getBis().before(new Date()))
+			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getBis().after(now))
 				reslist.add(b);
 		return reslist;
 	}
@@ -211,8 +221,8 @@ public class Buchungsverwaltung {
 	 * @return Ja oder nein
 	 */
 	public boolean isBookedByKunde(Angebot angebot, Kunde kunde) {
-		for(Buchung b:getBuchungen(kunde)) {
-			if(b.getKundenName().equals(kunde.getName()))
+		for(Buchung b:getBuchungen(angebot)) {
+			if(b.getKundenName().equals(kunde.getName()) && b.getBestaetigt().equals(Bestaetigung.JA))
 				return true;
 		}
 		

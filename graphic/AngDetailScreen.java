@@ -69,7 +69,6 @@ public class AngDetailScreen extends JPanel {
 
 	public AngDetailScreen(Angebot a) {
 			
-		
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		String preis_str = "" + a.getPreis();
@@ -371,6 +370,7 @@ public class AngDetailScreen extends JPanel {
 							bewertung);
 					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
+					kl.init(angebot);
 					kl.validate();
 					kl.repaint();
 					validate();
