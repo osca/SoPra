@@ -440,7 +440,7 @@ public class AngDetailScreen extends JPanel {
 			}
 		});
 		hide.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 //				try {
