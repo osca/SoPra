@@ -114,7 +114,8 @@ public class Angebotsverarbeitung {
 		//absteigende Ordnung
 		Collections.reverse(aktAngebote); 
 		//liste trimmen
-		aktAngebote = new ArrayList<Angebot>(aktAngebote.subList(0, numberOfEntries));
+		if(aktAngebote.size()>numberOfEntries)
+			aktAngebote = new ArrayList<Angebot>(aktAngebote.subList(0, numberOfEntries));
 		
 		return aktAngebote;
 	}
