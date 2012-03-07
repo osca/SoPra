@@ -328,7 +328,7 @@ public class AngDetailScreen extends JPanel {
 			}
 		});
 		kommentieren.addActionListener(new ActionListener() {
-			int bewertung = 0;
+			int bewertung = Kommentar.KEINEWERTUNG;
 			boolean gebucht = false; // dirty, aber so geht es
 			boolean kommentiert = false; // dirty, aber so geht es
 			JComboBox bewertungCombo = new JComboBox(new String[] { "Auswahl",
