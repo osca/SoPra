@@ -281,7 +281,7 @@ public class AngDetailScreen extends JPanel {
 						
 						double bewertung = anbieter.getWertung() * 100;
 						int wertung = (int)bewertung;
-						bewertung = wertung/100.0;
+						bewertung = wertung/100;
 						
 						dialog.setEditable(false);
 						dialog.addOnPanel(new JLabel("AGB des Anbieters: " + anbieterl.getText()), DialogScreen.LABEL_LEFT);

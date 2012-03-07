@@ -321,7 +321,7 @@ public class Angebotsverwaltung {
 	 */
 	public boolean isCommentedByKunde(Angebot angebot, Kunde kunde) {
 		ArrayList<Kommentar> kommentare = getKommentare(angebot);
-		
+
 		for(Kommentar k:kommentare) {
 			if(k.getAbsender().equals(kunde.getName()))
 				return true;
