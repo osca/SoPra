@@ -43,9 +43,11 @@ public class Angebotsverwaltung {
 	 * @param krit
 	 * @return
 	 * @throws InvalidDateException falls Daten nicht zumindest teilweise in der Zukunft liegen
+	 * @pre Preis muss positiv sein
 	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date von, Date bis, String[] krit) throws InvalidDateException {
+		assert preis >= 0: "Der Preis ist negativ";
 		
 		Date now = new Date();
 		if(von.before(now)) {
@@ -326,5 +328,18 @@ public class Angebotsverwaltung {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Ein Angebot auffindbar
+	 * 
+	 * @param angebot
+	 * @param auffindbar
+	 */
+	public void setAngebot(Angebot angebot, boolean auffindbar) {
+		if(auffindbar && !Portal.Angebotsverarbeitung().getAktuelleAngebote().contains(angebot))
+			throw new IllegalArgumentException("Angebot bereits abgelaufen");
+
+		angebot.setAuffindbar(auffindbar);	
 	}
 }
