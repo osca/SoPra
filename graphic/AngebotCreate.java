@@ -250,7 +250,11 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 					q = Methods.stringToDate(von.getText());
 					w = Methods.stringToDate(bis.getText());
 					
-					if(w.before(q))
+					if(!Methods.isValidDatestring(von.getText()) || !Methods.isValidDatestring(bis.getText()))
+						JOptionPane.showMessageDialog(this,
+								"Ungueltiges Datum",
+								"Angebot Erstellung", JOptionPane.OK_OPTION);
+					else if(w.before(q))
 						JOptionPane.showMessageDialog(this,
 								"Das Enddatum ist vor dem Startdatum",
 								"Angebot Erstellung", JOptionPane.OK_OPTION);

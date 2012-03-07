@@ -11,11 +11,11 @@ import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
 public class Angebotsverarbeitung {
-	public final static String KEINNAME		= "";
-	public final static int KEINEKAPAZITAET	= 0;
-	public final static double KEINPREIS 	= 0;
-	public final static Date KEINEDATEN	= new Date(0);
-	public final static String KEINKRITERIUM = "";
+	public final String KEINNAME		= "";
+	public final int KEINEKAPAZITAET	= 0;
+	public final double KEINPREIS 	= 0;
+	public final Date KEINEDATEN	= new Date(0);
+	public final String KEINKRITERIUM = "";
 	/**
 	 * Die Methode geht alle uebergebenen Parameter durch fuer alle Angebote und wenn ein Angebot dabei alle Parameter erfuellen kann wird es der
 	 * Liste der Suchergebnisse angefaegt. Es gibt auch immer die Moeglichkeit fuer ein Parameter eine Nichtgewaehlt-Flag zu setzen, diese wird immer

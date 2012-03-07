@@ -244,7 +244,8 @@ public class AngDetailScreen extends JPanel {
 					JFormattedTextField toField = new JFormattedTextField(new MaskFormatter("##/##/####"));
 
 					if (JOptionPane.showConfirmDialog(null, new Object[] {label, fromLabel, fromField, toLabel, toField }, "Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-						if (fromField.getText().length() == 0 || toField.getText().length() == 0)
+						if (fromField.getText().length() == 0 || toField.getText().length() == 0
+								|| !Methods.isValidDatestring(fromField.getText()) || !Methods.isValidDatestring(toField.getText()))
 							throw new IllegalArgumentException("Zeitraum nicht gueltig");
 
 						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");

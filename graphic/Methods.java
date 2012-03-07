@@ -68,4 +68,39 @@ public class Methods {
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
 	}
+	
+	public static boolean isValidDatestring(String date) {
+		String[] datearr = date.split("/");
+		
+		if(Integer.parseInt(datearr[1]) > 12 || Integer.parseInt(datearr[1]) == 0)
+			return false;
+		
+		if(Integer.parseInt(datearr[1]) == 1 || Integer.parseInt(datearr[1]) == 3
+			|| Integer.parseInt(datearr[1]) == 5 || Integer.parseInt(datearr[1]) == 7
+			|| Integer.parseInt(datearr[1]) == 8 || Integer.parseInt(datearr[1]) == 10
+			|| Integer.parseInt(datearr[1]) == 12) {
+			if(Integer.parseInt(datearr[0]) > 31)
+				return false;
+		}
+		
+		if(Integer.parseInt(datearr[1]) == 4 || Integer.parseInt(datearr[1]) == 6
+			|| Integer.parseInt(datearr[1]) == 9 || Integer.parseInt(datearr[1]) == 11) {
+			if(Integer.parseInt(datearr[0]) > 30)
+					return false;
+		}
+		
+		if(Integer.parseInt(datearr[1]) == 2) {
+			if(Integer.parseInt(datearr[2])%4 == 0) {
+				if(Integer.parseInt(datearr[0]) > 28)
+					return false;
+		
+			}
+			else {
+				if(Integer.parseInt(datearr[0]) > 29)
+					return false;
+			}
+		}
+		
+		return true;
+	}
 }

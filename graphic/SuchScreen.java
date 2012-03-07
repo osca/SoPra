@@ -1,7 +1,6 @@
 package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,12 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,14 +20,11 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 import main.Portal;
-
 import angebote.kriterien.Bierpreis;
 import angebote.kriterien.Klasse;
 import angebote.kriterien.Klima;
@@ -39,6 +33,7 @@ import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 
 
+@SuppressWarnings("serial")
 public class SuchScreen extends JPanel
 {
 	private final static Object[] TYPLIST = new Object[]{"Typ","Hoteluebernachtung","Autovermietung","Ausflug","Flug"};
@@ -56,8 +51,6 @@ public class SuchScreen extends JPanel
 	
 	private JFormattedTextField[] felder;
 	private ArrayList<Angebot> result;
-	
-	private ActionListener ortListener;
 	
 	public SuchScreen()
 	{
@@ -241,6 +234,7 @@ public class SuchScreen extends JPanel
 				double bisPreis = Portal.Angebotsverarbeitung().KEINPREIS;
 				Date von = Portal.Angebotsverarbeitung().KEINEDATEN;
 				Date bis = Portal.Angebotsverarbeitung().KEINEDATEN;
+				boolean datumfail = false;
 				
 				if(!felder[1].getText().equals(""))
 					laenge = Integer.parseInt(felder[1].getText());
@@ -252,18 +246,26 @@ public class SuchScreen extends JPanel
 					bisPreis = Double.parseDouble(felder[3].getText().replace(",", "."));
 				
 				if(!felder[5].getText().equals("  /  /    "))
-					von = Methods.stringToDate(felder[5].getText());
-				
+					if(Methods.isValidDatestring(felder[5].getText()))
+						von = Methods.stringToDate(felder[5].getText());
+					else
+						datumfail = true;
 				if(!felder[6].getText().equals("  /  /    "))
-					bis = Methods.stringToDate(felder[6].getText());
+					if(Methods.isValidDatestring(felder[6].getText()))
+						bis = Methods.stringToDate(felder[6].getText());
+					else
+						datumfail = true;
 				
 				if(von.before(cal.getTime()))
 					von = cal.getTime();
 				
 				if(!von.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && !bis.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && bis.before(von))
 					JOptionPane.showMessageDialog(this, "Startdatum liegt nach dem Enddatum!");
-				else
+				
+				else if(!datumfail)
 					result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
+				else
+					JOptionPane.showMessageDialog(this, "Ungueltiges Datum");
 			}
 		}
 		catch(Exception e)
