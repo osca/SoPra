@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Kommentar implements Listable{
 	
+	public static final int KEINEWERTUNG = -1;
+	
 	private String absender, text;
 	private int bewertung;
 	private Date zeitstempel;

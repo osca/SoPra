@@ -211,7 +211,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		if(kommentare.size() == 0) 
 			return result;
 		for(Kommentar k:kommentare)
-			result+=k.getBewertung();
+			if(k.getBewertung() != Kommentar.KEINEWERTUNG)
+				result+=k.getBewertung();
 		return result/kommentare.size();
 	}
 	
