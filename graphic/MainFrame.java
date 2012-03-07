@@ -81,7 +81,7 @@ public class MainFrame extends JFrame
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width/2);
 	    int y = (d.height - getSize().height/2);
-	    setLocation(x/8, y/8);
+	    this.setLocation(x/8, y/8);
 		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
 		try
@@ -99,7 +99,7 @@ public class MainFrame extends JFrame
 		
 		//////////
 
-		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
+		Border border = BorderFactory.createMatteBorder(0, 2, 0, 2, Color.LIGHT_GRAY);
 		
 		///////////
 
@@ -287,27 +287,6 @@ public class MainFrame extends JFrame
 		this.setVisible(true);
 		
 		//////////////
-
-		try
-		{
-			Betreiber bet = Portal.Accountverwaltung().createBetreiber("Betreiber@betreiber.de", "admin", "boss");
-			Anbieter an = Portal.Accountverwaltung().createAnbieter("Anbieter@anbieter.de", "Anbieter", "1", "Hier steht Ihre AGB!");
-			Kunde kuh = Portal.Accountverwaltung().createKunde("Kunde@kunde.de", "Max Mustermann", "1");
-			Angebot auto = null;
-			
-			for(int i=0; i<10; i++)
-				auto = Portal.Angebotsverwaltung().createAutovermietung(an, "Automiethaus", "Hier koennen Sie alle Autos mieten", 4, 532, new Date(1), new Date(151465143512312L), "Deutschland","Muenster");
-			
-			Portal.Buchungsverwaltung().createBuchung(kuh, auto, new Date(151465143012312L), new Date(151465143512312L));
-			
-			Portal.Accountverwaltung().logIn(bet.getIdentifier(), "boss");
-			Portal.Accountverwaltung().setAccountGesperrt(an, Gesperrt.NEIN);
-			Portal.Accountverwaltung().logOut();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 		
 		showTopAngebote();
 	}
@@ -507,7 +486,7 @@ public class MainFrame extends JFrame
 				else
 				{
 					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
-						throw new AlreadyInUseException();
+						throw new AlreadyInUseException("Die E-Mail-Adresse wird bereits verwendet!");
 					
 					
 					JButton fcb = new JButton("AGB laden");
@@ -815,10 +794,5 @@ public class MainFrame extends JFrame
 		}catch(IOException ioe){
 			//TODO maybe something?
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		MainFrame f = new MainFrame();
 	}
 }

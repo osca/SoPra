@@ -20,7 +20,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 	
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
-		this.setBackground(Color.black);
+		this.setBackground(Color.LIGHT_GRAY);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
