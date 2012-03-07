@@ -225,20 +225,14 @@ public class AngDetailScreen extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					JLabel label = new JLabel(
-							"Geben Sie den Zeitraum im Format dd/MM/yyyy an:");
+					JLabel label = new JLabel("Geben Sie den Zeitraum im Format dd/MM/yyyy an:");
 					JLabel fromLabel = new JLabel("Von:");
 					JLabel toLabel = new JLabel("Bis:");
-					JFormattedTextField fromField = new JFormattedTextField(
-							new MaskFormatter("##/##/####"));
-					JFormattedTextField toField = new JFormattedTextField(
-							new MaskFormatter("##/##/####"));
+					JFormattedTextField fromField = new JFormattedTextField(new MaskFormatter("##/##/####"));
+					JFormattedTextField toField = new JFormattedTextField(new MaskFormatter("##/##/####"));
 
-					if (JOptionPane.showConfirmDialog(null, new Object[] {
-							label, fromLabel, fromField, toLabel, toField },
-							"Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-						if (fromField.getText().length() == 0
-								|| toField.getText().length() == 0)
+					if (JOptionPane.showConfirmDialog(null, new Object[] {label, fromLabel, fromField, toLabel, toField }, "Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+						if (fromField.getText().length() == 0 || toField.getText().length() == 0)
 							throw new IllegalArgumentException("Zeitraum nicht gueltig");
 
 						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");
@@ -254,57 +248,39 @@ public class AngDetailScreen extends JPanel {
 						cal.set(Calendar.MILLISECOND, 0);
 						heute = cal.getTime();
 
-						/*
-						 * if(fromDate.before(heute) || fromDate.after(toDate)
-						 * || fromDate.before(angebot.getStartdatum()) ||
-						 * toDate.after(angebot.getEnddatum())){ throw new
-						 * InvalidDateException("Das Date ist falsch"); }
-						 */
-
 						if (fromDate.before(heute) || toDate.before(heute)) {
-							throw new InvalidDateException(
-									"Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
+							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
 						} else if (fromDate.after(toDate)) {
-							throw new InvalidDateException(
-									"Ihr Enddatum liegt vor dem Startdatum");
+							throw new InvalidDateException("Ihr Enddatum liegt vor dem Startdatum");
 						} else if (fromDate.before(angebot.getStartdatum())) {
-							throw new InvalidDateException(
-									"Ihr Anfangsdatum liegt vor Beginn des Angebots");
+							throw new InvalidDateException("Ihr Anfangsdatum liegt vor Beginn des Angebots");
 						} else if (toDate.after(angebot.getEnddatum())) {
-							throw new InvalidDateException(
-									"Ihr Enddatum liegt nach Ende des Angebots");
+							throw new InvalidDateException("Ihr Enddatum liegt nach Ende des Angebots");
 						}
 
-						DialogScreen dialog = new DialogScreen("Buchen",
-								DialogScreen.OK_CANCEL_OPTION) {
+						DialogScreen dialog = new DialogScreen("Buchen", DialogScreen.OK_CANCEL_OPTION) {
 							@Override
 							public void onOK() {
 								try {
-									// edit benjamin: angebot.getStartdatum()
-									// durch fromDate ersetzt etc.
-									Portal.Buchungsverwaltung().createBuchung(
-											(Kunde) Portal.Accountverwaltung()
-													.getLoggedIn(), angebot,
-											fromDate, toDate);
+									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
+							
 						};
+						
+						double bewertung = anbieter.getWertung() * 100;
+						int wertung = (int)bewertung;
+						bewertung = wertung/100;
+						
 						dialog.setEditable(false);
-						dialog.addOnPanel(
-								new JLabel(MeldeDienst.MSG_AGB_ERKLAERUNG
-										+ anbieterl.getText()),
-								DialogScreen.LABEL_LEFT);
-						dialog.addOnPanel(
-								new JLabel(MeldeDienst.MSG_GESAMMT_BEWERUNG
-										+ anbieter.getWertung()),
-								DialogScreen.LABEL_RIGHT);
+						dialog.addOnPanel(new JLabel("AGB des Anbieters: " + anbieterl.getText()), DialogScreen.LABEL_LEFT);
+						dialog.addOnPanel(new JLabel("Bewertung: " + bewertung), DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(up.getParent(),
-							e.getMessage());
+					JOptionPane.showMessageDialog(up.getParent(), e.getMessage());
 				}
 			}
 		});
