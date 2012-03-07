@@ -305,6 +305,7 @@ public class AngDetailScreen extends JPanel{
 					
 					bewertung = bewertungCombo.getSelectedIndex();
 					kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
+					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
 				}
 			};
