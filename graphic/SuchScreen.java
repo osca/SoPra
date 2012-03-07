@@ -294,22 +294,7 @@ public class SuchScreen extends JPanel
 		labelList.add(new JLabel("Verpflegung:"));
 		labelList.add(new JLabel("Bierpreis:"));
 		
-		final JComboBox land = new JComboBox();
-		land.addItem("");
-		for(String s: Land.wertebereich)
-			land.addItem(s);
-		final JComboBox ort = new JComboBox();
-		land.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				repaintOrt(ort, land);
-			}
-			
-		});
-		boxList.add(land);
-		boxList.add(ort);
+		setComboBox();
 		boxList.add(new JComboBox(Klima.wertebereich));
 		boxList.add(new JComboBox(Verpflegungsart.wertebereich));
 		boxList.add(new JComboBox(Bierpreis.wertebereich));
@@ -365,6 +350,7 @@ public class SuchScreen extends JPanel
 	
 	public void repaintOrt(JComboBox ort, JComboBox land)
 	{		
+		ort.removeAllItems();
 		String[] laender = (Land.getOrte((String)land.getSelectedItem()));
 		for(String s: laender)
 			ort.addItem(s);

@@ -39,8 +39,8 @@ public class BuchDetailScreen extends JPanel {
 
 	private JTextArea fullinfo;
 	
-	private JButton aenderungsanfrage;
-	private JButton stornieren;
+	private JButton buttonLinks;
+	private JButton buttonRechts;
 	
 	public BuchDetailScreen(final Buchung b)
 	{
@@ -82,16 +82,17 @@ public class BuchDetailScreen extends JPanel {
 		fullinfo.setBackground(Color.LIGHT_GRAY);
 		mid.add(fullinfo);
 		
+		buttonLinks = new JButton();
+		buttonRechts = new JButton();
 		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.KUNDE)
 		{
-			aenderungsanfrage = new JButton("Aenderungsanfrage");
-			aenderungsanfrage.addActionListener(new ActionListener()
+			buttonLinks.setText("Aenderungsanfrage");
+			buttonLinks.addActionListener(new ActionListener()
 			{
-	
 				@Override
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					DialogScreen dialog = new DialogScreen("Aenderungsanfrage", JOptionPane.OK_CANCEL_OPTION)
+					DialogScreen dialog = new DialogScreen("Aenderungsanfrage", DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -102,8 +103,8 @@ public class BuchDetailScreen extends JPanel {
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
 				}
 			});
-			stornieren = new JButton("Stronieren");
-			stornieren.addActionListener(new ActionListener(){
+			buttonRechts = new JButton("Stronieren");
+			buttonRechts.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					int confirm = JOptionPane.showConfirmDialog(null, "Wollen Sie wirklich eine Stornierungsanfrage senden?", "Sicher?", JOptionPane.OK_CANCEL_OPTION);
@@ -116,9 +117,23 @@ public class BuchDetailScreen extends JPanel {
 					}
 				}
 			});
-			down.add(BorderLayout.EAST, aenderungsanfrage);
-			down.add(BorderLayout.WEST, stornieren);
 		}
+		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.ANBIETER)
+		{
+			buttonLinks.setText("Buchung bestätigen");
+			buttonLinks.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0) 
+				{
+//					if(JOptionPane.showConfirmDialog(dPanel.getParent(), ) == JOptionPane.OK_OPTION)
+						
+				}
+				
+			});
+		}
+		down.add(BorderLayout.EAST, buttonRechts);
+		down.add(BorderLayout.WEST, buttonLinks);
 		
 		dPanel.add(BorderLayout.NORTH, up);
 		dPanel.add(BorderLayout.CENTER, mid);
