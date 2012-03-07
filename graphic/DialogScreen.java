@@ -65,6 +65,8 @@ public class DialogScreen extends JDialog
 		mainFrame = frame;
 		mainFrame.setEnabled(false);
 		
+		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
+		
 		JPanel main = new JPanel(new BorderLayout());
 		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*3, MainFrame.BUTTONHEIGHT*10));
 		

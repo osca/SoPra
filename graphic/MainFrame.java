@@ -469,7 +469,8 @@ public class MainFrame extends JFrame
 						{
 							try 
 							{
-								Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()),this.getContent());
+								Anbieter an = Portal.Accountverwaltung().createAnbieter(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+								an.setAgb(this.getContent());
 								JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
 							} 
 							catch (Exception e) 

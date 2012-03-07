@@ -2,7 +2,6 @@
 	Buchungsanfrage..? [Fast Weg]
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
-38. [gui]	Stornierungsanfrage nur OK Button
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
 45. [gui] 	anzeigelisten invertieren, damit aktuellstes oben
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
