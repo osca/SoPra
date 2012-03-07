@@ -13,7 +13,7 @@ Zweitrangig:
 20. [gui]	Willkommensnachricht beim ersten registrieren
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
-51. [gui]	wenn man beim dialogscreen "antworten" anklickt, geht das bis in die unendlichkeit oft
+54. [gui]	die nachrichtenliste sollte neugeladen werden wenn eine nachricht gelesen wurde (stichwort init() siehe kommentarliste)
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten
