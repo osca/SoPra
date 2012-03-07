@@ -126,7 +126,11 @@ public class AngDetailScreen extends JPanel{
 //		for(int i = 0; i < kommentare.size(); i++) {
 //			mid.add(new KommentarScreen(kommentare.get(i)));
 //		}
+<<<<<<< HEAD
 //		
+=======
+		
+>>>>>>> 19123e00d041e4b09306cdab35758b550bfd3a9c
 		///////////////////
 		
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()){
@@ -277,6 +281,7 @@ public class AngDetailScreen extends JPanel{
 		kommentieren.addActionListener(new ActionListener()
 		{
 			int bewertung = 0;
+			boolean bewertungErlaubt = false;	// dirty, aber so geht es
 			JComboBox bewertungCombo = new JComboBox(new String[]{"Auswahl", "1", "2", "3", "4", "5"});
 			
 			JLabel kundeLabel = new JLabel();
@@ -293,14 +298,17 @@ public class AngDetailScreen extends JPanel{
 				public void actionPerformed(ActionEvent arg0) {
 					if (dialog.getContent().length() <= 0)
 						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Text eingeben");
-					else if (bewertungCombo.getSelectedIndex() == 0)
-						JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung abgeben");
+					else if (bewertungErlaubt) {
+						if (bewertungCombo.getSelectedIndex() == 0)
+							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung abgeben");
+					}
 					else {
 						bewertung = bewertungCombo.getSelectedIndex();
 						
 						kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
 						Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 						dialog.dispose();
+						bewertungErlaubt = false;
 					}
 				}
 			};
@@ -328,6 +336,7 @@ public class AngDetailScreen extends JPanel{
 				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat und noch keine bewertung abgegeben hat.
 				if (Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin) &&
 					!Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
+					bewertungErlaubt = true;
 					bewertungCombo.setToolTipText("Je höher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
 					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
