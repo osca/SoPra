@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,6 +30,8 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		for (int i=0;i<list.size();i++){
 			final int j = i;
 			final JPanel eventPanel = new JPanel();
+			eventPanel.setLayout(new BoxLayout(eventPanel,BoxLayout.X_AXIS));
+			final JPanel event_two=new JPanel(new GridLayout(1,3));
 			eventPanel.addMouseListener(new MouseListener(){
 
 				@Override
@@ -56,11 +59,14 @@ public class ListeScreen <T extends Listable> extends JPanel {
 			});
 			
 			JLabel name = new JLabel(list.get(i).getIdentifier());
-			eventPanel.add(name);
+			JPanel name_p = new JPanel(new BorderLayout());
+			name_p.add(name,BorderLayout.WEST);
+			event_two.add(name_p,BorderLayout.WEST);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
-			eventPanel.add(info);
+			event_two.add(info, BorderLayout.CENTER);
 			JLabel status = new JLabel(list.get(i).getStatus());
-			eventPanel.add(status);
+			event_two.add(status,BorderLayout.EAST);
+			eventPanel.add(event_two);
 			eventPanel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			elementPanel.add(eventPanel);
