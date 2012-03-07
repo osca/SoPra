@@ -36,8 +36,13 @@ public class KommentarListe	extends JPanel {
 			JPanel fullp = new JPanel(new GridLayout(1,1));
 			JLabel name = new JLabel(kliste.get(i).getIdentifier());
 			komPanel.add(name);
+			if(kliste.get(i).getBewertung()==Kommentar.KEINEWERTUNG){
+				
+			}
+			else {
 			JLabel info = new JLabel(df.format(kliste.get(i).getZeitstempel())+" , Wertung: "+kliste.get(i).getBewertung());
 			komPanel.add(info);
+			}
 			eventPanel.add(komPanel);
 			final JTextArea full = new JTextArea();
 			full.setBackground(null);
