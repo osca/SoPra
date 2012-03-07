@@ -2,7 +2,6 @@
 	Buchungsanfrage..? [Fast Weg]
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
-39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
 53. [gui]	filechooser einrichten: 
 				- nur bestimmte dateien annehmen (.txt)
@@ -19,6 +18,9 @@ Zweitrangig:
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten
+
+abgelehnt:
+39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
 
 GENERAL:
 I) testen

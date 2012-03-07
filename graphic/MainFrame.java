@@ -341,10 +341,10 @@ public class MainFrame extends JFrame
 							@Override
 							public void onOK()
 							{
-								Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+								Portal.Nachrichtenverwaltung().sendeNachricht(account, absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 							}
 						};
-						dialog.addOnPanel(new JLabel(Portal.Accountverwaltung().getLoggedIn().getName()), DialogScreen.LABEL_LEFT);
+						dialog.addOnPanel(new JLabel(account.getName()), DialogScreen.LABEL_LEFT);
 					}
 				});
 				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),button,DialogScreen.OK_OPTION);
@@ -380,9 +380,7 @@ public class MainFrame extends JFrame
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameLabel, nameField, passwordLabel, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 				{
-				
-					Portal.Accountverwaltung().logIn(nameField.getText(), new String(passwordField.getPassword()));
-					account = Portal.Accountverwaltung().getLoggedIn();
+					account = Portal.Accountverwaltung().logIn(nameField.getText(), new String(passwordField.getPassword()));
 					
 					eigeneButton.setEnabled(true);
 					nachrichtButton.setEnabled(true);
@@ -399,7 +397,7 @@ public class MainFrame extends JFrame
 					{
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
-						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn())+")");
+						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)account)+")");
 						offeneButton.setVisible(true);
 					}
 					else if(account.getTyp() == Account.BETREIBER)
@@ -415,6 +413,8 @@ public class MainFrame extends JFrame
 					this.setTitle("Eingeloggt als: "+account.getName());
 					this.repaint();
 					logged = true;
+					
+					if()
 				}
 			}
 			else
@@ -647,10 +647,10 @@ public class MainFrame extends JFrame
 		{
 
 			screen.removeAll();
-			if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
+			if(account.getTyp() == Account.BETREIBER)
 				list = new ListeScreen(this, Portal.Buchungsverwaltung().getAllBuchungen());
 			else
-				list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn()));
+				list = new ListeScreen(this, Portal.Buchungsverwaltung().getBuchungen((Anbieter)account));
 			screen.add(list);
 			scroll.setViewportView(screen);
 			scroll.repaint();
@@ -666,16 +666,14 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			Account acc = Portal.Accountverwaltung().getLoggedIn();
-			
 			switch(acc.getTyp())
 			{
 				case Account.KUNDE:
-					if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)acc) > 0)
+					if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)account) > 0)
 						JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
 					else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
 					{
-						Portal.Accountverwaltung().delAccount(acc);
+						Portal.Accountverwaltung().delAccount(account);
 						logOut();
 					}
 				break;
@@ -685,7 +683,7 @@ public class MainFrame extends JFrame
 					//	JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
 					//else if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
 					//{
-						Portal.Accountverwaltung().delAccount(acc);
+						Portal.Accountverwaltung().delAccount(account);
 						logOut();
 					//}
 				break;
@@ -693,7 +691,7 @@ public class MainFrame extends JFrame
 				case Account.BETREIBER:	
 					if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
 					{
-						Portal.Accountverwaltung().delAccount(acc);
+						Portal.Accountverwaltung().delAccount(account);
 						logOut();
 					}
 				break;
@@ -749,7 +747,7 @@ public class MainFrame extends JFrame
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufuegen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
-				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), passwordField.getText()); // TODO depracted
+				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 			}
 		}
 		catch(Exception e)
