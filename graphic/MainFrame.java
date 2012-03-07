@@ -414,7 +414,7 @@ public class MainFrame extends JFrame
 					this.repaint();
 					logged = true;
 					
-					if()
+					
 				}
 			}
 			else
@@ -666,7 +666,7 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			switch(acc.getTyp())
+			switch(account.getTyp())
 			{
 				case Account.KUNDE:
 					if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Kunde)account) > 0)
