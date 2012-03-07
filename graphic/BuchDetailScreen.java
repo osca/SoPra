@@ -3,6 +3,7 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -223,11 +224,15 @@ public class BuchDetailScreen extends JPanel
 		north.add(left, BorderLayout.WEST);
 		north.add(right, BorderLayout.EAST);
 		
-		labelPanel.add(north, BorderLayout.WEST);
-		
-		south.add(buttonLinks);
-		south.add(buttonRechts);
-		south.add(buttonAngebot);
+		labelPanel.add(north,BorderLayout.WEST);
+		JPanel button_panel = new JPanel(new FlowLayout());
+		button_panel.add(buttonLinks);
+		button_panel.add(buttonRechts);
+		button_panel.add(buttonAngebot);
+//		south.add(buttonLinks);
+//		south.add(buttonRechts);
+//		south.add(buttonAngebot);
+		south.add(button_panel,BorderLayout.CENTER);
 		
 		this.add(labelPanel, BorderLayout.NORTH);
 		this.add(center, BorderLayout.CENTER);
