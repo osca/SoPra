@@ -292,10 +292,12 @@ public class AngDetailScreen extends JPanel{
 			ActionListener okListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					// Man kann immer kommentieren, also kann der text auch immer leer sein
 					if (dialog.getContent().length() <= 0) {
 						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Kommentar eingeben.");
 						return;
 					}
+					// nur die Combo checken, wenn auch bewerten erlaubt ist = gebucht ^ !kommentiert
 					else if (gebucht && !kommentiert) {
 						if (bewertungCombo.getSelectedIndex() == 0) {
 							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung auswaehlen.");
@@ -305,6 +307,7 @@ public class AngDetailScreen extends JPanel{
 					
 					bewertung = bewertungCombo.getSelectedIndex();
 					kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
+					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
 				}
 			};
