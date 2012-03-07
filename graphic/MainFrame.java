@@ -737,6 +737,7 @@ public class MainFrame extends JFrame
 						logOut();
 					} catch (Exception e) {
 						e.printStackTrace();
+						JOptionPane.showMessageDialog(this, e.getMessage());
 					}
 				}
 			}
