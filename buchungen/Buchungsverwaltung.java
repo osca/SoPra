@@ -118,7 +118,7 @@ public class Buchungsverwaltung {
 	public ArrayList<Buchung> getBuchungen(Anbieter anbieter){
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		for(Buchung b : buchungen)
-			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()))
+			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && b.getBis().before(new Date()))
 				reslist.add(b);
 		return reslist;
 	}
