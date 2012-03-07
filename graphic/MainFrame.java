@@ -730,6 +730,12 @@ public class MainFrame extends JFrame
 				JOptionPane.showMessageDialog(this, e.getMessage());
 			}
 			break;
+			
+			case Account.ANBIETER:
+			if (Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)acc) > 0) {
+				JOptionPane.showMessageDialog(this, "Sie können ihren Account nicht loeschen, da noch offene Buchungen vorhanden sind");
+					return;
+			}
 		}
 	}
 	
@@ -751,6 +757,7 @@ public class MainFrame extends JFrame
 		registerButton.setEnabled(true);
 		betreiberButton.setVisible(false);
 		offeneButton.setVisible(false);
+		loeschenButton.setEnabled(false);
 
 		this.setTitle("Eingeloggt als: "+account.getName());
 		this.repaint();
