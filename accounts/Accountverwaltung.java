@@ -112,31 +112,7 @@ public class Accountverwaltung {
 			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Anbieter a = new Anbieter(email, name, password);
 		anbieter.add(a);
-		Datenhaltung.saveAllData();
-		return a;
-	}
-	
-	/**
-	 * Erstelle Anbieter mit AGB
-	 * 
-	 * @param email
-	 *            E-Mail Adresse
-	 * @param name
-	 *            Username
-	 * @param password
-	 *            Password
-	 * @param agb
-	 * 			  Allgemeine Gesch�ftsbedingungen
-	 * @throws AlreadyInUseException
-	 *             Account E-Mail oder Username schon vergeben
-	 * @throws IOException 
-	 */
-	public Anbieter createAnbieter(String email, String name, String password, String agb)
-			throws AlreadyInUseException, IOException {
-		if (!isFreeEmail(email) || !isFreeName(name))
-			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
-		Anbieter a = new Anbieter(email, name, password, agb);
-		anbieter.add(a);
+		Betreiber.setAnbieterReg(true);
 		Datenhaltung.saveAllData();
 		return a;
 	}
@@ -212,6 +188,12 @@ public class Accountverwaltung {
 		if(!betreiber.contains(loggedIn))
 			throw new Exception("Sie sind nicht als Betreiber eingeloggt!");
 		acc.setGesperrt(pgesperrt);
+		if(pgesperrt.equals(Gesperrt.NEIN)) {
+			if(getUnbearbeiteteAnbieter().size() == 0)
+				Betreiber.setAnbieterReg(false);
+			else
+				Betreiber.setAnbieterReg(true);
+		}
 	}
 
 	/**

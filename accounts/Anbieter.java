@@ -10,6 +10,7 @@ import angebote.typen.Angebot;
 
 public class Anbieter extends Account{
 	
+	private boolean firstLogin = true;
 	
 	//private ArrayList<Angebot> angebote = new ArrayList<Angebot>(); 
 	private ArrayList<Integer> angebote = new ArrayList<Integer>();
@@ -60,6 +61,14 @@ public class Anbieter extends Account{
 		}
 		
 		return result/angebote.size();
+	}
+	
+	public boolean getFirstLogin() {
+		return firstLogin;
+	}
+	
+	public void setFirstLogin() {
+		firstLogin = false;
 	}
 	
 	@Override

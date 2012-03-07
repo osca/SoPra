@@ -11,6 +11,8 @@ import buchungen.Buchung;
  */
 public class Kunde extends Account {
 	
+	private boolean firstLogin = true;
+	
 	// private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	private ArrayList<Integer> buchungen = new ArrayList<Integer>();
 	
@@ -48,6 +50,14 @@ public class Kunde extends Account {
 	
 	public ArrayList<Integer> getBuchungsNummern(){
 		return buchungen;
+	}
+	
+	public boolean getFirstLogin() {
+		return firstLogin;
+	}
+	
+	public void setFirstLogin() {
+		firstLogin = false;
 	}
 	
 	/**
