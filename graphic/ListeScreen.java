@@ -53,6 +53,8 @@ public class ListeScreen <T extends Listable> extends JPanel {
 			eventPanel.add(name);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
 			eventPanel.add(info);
+			JLabel status = new JLabel(list.get(i).getStatus());
+			eventPanel.add(status);
 			eventPanel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			elementPanel.add(eventPanel);
