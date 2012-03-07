@@ -2,11 +2,13 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -20,7 +22,9 @@ public class KommentarListe	extends JPanel {
 	
 	public KommentarListe(Angebot a){
 		setLayout(new BorderLayout());
-		JPanel elementPanel = new JPanel(new GridLayout(0,1));
+		
+		JPanel elementPanel = new JPanel();
+		elementPanel.setLayout(new BoxLayout(elementPanel, BoxLayout.Y_AXIS));
 
 		ArrayList<Kommentar> kliste= a.getKommentare();
 		
@@ -50,4 +54,5 @@ public class KommentarListe	extends JPanel {
 		this.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.LIGHT_GRAY));
 		this.setBackground(Color.BLACK);
 	}
+	
 }
