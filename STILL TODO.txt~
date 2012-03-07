@@ -10,6 +10,7 @@
 41. Anbieter löschen wirft eine NullPointerException
 42. GetAktuelleBuchungen?
 43. Nach Angebot verstecken, Angebot zeigen wirft Fehlder (Datum abgelaufen)
+44. Nach Buchung stornieren kommt Popup Buchung bestaetigt
 
 
 Zweitrangig:
