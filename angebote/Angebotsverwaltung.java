@@ -44,41 +44,22 @@ public class Angebotsverwaltung {
 	 * @return
 	 * @throws InvalidDateException falls Daten nicht zumindest teilweise in der Zukunft liegen
 	 * @pre Preis muss positiv sein
+	 * @pre Startdatum darf nicht nach dem Enddatum sein
+	 * @pre Das Startdatum darf nicht vor dem heutigen sein
 	 */
 	public Angebot createAngebot(Anbieter anbieter, String name, String beschr, int typ, double preis, int kapazitaet, 
 			Date von, Date bis, String[] krit) throws InvalidDateException {
 		assert preis >= 0: "Der Preis ist negativ";
-		
-		Date now = new Date();
-		if(von.before(now)) {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(now);
-			cal.set(Calendar.HOUR_OF_DAY, 0);
-			cal.set(Calendar.MINUTE, 0);
-			cal.set(Calendar.SECOND, 0);
-			cal.set(Calendar.MILLISECOND, 0);
-			von = cal.getTime();
-		}
-		else {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(von);
-			cal.set(Calendar.HOUR_OF_DAY, 0);
-			cal.set(Calendar.MINUTE, 0);
-			cal.set(Calendar.SECOND, 0);
-			cal.set(Calendar.MILLISECOND, 0);
-			von = cal.getTime();
-		}
-		if(bis.before(von))
-			throw new InvalidDateException("Ablaufdatum des Angebots bereits ueberschritten");
-		else {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(bis);
-			cal.set(Calendar.HOUR_OF_DAY, 0);
-			cal.set(Calendar.MINUTE, 0);
-			cal.set(Calendar.SECOND, 0);
-			cal.set(Calendar.MILLISECOND, 0);
-			bis = cal.getTime();
-		}
+		assert !von.after(bis): "Das Startdatum ist nach dem Enddatum";
+		//Heutigen Tag initialisieren
+		Date heute = new Date();
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(heute);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		assert !heute.after(von): "Das Startdatum ist vor dem heutigen";
 		
 		int shift = 0;
 		switch(typ) {

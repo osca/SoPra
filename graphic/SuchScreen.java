@@ -297,9 +297,26 @@ public class SuchScreen extends JPanel
 		});
 		boxList.add(land);
 		boxList.add(ort);
-		boxList.add(new JComboBox(Klima.wertebereich));
-		boxList.add(new JComboBox(Verpflegungsart.wertebereich));
-		boxList.add(new JComboBox(Bierpreis.wertebereich));
+		
+		JComboBox comboBier = new JComboBox();
+		JComboBox comboKlima = new JComboBox();
+		JComboBox comboVerpflegung = new JComboBox();
+		
+		comboBier.addItem("");
+		for(int i=0; i<Bierpreis.wertebereich.length; i++)
+			comboBier.addItem(Bierpreis.wertebereich[i]);
+		
+		comboKlima.addItem("");
+		for(int i=0; i<Klima.wertebereich.length; i++)
+			comboKlima.addItem(Klima.wertebereich[i]);
+		
+		comboVerpflegung.addItem("");
+		for(int i=0; i<Verpflegungsart.wertebereich.length; i++)
+			comboVerpflegung.addItem(Verpflegungsart.wertebereich[i]);
+		
+		boxList.add(comboBier);
+		boxList.add(comboKlima);
+		boxList.add(comboVerpflegung);
 	}
 	private void type2()
 	{
@@ -314,7 +331,13 @@ public class SuchScreen extends JPanel
 		labelList.add(new JLabel("Bierpreis:"));
 		
 		setComboBox();
-		boxList.add(new JComboBox(Bierpreis.wertebereich));
+		
+		JComboBox comboBier = new JComboBox();
+		
+		comboBier.addItem("");
+		for(int i=0; i<Bierpreis.wertebereich.length; i++)
+			comboBier.addItem(Bierpreis.wertebereich[i]);
+		boxList.add(comboBier);
 	}
 	private void type4()
 	{
@@ -327,8 +350,19 @@ public class SuchScreen extends JPanel
 		
 		setComboBox();
 		setComboBox();
-		boxList.add(new JComboBox(Klasse.wertebereich));
-		boxList.add(new JComboBox(Bierpreis.wertebereich));
+		
+		JComboBox comboKlasse = new JComboBox();
+		JComboBox comboBier = new JComboBox();
+		
+		comboKlasse.addItem("");
+		for(int i=0; i<Klasse.wertebereich.length; i++)
+			comboKlasse.addItem(Klasse.wertebereich[i]);
+		boxList.add(comboKlasse);
+		
+		comboBier.addItem("");
+		for(int i=0; i<Bierpreis.wertebereich.length; i++)
+			comboBier.addItem(Bierpreis.wertebereich[i]);
+		boxList.add(comboBier);
 	}
 	private void setComboBox()
 	{
