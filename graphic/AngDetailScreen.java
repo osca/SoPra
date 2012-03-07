@@ -69,7 +69,6 @@ public class AngDetailScreen extends JPanel {
 
 	public AngDetailScreen(Angebot a) {
 			
-		
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		String preis_str = "" + a.getPreis();
@@ -364,11 +363,14 @@ public class AngDetailScreen extends JPanel {
 					}
 
 					bewertung = bewertungCombo.getSelectedIndex();
+					if(bewertung == 0)
+						bewertung = Kommentar.KEINEWERTUNG;
 					kommi = new Kommentar(Portal.Accountverwaltung()
 							.getLoggedIn().getName(), dialog.getContent(),
 							bewertung);
 					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
 					dialog.dispose();
+					kl.init(angebot);
 					kl.validate();
 					kl.repaint();
 					validate();
@@ -440,7 +442,7 @@ public class AngDetailScreen extends JPanel {
 			}
 		});
 		hide.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 //				try {
