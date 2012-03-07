@@ -207,7 +207,8 @@ public class Datenhaltung {
 		XStream res = new XStream();
 		String	osn = System.getProperty("os.name"),
 					osv = System.getProperty("os.version");
-		if(osn.matches(".*Linux.*") && osv.startsWith("2.6.")){
+		if(		(osn.matches(".*Linux.*") && osv.startsWith("2.6."))
+				|| osn.matches(".*OS X.*")){
 			res = new XStream(new DomDriver());
 			System.out.println("Dom initialized");
 		}
