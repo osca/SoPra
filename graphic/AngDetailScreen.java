@@ -276,7 +276,8 @@ public class AngDetailScreen extends JPanel{
 		kommentieren.addActionListener(new ActionListener()
 		{
 			int bewertung = 0;
-			boolean bewertungErlaubt = false;	// dirty, aber so geht es
+			boolean gebucht = false;	// dirty, aber so geht es
+			boolean kommentiert = false;
 			JComboBox bewertungCombo = new JComboBox(new String[]{"Auswahl", "1", "2", "3", "4", "5"});
 			
 			JLabel kundeLabel = new JLabel();
@@ -291,20 +292,21 @@ public class AngDetailScreen extends JPanel{
 			ActionListener okListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					if (dialog.getContent().length() <= 0)
-						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Text eingeben");
-					else if (bewertungErlaubt) {
-						if (bewertungCombo.getSelectedIndex() == 0)
-							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung abgeben");
+					if (dialog.getContent().length() <= 0) {
+						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Kommentar eingeben.");
+						return;
 					}
-					else {
-						bewertung = bewertungCombo.getSelectedIndex();
-						
-						kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
-						Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
-						bewertungErlaubt = false;
-						dialog.dispose();
+					// es wurde gebucht und noch nicht bewertet => bewertungCombo checken!
+					else if (gebucht && !kommentiert) {
+						if (bewertungCombo.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung auswaehlen.");
+							return;
+						}
 					}
+					
+					bewertung = bewertungCombo.getSelectedIndex();
+					kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
+					dialog.dispose();
 				}
 			};
 			
@@ -315,6 +317,7 @@ public class AngDetailScreen extends JPanel{
 				}
 			};
 			
+			// kommentieren button actionListener
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -329,9 +332,9 @@ public class AngDetailScreen extends JPanel{
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
 				
 				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat und noch keine bewertung abgegeben hat.
-				if (Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin) &&
-					!Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin)) {
-					bewertungErlaubt = true;
+				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin);
+				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin);	// kommentiert => bewertung bereits erfolgt
+				if (gebucht && !kommentiert) {
 					bewertungCombo.setToolTipText("Je höher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
 					dialog.addOnPanel(bewertungCombo, DialogScreen.LABEL_RIGHT);
