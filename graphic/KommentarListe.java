@@ -19,6 +19,7 @@ public class KommentarListe	extends JPanel {
 	
 	
 	public KommentarListe(Angebot a){
+		setLayout(new BorderLayout(5,5));
 		JPanel elementPanel = new JPanel();
 		ArrayList<Kommentar> kliste= a.getKommentare();
 		
@@ -37,9 +38,8 @@ public class KommentarListe	extends JPanel {
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			elementPanel.add(eventPanel);
 		}
-		JScrollPane scroll = new JScrollPane();
-		scroll.add(elementPanel);
+		JScrollPane scroll = new JScrollPane(elementPanel);	
 		scroll.getVerticalScrollBar().setUnitIncrement(20);
-		add(scroll);
+		add(BorderLayout.CENTER,scroll);
 	}
 }
