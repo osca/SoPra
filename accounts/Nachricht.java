@@ -45,6 +45,11 @@ public class Nachricht implements Listable {
 		buchungsnummer = KEINE_BUCHUNG;
 	}
 	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
+	
 	/**
 	 * Get Absender
 	 * 
@@ -153,6 +158,11 @@ public class Nachricht implements Listable {
 		return anzahl;
 	}
 
+	
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
+	
 	@Override
 	public String getIdentifier() {
 		return "["+id+"] "+absenderName;

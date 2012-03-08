@@ -7,9 +7,13 @@ import main.Portal;
 import angebote.typen.Angebot;
 
 /**
+ * Nachrichtenverwaltung
+ * 
+ * Verwaltet die Nachrichten mit Standard- und saemtlichen
+ * nicht-trivialen Operationen
  * 
  * @author Jay
- * 
+ * @edit osca
  */
 public class Nachrichtenverwaltung {
 
@@ -22,20 +26,13 @@ public class Nachrichtenverwaltung {
 	}
 
 	/**
-	 * konstruiert ein Nachrichtenverwaltungsobjekt mit vorgegebener
+	 * Konstruiert ein Nachrichtenverwaltungsobjekt mit vorgegebener
 	 * Nachrichten-Liste
 	 * 
-	 * @param nachrichten
+	 * @param nachrichten ArrayList an Nachrichten
 	 */
 	public Nachrichtenverwaltung(ArrayList<Nachricht> nachrichten) {
 		alleNachrichten = nachrichten;
-	}
-
-	/**
-	 * @return Alle Nachrichten die momentan gespeichert sind
-	 */
-	public ArrayList<Nachricht> getAlleNachrichten() {
-		return alleNachrichten;
 	}
 
 	/**
@@ -45,7 +42,7 @@ public class Nachrichtenverwaltung {
 	 * @param absender Absender
 	 * @param empfaenger Empfaenger
 	 * @param betreff Betreff
-	 * @param text text
+	 * @param text Text
 	 * @param angebot Verweisendes Angebot
 	 * 
 	 * @pre Absender ist nicht null und muss im System sein
@@ -87,8 +84,7 @@ public class Nachrichtenverwaltung {
 	/**
 	 * Gibt den Posteingang eines Accounts aus
 	 * 
-	 * @param acc
-	 *            ausgewaehlter Account
+	 * @param acc Ausgewaehlter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
 	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc) {
@@ -103,8 +99,7 @@ public class Nachrichtenverwaltung {
 	/**
 	 * Gibt den Postausgang eines Accounts aus
 	 * 
-	 * @param acc
-	 *            ausgewaehlter Account
+	 * @param acc Ausgewaehlter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
 	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc) {
@@ -120,8 +115,7 @@ public class Nachrichtenverwaltung {
 	 * Entfernt eine Nachricht aus dem Postausgang des Absenders und aus dem
 	 * Posteingang des Empfaengers
 	 * 
-	 * @param msg
-	 *            zu loeschende Nachricht
+	 * @param msg Zu loeschende Nachricht
 	 *            
 	 * @pre Die Nachricht existiert
 	 */
@@ -134,8 +128,7 @@ public class Nachrichtenverwaltung {
 	/**
 	 * Loescht alle Nachrichten, die auf das spezifizierte Angebot verweisen
 	 * 
-	 * @param ang
-	 *            Angebot dessen Verweise hinfaellig sind
+	 * @param ang Angebot dessen Verweise hinfaellig sind
 	 *            
 	 * @pre Das Angebot darf nicht null sein und muss im System sein
 	 */
@@ -155,8 +148,9 @@ public class Nachrichtenverwaltung {
 	}
 
 	/**
-	 * gibt das Angebotsobjekt zu einer Nachricht aus
-	 * @param msg entsprechende Nachricht
+	 * Gibt das Angebotsobjekt zu einer Nachricht aus
+	 * 
+	 * @param msg Entsprechende Nachricht
 	 * @return Angebot
 	 * 
 	 * @pre Uebergebene Nachricht darf nicht null sein und muss im System vorhanden sein
@@ -169,9 +163,9 @@ public class Nachrichtenverwaltung {
 	}
 
 	/**
-	 * gibt den Absender der Nachricht zurueck
+	 * Gibt den Absender der Nachricht zurueck
 	 * 
-	 * @param msg
+	 * @param msg Nachricht
 	 * @return Absender
 	 * 
 	 * @pre Uebergebene Nachricht darf nicht null sein und muss im System vorhanden sein
@@ -184,7 +178,7 @@ public class Nachrichtenverwaltung {
 	}
 
 	/**
-	 * gibt den Empfaenger der Nachricht zurueck
+	 * Gibt den Empfaenger der Nachricht zurueck
 	 * 
 	 * @param msg Nachricht
 	 * @return Empfaenger
@@ -202,8 +196,7 @@ public class Nachrichtenverwaltung {
 	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder
 	 * -ausgang hat
 	 * 
-	 * @param acc
-	 *            spezielles Accountobjekt
+	 * @param acc Spezielles Accountobjekt
 	 *            
 	 * @pre Uebergebener Account darf nicht null sein und muss im System existieren
 	 */
@@ -223,27 +216,6 @@ public class Nachrichtenverwaltung {
 				n--; // Liste verkuerzt sich
 			}
 		}
-	}
-
-	/**Ist die Nachricht gelesen
-	 * @param n Nachricht
-	 * @return Boolean
-	 * 
-	 * @pre Die Nachricht darf nicht null sein und muss im System existieren
-	 */
-	public boolean isGelesen(Nachricht n) {
-		assert n != null: "Die Nachricht ist null";
-		assert alleNachrichten.contains(n): "Die Nachricht exisitert nicht im System";
-		
-		return n.isGelesen();
-	}
-
-	/**Set Gelesen oder Ungelesen
-	 * @param n Nachricht
-	 * @param gelesen Boolean
-	 */
-	public void setGelesen(Nachricht n, boolean gelesen) {
-		n.setGelesen(gelesen);
 	}
 
 	/**
@@ -279,6 +251,20 @@ public class Nachrichtenverwaltung {
 		return result;
 	}
 	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
+	
+	/**
+	 * Get Alle Nachrichten
+	 * 
+	 * @return Alle Nachrichten die momentan gespeichert sind
+	 */
+	public ArrayList<Nachricht> getAlleNachrichten() {
+		return alleNachrichten;
+	}
+	
 	/**
 	 * Get Buchungsnummer einer Nachricht
 	 * 
@@ -297,6 +283,31 @@ public class Nachrichtenverwaltung {
 	 */
 	public void setBuchungsnummer(Nachricht msg, int buchungsnummer) {
 		msg.setBuchungsnummer(buchungsnummer);
+	}
+	
+	/**
+	 * Ist die Nachricht gelesen
+	 * 
+	 * @param n Nachricht
+	 * @return Boolean
+	 * 
+	 * @pre Die Nachricht darf nicht null sein und muss im System existieren
+	 */
+	public boolean isGelesen(Nachricht n) {
+		assert n != null: "Die Nachricht ist null";
+		assert alleNachrichten.contains(n): "Die Nachricht exisitert nicht im System";
+		
+		return n.isGelesen();
+	}
+
+	/**
+	 * Set Gelesen oder Ungelesen
+	 * 
+	 * @param n Nachricht
+	 * @param gelesen Boolean
+	 */
+	public void setGelesen(Nachricht n, boolean gelesen) {
+		n.setGelesen(gelesen);
 	}
 
 }

@@ -21,15 +21,16 @@ public class Buchungsverwaltung {
 	private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	
 	/**
-	 * erstellt die buchungsverwaltung mit leerer Buchungs-Liste
+	 * Erstellt die buchungsverwaltung mit leerer Buchungs-Liste
 	 */
-	public Buchungsverwaltung(){}
+	public Buchungsverwaltung() {}
 	
 	/**
-	 * setzt die uebergebene Buchungs-Liste als die aller zugreifbaren
+	 * Setzt die uebergebene Buchungs-Liste als die aller zugreifbaren
+	 * 
 	 * @param buchungen
 	 */
-	public Buchungsverwaltung(ArrayList<Buchung> buchungen){
+	public Buchungsverwaltung(ArrayList<Buchung> buchungen) {
 		this.buchungen = buchungen;
 	}
 	
@@ -70,7 +71,8 @@ public class Buchungsverwaltung {
 		return buchung;
 	}
 	
-	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
+	/** 
+	 * Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
 	 * 
 	 * @param b zu loeschende Buchung
 	 * 
@@ -83,6 +85,10 @@ public class Buchungsverwaltung {
 		getKunde(b).delBuchung(b);
 		getReferringAngebot(b).delBuchung(b.getBuchungsnummer());
 		buchungen.remove(b);
+		
+		int anz = Buchung.getAnzahl();
+		anz--;
+		Buchung.setAnzahl(anz);
 	}
 	
 	/**
@@ -250,7 +256,7 @@ public class Buchungsverwaltung {
 	}
 	
 	/**
-	 * Setter.
+	 * Setzt eine Buchung Bestaetigt (enum)
 	 * 
 	 * @param buchung		zu bestaetigenede Buchung.
 	 * @param bestaetigt	Art der Bestaetigung.

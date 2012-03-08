@@ -4,6 +4,11 @@ import graphic.Listable;
 
 import java.util.Date;
 
+/**
+ * Entitaetsklasse fuer Kommmentare
+ * 
+ * @author osca
+ */
 public class Kommentar implements Listable{
 	
 	public static final int KEINEWERTUNG = -1;
@@ -12,12 +17,24 @@ public class Kommentar implements Listable{
 	private int bewertung;
 	private Date zeitstempel;
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param pabsender Absender
+	 * @param ptext Text
+	 * @param pbewertung Bewertung
+	 */
 	public Kommentar(String pabsender, String ptext, int pbewertung) {
 		absender = pabsender;
 		text = ptext;
 		bewertung = pbewertung;
 		zeitstempel = new Date();
 	}
+	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
 
 	public String getAbsender() {
 		return absender;
@@ -36,7 +53,10 @@ public class Kommentar implements Listable{
 	}
 	
 
-	//Listable-Methoden:
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
+	
 	@Override
 	public String getAdditionalInfo() {
 		return getZeitstempel()+ " , "+getBewertung();

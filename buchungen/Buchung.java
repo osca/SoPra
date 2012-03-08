@@ -24,8 +24,10 @@ public class Buchung implements Listable {
 	private int angebotsNummer;
 	private String kundenName;
 	private boolean stornierungsAnfrage;
+	
 	/**
 	 * Legt ein Buchungsobjekt an
+	 * 
 	 * @param pangebot Angebot zur Referenz
 	 * @param pkunde Kunde der die Buchung anfragt
 	 * @param pvon Startdatum der Buchung
@@ -41,17 +43,32 @@ public class Buchung implements Listable {
 		stornierungsAnfrage = false;
 	}
 
+
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
+	
 	/**
+	 * Get Anzahl
+	 * 
 	 * @return Anzahl der insgesamt getaetigten Buchungen
 	 */
 	public static int getAnzahl() {
 		return anzahl;
 	}
 
+	/**
+	 * Set Anzahl (falls dekrementiert werden muss)
+	 * 
+	 * @param anz Anzahl
+	 */
 	public static void setAnzahl(int anz){
 		anzahl = anz;
 	}
+	
 	/**
+	 * Get Buchungsnummer
+	 * 
 	 * @return Buchungsnummer fuer diese Buchung
 	 */
 	public int getBuchungsnummer() {
@@ -59,13 +76,17 @@ public class Buchung implements Listable {
 	}
 
 	/**
-	 * @return gibt zurueck welchen Status die Buchung hat
+	 * Get Bestaetigung
+	 * 
+	 * @return Gibt zurueck welchen Status die Buchung hat
 	 */
 	public Bestaetigung getBestaetigt() {
 		return bestaetigt;
 	}
 
 	/**
+	 * Set Bestaetigt
+	 * 
 	 * @param bestaetigt setzt die Bestaetigung fuer die Buchung
 	 * @pre es muss vorher sichergestellt sein, dass der Aufrufer berechtigt ist die Buchung zu bestaetigen
 	 */
@@ -74,6 +95,8 @@ public class Buchung implements Listable {
 	}
 
 	/**
+	 * Get Startdatum
+	 * 
 	 * @return Startdatum
 	 */
 	public Date getVon() {
@@ -81,6 +104,8 @@ public class Buchung implements Listable {
 	}
 
 	/**
+	 * Set Startdatum
+	 * 
 	 * @param von neues Startdatum
 	 * @pre Berechtigung vorher pruefen
 	 */
@@ -89,6 +114,8 @@ public class Buchung implements Listable {
 	}
 
 	/**
+	 * Get Enddatum
+	 * 
 	 * @return Enddatum
 	 */
 	public Date getBis() {
@@ -96,6 +123,8 @@ public class Buchung implements Listable {
 	}
 
 	/**
+	 * Set Enddatum
+	 * 
 	 * @param bis neues Enddatum
 	 * @pre Berechtigung muss vorher geprueft werden
 	 */
@@ -104,6 +133,8 @@ public class Buchung implements Listable {
 	}
 
 	/**
+	 * Get Angebotsnummer
+	 * 
 	 * @return referenziertes Angebotsobjekt
 	 */
 	public int getAngebotsNummer() {
@@ -111,6 +142,8 @@ public class Buchung implements Listable {
 	}
 	
 	/**
+	 * Get Kundenname der Buchung
+	 * 
 	 * @return buchender Kunde
 	 */
 	public String getKundenName() {
@@ -135,6 +168,11 @@ public class Buchung implements Listable {
 		stornierungsAnfrage = set;
 	}
 
+	
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
+	
 	@Override
 	public String getIdentifier() {
 		return "["+buchungsNummer+"] "+Portal.Buchungsverwaltung().getReferringAngebot(this).getName();

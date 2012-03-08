@@ -10,12 +10,21 @@ import main.Portal;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 
+/**
+ * Angebotsverarbeitung
+ * 
+ * Haendelt die Filterfunktionen fuer Angebote
+ * 
+ * @author stephan, osca
+ */
 public class Angebotsverarbeitung {
+	
 	public final String KEINNAME		= "";
 	public final int KEINEKAPAZITAET	= 0;
 	public final double KEINPREIS 	= 0;
 	public final Date KEINEDATEN	= new Date(0);
 	public final String KEINKRITERIUM = "";
+	
 	/**
 	 * Die Methode geht alle uebergebenen Parameter durch fuer alle Angebote und wenn ein Angebot dabei alle Parameter erfuellen kann wird es der
 	 * Liste der Suchergebnisse angefaegt. Es gibt auch immer die Moeglichkeit fuer ein Parameter eine Nichtgewaehlt-Flag zu setzen, diese wird immer
@@ -111,6 +120,11 @@ public class Angebotsverarbeitung {
 		return aktAngebote;
 	}
 	
+	/**
+	 * Gibt nur abgelaufene Angebote zurueck (Geendet vor heutigem Datum)
+	 * 
+	 * @return ArrayList an Angeboten
+	 */
 	public ArrayList<Angebot> getAbgelaufeneAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
@@ -129,7 +143,11 @@ public class Angebotsverarbeitung {
 		return result;
 	}
 	
-	
+	/**
+	 * Gibt nur aktuelle Angebote zurueck (Enddatum nach dem heutigen Datum)
+	 * 
+	 * @return ArrayList an Angeboten
+	 */
 	public ArrayList<Angebot> getAktuelleAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
@@ -147,5 +165,4 @@ public class Angebotsverarbeitung {
 		
 		return result;
 	}
-	
 }

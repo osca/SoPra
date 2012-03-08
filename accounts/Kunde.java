@@ -13,7 +13,6 @@ public class Kunde extends Account {
 	
 	private boolean firstLogin = true;
 	
-	// private ArrayList<Buchung> buchungen = new ArrayList<Buchung>();
 	private ArrayList<Integer> buchungen = new ArrayList<Integer>();
 	
 	/**
@@ -48,14 +47,32 @@ public class Kunde extends Account {
 		buchungen.remove((Integer) entry.getBuchungsnummer());
 	}
 	
+	
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
+	
+	/**
+	 * Get Buchungen (Buchungsnummern)
+	 * 
+	 * @return ArrayList an Buchungsnummern
+	 */
 	public ArrayList<Integer> getBuchungsNummern(){
 		return buchungen;
 	}
 	
+	/**
+	 * Loggt der Kunde sich das erste Mal ein?
+	 * 
+	 * @return Ja oder Nein
+	 */
 	public boolean getFirstLogin() {
 		return firstLogin;
 	}
 	
+	/**
+	 * Setzt den firstLogin auf 'false' beim ersten Login des Kunden
+	 */
 	public void setFirstLogin() {
 		firstLogin = false;
 	}

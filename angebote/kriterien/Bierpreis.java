@@ -21,6 +21,9 @@ public class Bierpreis extends Kriterium {
 		super(pwert);
 	}
 	
+	/**
+	 * Get Kriterienname
+	 */
 	public String getName(){
 		return name;
 	}

@@ -16,10 +16,32 @@ public abstract class Kriterium {
 	 * @pre pwerte muss isValid erfuellen
 	 * @see isValid
 	 */
-	public Kriterium(String pwerte) throws IllegalArgumentException{
+	public Kriterium(String pwerte) throws IllegalArgumentException {
 		assert isValid(pwerte) : "Ungueltiger Wert fuer Kriterienauspraegung";
 			wert = pwerte;
 	}
+	
+	/**
+	 * Konvertiert einen Kriterienname in seinen Wertebereich
+	 * 
+	 * @param name Kriterienname
+	 * @return Wertebereich
+	 */
+	public static String[] nameToErlaubteWerte(String name) {
+		if		(name.equals(Bierpreis.name)) 				return Bierpreis.wertebereich;
+		else if (name.equals(Klasse.name)) 					return Klasse.wertebereich;
+		else if (name.equals(Klima.name))					return Klima.wertebereich;
+		else if (name.equals(Land.name))					return Land.wertebereich;
+		else if (name.equals(Ort.name))						return Ort.wertebereich;
+		else if (name.equals(Sterne.name))					return Sterne.wertebereich;
+		else if (name.equals(Verpflegungsart.name))			return Verpflegungsart.wertebereich;
+		else 												return null;
+	}
+	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
 	
 	/**
 	 * Validierungsmethode
@@ -39,8 +61,6 @@ public abstract class Kriterium {
 	public String getWert() {
 		return wert;
 	}
-	
-	public abstract String getName();
 
 	/**
 	 * Set Wert
@@ -51,14 +71,8 @@ public abstract class Kriterium {
 		this.wert = wert;
 	}
 	
-	public static String[] nameToErlaubteWerte(String name){
-		if		(name.equals(Bierpreis.name)) 					return Bierpreis.wertebereich;
-		else if (name.equals(Klasse.name)) 					return Klasse.wertebereich;
-		else if (name.equals(Klima.name))					return Klima.wertebereich;
-		else if (name.equals(Land.name))					return Land.wertebereich;
-		else if (name.equals(Ort.name))						return Ort.wertebereich;
-		else if (name.equals(Sterne.name))					return Sterne.wertebereich;
-		else if (name.equals(Verpflegungsart.name))	return Verpflegungsart.wertebereich;
-		else 										return null;
-	}
+	/**
+	 * Get Kriterienname
+	 */
+	public abstract String getName();
 }

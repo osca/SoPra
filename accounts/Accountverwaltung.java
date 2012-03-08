@@ -16,6 +16,8 @@ import buchungen.Buchung;
 import buchungen.Buchungsverwaltung;
 
 /**
+ * Accoutnverwaltung
+ * 
  * Verwaltet alle drei Accounttypen. Fuehrt saemtliche nicht-triviale Methoden
  * fuer Accounts aus.
  * 
@@ -44,9 +46,9 @@ public class Accountverwaltung {
 	/**
 	 * Legt die Accountverwaltung mit den gewuenschten Listen an.
 	 * 
-	 * @param anbieter
-	 * @param betreiber
-	 * @param kunden
+	 * @param anbieter Anbieterliste
+	 * @param betreiber Betreiberliste
+	 * @param kunden Kundenliste
 	 */
 	public Accountverwaltung(ArrayList<Anbieter> anbieter,
 			ArrayList<Betreiber> betreiber, ArrayList<Kunde> kunden) {
@@ -124,7 +126,6 @@ public class Accountverwaltung {
 			throw new AlreadyInUseException("Name oder E-Mail-Adresse werden bereits benutzt");
 		Anbieter a = new Anbieter(email, name, password);
 		anbieter.add(a);
-		Betreiber.setAnbieterReg(true);
 		Datenhaltung.saveAllData();
 		return a;
 	}
@@ -202,19 +203,12 @@ public class Accountverwaltung {
 	 *            Freizuschaltender Account
 	 * @param enable
 	 *            Aktiv oder nicht
-	 * @throws Exception Wenn kein Betreiber eingeloggt ist
 	 * @pre Es muss ein Betreiber eingeloggt sein
 	 */
-	public void setAccountGesperrt(Account acc, Gesperrt pgesperrt) throws Exception {
+	public void setAccountGesperrt(Account acc, Gesperrt pgesperrt) {
 		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
 
 		acc.setGesperrt(pgesperrt);
-		if(pgesperrt.equals(Gesperrt.NEIN)) {
-			if(getUnbearbeiteteAnbieter().size() == 0)
-				Betreiber.setAnbieterReg(false);
-			else
-				Betreiber.setAnbieterReg(true);
-		}
 	}
 
 	/**
@@ -260,8 +254,6 @@ public class Accountverwaltung {
 	
 					for (Buchung b : buchungen) {
 						buchungsVerwaltung.delBuchung(b);
-						// TODO Duerfen Buchungen wirklich geloescht werden? Nicht
-						// besser canceln?
 					}
 	
 					angebotsVerwaltung.delAngebot(a);
@@ -317,6 +309,174 @@ public class Accountverwaltung {
 	}
 
 	/**
+	 * Sucht einen Account ueber seinen Nick-/Unternehmensnamen - CaseInsensitive
+	 * 
+	 * @param name Username
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByName(String name) {
+		for (Account acc : getAccounts())
+			if (acc.getName().toLowerCase().equals(name.toLowerCase()))
+				return acc;
+		return null;
+	}
+
+	/**
+	 * Sucht einen Account ueber seine E-Mail-Adresse - CaseInsensitive
+	 * 
+	 * @param email E-Mail Adresse
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByEmail(String email) {
+		for (Account acc : getAccounts())
+			if (acc.getEmail().toLowerCase().equals(email.toLowerCase()))
+				return acc;
+		return null;
+	}
+
+	/**
+	 * Sucht einen Account ueber seine "Identifikation" (= Name oder email, siehe
+	 * Pflichtenheft)
+	 * 
+	 * @param ident Username oder E-Mail Adresse
+	 * @return passender Account oder null falls nicht gefunden
+	 */
+	public Account getAccountByIdentifier(String ident) {
+		Account acc1 = getAccountByEmail(ident), acc2 = getAccountByName(ident);
+		if (acc1 != null)
+			return acc1;
+		return acc2;
+	}
+
+	/**
+	 * Gibt einen qualifizierten Namen zu einer Flag zurueck;
+	 * 
+	 * @param flag Typflag
+	 * @return Typ als String
+	 */
+	public String convertFlagToName(int flag) {
+		switch (flag) {
+		case Account.NONE:
+			return "Default";
+		case Account.ANBIETER:
+			return "Anbieter";
+		case Account.BETREIBER:
+			return "Betreiber";
+		case Account.KUNDE:
+			return "Kunde";
+		default:
+			return "Kein Account";
+		}
+	}
+
+	/**
+	 * Ist diese E-Mail Adresse schon vergeben?
+	 * 
+	 * @param email
+	 *            E-Mail Adresse
+	 * @return Vergeben oder nicht
+	 * 
+	 * @pre Emailstring darf nicht null sein
+	 */
+	public boolean isFreeEmail(String email) {
+		assert email != null: "Email ist null";
+		
+		String emailValid = "[^äöü]+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
+		if(! email.matches(emailValid) && !email.contains(".."))
+			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
+		for (Account a : getAccounts())
+			if (a.getEmail().toLowerCase().equals(email.toLowerCase()))
+				return false;
+		return true;
+	}
+
+	/**
+	 * Ist dieser Username schon vergeben?
+	 * 
+	 * @param name Username
+	 * @return Vergeben oder nicht
+	 * 
+	 * @pre Usernamestring darf nicht null sein
+	 */
+	public boolean isFreeName(String name) {
+		assert name != null: "Name ist null";
+		
+		if(name.length()<2)
+			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
+		for (Account a : getAccounts())
+			if (a.getName().toLowerCase().equals(name.toLowerCase()))
+				return false;
+		return true;
+	}
+	
+	/**
+	 * Einen Betreiber hinzufuegen
+	 * 
+	 * @param email Email des neuen Betreibers
+	 * @param name Username des neuen Betreibers
+	 * @param password Password des neuen Betreibers
+	 * @throws Exception Wenn Username < 2 Zeichen 
+	 * 					 oder Wenn die E-Mail Adresse nicht valide ist
+	 * 
+	 * @pre Ein Betreiber muss eingeloggt sein
+	 */
+	public Betreiber addBetreiber(String email, String name, String password) throws Exception {
+		assert betreiber.contains(loggedIn):"Es ist kein Betreiber eingeloggt";
+		
+		if(!isFreeEmail(name))
+			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
+		if(!isFreeName(email)) 
+			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
+		return createBetreiber(email,name,password);
+	}
+	
+	/**
+	 * Liste neuangemeldeter Anbieter
+	 * 
+	 * @return ArrayList an neuangemeldeten Anbieter
+	 * @throws Exception Sie sind kein Betreiber
+	 * 
+	 * @pre Ein Betreiber muss eingeloggt sein
+	 */
+	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
+		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		
+		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
+		
+		for(Anbieter a:anbieter) {
+			if(a.gesperrt == Gesperrt.UNBEARBEITET)
+				result.add(a);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Liste der gesperrten Accounts
+	 * 
+	 * @return ArrayList an gesperrten Accounts
+	 * 
+	 * @pre Ein Betreiber muss eingeloggt sein
+	 */
+	public ArrayList<Account> getGesperrteAccounts() {
+		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		
+		ArrayList<Account> result = new ArrayList<Account>();
+		
+		for(Account a:getAccounts()) {
+			if(a.gesperrt == Gesperrt.JA)
+				result.add(a);
+		}
+		
+		return result;
+	}
+	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
+	
+	/**
 	 * Get Anbieterliste
 	 * 
 	 * @return Anbieterliste
@@ -367,170 +527,6 @@ public class Accountverwaltung {
 		result.addAll(getKunden());
 		if(loggedIn.getTyp() == Account.BETREIBER)
 			result.remove(loggedIn);
-		return result;
-	}
-
-	/**
-	 * Sucht einen Account ueber seinen Nick-/Unternehmensnamen - CaseInsensitive
-	 * 
-	 * @param name
-	 * @return passender Account oder null falls nicht gefunden
-	 */
-	public Account getAccountByName(String name) {
-		for (Account acc : getAccounts())
-			if (acc.getName().toLowerCase().equals(name.toLowerCase()))
-				return acc;
-		return null;
-	}
-
-	/**
-	 * Sucht einen Account ueber seine E-Mail-Adresse - CaseInsensitive
-	 * 
-	 * @param email
-	 * @return passender Account oder null falls nicht gefunden
-	 */
-	public Account getAccountByEmail(String email) {
-		for (Account acc : getAccounts())
-			if (acc.getEmail().toLowerCase().equals(email.toLowerCase()))
-				return acc;
-		return null;
-	}
-
-	/**
-	 * Sucht einen Account ueber seine "Identifikation" (= Name oder email, siehe
-	 * Pflichtenheft)
-	 * 
-	 * @param ident
-	 * @return passender Account oder null falls nicht gefunden
-	 */
-	public Account getAccountByIdentifier(String ident) {
-		Account acc1 = getAccountByEmail(ident), acc2 = getAccountByName(ident);
-		if (acc1 != null)
-			return acc1;
-		return acc2;
-	}
-
-	/**
-	 * Gibt einen qualifizierten Namen zu einer Flag zurueck;
-	 * 
-	 * @param flag
-	 * @return
-	 */
-	public String convertFlagToName(int flag) {
-		switch (flag) {
-		case Account.NONE:
-			return "Default";
-		case Account.ANBIETER:
-			return "Anbieter";
-		case Account.BETREIBER:
-			return "Betreiber";
-		case Account.KUNDE:
-			return "Kunde";
-		default:
-			return "Kein Account";
-		}
-	}
-
-	/**
-	 * Ist diese E-Mail Adresse schon vergeben?
-	 * 
-	 * @param email
-	 *            E-Mail Adresse
-	 * @return Vergeben oder nicht
-	 * 
-	 * @pre Emailstring darf nicht null sein
-	 */
-	public boolean isFreeEmail(String email) {
-		assert email != null: "Email ist null";
-		
-		String emailValid = "[^äöü]+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
-		if(! email.matches(emailValid) && !email.contains(".."))
-			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
-		for (Account a : getAccounts())
-			if (a.getEmail().toLowerCase().equals(email.toLowerCase()))
-				return false;
-		return true;
-	}
-
-	/**
-	 * Ist dieser Username schon vergeben?
-	 * 
-	 * @param name
-	 *            Username
-	 * @return Vergeben oder nicht
-	 * 
-	 * @pre Usernamestring darf nicht null sein
-	 */
-	public boolean isFreeName(String name) {
-		assert name != null: "Name ist null";
-		
-		if(name.length()<2)
-			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
-		for (Account a : getAccounts())
-			if (a.getName().toLowerCase().equals(name.toLowerCase()))
-				return false;
-		return true;
-	}
-	
-	/**
-	 * Einen Betreiber hinzufuegen
-	 * 
-	 * @param email Email des neuen Betreibers
-	 * @param name Username des neuen Betreibers
-	 * @param password Password des neuen Betreibers
-	 * @throws Exception 
-	 * 
-	 * @pre Ein Betreiber muss eingeloggt sein
-	 */
-	public Betreiber addBetreiber(String email, String name, String password) throws Exception {
-		assert betreiber.contains(loggedIn):"Es ist kein Betreiber eingeloggt";
-		
-		if(!isFreeEmail(name))
-			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
-		if(!isFreeName(email)) 
-			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
-		return createBetreiber(email,name,password);
-	}
-	
-	/**
-	 * Liste neuangemeldeter Anbieter
-	 * 
-	 * @return ArrayList an neuangemeldeten Anbieter
-	 * @throws Exception Sie sind kein Betreiber
-	 * 
-	 * @pre Ein Betreiber muss eingeloggt sein
-	 */
-	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
-		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
-		
-		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
-		
-		for(Anbieter a:anbieter) {
-			if(a.gesperrt == Gesperrt.UNBEARBEITET)
-				result.add(a);
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * Liste der gesperrten Accounts
-	 * 
-	 * @return ArrayList an gesperrten Accounts
-	 * @throws Exception 
-	 * 
-	 * @pre Ein Betreiber muss eingeloggt sein
-	 */
-	public ArrayList<Account> getGesperrteAccounts() throws Exception {
-		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
-		
-		ArrayList<Account> result = new ArrayList<Account>();
-		
-		for(Account a:getAccounts()) {
-			if(a.gesperrt == Gesperrt.JA)
-				result.add(a);
-		}
-		
 		return result;
 	}
 }

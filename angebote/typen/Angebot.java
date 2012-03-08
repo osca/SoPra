@@ -47,7 +47,8 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	/**
 	 * Konstruktor
-	 * @param panbieter Anbieter, der für das Angebot zustaendig ist
+	 * 
+	 * @param panbieter Anbieter, der fuer das Angebot zustaendig ist
 	 * @param pname Name
 	 * @param pbeschreibung Beschreibung
 	 * @param ptyp Angebotstyp (siehe Flags)
@@ -69,6 +70,112 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		bis = pbis;
 		zeitstempel = new Date();
 	}
+	
+	/**
+	 * Get Wertung des Angebots ueber die Wertung der Kommentare
+	 * 
+	 * @return Wertung des Angebots
+	 */
+	public double getWertung() {
+		double result = 0.00;
+		if(kommentare.size() == 0) 
+			return result;
+		for(Kommentar k:kommentare)
+			if(k.getBewertung() != Kommentar.KEINEWERTUNG)
+				result+=k.getBewertung();
+		return result/kommentare.size();
+	}
+	
+	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
+	/**
+	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
+	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge
+	 * 	- Wertung der Anbieter
+	 *  - Wertung der Angebote
+	 * 
+	 * @param pangebot Das zu vergleichende Angebot
+	 */
+	@Override
+	public int compareTo(Angebot pangebot) {
+		long days = 1;
+		if(pangebot.getStartdatum().getTime() != pangebot.getEnddatum().getTime())
+			days = (this.getEnddatum().getTime()-this.getStartdatum().getTime())/1000/60/60/24;
+		if(days == 0)
+			days = 1;
+			
+		final int fillGewichtung = 100,
+				  anbieterGewichtung = 20,
+				  angebotsGewichtung = 40;
+		double result = 0.00;
+		ArrayList<Buchung> buchungenThis = Portal.Buchungsverwaltung().getBuchungen(this),
+							buchungenP = Portal.Buchungsverwaltung().getBuchungen(pangebot);
+		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*days);
+		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*days);
+		double abThis = Portal.Angebotsverwaltung().getAnbieter(this).getWertung();
+		double abP = Portal.Angebotsverwaltung().getAnbieter(pangebot).getWertung();
+		
+		result += (fillRatioThis-fillRatioP)*fillGewichtung;
+		result += (abThis-abP)*anbieterGewichtung;
+		result += (this.getWertung()-pangebot.getWertung())*angebotsGewichtung;
+		
+		return (int) Math.round(result);
+	}
+	
+	/**
+	 * Gibt eine Liste aller Flags derAngebotstypen als Integer-ArrayList aus
+	 * @return
+	 */
+	public static ArrayList<Integer> getFlagList(){
+		ArrayList<Integer> reslist = new ArrayList<Integer>();
+		reslist.add(FLUG);
+		reslist.add(AUTOVERMIETUNG);
+		reslist.add(AUSFLUG);
+		reslist.add(HOTEL);
+		return reslist;
+	}
+	
+	/**
+	 * Konvertiere Typnummer in Typnamen
+	 * 
+	 * @param type Typnummer
+	 * @return Typname
+	 */
+	public static String convertTypToName(int type) {
+		switch(type) {
+			case FLUG:
+				return _flug;
+			case AUTOVERMIETUNG:
+				return _autoverm;
+			case AUSFLUG:
+				return _ausflug;
+			case HOTEL:
+				return _hotel;
+		}
+		return "Not a Type";
+	}
+	
+	/**
+	 * Konvertiert Typnamen in Typnummern
+	 * 
+	 * @param name Typname
+	 * @return Typnummer
+	 */
+	public static int convertNameToTyp(String name){
+		if(name.equals(_flug))
+			return FLUG;
+		else if(name.equals(_autoverm))
+			return AUTOVERMIETUNG;
+		else if(name.equals(_ausflug))
+			return AUSFLUG;
+		else if(name.equals(_hotel))
+			return HOTEL;
+		return -23;	//this should never ever happen :O
+	}
+	
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
 	
 	/**
 	 * Get Beschreibung
@@ -108,11 +215,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 
 	/**
 	 * Setzt den Status auf nicht auffindbar, falls Parameter false, oder auf auffindbar falls true
+	 * 
 	 * @param auffindbar
 	 */
 	public void setAuffindbar(boolean auffindbar){
 		this.auffindbar = auffindbar;
 	}
+	
 	/**
 	 * Get Preis
 	 * 
@@ -151,11 +260,13 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 
 	/**
 	 * Setzt den Angebotszaehler
-	 * @param anz
+	 * 
+	 * @param anz Anzahl an Angeboten
 	 */
 	public static void setAnzahl(int anz){
 		anzahl = anz;
 	}
+	
 	/**
 	 * Get Angebotsnummer
 	 * 
@@ -199,21 +310,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 */
 	public int getKapazitaet() {
 		return kapazitaet;
-	}
-	
-	/**
-	 * Get Wertung des Angebots ueber die Wertung der Kommentare
-	 * 
-	 * @return Wertung des Angebots
-	 */
-	public double getWertung() {
-		double result = 0.00;
-		if(kommentare.size() == 0) 
-			return result;
-		for(Kommentar k:kommentare)
-			if(k.getBewertung() != Kommentar.KEINEWERTUNG)
-				result+=k.getBewertung();
-		return result/kommentare.size();
 	}
 	
 	/**
@@ -269,65 +365,27 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	 * @return Kriterien ArrayList
 	 */
 	public abstract ArrayList<Kriterium> getKriterien();
+
 	
-	/**
-	 * Konvertiere Typnummer in Typnamen
-	 * 
-	 * @param type Typnummer
-	 * @return Typname
-	 */
-	public static String convertTypToName(int type) {
-		switch(type) {
-			case FLUG:
-				return _flug;
-			case AUTOVERMIETUNG:
-				return _autoverm;
-			case AUSFLUG:
-				return _ausflug;
-			case HOTEL:
-				return _hotel;
-		}
-		return "Not a Type";
-	}
-	public static int convertNameToTyp(String name){
-		if(name.equals(_flug))
-			return FLUG;
-		else if(name.equals(_autoverm))
-			return AUTOVERMIETUNG;
-		else if(name.equals(_ausflug))
-			return AUSFLUG;
-		else if(name.equals(_hotel))
-			return HOTEL;
-		return -23;	//this should never ever happen :O
-	}
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
 	
-	/**
-	 * Listablemethode
-	 */
 	@Override
 	public String getIdentifier() {
 		return "["+Integer.toString(angebotsNummer)+"] "+name;
 	}
 
-	/**
-	 * Listablemethode
-	 */
 	@Override
 	public String getAdditionalInfo() {
 		return convertTypToName(typ)+ " - "+getAnbieterName();
 	}
 
-	/**
-	 * Listablemethode
-	 */
 	@Override
 	public String getStatus() {
 		return (auffindbar)? "(Das Angebot ist aktuell)": "(nicht aktuell)";
 	}
-	
-	/**
-	 * Listablemethode
-	 */
+
 	@Override
 	public String getFullInfo() {
 		return beschreibung;
@@ -335,53 +393,5 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 	
 	public int getListableTyp(){
 		return Listable.ANGEBOT;
-	}
-
-	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
-	/**
-	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
-	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge
-	 * 	- Wertung der Anbieter
-	 *  - Wertung der Angebote
-	 * 
-	 * @param pangebot Das zu vergleichende Angebot
-	 */
-	@Override
-	public int compareTo(Angebot pangebot) {
-		long days = 1;
-		if(pangebot.getStartdatum().getTime() != pangebot.getEnddatum().getTime())
-			days = (this.getEnddatum().getTime()-this.getStartdatum().getTime())/1000/60/60/24;
-		if(days == 0)
-			days = 1;
-			
-		final int fillGewichtung = 100,
-				  anbieterGewichtung = 20,
-				  angebotsGewichtung = 40;
-		double result = 0.00;
-		ArrayList<Buchung> buchungenThis = Portal.Buchungsverwaltung().getBuchungen(this),
-							buchungenP = Portal.Buchungsverwaltung().getBuchungen(pangebot);
-		double fillRatioThis = buchungenThis.size()/(this.getKapazitaet()*days);
-		double fillRatioP = buchungenP.size()/(pangebot.getKapazitaet()*days);
-		double abThis = Portal.Angebotsverwaltung().getAnbieter(this).getWertung();
-		double abP = Portal.Angebotsverwaltung().getAnbieter(pangebot).getWertung();
-		
-		result += (fillRatioThis-fillRatioP)*fillGewichtung;
-		result += (abThis-abP)*anbieterGewichtung;
-		result += (this.getWertung()-pangebot.getWertung())*angebotsGewichtung;
-		
-		return (int) Math.round(result);
-	}
-	
-	/**
-	 * Gibt eine Liste aller Flags derAngebotstypen als Integer-ArrayList aus
-	 * @return
-	 */
-	public static ArrayList<Integer> getFlagList(){
-		ArrayList<Integer> reslist = new ArrayList<Integer>();
-		reslist.add(FLUG);
-		reslist.add(AUTOVERMIETUNG);
-		reslist.add(AUSFLUG);
-		reslist.add(HOTEL);
-		return reslist;
 	}
 }

@@ -1,22 +1,28 @@
 package accounts;
 
+/**
+ * Betreiber - erbt von Account
+ * 
+ * @author osca
+ */
 public class Betreiber extends Account {
-	
-	private static boolean anbieterReg = false;
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @param em E-Mail Adresse
+	 * @param nm Username
+	 * @param pw Passwort
+	 */
 	public Betreiber(String em, String nm, String pw) {
 		super(em, nm, pw);
-		// TODO Auto-generated constructor stub
 	}
-	
-	public static boolean getAnbieterReg() {
-		return anbieterReg;
-	}
-	
-	public static void setAnbieterReg(boolean regged) {
-		anbieterReg = regged;
-	}
-	
+
+	/**
+	 * Get Accounttyp
+	 * 
+	 * @return Accounttypnummer
+	 */
 	@Override
 	public int getTyp(){
 		return Account.BETREIBER;

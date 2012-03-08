@@ -8,7 +8,7 @@ import graphic.Listable;
 import main.Portal;
 
 /**
- * Repräsentiert einen Benutzer
+ * Repraesentiert einen Benutzer
  * @author stephan
  * @edit 	Jay
  */
@@ -36,13 +36,37 @@ public abstract class Account implements Listable{
 		password=hashPassword(pw);
 	}
 
+	/**
+	 * Passwort MD5 Hash-Methode
+	 * 
+	 * @param password Rohes Passwort
+	 * @return MD5-Hash des Passworts
+	 */
+	public static String hashPassword(String password) {
+		String hashword = null;
+		
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			md5.update(password.getBytes());
+			BigInteger hash = new BigInteger(1, md5.digest());
+			hashword = hash.toString(16);
+		} catch (NoSuchAlgorithmException nsae) {
+			//nsae.printStackTrace();
+		}
+		
+		return hashword;
+	}
+
+	
+	//-----------------------------------------------------------------------------//
+	//	GETTER UND SETTER														   //
+	//-----------------------------------------------------------------------------//
+	
 	/** Gibt in Flag aus von welchem Typ der jeweilige Account ist
 	 * @return Flag des AccountTyps
 	 */
 	public abstract int getTyp();
-
-	//-----------------------------------------------------------------------------
-	// GETTER und SETTER
+	
 	/** Gibt die E-Mail-Adresse zurueck
 	 * @return E-Mail-Adresse
 	 */
@@ -82,9 +106,11 @@ public abstract class Account implements Listable{
 	void setGesperrt(Gesperrt gesperrt) {		//package
 		this.gesperrt = gesperrt;
 	}
-	//-----------------------------------------------------------------------------
-
-	//Listable-Methods
+	
+	
+	//-----------------------------------------------------------------------------//
+	//	LISTABLE																   //
+	//-----------------------------------------------------------------------------//
 	public String getIdentifier(){
 		return name;
 	}
@@ -97,7 +123,7 @@ public abstract class Account implements Listable{
 		return "";
 	}
 	
-	public String getStatus(){ // vllt. 
+	public String getStatus(){
 		switch(gesperrt){
 		case JA : return "		gesperrt";
 		case UNBEARBEITET : return "		nicht freigeschaltet";
@@ -108,18 +134,5 @@ public abstract class Account implements Listable{
 	
 	public int getListableTyp(){
 		return Listable.ACCOUNT;
-	}
-	
-	public static String hashPassword(String password) {
-		String hashword = null;
-		try {
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			md5.update(password.getBytes());
-			BigInteger hash = new BigInteger(1, md5.digest());
-			hashword = hash.toString(16);
-		} catch (NoSuchAlgorithmException nsae) {
-			//nsae.printStackTrace();
-		}
-		return hashword;
 	}
 }

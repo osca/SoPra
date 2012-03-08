@@ -9,7 +9,7 @@ public class Verpflegungsart extends Kriterium{
 	
 	public final static String name = "Verpflegungsart";
 	
-	public final static String[] wertebereich = {"All Inclusive","Bierflatrate","Vollpension","Halbpension","Nur Fruehstück","Ohne Verpflegung"};
+	public final static String[] wertebereich = {"All Inclusive","Bierflatrate","Vollpension","Halbpension","Nur Fruehstueck","Ohne Verpflegung"};
 	
 	/**
 	 * Konstruktor
@@ -21,6 +21,9 @@ public class Verpflegungsart extends Kriterium{
 		super(pwert);
 	}
 
+	/**
+	 * Get Kriterienname
+	 */
 	public String getName(){
 		return name;
 	}

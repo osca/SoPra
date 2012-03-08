@@ -20,30 +20,48 @@ import buchungen.Buchung;
 import buchungen.InvalidDateException;
 
 /**
+ * Angebotsverwaltung
+ * 
+ * Verwaltet die Angebote mit Standard- und saemtlichen
+ * nicht-trivialen Operationen
+ * 
  * @author Benjamin, stephan	
  */
 public class Angebotsverwaltung {
 	
 	private ArrayList<Angebot> angebote = new ArrayList<Angebot>();
 	
+	/**
+	 * Konstruiert eine Angebotsverwaltung mit leerer Liste
+	 */
 	public Angebotsverwaltung(){}
+	
+	/**
+	 * Konstruktor mit einer vorgegebenen Angebotsliste
+	 * 
+	 * @param angebote ArrayList an Angeboten
+	 */
 	public Angebotsverwaltung(ArrayList<Angebot> angebote){
 		this.angebote = angebote;
 	}
 	
-	
 	/**
 	 * Erstellt ein Angebot
-	 * @param anbieter
-	 * @param name
-	 * @param beschr
-	 * @param typ
-	 * @param preis
-	 * @param kapazitaet
-	 * @param daten
-	 * @param krit
-	 * @return
+	 * 
+	 * @param anbieter Anbieter
+	 * @param name Name
+	 * @param beschr Beschreibung
+	 * @param typ Angebotstyp
+	 * @param preis Preis
+	 * @param kapazitaet Kapazitaet
+	 * @param von Startdatum
+	 * @param bis Enddatum 
+	 * @param krit Array an Kriterien
+	 * 
+	 * @return Gibt das erstellte Angebot zurueck
+	 * 
 	 * @throws InvalidDateException falls Daten nicht zumindest teilweise in der Zukunft liegen
+	 * 
 	 * @pre Preis muss positiv sein
 	 * @pre Startdatum darf nicht nach dem Enddatum sein
 	 * @pre Das Startdatum darf nicht vor dem heutigen sein
@@ -56,34 +74,34 @@ public class Angebotsverwaltung {
 		
 		int shift = 0;
 		switch(typ) {
-		case Angebot.AUTOVERMIETUNG:{
-			shift = Autovermietung.LAND;
-			return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.LAND-shift], krit[Autovermietung.ORT-shift]);
+			case Angebot.AUTOVERMIETUNG:{
+				shift = Autovermietung.LAND;
+				return createAutovermietung(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Autovermietung.LAND-shift], krit[Autovermietung.ORT-shift]);
+			}
+			case Angebot.AUSFLUG:{
+				shift = Ausflug.LAND;
+				return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.LAND-shift], krit[Ausflug.ORT-shift], krit[Ausflug.BIERPREIS-shift]);
+			}
+			case Angebot.HOTEL:{
+				shift = Hoteluebernachtung.LAND;
+				return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, von, bis, 
+						krit[Hoteluebernachtung.LAND-shift], krit[Hoteluebernachtung.ORT-shift], krit[Hoteluebernachtung.KLIMA-shift], krit[Hoteluebernachtung.STERNE-shift], 
+						krit[Hoteluebernachtung.VERPFLEGUNGSART-shift], krit[Hoteluebernachtung.BIERPREIS-shift]);
+			}
+			case Angebot.FLUG:{
+				shift = Flug.STARTLAND;
+				return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, 
+						krit[Flug.STARTLAND-shift], krit[Flug.STARTORT-shift], krit[Flug.ZIELLAND-shift], krit[Flug.ZIELORT-shift], 
+						krit[Flug.KLASSE-shift], krit[Flug.BIERPREIS-shift]);
+			}
+			default : 
+				return null;
 		}
-		case Angebot.AUSFLUG:{
-			shift = Ausflug.LAND;
-			return createAusflug(anbieter, name, beschr, kapazitaet, preis, von, bis, krit[Ausflug.LAND-shift], krit[Ausflug.ORT-shift], krit[Ausflug.BIERPREIS-shift]);
-		}
-		case Angebot.HOTEL:{
-			shift = Hoteluebernachtung.LAND;
-			return createHoteluebernachtung(anbieter, name, beschr, kapazitaet, preis, von, bis, 
-					krit[Hoteluebernachtung.LAND-shift], krit[Hoteluebernachtung.ORT-shift], krit[Hoteluebernachtung.KLIMA-shift], krit[Hoteluebernachtung.STERNE-shift], 
-					krit[Hoteluebernachtung.VERPFLEGUNGSART-shift], krit[Hoteluebernachtung.BIERPREIS-shift]);
-		}
-		case Angebot.FLUG:{
-			shift = Flug.STARTLAND;
-			return createFlug(anbieter, name, beschr, kapazitaet, preis, von, bis, 
-					krit[Flug.STARTLAND-shift], krit[Flug.STARTORT-shift], krit[Flug.ZIELLAND-shift], krit[Flug.ZIELORT-shift], 
-					krit[Flug.KLASSE-shift], krit[Flug.BIERPREIS-shift]);
-		}
-		default : 
-			return null;
-		}
-		
 	}
 	
 	/**
 	 * Legt ein Autovermietungs-Angebot an
+	 * 
 	 * @param anbieter zustaendiger Anbieter
 	 * @param name Name der Autovermietung
 	 * @param beschr textuelle benutzerdefinierte Beschreibung
@@ -91,7 +109,11 @@ public class Angebotsverwaltung {
 	 * @param preis Preis pro Tag / Buchung
 	 * @param dates Array von Daten an denen das Angebot stattfindet
 	 * @param ort Ort an dem Das Auto abgeholt werden kann
+	 * 
+	 * @return Gibt das erstellte Angebot zurueck
+	 * 
 	 * @throws InvalidDateException 
+	 * 
 	 * @see Autovermietung
 	 */
 	public Autovermietung createAutovermietung(Anbieter anbieter, String name, String beschr, int kapaz, double preis, Date von, Date bis, String land, String ort) throws InvalidDateException{
@@ -102,17 +124,24 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * @see Ausfluege
-	 * @param panb
-	 * @param pname
-	 * @param pbeschreibung
-	 * @param pkapazitaet
-	 * @param ppreis
-	 * @param pdaten
-	 * @param port
-	 * @param pbierpreis
-	 * @return
+	 * Legt einen Ausflug an
+	 * 
+	 * @param panb Anbieter
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param pkapazitaet Kapazitaet
+	 * @param ppreis Preis
+	 * @param pvon Startdatum
+	 * @param pbis Enddatum
+	 * @param pland Land
+	 * @param port Stadt
+	 * @param pbierpreis Bierpreis
+	 * 
+	 * @return Gibt das erstellte Angebot zurueck
+	 * 
 	 * @throws InvalidDateException 
+	 *
+	 * @see Ausfluege
 	 */
 	public Ausflug createAusflug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date pvon, Date pbis, String pland, String port, String pbierpreis) throws InvalidDateException {
@@ -122,6 +151,27 @@ public class Angebotsverwaltung {
 		return af;
 	}
 	
+	/**
+	 * Erstellt einen Flug
+	 * 
+	 * @param panb Anbieter
+	 * @param pname Name
+	 * @param pbeschreibung Beschreibung
+	 * @param pkapazitaet Kapazitaet
+	 * @param ppreis Preis
+	 * @param pvon Startdatum
+	 * @param pbis Enddatum
+	 * @param pstartLand Startland
+	 * @param pstart Startstadt
+	 * @param pzielLand Zielland
+	 * @param pziel Zielstadt
+	 * @param pklasse Klasse
+	 * @param pbierpreis Bierpreis
+	 * 
+	 * @return Gibt das erstellte Angebot zurueck
+	 * 
+	 * @throws InvalidDateException
+	 */
 	public Flug createFlug(Anbieter panb, String pname, String pbeschreibung, int pkapazitaet, double ppreis, 
 			Date pvon, Date pbis, String pstartLand, String pstart, String pzielLand, String pziel, String pklasse, String pbierpreis) throws InvalidDateException{
 		Flug f = new Flug(panb, pname, pbeschreibung, pkapazitaet, ppreis, pvon, pbis, pstartLand, pstart, pzielLand, pziel, pklasse, pbierpreis);
@@ -130,6 +180,27 @@ public class Angebotsverwaltung {
 		return f;
 	}
 	
+	/**
+	 * Legt eine Hoteluebernachtung an
+	 * 
+	 * @param anb Anbieter
+	 * @param name Name
+	 * @param beschr Beschreibung
+	 * @param kapa Kapazitaet
+	 * @param preis Preis
+	 * @param pvon Startdatum
+	 * @param pbis Enddatum
+	 * @param land Land
+	 * @param ort Stadt
+	 * @param klima Klima
+	 * @param sterne Sterne
+	 * @param verpf Verpflegung
+	 * @param bierpr Bierpreis
+	 * 
+	 * @return Gibt das erstellte Angebot zurueck
+	 * 
+	 * @throws InvalidDateException
+	 */
 	public Hoteluebernachtung createHoteluebernachtung(Anbieter anb, String name, String beschr, int kapa, double preis, Date pvon, Date pbis, 
 			String land, String ort, String klima, String sterne, String verpf, String bierpr) throws InvalidDateException{
 		Hoteluebernachtung hu = new Hoteluebernachtung(anb, name, beschr, kapa, preis, pvon, pbis, land, ort, klima, sterne, verpf, bierpr);
@@ -141,9 +212,10 @@ public class Angebotsverwaltung {
 	/**
 	 * Loescht ein Angebot eines Anbieters.
 	 * 
-	 * @param angebot			das zu l�schende Angebot
+	 * @param angebot Das zu loeschende Angebot
 	 */
-	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException{
+	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException {
+		//TODO: CODE CLEANEN!!!
 //		ArrayList<Kommentar> kommentare = angebot.getKommentare();
 		ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(angebot);
 		
@@ -228,8 +300,9 @@ public class Angebotsverwaltung {
 	}
 
 	/**
-	 * suche Angebot nach Angebotsnummer (eindeutig)
-	 * @param id
+	 * Suche Angebot nach Angebotsnummer (eindeutig)
+	 * 
+	 * @param id Angebotsnummer
 	 * @return passendes Angebot oder null, falls nicht gefunden/vorhanden
 	 */
 	public Angebot getAngebotByNummer(int id){
@@ -240,8 +313,10 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * gibt alle im System befindlichen Angebote zurueck
-	 * @return
+	 * Gibt alle im System befindlichen Angebote zurueck
+	 * (chronologisch absteigend sortiert)
+	 * 
+	 * @return ArrayList an allen Angeboten
 	 */
 	public ArrayList<Angebot> getAllAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
@@ -315,7 +390,7 @@ public class Angebotsverwaltung {
 	 * 
 	 * @param angebot Angebot
 	 * @param kunde Kunde
-	 * @return Ja oder nein
+	 * @return Ja oder Nein
 	 */
 	public boolean isCommentedByKunde(Angebot angebot, Kunde kunde) {
 		ArrayList<Kommentar> kommentare = getKommentare(angebot);
@@ -331,8 +406,8 @@ public class Angebotsverwaltung {
 	/**
 	 * Ein Angebot auffindbar
 	 * 
-	 * @param angebot
-	 * @param auffindbar
+	 * @param angebot Angebot
+	 * @param auffindbar Boolean
 	 */
 	public void setAuffindbar(Angebot angebot, boolean auffindbar) {
 		if(angebot.getEnddatum().before(Methods.getHeuteNullUhr()))
