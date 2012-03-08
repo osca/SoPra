@@ -37,6 +37,7 @@ public class DatenhaltungTest {
 		if(!f.exists())
 			return;
 		String[] s = Datenhaltung.getStringArrayFromFile(f);
+		Assert.assertTrue(s[50].length()!=0);
 	}
 	
 
@@ -86,7 +87,7 @@ public class DatenhaltungTest {
 		for(Buchung b : bv.getBuchungen(ang3))
 			bv.setBestaetigt(b, Bestaetigung.JA);
 		
-		Assert.assertEquals(Bestaetigung.JA, bv.getBuchungen(kunde1).get(0).getBestaetigt());
+		Assert.assertEquals(Bestaetigung.JA, bv.getBuchungen(kunde1).get(2).getBestaetigt());
 	}
 	
 	@Test

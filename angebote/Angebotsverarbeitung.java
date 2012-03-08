@@ -2,12 +2,9 @@ package angebote;
 
 import graphic.Methods;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import main.Portal;
 import angebote.kriterien.Kriterium;
