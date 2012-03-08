@@ -419,8 +419,6 @@ public class MainFrame extends JFrame
 					this.setTitle("Eingeloggt als: "+account.getName());
 					this.repaint();
 					logged = true;
-					
-					
 				}
 			}
 			else
@@ -466,19 +464,14 @@ public class MainFrame extends JFrame
 					JButton fcb = new JButton("AGB laden");
 					fcb.setPreferredSize(new Dimension(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT)));
 					final JFileChooser fc = new JFileChooser();
-					  fc.addChoosableFileFilter(new FileFilter() {
-							    public boolean accept(File f) 
-							    {
-							    	if (f.isDirectory()) 
-							    		return true;	
-							    	else
-							    		return f.getName().toLowerCase().endsWith(".txt");
-							    }
-							    public String getDescription () 
-							    { 
-							    	return "'.txt'"; 
-							    }  
-							});
+					fc.setFileFilter(new FileFilter() {
+						    public boolean accept(File f) {	
+						    	return (f.isDirectory() || f.getName().toLowerCase().endsWith(".txt"));
+						    }
+						    public String getDescription () { 
+						    	return "'.txt'"; 
+						    }  
+					});
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
 					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
@@ -506,7 +499,6 @@ public class MainFrame extends JFrame
 						}
 					};
 					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
-					
 					button_array[0].addActionListener(new ActionListener()
 					{
 						@Override
