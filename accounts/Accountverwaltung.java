@@ -437,8 +437,12 @@ public class Accountverwaltung {
 	 * @param email
 	 *            E-Mail Adresse
 	 * @return Vergeben oder nicht
+	 * 
+	 * @pre Emailstring darf nicht null sein
 	 */
 	public boolean isFreeEmail(String email) {
+		assert email != null: "Email ist null";
+		
 		String emailValid = "[^äöü]+@[a-zA-Z0-9-\\.]+\\.[a-zA-Z]+";
 		if(! email.matches(emailValid) && !email.contains(".."))
 			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
@@ -454,8 +458,12 @@ public class Accountverwaltung {
 	 * @param name
 	 *            Username
 	 * @return Vergeben oder nicht
+	 * 
+	 * @pre Usernamestring darf nicht null sein
 	 */
 	public boolean isFreeName(String name) {
+		assert name != null: "Name ist null";
+		
 		if(name.length()<2)
 			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
 		for (Account a : getAccounts())
@@ -471,6 +479,7 @@ public class Accountverwaltung {
 	 * @param name Username des neuen Betreibers
 	 * @param password Password des neuen Betreibers
 	 * @throws Exception 
+	 * 
 	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public Betreiber addBetreiber(String email, String name, String password) throws Exception {

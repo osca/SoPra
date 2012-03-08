@@ -1,4 +1,3 @@
-24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	Bei Stornierungsanfrage -> Nachricht beim Anbieter benoetigt Button "Zur Buchung" oder direkt "accept" bzw. "decline"
 26. [gui]	Bei Buchungsanfrage -> "Zur Buchung" oder aehnliches...siehe 25...
 			
