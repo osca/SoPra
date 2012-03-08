@@ -179,9 +179,7 @@ public class Datenhaltung {
 			while ((line = raf.readLine()) != null && !line.isEmpty())
 				reslist.add(line);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		String[] s = new String[reslist.size()];
@@ -243,7 +241,6 @@ public class Datenhaltung {
 			fw.write(s);
 			fw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	

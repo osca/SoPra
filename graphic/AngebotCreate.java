@@ -283,13 +283,10 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 							this.validate();
 							this.repaint();
 							init(anb);
-						} catch (NumberFormatException e1) {
-							e1.printStackTrace();
 						} catch (InvalidDateException e1) {
 							JOptionPane.showMessageDialog(this,
 									"Ueberpruefen Sie das Datum",
 									"Angebot Erstellung", JOptionPane.OK_OPTION);
-							e1.printStackTrace();
 						}
 					}
 				} catch (ParseException e2) {
@@ -306,8 +303,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			try {
 				init(anb);
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				//e1.printStackTrace();
 			}
 			beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
 			addScreen();

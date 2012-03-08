@@ -105,8 +105,7 @@ public class AccountScreen extends JPanel
 					}
 				}
 				catch(Exception e)
-				{//TODO exceptionhandling
-					e.printStackTrace();
+				{
 					JOptionPane.showMessageDialog(main, e.getMessage());
 				}
 			}

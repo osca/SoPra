@@ -266,7 +266,7 @@ public class AngDetailScreen extends JPanel {
 								try {
 									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
 								} catch (Exception e) {
-									e.printStackTrace();
+									//e.printStackTrace();
 								}
 							}
 							
