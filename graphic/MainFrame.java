@@ -397,30 +397,29 @@ public class MainFrame extends JFrame
 					loginButton.setText("Logout");
 					loeschenButton.setEnabled(true);
 					
+					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
+					
 					if(account.getTyp() == Account.KUNDE)
 					{
+						eigeneButton.setText("Eigene Buchungen");
 						if(((Kunde)account).getFirstLogin()){
-							JOptionPane.showMessageDialog(this, "Willkommen");
+							JOptionPane.showMessageDialog(this, "Herzlich willkommen. Wir wuenschen Ihnen viel Spass.");
 							((Kunde)account).setFirstLogin();
 						}
-						eigeneButton.setText("Eigene Buchungen");
 					}
 					else if(account.getTyp() == Account.ANBIETER)
 					{	
-						if(((Anbieter)account).getFirstLogin()){
-							JOptionPane.showMessageDialog(this, "Willkommen");
-							((Anbieter)account).setFirstLogin();
-						}
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
 						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)account)+")");
 						offeneButton.setVisible(true);
+						if(((Anbieter)account).getFirstLogin()){
+							JOptionPane.showMessageDialog(this, "Herzlich willkommen. Wir wuenschen Ihnen viel Erfolg.");
+							((Anbieter)account).setFirstLogin();
+						}
 					}
 					else if(account.getTyp() == Account.BETREIBER)
 					{
-					//	if(Betreiber.getAnbieterReg()){
-					//		JOptionPane.showMessageDialog(this, "Bitte schalten Sie die neuen Anbieter frei");
-					//	}
 						eigeneButton.setText("Alle Accounts ("+Portal.Accountverwaltung().getUnbearbeiteteAnbieter().size()+")");
 						offeneButton.setVisible(true);
 						offeneButton.setText("Alle Buchungen");
@@ -428,7 +427,6 @@ public class MainFrame extends JFrame
 					}
 					
 					showTopAngebote();
-					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
 					this.setTitle("Eingeloggt als: "+account.getName());
 					this.repaint();
 					logged = true;
@@ -539,7 +537,6 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
@@ -721,7 +718,6 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
@@ -774,7 +770,6 @@ public class MainFrame extends JFrame
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
