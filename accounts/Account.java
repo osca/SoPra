@@ -70,7 +70,7 @@ public abstract class Account implements Listable{
 	 * @return gibt an ob der Account gesperrt ist
 	 */
 	public boolean isGesperrt() {
-		if(gesperrt == Gesperrt.JA || gesperrt == Gesperrt.UNBERARBEITET)
+		if(gesperrt == Gesperrt.JA || gesperrt == Gesperrt.UNBEARBEITET)
 			return true;
 		else
 			return false;
@@ -100,7 +100,7 @@ public abstract class Account implements Listable{
 	public String getStatus(){ // vllt. 
 		switch(gesperrt){
 		case JA : return "		gesperrt";
-		case UNBERARBEITET : return "		nicht freigeschaltet";
+		case UNBEARBEITET : return "		nicht freigeschaltet";
 		case NEIN : return "		freigeschaltet";
 		default : return "";
 		}

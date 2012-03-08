@@ -99,7 +99,15 @@ public class AccountScreen extends JPanel
 							labels[6].setText(account.getStatus());
 						}
 						status.repaint();
+						java.awt.Component c = getParent();
+						while(c!=null){
+							System.out.println(c.getName());
+							c.invalidate();
+							c.repaint();
+							c = c.getParent();
+						}
 					}
+					//TODO MAINFRAME (BUTTONLEISTE) REPAINTEN!!
 				}
 				catch(Exception e)
 				{//TODO exceptionhandling

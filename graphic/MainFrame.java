@@ -104,7 +104,7 @@ public class MainFrame extends JFrame
 		Border border = BorderFactory.createMatteBorder(0, 2, 0, 2, Color.LIGHT_GRAY);
 		
 		///////////
-
+		setName("blaFrame");//TODO
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBorder(border);
 		this.add(headerPanel, BorderLayout.NORTH);
@@ -405,10 +405,10 @@ public class MainFrame extends JFrame
 					}
 					else if(account.getTyp() == Account.BETREIBER)
 					{
-						if(Betreiber.getAnbieterReg()){
-							JOptionPane.showMessageDialog(this, "Bitte schalten Sie die neuen Anbieter frei");
-						}
-						eigeneButton.setText("Alle Accounts");
+					//	if(Betreiber.getAnbieterReg()){
+					//		JOptionPane.showMessageDialog(this, "Bitte schalten Sie die neuen Anbieter frei");
+					//	}
+						eigeneButton.setText("Alle Accounts ("+Portal.Accountverwaltung().getUnbearbeiteteAnbieter().size()+")");
 						offeneButton.setVisible(true);
 						offeneButton.setText("Alle Buchungen");
 						betreiberButton.setVisible(true);

@@ -473,7 +473,7 @@ public class Accountverwaltung {
 			ArrayList<Anbieter> result = new ArrayList<Anbieter>();
 			
 			for(Anbieter a:anbieter) {
-				if(a.gesperrt == Gesperrt.UNBERARBEITET)
+				if(a.gesperrt == Gesperrt.UNBEARBEITET)
 					result.add(a);
 			}
 			

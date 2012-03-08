@@ -18,12 +18,12 @@ public class Anbieter extends Account{
 	
 	public Anbieter(String em, String nm, String pw) {
 		super(em, nm, pw);
-		gesperrt = Gesperrt.UNBERARBEITET;
+		gesperrt = Gesperrt.UNBEARBEITET;
 	}
 	public Anbieter(String em, String nm, String pw, String pagb) {
 		super(em, nm, pw);
 		agb = pagb;
-		gesperrt = Gesperrt.UNBERARBEITET;
+		gesperrt = Gesperrt.UNBEARBEITET;
 	}
 	
 	public void addAngebot(Angebot offer){
