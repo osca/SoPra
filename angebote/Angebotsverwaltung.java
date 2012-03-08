@@ -173,25 +173,6 @@ public class Angebotsverwaltung {
 		angebote.remove(angebot);
 	}
 	
-	
-	/**
-	 * Editiert ein Angebot eines Anbieters.
-	 * 
-	 * @param altes Zu aenderndes Angebot (wird geloescht)
-	 * @param neues Neues Angebot mit neuen Daten
-	 * @param anbieter Anbieter des Angebots
-	 */
-	public void editAngebot(Angebot altes, Angebot neues, Anbieter anbieter) {
-		try {
-			delAngebot(altes);
-			angebote.remove(altes);
-		} catch (LoeschenNichtMoeglichException e) {
-			e.printStackTrace();
-		}
-		anbieter.addAngebot(neues);
-		angebote.add(neues);
-	}
-	
 	/**
 	 * Gibt die Liste aller Kommentare eines Angebots
 	 * 
