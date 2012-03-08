@@ -155,7 +155,7 @@ public class AngDetailScreen extends JPanel {
 		JPanel button_panel = new JPanel(new FlowLayout());
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()) {
 		case Account.NONE:
-			nullAcc = new JLabel(MeldeDienst.MSG_LOGIN_FEHLT);
+			nullAcc = new JLabel(MainFrame.MSG_LOGIN_FEHLT);
 			button_panel.add(nullAcc);
 			break;
 		case Account.KUNDE:
@@ -290,15 +290,15 @@ public class AngDetailScreen extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (JOptionPane.showConfirmDialog(up.getParent(),
-							MeldeDienst.QSN_ANGEBOT_MELDEN, "Angebot melden",
+							MainFrame.QSN_ANGEBOT_MELDEN, "Angebot melden",
 							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 						Account account = Portal.Accountverwaltung()
 								.getLoggedIn();
 						Portal.Nachrichtenverwaltung()
 								.sendeMeldungAnAlleBetreiber(
 										account,
-										MeldeDienst.MSG_BESCHWERDE,
-										MeldeDienst.MSG_ANGEBOT_GEMELDET + "\n"
+										MainFrame.MSG_BESCHWERDE,
+										MainFrame.MSG_ANGEBOT_GEMELDET + "\n"
 												+ "Anbieter: "
 												+ anbieter.getName() + "\n"
 												+ "Kunde: " + account.getName()
@@ -307,8 +307,8 @@ public class AngDetailScreen extends JPanel {
 						Portal.Nachrichtenverwaltung().sendeNachricht(
 								account,
 								anbieter,
-								MeldeDienst.MSG_BESCHWERDE,
-								MeldeDienst.MSG_ANGEBOT_GEMELDET + "\n"
+								MainFrame.MSG_BESCHWERDE,
+								MainFrame.MSG_ANGEBOT_GEMELDET + "\n"
 										+ "Anbieter: " + anbieter.getName()
 										+ "\n" + "Kunde: " + account.getName()
 										+ "\n" + "Angebot: "
@@ -339,12 +339,12 @@ public class AngDetailScreen extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					if (dialog.getContent().length() <= 0) {
-						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Kommentar eingeben.");
+						JOptionPane.showMessageDialog(dialog, "Sie mï¿½ssen einen Kommentar eingeben.");
 						return;
 					}
 					else if (gebucht && !kommentiert) {
 						if (bewertungCombo.getSelectedIndex() == 0) {
-							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung auswaehlen.");
+							JOptionPane.showMessageDialog(dialog, "Sie mï¿½ssen eine Bewertung auswaehlen.");
 							return;
 						}
 					}
@@ -387,7 +387,7 @@ public class AngDetailScreen extends JPanel {
 				dialog = new DialogScreen(frame,"Kommentieren", new JButton[] {okButton, cancelButton });
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
 
-				// die Möglichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
+				// die Mï¿½glichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
 				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin);
 				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin); // kommentiert => bewertung bereits erfolgt
 				
@@ -411,8 +411,8 @@ public class AngDetailScreen extends JPanel {
 						if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
 							Portal.Nachrichtenverwaltung().sendeNachricht(
 									Portal.Accountverwaltung().getLoggedIn(),
-									anbieter, "Angebot wurde Gelöscht",
-									"Ihr Angebot wurde vom Betreiber gelöscht!",
+									anbieter, "Angebot wurde Gelï¿½scht",
+									"Ihr Angebot wurde vom Betreiber gelï¿½scht!",
 									angebot);
 						removeAll();
 						repaint();
