@@ -9,16 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,24 +26,19 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.text.DateFormatter;
 
 import main.Datenhaltung;
 import main.Portal;
 import accounts.Account;
 import accounts.AlreadyInUseException;
 import accounts.Anbieter;
-import accounts.Betreiber;
 import accounts.Default;
-import accounts.Gesperrt;
 import accounts.Kunde;
-import accounts.LoeschenNichtMoeglichException;
-import accounts.LoginException;
 import accounts.Nachricht;
 import angebote.typen.Angebot;
-import angebote.typen.Autovermietung;
 import buchungen.Buchung;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame
 {
 	public static final int BUTTONWIDTH = 180;
@@ -82,6 +73,7 @@ public class MainFrame extends JFrame
 	private JPanel screen;
 	private JScrollPane scroll;
 	
+	@SuppressWarnings("rawtypes")
 	private ListeScreen list;
 	
 	private boolean logged = false;
@@ -535,6 +527,7 @@ public class MainFrame extends JFrame
 						@Override
 						public void actionPerformed(ActionEvent e) 
 						{
+							dialog.setAlwaysOnTop(false);
 							try
 							{
 								int x =fc.showOpenDialog(null);
@@ -548,6 +541,7 @@ public class MainFrame extends JFrame
 							{
 								JOptionPane.showMessageDialog(null, ex.getMessage());
 							}
+							dialog.setAlwaysOnTop(true);
 						}
 					});
 				}
@@ -559,6 +553,7 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showEigene()
 	{
 		try
@@ -589,6 +584,7 @@ public class MainFrame extends JFrame
 			screen.removeAll();
 			screen.add(new SuchScreen()
 			{
+				@SuppressWarnings({ "unchecked", "rawtypes" })
 				@Override
 				public void onSearch()
 				{
@@ -645,6 +641,7 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private void showErstelle()
 	{
 		try
@@ -660,6 +657,7 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showAlleAngebote()
 	{
 		try
@@ -676,6 +674,7 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showOffeneBuchungen()
 	{
 		try
