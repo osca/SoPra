@@ -237,14 +237,14 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			}  
 			if (land.getSelectedItem().equals("")) {
 				JOptionPane.showMessageDialog(this, 
-						"Sie müssen ein Land auswaehlen", 
+						"Sie muessen ein Land auswaehlen", 
 						"Angebot erstellen", JOptionPane.OK_OPTION);
 				return;
 			} 
 			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
 				if (landz.getSelectedItem().equals("")) {
 					JOptionPane.showMessageDialog(this, 
-							"Sie müssen ein Land als Ziel auswaehlen",
+							"Sie muessen ein Land als Ziel auswaehlen",
 							"Angebot erstellen", JOptionPane.OK_OPTION);
 					return;
 				}
