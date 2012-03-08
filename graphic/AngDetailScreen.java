@@ -38,6 +38,7 @@ public class AngDetailScreen extends JPanel {
 	private JPanel sub_b;
 	private JPanel mid;
 	private JPanel down;
+	private JLabel nummer;
 	private JLabel name;
 	private JLabel typ;
 	private JLabel preis;
@@ -87,6 +88,7 @@ public class AngDetailScreen extends JPanel {
 		mid = new JPanel(new GridLayout(0, 1));
 		down = new JPanel(new BorderLayout());
 
+		nummer = new JLabel(""+angebot.getAngebotsNummer());
 		name = new JLabel(angebot.getName());
 		typ = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -99,7 +101,10 @@ public class AngDetailScreen extends JPanel {
 		preis = new JLabel(preis_str);
 		kap = new JLabel(kap_str);
 
-		sub_a = new JPanel(new GridLayout(7, 2));
+		sub_a = new JPanel(new GridLayout(8, 2));
+		JLabel nummer_l = new JLabel("Angbeotsnummer:");
+		sub_a.add(nummer_l);
+		sub_a.add(nummer);
 		JLabel name_l = new JLabel("Name:");
 		sub_a.add(name_l);
 		sub_a.add(name);
