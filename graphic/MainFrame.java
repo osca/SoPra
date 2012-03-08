@@ -419,8 +419,6 @@ public class MainFrame extends JFrame
 					this.setTitle("Eingeloggt als: "+account.getName());
 					this.repaint();
 					logged = true;
-					
-					
 				}
 			}
 			else
