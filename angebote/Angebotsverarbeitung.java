@@ -1,5 +1,8 @@
 package angebote;
 
+import graphic.Methods;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -42,14 +45,7 @@ public class Angebotsverarbeitung {
 		assert vonPreis <= bisPreis: "Der Startpreis ist groesser als der Endpreis";
 		
 		//Heutigen Tag initialisieren
-		Date heute = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(heute);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		heute = cal.getTime();
+		Date heute = Methods.getHeuteNullUhr();
 		
 		assert !von.before(heute): "Startdatum liegt vor dem heutigen Datum";
 		

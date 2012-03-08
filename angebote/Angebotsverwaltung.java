@@ -54,15 +54,7 @@ public class Angebotsverwaltung {
 			Date von, Date bis, String[] krit) throws InvalidDateException {
 		assert preis >= 0: "Der Preis ist negativ";
 		assert !von.after(bis): "Das Startdatum ist nach dem Enddatum";
-		//Heutigen Tag initialisieren
-		Date heute = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(heute);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		assert !heute.after(von): "Das Startdatum ist vor dem heutigen";
+		assert !Methods.getHeuteNullUhr().after(von): "Das Startdatum ist vor dem heutigen";
 		
 		int shift = 0;
 		switch(typ) {
