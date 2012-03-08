@@ -2,7 +2,9 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +30,7 @@ public class AccountScreen extends JPanel
 {
 	private JLabel[] labels;
 	
-	public AccountScreen(final Account account)
+	public AccountScreen(final Account account, final JButton referringButton)
 	{
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
@@ -99,15 +101,8 @@ public class AccountScreen extends JPanel
 							labels[6].setText(account.getStatus());
 						}
 						status.repaint();
-						java.awt.Component c = getParent();
-						while(c!=null){
-							System.out.println(c.getName());
-							c.invalidate();
-							c.repaint();
-							c = c.getParent();
-						}
+						referringButton.setText("Alle Accounts ("+Portal.Accountverwaltung().getUnbearbeiteteAnbieter().size()+")");
 					}
-					//TODO MAINFRAME (BUTTONLEISTE) REPAINTEN!!
 				}
 				catch(Exception e)
 				{//TODO exceptionhandling

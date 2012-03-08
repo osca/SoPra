@@ -26,6 +26,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
 		JPanel elementPanel = new JPanel(new GridLayout(0,1));
+		final Class<T> cls = (Class<T>) list.get(0).getClass();
 		
 		for (int i=0;i<list.size();i++){
 			final int j = i;
@@ -55,6 +56,8 @@ public class ListeScreen <T extends Listable> extends JPanel {
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					mainframe.showDetail(list.get(j));
+					if(cls.equals(accounts.Nachricht.class))
+						mainframe.showNachrichten();
 				}
 			});
 			
