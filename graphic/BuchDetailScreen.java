@@ -145,6 +145,7 @@ public class BuchDetailScreen extends JPanel
 					if(JOptionPane.showConfirmDialog(fullinfo.getParent(), "Wollen Sie wirklich eine Stornierungsanfrage senden?", "Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 					{
 						Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(), Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(buchung)),"Stornierunsganfrage", "Der Kunde moechte seine Buchung stornieren", Portal.Buchungsverwaltung().getReferringAngebot(buchung));
+						buchung.setStornierungsAnfrage(true);
 						JOptionPane.showMessageDialog(fullinfo.getParent(), "Ihre Stornierungsanfrage wurde gesendet");
 					}
 				}
@@ -181,11 +182,15 @@ public class BuchDetailScreen extends JPanel
 						{
 							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung stornieren?","Buchungsanfrage", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 							{
-								Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.NEIN);
-								Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
-								Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(buchung.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer()));
-								JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
-								buttonRechts.setText("Buchung bestaetigen");
+								if(buchung.getStornierungsAnfrage()) {
+									Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.NEIN);
+									Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+									Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(buchung.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer()));
+									JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
+									buttonRechts.setText("Buchung bestaetigen");
+								}
+								else
+									JOptionPane.showMessageDialog(null, "Es liegt keine Stornierungsanfrage vor");
 							}
 						}
 						else

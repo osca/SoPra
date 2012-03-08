@@ -23,6 +23,7 @@ public class Buchung implements Listable {
 	private Date von,bis;
 	private int angebotsNummer;
 	private String kundenName;
+	private boolean stornierungsAnfrage;
 	/**
 	 * Legt ein Buchungsobjekt an
 	 * @param pangebot Angebot zur Referenz
@@ -37,6 +38,7 @@ public class Buchung implements Listable {
 		von = pvon;
 		bis = pbis;
 		bestaetigt = Bestaetigung.UNBEARBEITET;
+		stornierungsAnfrage = false;
 	}
 
 	/**
@@ -113,6 +115,24 @@ public class Buchung implements Listable {
 	 */
 	public String getKundenName() {
 		return kundenName;
+	}
+	
+	/**
+	 * Hat diese Buchung eine Stornierungsanfrage?
+	 * 
+	 * @return Ja oder nein
+	 */
+	public boolean getStornierungsAnfrage() {
+		return stornierungsAnfrage;
+	}
+	
+	/**
+	 * Setze ob die Buchung eine Stornierungsanfrage hat
+	 * 
+	 * @param set Ja oder nein
+	 */
+	public void setStornierungsAnfrage(boolean set) {
+		stornierungsAnfrage = set;
 	}
 
 	@Override
