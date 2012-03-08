@@ -333,7 +333,17 @@ public class MainFrame extends JFrame
 				final Nachricht nachricht = (Nachricht)obj;
 				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
 
-				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(),DialogScreen.OK_OFFER_ANSWER_OPTION)
+				JButton del = new JButton("Nachricht loeschen");
+				del.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						Portal.Nachrichtenverwaltung().delNachricht(nachricht);
+					}
+				});
+				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(), new JButton[]{del},DialogScreen.OK_OFFER_ANSWER_OPTION)
 				{
 					@Override
 					public void onAnswer()
