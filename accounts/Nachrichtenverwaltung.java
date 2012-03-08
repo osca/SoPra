@@ -42,13 +42,29 @@ public class Nachrichtenverwaltung {
 	 * Sendet Nachricht mit 'text' und 'betreff' von 'absender' an 'empfaenger'
 	 * und verweist auf das 'angebot'
 	 * 
-	 * @param absender
-	 * @param empfaenger
-	 * @param betreff
-	 * @param text
-	 * @param angebot
+	 * @param absender Absender
+	 * @param empfaenger Empfaenger
+	 * @param betreff Betreff
+	 * @param text text
+	 * @param angebot Verweisendes Angebot
+	 * 
+	 * @pre Absender ist nicht null und muss im System sein
+	 * @pre Empfaenger ist nicht null und muss im System sein
+	 * @pre Betreff darf nicht leer oder null sein
+	 * @pre Verweisendes Angebot darf nicht leer sein und muss im System sein
 	 */
 	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot) {
+		assert absender != null: "Der Absender ist null";
+		assert Portal.Accountverwaltung().getAccounts().contains(absender): "Der Absender ist nicht im System";
+		assert empfaenger != null: "Der Empfaenger ist null";
+		assert Portal.Accountverwaltung().getAccounts().contains(empfaenger): "Der Empfaenger ist nicht im System";
+		assert !betreff.equals("") || betreff != null: "Der Betreff wurde nicht gesetzt";
+		assert angebot != null: "Das Angebot ist null";
+		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot ist nicht im System";
+		
+		if(text.equals(""))
+			throw new IllegalArgumentException("Es wurde kein Text eingegeben");
+			
 		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
 		alleNachrichten.add(msg);
 	}
@@ -72,7 +88,7 @@ public class Nachrichtenverwaltung {
 	 * Gibt den Posteingang eines Accounts aus
 	 * 
 	 * @param acc
-	 *            ausgewählter Account
+	 *            ausgewaehlter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
 	public ArrayList<Nachricht> getErhalteneNachrichten(Account acc) {
@@ -88,7 +104,7 @@ public class Nachrichtenverwaltung {
 	 * Gibt den Postausgang eines Accounts aus
 	 * 
 	 * @param acc
-	 *            ausgewählter Account
+	 *            ausgewaehlter Account
 	 * @return ArrayList von Nachrichten des Accounts
 	 */
 	public ArrayList<Nachricht> getGesendeteNachrichten(Account acc) {
@@ -105,9 +121,13 @@ public class Nachrichtenverwaltung {
 	 * Posteingang des Empfaengers
 	 * 
 	 * @param msg
-	 *            zu löschende Nachricht
+	 *            zu loeschende Nachricht
+	 *            
+	 * @pre Die Nachricht existiert
 	 */
 	public void delNachricht(Nachricht msg) {
+		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht";
+		
 		alleNachrichten.remove(msg);
 	}
 
@@ -116,8 +136,13 @@ public class Nachrichtenverwaltung {
 	 * 
 	 * @param ang
 	 *            Angebot dessen Verweise hinfaellig sind
+	 *            
+	 * @pre Das Angebot darf nicht null sein und muss im System sein
 	 */
 	public void delAllNachrichten(Angebot ang) {
+		assert ang != null: "Das Angebot ist null";
+		assert Portal.Angebotsverwaltung().getAllAngebote().contains(ang): "Das Angebot existiert nicht im System";
+		
 		int n = alleNachrichten.size();
 		for (int i = 0; i < n; i++) { // For-Each-Schleife funktioniert nicht
 			Nachricht current = alleNachrichten.get(i);
@@ -133,8 +158,13 @@ public class Nachrichtenverwaltung {
 	 * gibt das Angebotsobjekt zu einer Nachricht aus
 	 * @param msg entsprechende Nachricht
 	 * @return Angebot
+	 * 
+	 * @pre Uebergebene Nachricht darf nicht null sein und muss im System vorhanden sein
 	 */
 	public Angebot getReferringAngebot(Nachricht msg) {
+		assert msg != null: "Nachricht ist null";
+		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		
 		return Portal.Angebotsverwaltung().getAngebotByNummer(msg.getAngebotsNummer());
 	}
 
@@ -142,19 +172,29 @@ public class Nachrichtenverwaltung {
 	 * gibt den Absender der Nachricht zurueck
 	 * 
 	 * @param msg
-	 * @return
+	 * @return Absender
+	 * 
+	 * @pre Uebergebene Nachricht darf nicht null sein und muss im System vorhanden sein
 	 */
 	public Account getAbsender(Nachricht msg) {
+		assert msg != null: "Nachricht ist null";
+		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		
 		return Portal.Accountverwaltung().getAccountByName(msg.getAbsender());
 	}
 
 	/**
 	 * gibt den Empfaenger der Nachricht zurueck
 	 * 
-	 * @param msg
-	 * @return
+	 * @param msg Nachricht
+	 * @return Empfaenger
+	 * 
+	 * @pre Uebergebene Nachricht darf nicht null sein und muss im System vorhanden sein
 	 */
 	public Account getEmpfaenger(Nachricht msg) {
+		assert msg != null: "Nachricht ist null";
+		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		
 		return Portal.Accountverwaltung().getAccountByName(msg.getEmpfaenger());
 	}
 
@@ -164,8 +204,13 @@ public class Nachrichtenverwaltung {
 	 * 
 	 * @param acc
 	 *            spezielles Accountobjekt
+	 *            
+	 * @pre Uebergebener Account darf nicht null sein und muss im System existieren
 	 */
 	public void delAllNachrichten(Account acc) {
+		assert acc != null: "Account ist null";
+		assert Portal.Accountverwaltung().getAccounts().contains(acc): "Der Account existiert nicht im System";
+		
 		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da
 		// Elemente nachrutschen
 		int n = alleNachrichten.size();
@@ -183,8 +228,13 @@ public class Nachrichtenverwaltung {
 	/**Ist die Nachricht gelesen
 	 * @param n Nachricht
 	 * @return Boolean
+	 * 
+	 * @pre Die Nachricht darf nicht null sein und muss im System existieren
 	 */
 	public boolean isGelesen(Nachricht n) {
+		assert n != null: "Die Nachricht ist null";
+		assert alleNachrichten.contains(n): "Die Nachricht exisitert nicht im System";
+		
 		return n.isGelesen();
 	}
 
@@ -213,8 +263,13 @@ public class Nachrichtenverwaltung {
 	 * Get Anzahl an Ungelesene Nachrichten
 	 * @param acc Account dessen ungelesene Nachrichten gezählt werden sollen. Bei null werden alle ungelesenen Nachrichten gezählt
 	 * @return Anzahl an ungelesenen Nachrichten
+	 * 
+	 * @pre Uebergebener Account darf nicht null sein und muss im System existieren
 	 */
 	public int getAnzahlUngelesenerNachrichten(Account acc) {
+		assert acc != null: "Account ist null";
+		assert Portal.Accountverwaltung().getAccounts().contains(acc): "Der Account existiert nicht im System";
+		
 		int result = 0;
 		for (Nachricht n : alleNachrichten) {
 			if (!n.isGelesen() && (acc==null || n.getEmpfaenger() .equals(acc.getName())))

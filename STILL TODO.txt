@@ -1,12 +1,11 @@
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	Bei Stornierungsanfrage -> Nachricht beim Anbieter benoetigt Button "Zur Buchung" oder direkt "accept" bzw. "decline"
 26. [gui]	Bei Buchungsanfrage -> "Zur Buchung" oder aehnliches...siehe 25...
+27. [gui]	Rudi, ueberarbeite den BuchDetailScreen...nicht vergessen :p
 				
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 57. [gui]	bewertung mit bildern darstellen
-53. [gui]	filechooser einrichten: 
-				- nur in bestimmten ordnern rumschnüffeln
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten

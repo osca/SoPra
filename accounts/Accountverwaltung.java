@@ -55,6 +55,17 @@ public class Accountverwaltung {
 		this.kunden = kunden;
 	}
 
+	/**
+	 * Erstellt den jeweiligen Account der als Accounttyp uebergeben wird
+	 * 
+	 * @param typFlag Flag des Accounttypen
+	 * @param email	E-Mail Adresse
+	 * @param name Username
+	 * @param password Passwort
+	 * @return erstellter Account
+	 * @throws AlreadyInUseException Username oder E-Mail Adresse wird schon benutzt
+	 * @throws IOException
+	 */
 	public Account createAccount(int typFlag, String email, String name,
 			String password) throws AlreadyInUseException, IOException {
 		switch (typFlag) {
@@ -172,8 +183,14 @@ public class Accountverwaltung {
 		return loggedIn;
 	}
 
+	/**
+	 * Ausloggen
+	 * 
+	 * @throws IOException
+	 * @pre Es ist ein Account eingeloggt
+	 */
 	public void logOut() throws IOException {
-		// TODO Exceptions oder Warnungen (Wahrscheinlich nicht, wenn die JayDialogs OnTop sind und hinterer Thread freezed
+		assert !loggedIn.equals(new Default()): "Es ist niemand eingeloggt";
 		Datenhaltung.saveAllData();
 		loggedIn = new Default();
 	}
@@ -186,10 +203,11 @@ public class Accountverwaltung {
 	 * @param enable
 	 *            Aktiv oder nicht
 	 * @throws Exception Wenn kein Betreiber eingeloggt ist
+	 * @pre Es muss ein Betreiber eingeloggt sein
 	 */
 	public void setAccountGesperrt(Account acc, Gesperrt pgesperrt) throws Exception {
-		if(!betreiber.contains(loggedIn))
-			throw new Exception("Sie sind nicht als Betreiber eingeloggt!");
+		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+
 		acc.setGesperrt(pgesperrt);
 		if(pgesperrt.equals(Gesperrt.NEIN)) {
 			if(getUnbearbeiteteAnbieter().size() == 0)
@@ -353,7 +371,7 @@ public class Accountverwaltung {
 	}
 
 	/**
-	 * Sucht einen Account über seinen Nick-/Unternehmensnamen - CaseInsensitive
+	 * Sucht einen Account ueber seinen Nick-/Unternehmensnamen - CaseInsensitive
 	 * 
 	 * @param name
 	 * @return passender Account oder null falls nicht gefunden
@@ -366,7 +384,7 @@ public class Accountverwaltung {
 	}
 
 	/**
-	 * Sucht einen Account über seine E-Mail-Adresse - CaseInsensitive
+	 * Sucht einen Account ueber seine E-Mail-Adresse - CaseInsensitive
 	 * 
 	 * @param email
 	 * @return passender Account oder null falls nicht gefunden
@@ -379,7 +397,7 @@ public class Accountverwaltung {
 	}
 
 	/**
-	 * Sucht einen Account über seine "Identifikation" (= Name oder email, siehe
+	 * Sucht einen Account ueber seine "Identifikation" (= Name oder email, siehe
 	 * Pflichtenheft)
 	 * 
 	 * @param ident
@@ -453,10 +471,15 @@ public class Accountverwaltung {
 	 * @param name Username des neuen Betreibers
 	 * @param password Password des neuen Betreibers
 	 * @throws Exception 
+	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public Betreiber addBetreiber(String email, String name, String password) throws Exception {
-		if(!betreiber.contains(loggedIn) && isFreeEmail(email) && isFreeName(name)) 
-			throw new Exception("Sie sind kein Betreiber");
+		assert betreiber.contains(loggedIn):"Es ist kein Betreiber eingeloggt";
+		
+		if(!isFreeEmail(name))
+			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
+		if(!isFreeName(email)) 
+			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		return createBetreiber(email,name,password);
 	}
 	
@@ -465,21 +488,20 @@ public class Accountverwaltung {
 	 * 
 	 * @return ArrayList an neuangemeldeten Anbieter
 	 * @throws Exception Sie sind kein Betreiber
+	 * 
+	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
-		if(betreiber.contains(loggedIn)) {
-			ArrayList<Anbieter> result = new ArrayList<Anbieter>();
-			
-			for(Anbieter a:anbieter) {
-				if(a.gesperrt == Gesperrt.UNBEARBEITET)
-					result.add(a);
-			}
-			
-			return result;
+		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		
+		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
+		
+		for(Anbieter a:anbieter) {
+			if(a.gesperrt == Gesperrt.UNBEARBEITET)
+				result.add(a);
 		}
-		else
-			throw new Exception("Sie sind kein Betreiber");
-			
+		
+		return result;
 	}
 	
 	/**
@@ -487,19 +509,19 @@ public class Accountverwaltung {
 	 * 
 	 * @return ArrayList an gesperrten Accounts
 	 * @throws Exception 
+	 * 
+	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public ArrayList<Account> getGesperrteAccounts() throws Exception {
-		if(betreiber.contains(loggedIn)) {
-			ArrayList<Account> result = new ArrayList<Account>();
-			
-			for(Account a:getAccounts()) {
-				if(a.gesperrt == Gesperrt.JA)
-					result.add(a);
-			}
-			
-			return result;
+		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		
+		ArrayList<Account> result = new ArrayList<Account>();
+		
+		for(Account a:getAccounts()) {
+			if(a.gesperrt == Gesperrt.JA)
+				result.add(a);
 		}
-		else
-			throw new Exception("Sie sind kein Betreiber");
+		
+		return result;
 	}
 }
