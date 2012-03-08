@@ -100,7 +100,7 @@ public class AccountScreen extends JPanel
 							status.setText("Entsperren");
 							labels[6].setText(account.getStatus());
 						}
-						status.repaint();
+						status.getParent().repaint();
 						referringButton.setText("Alle Accounts ("+Portal.Accountverwaltung().getUnbearbeiteteAnbieter().size()+")");
 					}
 				}
