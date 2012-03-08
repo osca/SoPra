@@ -1,14 +1,8 @@
-19. [exception]	Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
-	Buchungsanfrage..? [Fast Weg]
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
 53. [gui]	filechooser einrichten: 
 				- nur in bestimmten ordnern rumschnüffeln
 				
-57. [info]	Standardmäßig kein Land ausgewählt [wir finden das soll so sein oder nicht? besser als standard afghanistan]
-42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
-44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
-
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 57. [gui]	bewertung mit bildern darstellen
@@ -16,6 +10,8 @@ Zweitrangig:
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten
 56. [General]	Meldungen löschen, Nachricht an Anbieter s. UseCase 4.2.4
+19. [exception]	Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
+	Buchungsanfrage..? [Hat lange keiner mehr gehabt...wenn ja bitte melden]
 
 abgelehnt:
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
