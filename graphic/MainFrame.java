@@ -485,6 +485,8 @@ public class MainFrame extends JFrame
 						    	return "'.txt'"; 
 						    }  
 					});
+					fc.setAcceptAllFileFilterUsed(false);
+					fc.setMultiSelectionEnabled(false);
 					JButton[] button_array = new JButton[1];
 					button_array[0]=fcb;	
 					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
