@@ -6,10 +6,11 @@
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 57. [gui]	bewertung mit bildern darstellen
+58. [gui]	AGB-laden: FileChooser oeffnet hinter AGB-Dialog, bewegen bringt es ihn in den Vordergrund. --> Automatisch?
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten
-56. [General]	Meldungen löschen, Nachricht an Anbieter s. UseCase 4.2.4
+56. [General]	Meldungen lï¿½schen, Nachricht an Anbieter s. UseCase 4.2.4
 19. [exception]	Leere Message beim Anmelden mit Anbieter vielleicht in Zusammenhang mit der Buchung...Keine
 	Buchungsanfrage..? [Hat lange keiner mehr gehabt...wenn ja bitte melden]
 
