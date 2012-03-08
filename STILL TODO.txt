@@ -1,12 +1,7 @@
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	Bei Stornierungsanfrage -> Nachricht beim Anbieter benoetigt Button "Zur Buchung" oder direkt "accept" bzw. "decline"
 26. [gui]	Bei Buchungsanfrage -> "Zur Buchung" oder aehnliches...siehe 25...
-27. [gui]	Rudi, ueberarbeite den BuchDetailScreen...nicht vergessen :p
-59.	[exception]	Bei Versuch von login als Admin AssertionError:
-		Exception in thread "AWT-EventQueue-0" java.lang.AssertionError: Der Account existiert nicht im System
-			at accounts.Nachrichtenverwaltung.getAnzahlUngelesenerNachrichten(Nachrichtenverwaltung.java:271)
-	=> Alta wer hat da ne Assertion gebaut die getAllAccounts() benutzt... Der Betreiber selbst ist da nicht drin!
-				
+			
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 57. [gui]	bewertung mit bildern darstellen
