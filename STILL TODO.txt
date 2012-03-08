@@ -11,6 +11,7 @@
 
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
+57. [gui]	bewertung mit bildern darstellen
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten

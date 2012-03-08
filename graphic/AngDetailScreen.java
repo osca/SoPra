@@ -271,7 +271,7 @@ public class AngDetailScreen extends JPanel {
 								try {
 									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
 								} catch (Exception e) {
-									//e.printStackTrace();
+									JOptionPane.showMessageDialog(up.getParent(), e.getMessage());
 								}
 							}
 							
@@ -334,65 +334,49 @@ public class AngDetailScreen extends JPanel {
 			JLabel kundeLabel = new JLabel();
 			JLabel bewertungLabel = new JLabel("Bewertung:");
 
-			JButton okButton = new JButton("Abschicken");
-			JButton cancelButton = new JButton("Abbrechen");
-
 			DialogScreen dialog;
 			Kommentar kommi;
-
-			ActionListener okListener = new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					if (dialog.getContent().length() <= 0) {
-						JOptionPane.showMessageDialog(dialog, "Sie m�ssen einen Kommentar eingeben.");
-						return;
-					}
-					else if (gebucht && !kommentiert) {
-						if (bewertungCombo.getSelectedIndex() == 0) {
-							JOptionPane.showMessageDialog(dialog, "Sie m�ssen eine Bewertung auswaehlen.");
-							return;
-						}
-					}
-
-					bewertung = bewertungCombo.getSelectedIndex();
-					
-					// bewertung == 0 wird niemals auftreten, weil es oben abgefangen wird!!
-					if(bewertung == 0)
-						bewertung = Kommentar.KEINEWERTUNG;
-					
-					kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
-					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
-					
-					kl.init(angebot);
-					kl.validate();
-					kl.repaint();
-					validate();
-					repaint();
-					kommentieren.setEnabled(false);
-					
-					dialog.close();
-				}
-			};
-
-			ActionListener cancelListener = new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dialog.dispose();
-				}
-			};
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Kunde loggedin = (Kunde) Portal.Accountverwaltung().getLoggedIn();
 
-				okButton.addActionListener(okListener);
-				cancelButton.addActionListener(cancelListener);
 				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn().getName());
 
-				dialog = new DialogScreen(frame,"Kommentieren", new JButton[] {okButton, cancelButton });
+				dialog = new DialogScreen(frame,"Kommentieren", DialogScreen.OK_CANCEL_OPTION)
+				{
+					@Override
+					public void onOK()
+					{
+						if (dialog.getContent().length() <= 0) {
+							JOptionPane.showMessageDialog(dialog, "Sie muessen einen Kommentar eingeben.");
+							return;
+						}
+						else if (gebucht && !kommentiert) {
+							if (bewertungCombo.getSelectedIndex() == 0) {
+								JOptionPane.showMessageDialog(dialog, "Sie muessen eine Bewertung auswaehlen.");
+								return;
+							}
+						}
+
+						bewertung = bewertungCombo.getSelectedIndex();
+						
+						// bewertung == 0 wird niemals auftreten, weil es oben abgefangen wird!!
+						if(bewertung == 0)
+							bewertung = Kommentar.KEINEWERTUNG;
+						
+						kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
+						Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
+						
+						kl.init(angebot);
+						kl.validate();
+						kl.repaint();
+						kommentieren.setEnabled(false);
+					}
+				};
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
 
-				// die M�glichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
+				// die Moeglichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
 				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin);
 				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin); // kommentiert => bewertung bereits erfolgt
 				
@@ -416,8 +400,8 @@ public class AngDetailScreen extends JPanel {
 						if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
 							Portal.Nachrichtenverwaltung().sendeNachricht(
 									Portal.Accountverwaltung().getLoggedIn(),
-									anbieter, "Angebot wurde Gel�scht",
-									"Ihr Angebot wurde vom Betreiber gel�scht!",
+									anbieter, "Angebot wurde Geloescht",
+									"Ihr Angebot wurde vom Betreiber geloescht!",
 									angebot);
 						removeAll();
 						repaint();
