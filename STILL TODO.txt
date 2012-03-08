@@ -12,8 +12,6 @@
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
-54. [gui]	die nachrichtenliste sollte neugeladen werden wenn eine nachricht gelesen wurde (stichwort init() siehe kommentarliste)
-55. [gui/general] gelesen <--> ungelesen schaltet erst um, wenn wieder auf den Nachrichtenbutton geklickt wird
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten

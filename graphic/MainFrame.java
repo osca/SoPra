@@ -360,7 +360,9 @@ public class MainFrame extends JFrame
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
 				
+				this.validate();
 				this.repaint();
+				scroll.repaint();
 			}
 		}
 		catch(Exception e)
