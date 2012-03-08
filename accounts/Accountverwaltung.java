@@ -466,7 +466,7 @@ public class Accountverwaltung {
 	 * Liste neuangemeldeter Anbieter
 	 * 
 	 * @return ArrayList an neuangemeldeten Anbieter
-	 * @throws Exception 
+	 * @throws Exception Sie sind kein Betreiber
 	 */
 	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
 		if(betreiber.contains(loggedIn)) {
