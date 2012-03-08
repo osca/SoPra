@@ -311,7 +311,7 @@ public class MainFrame extends JFrame
 			else if(obj.getListableTyp() == Account.ACCOUNT)
 			{
 				screen.removeAll();
-				screen.add(new AccountScreen((Account)obj));
+				screen.add(new AccountScreen((Account)obj, eigeneButton));
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
@@ -591,7 +591,7 @@ public class MainFrame extends JFrame
 		}
 	}
 	
-	private void showNachrichten()
+	public void showNachrichten()
 	{
 		try
 		{
