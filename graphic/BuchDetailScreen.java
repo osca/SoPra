@@ -22,7 +22,6 @@ import javax.swing.border.Border;
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
-import accounts.Kunde;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
@@ -67,7 +66,6 @@ public class BuchDetailScreen extends JPanel
 		center.setBorder(border);
 		
 		Angebot angebot = Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
-		Kunde kunde = Portal.Buchungsverwaltung().getKunde(buchung);
 		Anbieter anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		DecimalFormat f = new DecimalFormat("#0.00"); 
@@ -92,8 +90,8 @@ public class BuchDetailScreen extends JPanel
 		sub_two_labels[0] = new JLabel(""+angebot.getAngebotsNummer());
 		sub_two_labels[1] = new JLabel(angebot.getName());
 		sub_two_labels[2] = new JLabel(""+f.format(angebot.getWertung()));
-		sub_two_labels[3] = new JLabel(angebot.getAnbieterName());
-		sub_two_labels[4] = new JLabel(anbieter.getName());
+		sub_two_labels[3] = new JLabel(anbieter.getName());
+		sub_two_labels[4] = new JLabel(""+f.format(anbieter.getWertung()));
 		sub_two_labels[5] = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
 		sub_two_labels[6] = new JLabel(formatter.format(buchung.getVon()));
 		sub_two_labels[7] = new JLabel(formatter.format(buchung.getBis()));

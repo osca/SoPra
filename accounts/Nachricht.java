@@ -14,12 +14,14 @@ import angebote.typen.Angebot;
  */
 public class Nachricht implements Listable {
 
+	public final static int KEINE_BUCHUNG = -1;
+	
 	private static int anzahl = 0;
 	private int id;
 	private Date zeitstempel;
 	private String text, betreff;
 	private String absenderName, empfaengerName;
-	private int angebot;
+	private int angebot,buchungsnummer;
 	private boolean gelesen;
 
 	/**
@@ -40,6 +42,7 @@ public class Nachricht implements Listable {
 		angebot = ang.getAngebotsNummer();
 		gelesen = false;
 		zeitstempel = new Date();
+		buchungsnummer = KEINE_BUCHUNG;
 	}
 	
 	/**
@@ -121,6 +124,24 @@ public class Nachricht implements Listable {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * Get Buchungsnummer
+	 * 
+	 * @return Buchungsnummer
+	 */
+	public int getBuchungsnummer() {
+		return buchungsnummer;
+	}
+	
+	/**
+	 * Set Buchungsnummer
+	 * 
+	 * @param bnummer Buchungsnummer
+	 */
+	public void setBuchungsnummer(int bnummer) {
+		buchungsnummer = bnummer;
 	}
 	
 	/**

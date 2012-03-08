@@ -278,5 +278,25 @@ public class Nachrichtenverwaltung {
 		}
 		return result;
 	}
+	
+	/**
+	 * Get Buchungsnummer einer Nachricht
+	 * 
+	 * @param msg Nachricht
+	 * @return Buchungsnummer
+	 */
+	public int getBuchungsnummer(Nachricht msg) {
+		return msg.getBuchungsnummer();
+	}
+	
+	/**
+	 * Get Buchungsnummer einer Nachricht
+	 * 
+	 * @param msg Nachricht
+	 * @return Buchungsnummer
+	 */
+	public void setBuchungsnummer(Nachricht msg, int buchungsnummer) {
+		msg.setBuchungsnummer(buchungsnummer);
+	}
 
 }
