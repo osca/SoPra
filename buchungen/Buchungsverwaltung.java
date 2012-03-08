@@ -41,16 +41,21 @@ public class Buchungsverwaltung {
 	 * @param von			Start (Datum).
 	 * @param bis			Ende (Datum).
 	 * @throws InvalidDateException 
+	 * 
+	 * @pre Der Kunde darf nicht null sein muss eingeloggt sein
+	 * @pre Das Angebot darf nicht null sein und muss existieren
+	 * @pre Enddatum darf nicht vor dem Startdatum sein
+	 * @pre Das Startdatum darf nicht nach dem heutigen sein
 	 */
 	public Buchung createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
+		assert kunde != null: "Der Kunde ist null";
+		assert Portal.Accountverwaltung().getLoggedIn().equals(kunde): "Der Kunde der bucht ist nicht eingeloggt";
+		assert angebot != null: "Das Angebot ist null";
+		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot existiert nicht im System";
+		assert !bis.before(von): "Das Enddatum liegt vor dem Startdatum";
+		assert !von.before(Methods.getHeuteNullUhr()): "Das Startdatum ist vor dem heutigen Datum";
+		
 		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
-		
-		Date heute = Methods.getHeuteNullUhr();
-		
-		if (bis.before(von)) 
-			throw new InvalidDateException("Das Enddatum ist vor dem Startdatum");
-		if (von.before(heute))
-			throw new InvalidDateException("Das Startdatum ist vor dem heutigen Datum");
 		
 		buchung.setBis(bis);
 		buchung.setVon(von);
@@ -68,8 +73,13 @@ public class Buchungsverwaltung {
 	/** Loescht Entfernt alle Verweise auf das uebergebene Buchungsobjekt.
 	 * 
 	 * @param b zu loeschende Buchung
+	 * 
+	 * @pre Die Buchung darf nicht null sein und muss im System sein
 	 */
 	public void delBuchung(Buchung b) throws LoeschenNichtMoeglichException {
+		assert b != null: "Die Buchung ist null";
+		assert buchungen.contains(b): "Die Buchung ist im System vorhanden";
+		
 		getKunde(b).delBuchung(b);
 		getReferringAngebot(b).delBuchung(b.getBuchungsnummer());
 		buchungen.remove(b);
@@ -80,8 +90,13 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param angebot Angebot
 	 * @return ArrayList an Buchungen zu dem Angebot
+	 * 
+	 * @pre Das Angebot ist nicht null und ist im System vorhanden
 	 */
-	public ArrayList<Buchung> getBuchungen(Angebot angebot){
+	public ArrayList<Buchung> getBuchungen(Angebot angebot) {
+		assert angebot != null: "Das Angebot ist null";
+		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot ist nicht im System vorhanden";
+		
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
 		for (Buchung b : buchungen)
@@ -97,8 +112,12 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param kunde			Kunde
 	 * @return				Liste seiner Buchungen
+	 * 
+	 * @pre Der Kunde ist nicht null und muss im System vorhanden sein
 	 */
 	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
+		assert kunde != null: "Der Kunde ist null";
+		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
 		for(Buchung b : buchungen)
@@ -114,8 +133,13 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param anbieter Anbieter
 	 * @return ArrayList seiner Buchungen
+	 * 
+	 * @pre Der Anbieter darf nicht null sein und muss im System gelistet sein
 	 */
 	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
+		assert anbieter != null: "Der Anbieter ist null";
+		assert Portal.Accountverwaltung().getAnbieter().contains(anbieter): "Der Anbieter ist nicht im System";
+		
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
 		Date heute = Methods.getHeuteNullUhr();
@@ -133,8 +157,13 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param anbieter Anbieter
 	 * @return Anzahl unbearbeiteter Buchungen
+	 * 
+	 * @pre Der Anbieter darf nicht null sein und muss im System gelistet sein
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter) {
+		assert anbieter != null: "Der Anbieter ist null";
+		assert Portal.Accountverwaltung().getAnbieter().contains(anbieter): "Der Anbieter ist nicht im System";
+		
 		int r = 0;
 		
 		for(Buchung b : getBuchungen(anbieter))
@@ -149,8 +178,13 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param kunde Kunde
 	 * @return Anzahl unbearbeiteter Buchungen
+	 * 
+	 * @pre Der Kunde ist nicht null und muss im System vorhanden sein
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Kunde kunde){
+		assert kunde != null: "Der Kunde ist null";
+		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
+		
 		int r = 0;
 		
 		for(Buchung b : getBuchungen(kunde))
@@ -166,7 +200,7 @@ public class Buchungsverwaltung {
 	 * @param id Buchungsnummer
 	 * @return Buchung mit der gegebenen Buchungsnummer
 	 */
-	public Buchung getBuchungByBuchungsnummer(int id){
+	public Buchung getBuchungByBuchungsnummer(int id) {
 		for(Buchung b : getAllBuchungen())
 			if(b.getBuchungsnummer() == id)
 				return b;
@@ -220,8 +254,13 @@ public class Buchungsverwaltung {
 	 * 
 	 * @param buchung		zu bestaetigenede Buchung.
 	 * @param bestaetigt	Art der Bestaetigung.
+	 * 
+	 * @pre Die Buchung darf nicht null sein und muss im System sein
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
+		assert buchung != null: "Die Buchung ist null";
+		assert buchungen.contains(buchung): "Die Buchung ist im System vorhanden";
+		
 		buchung.setBestaetigt(bestaetigt);
 	}
 	
@@ -231,8 +270,16 @@ public class Buchungsverwaltung {
 	 * @param angebot Angebot
 	 * @param kunde Kunde
 	 * @return Ja oder nein
+	 * 
+	 * @pre Das Angebot darf nicht null sein und muss existieren
+	 * @pre Der Kunde ist nicht null und muss im System vorhanden sein
 	 */
 	public boolean isBookedByKunde(Angebot angebot, Kunde kunde) {
+		assert angebot != null: "Das Angebot ist null";
+		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot existiert nicht im System";
+		assert kunde != null: "Der Kunde ist null";
+		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
+		
 		for(Buchung b:getBuchungen(angebot)) {
 			if(b.getKundenName().equals(kunde.getName()) && b.getBestaetigt().equals(Bestaetigung.JA))
 				return true;
