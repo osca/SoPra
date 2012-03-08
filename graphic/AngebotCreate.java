@@ -36,9 +36,7 @@ import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
 
 @SuppressWarnings("serial")
-public class AngebotCreate<FormattedTextField> extends JPanel implements
-		ActionListener {
-
+public class AngebotCreate<FormattedTextField> extends JPanel implements ActionListener {
 	private JPanel up;
 	private JPanel sub_a;
 	private JPanel sub_b;
@@ -196,10 +194,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == bestaetigen) {
-			String[] k = Angebotsverwaltung.angebotNameToErlaubteKriterien(typ
-					.getSelectedItem().toString());
+	public void actionPerformed(ActionEvent e) {		
+		if (e.getSource() == bestaetigen) {			
+			String[] k = Angebotsverwaltung.angebotNameToErlaubteKriterien(typ.getSelectedItem().toString());
 
 			for (int i = 0; i < sub_two.getComponentCount(); i++) {
 				Component c = sub_two.getComponent(i);
@@ -215,29 +212,44 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 			
 			Date heute = Methods.getHeuteNullUhr();
 			
-			double result = 0;
+			double result = 0.0;
 			if (name.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie einen gueltigen Namen ein",
-						"Angebot Erstellung", JOptionPane.OK_OPTION);
+						"Angebot erstellen", JOptionPane.OK_OPTION);
 
 			} else if (typ.getSelectedIndex() == 0) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte waehlen Sie einen Typ aus ",
-						"Angebot Erstellung", JOptionPane.OK_OPTION);
+						"Angebot erstellen", JOptionPane.OK_OPTION);
 
 			} else if (preis.getValue() == null || preis.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie eine gueltigen Preis ein",
-						"Angebot Erstellung", JOptionPane.OK_OPTION);
+						"Angebot erstellen", JOptionPane.OK_OPTION);
 			} else if (kap.getText() == null
 					|| kap.getText().isEmpty() || Integer.parseInt(kap.getText()) <= 0) {
 				JOptionPane.showMessageDialog(this,
 						"Bitte geben Sie eine gueltige Kapazitaet ein",
-						"Angebot Erstellung", JOptionPane.OK_OPTION);
+						"Angebot erstellen", JOptionPane.OK_OPTION);
 			} else if (preis.getText() != null || !preis.getText().isEmpty()) {
 				result = Double.parseDouble(preis.getText().replace(",", "."));
+			}  
+			if (land.getSelectedItem().equals("")) {
+				JOptionPane.showMessageDialog(this, 
+						"Sie müssen ein Land auswaehlen", 
+						"Angebot erstellen", JOptionPane.OK_OPTION);
+				return;
+			} 
+			if (typ.getSelectedItem().toString() == typ_list.elementAt(4)) {
+				if (landz.getSelectedItem().equals("")) {
+					JOptionPane.showMessageDialog(this, 
+							"Sie müssen ein Land als Ziel auswaehlen",
+							"Angebot erstellen", JOptionPane.OK_OPTION);
+					return;
+				}
 			}
+			
 			if (result != 0) {
 				try {
 					q = Methods.stringToDate(von.getText());
@@ -426,7 +438,12 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 			JLabel z_ort_label = new JLabel("Zielort:");
 			sub_one.add(z_land_label);
 			sub_one.add(z_ort_label);
-			landz = new JComboBox(Land.wertebereich);
+			//landz = new JComboBox(Land.wertebereich);
+			landz = new JComboBox();
+			landz.addItem("");
+			for(String s: Land.wertebereich)
+				landz.addItem(s);
+			
 			landz.addActionListener(new ActionListener() {
 
 				@Override
@@ -437,17 +454,26 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 						if (comps[i].equals(ortz))
 							pos = i;
 					}
+					
+					if (!landz.getSelectedItem().equals("")) {
+						sub_two.remove(ortz);
+						ortz = new JComboBox(((Land.getOrte((String) landz.getSelectedItem()))));
+						sub_two.add(ortz, null, pos);
 
-					sub_two.remove(ortz);
-					ortz = new JComboBox(((Land.getOrte((String) landz.getSelectedItem()))));
-					sub_two.add(ortz, null, pos);
-
-					sub_two.revalidate();
-					sub_two.repaint();
+						sub_two.revalidate();
+						sub_two.repaint();
+					}
+					else {
+						ortz.removeAll();
+						ortz.addItem("");
+					}
+					
 				}
 
 			});
-			ortz = new JComboBox(((Land.getOrte((String) landz.getSelectedItem()))));
+			//ortz = new JComboBox(((Land.getOrte((String) landz.getSelectedItem()))));
+			ortz = new JComboBox();
+			ortz.addItem("");
 			sub_two.add(landz);
 			sub_two.add(ortz);
 
@@ -483,12 +509,19 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 				pos = i;
 		}
 
-		sub_two.remove(ort);
-		ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
-		sub_two.add(ort, null, pos);
-
-		sub_two.revalidate();
-		sub_two.repaint();
+		if (!land.getSelectedItem().equals("")) {
+			sub_two.remove(ort);
+			ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
+			sub_two.add(ort, null, pos);
+	
+			sub_two.revalidate();
+			sub_two.repaint();
+		}
+		else {
+			ort.removeAllItems();
+			ort.addItem("");
+			ort.repaint();
+		}
 	}
 
 }
