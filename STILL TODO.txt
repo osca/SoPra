@@ -5,6 +5,7 @@
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
 53. [gui]	filechooser einrichten: 
 				- nur in bestimmten ordnern rumschnüffeln
+57. 		Standardmäßig kein Land ausgewählt
 
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
@@ -14,9 +15,11 @@ Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
 54. [gui]	die nachrichtenliste sollte neugeladen werden wenn eine nachricht gelesen wurde (stichwort init() siehe kommentarliste)
+55. [gui/general] gelesen <--> ungelesen schaltet erst um, wenn wieder auf den Nachrichtenbutton geklickt wird
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten
+56. [General]	Meldungen löschen, Nachricht an Anbieter s. UseCase 4.2.4
 
 abgelehnt:
 39. [gui]	Bei Buchungsnachricht Buchungsbestätigungsbutton???
