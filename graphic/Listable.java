@@ -1,8 +1,5 @@
 package graphic;
 
-import buchungen.Bestaetigung;
-
-
 public interface  Listable {
 	
 	public static final int ANGEBOT = 50,

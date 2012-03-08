@@ -4,7 +4,6 @@
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld
 57. [gui]	bewertung mit bildern darstellen
-58. [gui]	AGB-laden: FileChooser oeffnet hinter AGB-Dialog, bewegen bringt es ihn in den Vordergrund. --> Automatisch?
 
 Drittranging:
 52. [gui]	filechooser und bilder bei angeboten

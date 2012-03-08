@@ -2,9 +2,7 @@ package graphic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,15 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import buchungen.Bestaetigung;
-
 import main.Portal;
-
 import accounts.Account;
 import accounts.Anbieter;
 import accounts.Gesperrt;
 import accounts.Kunde;
 
+@SuppressWarnings("serial")
 public class AccountScreen extends JPanel
 {
 	private JLabel[] labels;
