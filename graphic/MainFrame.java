@@ -385,9 +385,19 @@ public class MainFrame extends JFrame
 					loeschenButton.setEnabled(true);
 					
 					if(account.getTyp() == Account.KUNDE)
-						eigeneButton.setText("Eigene Buchungen");
-					else if(account.getTyp() == Account.ANBIETER)
 					{
+						if(((Kunde)account).getFirstLogin()){
+							JOptionPane.showMessageDialog(this, "Willkommen");
+							((Kunde)account).setFirstLogin();
+						}
+						eigeneButton.setText("Eigene Buchungen");
+					}
+					else if(account.getTyp() == Account.ANBIETER)
+					{	
+						if(((Anbieter)account).getFirstLogin()){
+							JOptionPane.showMessageDialog(this, "Willkommen");
+							((Anbieter)account).setFirstLogin();
+						}
 						eigeneButton.setText("Eigene Angebote");
 						erstelleButton.setEnabled(true);
 						offeneButton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)account)+")");
@@ -395,6 +405,9 @@ public class MainFrame extends JFrame
 					}
 					else if(account.getTyp() == Account.BETREIBER)
 					{
+						if(Betreiber.getAnbieterReg()){
+							JOptionPane.showMessageDialog(this, "Bitte schalten Sie die neuen Anbieter frei");
+						}
 						eigeneButton.setText("Alle Accounts");
 						offeneButton.setVisible(true);
 						offeneButton.setText("Alle Buchungen");
@@ -457,7 +470,7 @@ public class MainFrame extends JFrame
 							    public boolean accept(File f) 
 							    {
 							    	if (f.isDirectory()) 
-							    		return true;
+							    		return true;	
 							    	else
 							    		return f.getName().toLowerCase().endsWith(".txt");
 							    }
