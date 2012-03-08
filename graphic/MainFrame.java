@@ -334,16 +334,8 @@ public class MainFrame extends JFrame
 				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
 
 				JButton del = new JButton("Nachricht loeschen");
-				del.addActionListener(new ActionListener()
-				{
-
-					@Override
-					public void actionPerformed(ActionEvent arg0)
-					{
-						Portal.Nachrichtenverwaltung().delNachricht(nachricht);
-					}
-				});
-				DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(), new JButton[]{del},DialogScreen.OK_OFFER_ANSWER_OPTION)
+				
+				final DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(), new JButton[]{del},DialogScreen.OK_OFFER_ANSWER_OPTION)
 				{
 					@Override
 					public void onAnswer()
@@ -364,6 +356,20 @@ public class MainFrame extends JFrame
 						showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 					}
 				};
+				del.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						if(JOptionPane.showConfirmDialog(dialog, "Wollen Sie diese Nachricht wirklich Loeschen?", "Nachricht loeschen", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+						{
+							Portal.Nachrichtenverwaltung().delNachricht(nachricht);
+							JOptionPane.showMessageDialog(dialog, "Ihre Nachricht wurde geloescht");
+							showNachrichten();
+							dialog.close();
+						}
+					}
+				});
 				dialog.setEditable(false);
 				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
