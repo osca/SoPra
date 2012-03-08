@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Stack;
 
 import main.Portal;
 import accounts.Anbieter;
@@ -275,7 +276,47 @@ public class Angebotsverwaltung {
 	public ArrayList<Angebot> getAllAngebote() {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		result.addAll(angebote);
-		Collections.reverse(result);
+		
+		int left = 0;
+		int right = result.size()-1;
+		
+		Stack<Integer> stack = new Stack<Integer>();
+		while (true) {
+			if (left < right) {
+				int pivot = result.get(left).getAngebotsNummer();
+				int i = left - 1;
+				int j = right + 1;
+
+				while (true) {
+					do {
+						i = i + 1;
+					} while (result.get(i).getAngebotsNummer() < pivot);
+
+					do {
+						j = j - 1;
+					} while (result.get(j).getAngebotsNummer() > pivot);
+
+					if (i >= j) {
+						break;
+					}
+					
+					Angebot temp = result.get(i);
+					result.set(i, result.get(j));
+					result.set(j, temp);
+				}
+				stack.push(right);
+				right = left > (i - 1) ? left : (i - 1);
+			} 
+			else {
+				if (stack.size() == 0) {
+					break;
+		    }
+		    
+			left = right + 1;
+		    right = stack.pop();
+			}
+		}
+		
 		return result;
 	}
 	
