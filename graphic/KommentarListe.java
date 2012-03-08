@@ -28,10 +28,9 @@ public class KommentarListe	extends JPanel {
 		JPanel elementPanel = new JPanel();
 		elementPanel.setLayout(new BoxLayout(elementPanel, BoxLayout.Y_AXIS));
 		
-		ArrayList<Kommentar> kliste= a.getKommentare();
+		ArrayList<Kommentar> kliste = a.getKommentare();
 		
-		for (int i=kliste.size()-1;i>=0;i--){
-		
+		for (int i = kliste.size() - 1; i >= 0; i--){
 			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			JPanel eventPanel = new JPanel(new GridLayout(2,1));
 			JPanel komPanel = new JPanel(new GridLayout(1,2));
@@ -39,7 +38,7 @@ public class KommentarListe	extends JPanel {
 			JLabel name = new JLabel(kliste.get(i).getAbsender());
 			komPanel.add(name);
 			
-			if(kliste.get(i).getBewertung()!=Kommentar.KEINEWERTUNG) {
+			if(kliste.get(i).getBewertung() != Kommentar.KEINEWERTUNG) {
 				JLabel info = new JLabel(df.format(kliste.get(i).getZeitstempel())+" , Wertung: "+kliste.get(i).getBewertung());
 				komPanel.add(info);
 			}
@@ -56,10 +55,9 @@ public class KommentarListe	extends JPanel {
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			elementPanel.add(eventPanel, BorderLayout.NORTH);
 			
-			this.add(BorderLayout.NORTH,elementPanel);
-			this.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.LIGHT_GRAY));
-			this.setBackground(Color.BLACK);
+			add(BorderLayout.NORTH,elementPanel);
+			setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.LIGHT_GRAY));
+			setBackground(Color.BLACK);
 		}
 	}
-	
 }

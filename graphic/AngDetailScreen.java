@@ -152,16 +152,6 @@ public class AngDetailScreen extends JPanel {
 
 		mid.add(fullinfo);
 
-		/*
-		 * for(Kommentar k : angebot.getKommentare()) { mid.add(new
-		 * KommentarScreen(k)); }
-		 */
-
-		// ArrayList<Kommentar> kommentare = angebot.getKommentare();
-		//
-		// for(int i = 0; i < kommentare.size(); i++) {
-		// mid.add(new KommentarScreen(kommentare.get(i)));
-		// }
 		JPanel button_panel = new JPanel(new FlowLayout());
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()) {
 		case Account.NONE:
@@ -329,12 +319,12 @@ public class AngDetailScreen extends JPanel {
 				}
 			}
 		});
+		
 		kommentieren.addActionListener(new ActionListener() {
 			int bewertung = Kommentar.KEINEWERTUNG;
 			boolean gebucht = false; // dirty, aber so geht es
 			boolean kommentiert = false; // dirty, aber so geht es
-			JComboBox bewertungCombo = new JComboBox(new String[] { "Auswahl",
-					"1", "2", "3", "4", "5" });
+			JComboBox bewertungCombo = new JComboBox(new String[] {"Auswahl", "1", "2", "3", "4", "5" });
 
 			JLabel kundeLabel = new JLabel();
 			JLabel bewertungLabel = new JLabel("Bewertung:");
@@ -348,37 +338,34 @@ public class AngDetailScreen extends JPanel {
 			ActionListener okListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// Man kann immer kommentieren, also kann der text auch
-					// immer leer sein
 					if (dialog.getContent().length() <= 0) {
-						JOptionPane.showMessageDialog(dialog,
-								"Sie müssen einen Kommentar eingeben.");
+						JOptionPane.showMessageDialog(dialog, "Sie müssen einen Kommentar eingeben.");
 						return;
 					}
-					// nur die Combo checken, wenn auch bewerten erlaubt ist =
-					// gebucht ^ !kommentiert
 					else if (gebucht && !kommentiert) {
 						if (bewertungCombo.getSelectedIndex() == 0) {
-							JOptionPane.showMessageDialog(dialog,
-									"Sie müssen eine Bewertung auswaehlen.");
+							JOptionPane.showMessageDialog(dialog, "Sie müssen eine Bewertung auswaehlen.");
 							return;
 						}
 					}
 
 					bewertung = bewertungCombo.getSelectedIndex();
+					
+					// bewertung == 0 wird niemals auftreten, weil es oben abgefangen wird!!
 					if(bewertung == 0)
 						bewertung = Kommentar.KEINEWERTUNG;
-					kommi = new Kommentar(Portal.Accountverwaltung()
-							.getLoggedIn().getName(), dialog.getContent(),
-							bewertung);
+					
+					kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
 					Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
-					dialog.dispose();
+					
 					kl.init(angebot);
 					kl.validate();
 					kl.repaint();
 					validate();
 					repaint();
 					kommentieren.setEnabled(false);
+					
+					dialog.close();
 				}
 			};
 
@@ -391,26 +378,19 @@ public class AngDetailScreen extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Kunde loggedin = (Kunde) Portal.Accountverwaltung()
-						.getLoggedIn();
+				Kunde loggedin = (Kunde) Portal.Accountverwaltung().getLoggedIn();
 
 				okButton.addActionListener(okListener);
 				cancelButton.addActionListener(cancelListener);
-				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn()
-						.getName());
+				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn().getName());
 
-				dialog = new DialogScreen(frame,"Kommentieren", new JButton[] {
-						okButton, cancelButton });
-
+				dialog = new DialogScreen(frame,"Kommentieren", new JButton[] {okButton, cancelButton });
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
 
-				// ein Kunde darf nur bewerten, wenn er die Reise gebucht hat
-				// und noch keine bewertung abgegeben hat.
-				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot,
-						loggedin);
-				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(
-						angebot, loggedin); // kommentiert => bewertung bereits
-											// erfolgt
+				// die Möglichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
+				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin);
+				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin); // kommentiert => bewertung bereits erfolgt
+				
 				if (gebucht && !kommentiert) {
 					bewertungCombo.setToolTipText("Je hoeher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
