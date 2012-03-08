@@ -59,22 +59,17 @@ public class AngebotTest {
 	Date heute;
 	
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws IOException, AlreadyInUseException, InvalidDateException {
 		heute = Methods.getHeuteNullUhr();
 		
 		//Accounts erstellen
-		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
-		} catch(AlreadyInUseException aiu){}		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
-		catch (IOException e) {	e.printStackTrace();}
-		try{		accv.createAnbieter("Edgar@Walla.ce", "LTUR", "hallo123");
-		} catch(AlreadyInUseException aiu){}
-		catch (IOException e) {	e.printStackTrace();}
-		try{		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
-		} catch(AlreadyInUseException aiu){}
-		catch (IOException e) {	e.printStackTrace();}
-		try{		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
-		} catch(AlreadyInUseException aiu){}
-		catch (IOException e) {	e.printStackTrace();}
+		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
+		//Falls Datenhaltung daten bereits geladen hat, ist nichts zu tun
+		accv.createAnbieter("Edgar@Walla.ce", "LTUR", "hallo123");
+
+		accv.createKunde("E@Mail.de", "HansWurst", "xyzabc");
+		
+		accv.createKunde("mail@gmail.com", "Dieter", "abcdef");
 		
 		//Acounts aufnehmen
 		anbieter1 = accv.getAnbieter().get(0);
@@ -83,27 +78,11 @@ public class AngebotTest {
 		kunde2 = accv.getKunden().get(1);
 
 		//Angebote erstellen
-		try {
-			ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, heute, heute, "Germany", "Muenster");
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, heute, heute, "Germany", "Muenster", "Guenstig");
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, heute, heute, "Germany", "Muenster", "Guenstig");
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, heute, heute, "Germany", "Munster", "Guenstig");
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		
+		ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, heute, heute, "Germany", "Muenster");
+		ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, heute, heute, "Germany", "Muenster", "Guenstig");
+		ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, heute, heute, "Germany", "Muenster", "Guenstig");
+		ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, heute, heute, "Germany", "Munster", "Guenstig");
+
 		//Kommentare zu Angeboten erstellen
 		av.addKommentar(ang1, new Kommentar(kunde1.getName(), "Super Duper Urlaub", 5));
 		av.addKommentar(ang1, new Kommentar(kunde2.getName(), "Guter Urlaub", 4));
@@ -114,31 +93,11 @@ public class AngebotTest {
 		av.addKommentar(ang3, new Kommentar(kunde2.getName(), "Ganz doll dreckig!", 1));
 	
 		//Buchungen von Kunden zu Angeboten erstellen
-		try {
-			bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			bv.createBuchung(kunde2, ang1, new Date(1430609911421L), new Date(1430610011421L));
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
-		try {
-			bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
-		} catch (InvalidDateException e) {
-			e.printStackTrace();
-		}
+		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
+		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
+		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
+		bv.createBuchung(kunde2, ang1, new Date(1430609911421L), new Date(1430610011421L));
+		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
 	}
 
 	@Test

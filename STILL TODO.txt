@@ -10,7 +10,6 @@
 
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
-58.		Testcases try/catch-blöcke raus
 
 Zweitrangig:
 20. [gui]	Willkommensnachricht beim ersten registrieren
