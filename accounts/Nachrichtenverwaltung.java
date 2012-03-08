@@ -268,11 +268,12 @@ public class Nachrichtenverwaltung {
 	 */
 	public int getAnzahlUngelesenerNachrichten(Account acc) {
 		assert acc != null: "Account ist null";
-		assert Portal.Accountverwaltung().getAccounts().contains(acc): "Der Account existiert nicht im System";
+		assert (acc.getTyp()==Account.BETREIBER || Portal.Accountverwaltung().getAccounts().contains(acc))
+				: "Der Account existiert nicht im System";
 		
 		int result = 0;
 		for (Nachricht n : alleNachrichten) {
-			if (!n.isGelesen() && (acc==null || n.getEmpfaenger() .equals(acc.getName())))
+			if (!n.isGelesen() && n.getEmpfaenger() .equals(acc.getName()))
 				result++;
 		}
 		return result;
