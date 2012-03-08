@@ -5,6 +5,7 @@
 50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
 53. [gui]	filechooser einrichten: 
 				- nur in bestimmten ordnern rumschnüffeln
+57. 		Standardmäßig kein Land ausgewählt
 
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
