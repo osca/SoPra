@@ -2,17 +2,14 @@
 	Buchungsanfrage..? [Fast Weg]
 24. [general]	Design by Contract??? --> noch viel zu tun !!!
 25. [gui]	der anbieter muss die storrnierungsanfrage bearbeiten
-50. [gui]	betreiber sollte eine nachricht bekommen wenn ein neuer anbieter registriert wurde
 53. [gui]	filechooser einrichten: 
 				- nur in bestimmten ordnern rumschnüffeln
-57. 		Standardmäßig kein Land ausgewählt 
-			[wir finden das soll so sein oder nicht? besser als standard afghanistan]
-
+				
+57. [info]	Standardmäßig kein Land ausgewählt [wir finden das soll so sein oder nicht? besser als standard afghanistan]
 42. [info]	GetAktuelleBuchungen? (du bekommst bei getbuchung für einen anbieter nur die buchungen die akuell sind, falls das die frage ist)
 44. [info]	habe die "stringfomfile"-methode aus der datenhaltung umgeschrieben (auskommentiert). agb einlesen funktioniert jetzt
 
 Zweitrangig:
-20. [gui]	Willkommensnachricht beim ersten registrieren
 21. [gui]	Fokus auf erstes Textfeld
 23. [gui]	Bei falsches Passwort wird immer noch gesperrt Account
 54. [gui]	die nachrichtenliste sollte neugeladen werden wenn eine nachricht gelesen wurde (stichwort init() siehe kommentarliste)
