@@ -117,7 +117,6 @@ public class MainFrame extends JFrame
 		Border border = BorderFactory.createMatteBorder(0, 2, 0, 2, Color.LIGHT_GRAY);
 		
 		///////////
-		setName("blaFrame");//TODO
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBorder(border);
 		this.add(headerPanel, BorderLayout.NORTH);
@@ -354,8 +353,8 @@ public class MainFrame extends JFrame
 					@Override
 					public void onOffer()
 					{
-//						if(account.getTyp() == Account.ANBIETER)
-//							showDetail(Portal.Buchungsverwaltung().getBuchungen(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer())));
+//						if(account.getTyp() == Account.ANBIETER)//TODO
+//							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()).getb);
 //						else
 							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 					}
@@ -776,8 +775,9 @@ public class MainFrame extends JFrame
 			final JPasswordField passwordField = new JPasswordField();
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufuegen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-			{
-				Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+			{//TODO
+				Portal.Accountverwaltung().addBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
+				//Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 			}
 		}
 		catch(Exception e)
