@@ -351,9 +351,13 @@ public class MainFrame extends JFrame
 						dialog.addOnPanel(new JLabel(account.getName()), DialogScreen.LABEL_LEFT);
 					}
 					
+					@Override
 					public void onOffer()
 					{
-						showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+//						if(account.getTyp() == Account.ANBIETER)
+//							showDetail(Portal.Buchungsverwaltung().getBuchungen(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer())));
+//						else
+							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 					}
 				};
 				del.addActionListener(new ActionListener()
