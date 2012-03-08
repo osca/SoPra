@@ -16,9 +16,12 @@ import javax.swing.JScrollPane;
 
 
 public class ListeScreen <T extends Listable> extends JPanel {
+	
+	private static final long serialVersionUID = 1813896135878948672L;
 	static JScrollPane lscroll;
 	static JPanel sPanel;
 	
+	@SuppressWarnings("unchecked")
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
 		this.setBackground(Color.LIGHT_GRAY);
@@ -26,7 +29,10 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
 		JPanel elementPanel = new JPanel(new GridLayout(0,1));
-		final Class<T> cls = (Class<T>) list.get(0).getClass();
+		final Class<T> cls;
+		if(list.size()>0)
+			cls = (Class<T>) list.get(0).getClass();
+		else cls = (Class<T>) list.getClass();
 		
 		for (int i=0;i<list.size();i++){
 			final int j = i;
