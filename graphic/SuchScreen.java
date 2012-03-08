@@ -9,9 +9,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -212,13 +210,7 @@ public class SuchScreen extends JPanel
 			
 			else {
 				//Heutigen Tag initialisieren
-				Date heute = new Date();
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(heute);
-				cal.set(Calendar.HOUR_OF_DAY, 0);
-				cal.set(Calendar.MINUTE, 0);
-				cal.set(Calendar.SECOND, 0);
-				cal.set(Calendar.MILLISECOND, 0);
+				Date heute = Methods.getHeuteNullUhr();
 				
 				int typ = Angebot.convertNameToTyp(types.getSelectedItem().toString());
 				String[] kriterien = new String[fieldList.size()+boxList.size()];
@@ -256,8 +248,8 @@ public class SuchScreen extends JPanel
 					else
 						datumfail = true;
 				
-				if(von.before(cal.getTime()))
-					von = cal.getTime();
+				if(von.before(heute))
+					von = heute;
 				
 				if(!von.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && !bis.equals(Portal.Angebotsverarbeitung().KEINEDATEN) && bis.before(von))
 					JOptionPane.showMessageDialog(this, "Startdatum liegt nach dem Enddatum!");

@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -216,13 +214,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements
 			Date w = null;
 			
 			//Heutigen Tag initialisieren
-			Date heute = new Date();
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(heute);
-			cal.set(Calendar.HOUR_OF_DAY, 0);
-			cal.set(Calendar.MINUTE, 0);
-			cal.set(Calendar.SECOND, 0);
-			cal.set(Calendar.MILLISECOND, 0);
+			Date heute = Methods.getHeuteNullUhr();
 			
 			double result = 0;
 			if (name.getText().isEmpty()) {

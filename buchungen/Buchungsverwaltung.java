@@ -45,11 +45,11 @@ public class Buchungsverwaltung {
 	public Buchung createBuchung(Kunde kunde, Angebot angebot, Date von, Date bis) throws InvalidDateException {
 		Buchung buchung = new Buchung(angebot.getAngebotsNummer(), kunde.getName(), von, bis);
 		
-		Date now = Methods.getHeuteNullUhr();
+		Date heute = Methods.getHeuteNullUhr();
 		
 		if (bis.before(von)) 
 			throw new InvalidDateException("Das Enddatum ist vor dem Startdatum");
-		if (von.before(now))
+		if (von.before(heute))
 			throw new InvalidDateException("Das Startdatum ist vor dem heutigen Datum");
 		
 		buchung.setBis(bis);
@@ -118,10 +118,10 @@ public class Buchungsverwaltung {
 	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
-		Date now = Methods.getHeuteNullUhr();
+		Date heute = Methods.getHeuteNullUhr();
 		
 		for(Buchung b : buchungen)
-			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getVon().before(now))
+			if(anbieter.getAngebotsNummern().contains(b.getAngebotsNummer()) && !b.getVon().before(heute))
 				reslist.add(b);
 		
 		Collections.reverse(reslist);

@@ -1,11 +1,11 @@
 package testcases;
 
+import graphic.Methods;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
 import main.Portal;
@@ -56,18 +56,11 @@ public class AngebotTest {
 	
 	Buchung b1,b2,b3,b4,b5;
 	
-	Date now;
+	Date heute;
 	
 	@Before
 	public void setUp() throws IOException {
-		now = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(now);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		now = cal.getTime();
+		heute = Methods.getHeuteNullUhr();
 		
 		//Accounts erstellen
 		try{		accv.createAnbieter("X@Y.Z", "TUI", "abcxyz");
@@ -91,22 +84,22 @@ public class AngebotTest {
 
 		//Angebote erstellen
 		try {
-			ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, now, now, "Germany", "Muenster");
+			ang1 = av.createAutovermietung(anbieter1, "Auto Auto", "Hier gibts Autos", 2, 10.00, heute, heute, "Germany", "Muenster");
 		} catch (InvalidDateException e) {
 			e.printStackTrace();
 		}
 		try {
-			ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, now, now, "Germany", "Muenster", "Guenstig");
+			ang2 = av.createAusflug(anbieter1, "Bierausflug", "Hier gibts BIER!!", 10, 5.00, heute, heute, "Germany", "Muenster", "Guenstig");
 		} catch (InvalidDateException e) {
 			e.printStackTrace();
 		}
 		try {
-			ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, now, now, "Germany", "Muenster", "Guenstig");
+			ang3 = av.createAusflug(anbieter1, "Kirchensaufen", "Kirchensaufen yeah!", 30, 3.00, heute, heute, "Germany", "Muenster", "Guenstig");
 		} catch (InvalidDateException e) {
 			e.printStackTrace();
 		}
 		try {
-			ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, now, now, "Germany", "Munster", "Guenstig");
+			ang4 = av.createAusflug(anbieter2, "Klettern", "Klettern mit Bier!", 20, 3.00, heute, heute, "Germany", "Munster", "Guenstig");
 		} catch (InvalidDateException e) {
 			e.printStackTrace();
 		}
@@ -185,7 +178,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, now, now, new String[]{"Germany","Munster","Guenstig"});
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, heute, heute, new String[]{"Germany","Munster","Guenstig"});
 		Assert.assertEquals(ang4, suche.get(0));
 		
 		//Typconverter

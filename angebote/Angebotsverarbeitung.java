@@ -118,18 +118,11 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
 		//Heutigen Tag initialisieren
-				Date now = new Date();
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(now);
-				cal.set(Calendar.HOUR_OF_DAY, 0);
-				cal.set(Calendar.MINUTE, 0);
-				cal.set(Calendar.SECOND, 0);
-				cal.set(Calendar.MILLISECOND, 0);
-				now = cal.getTime();
+		Date heute = Methods.getHeuteNullUhr();
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(ang.getEnddatum().before(now) || !ang.isAuffindbar()) {
+			if(ang.getEnddatum().before(heute) || !ang.isAuffindbar()) {
 				result.add(ang);
 			}
 		}
@@ -144,18 +137,11 @@ public class Angebotsverarbeitung {
 		ArrayList<Angebot> result = new ArrayList<Angebot>();
 		Angebotsverwaltung angv = Portal.Angebotsverwaltung();
 		//Heutigen Tag initialisieren
-		Date now = new Date();
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(now);
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		now = cal.getTime();
+		Date heute = Methods.getHeuteNullUhr();
 		ArrayList<Angebot> erstellteAngebote = angv.getAllAngebote();
 		
 		for(Angebot ang:erstellteAngebote) {
-			if(!(ang.getEnddatum().before(now)) && ang.isAuffindbar()) {
+			if(!(ang.getEnddatum().before(heute)) && ang.isAuffindbar()) {
 				result.add(ang);
 			}
 		}
