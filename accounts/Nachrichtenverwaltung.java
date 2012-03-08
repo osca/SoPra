@@ -55,7 +55,7 @@ public class Nachrichtenverwaltung {
 	 */
 	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot) {
 		assert absender != null: "Der Absender ist null";
-		assert Portal.Accountverwaltung().getAccounts().contains(absender): "Der Absender ist nicht im System";
+		assert Portal.Accountverwaltung().getLoggedIn().equals(absender): "Der Absender ist nicht eingeloggt";
 		assert empfaenger != null: "Der Empfaenger ist null";
 		assert Portal.Accountverwaltung().getAccounts().contains(empfaenger): "Der Empfaenger ist nicht im System";
 		assert !betreff.equals("") || betreff != null: "Der Betreff wurde nicht gesetzt";
@@ -209,7 +209,7 @@ public class Nachrichtenverwaltung {
 	 */
 	public void delAllNachrichten(Account acc) {
 		assert acc != null: "Account ist null";
-		assert Portal.Accountverwaltung().getAccounts().contains(acc): "Der Account existiert nicht im System";
+		assert Portal.Accountverwaltung().getLoggedIn().equals(acc): "Der Account ist nicht eingeloggt";
 		
 		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da
 		// Elemente nachrutschen
