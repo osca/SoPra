@@ -44,7 +44,7 @@ public class Angebotsverarbeitung {
 	 * @pre Startdatum ist groessergleich dem heutigen Datum
 	 * @pre Startpreis ist groesser als der Endpreis
 	 */
-	public ArrayList<Angebot> sucheAngebote(String name, int typ, int kapazitaet, double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien)
+	public ArrayList<Angebot> sucheAngebote(String name, String anbieter, int typ, int kapazitaet, double vonPreis, double bisPreis, Date von, Date bis, String[] kriterien)
 		throws SuchException {
 		assert !von.after(bis) || bis.equals(KEINEDATEN): "Startdatum liegt nicht vor Enddatum";
 		assert Angebot.getFlagList().contains(typ): "Typ nicht vorhanden oder kein Typ gesetzt";
@@ -55,7 +55,7 @@ public class Angebotsverarbeitung {
 		
 		assert !von.before(heute): "Startdatum liegt vor dem heutigen Datum";
 		
-		int alleTreffer = 4+kriterien.length;
+		int alleTreffer = 5+kriterien.length;
 		int treffer = 0;
 		
 		ArrayList<Angebot> suchErgebnisse = new ArrayList<Angebot>(); 
@@ -71,13 +71,16 @@ public class Angebotsverarbeitung {
 				if(a.getKapazitaet() >= kapazitaet || kapazitaet == KEINEKAPAZITAET) 
 					treffer++;
 				
+				if(a.getAnbieterName().equals(anbieter) || anbieter.equals(KEINNAME))
+					treffer++;
+				
 				if((a.getPreis() >= vonPreis && a.getPreis() <= bisPreis) || (vonPreis == KEINPREIS && bisPreis == KEINPREIS)) 
 					treffer++;
 				
-				if(von == KEINEDATEN) 
+				if(von.equals(KEINEDATEN)) 
 					treffer++;
 				else {
-					if(!von.after(a.getEnddatum()) && (!bis.before(a.getStartdatum()) || bis == KEINEDATEN))
+					if(!von.after(a.getEnddatum()) && (!bis.before(a.getStartdatum()) || bis.equals(KEINEDATEN)))
 						treffer++;
 				}
 				ArrayList<Kriterium> kritContainer = a.getKriterien();

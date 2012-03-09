@@ -249,10 +249,14 @@ public class SuchScreen extends JPanel
 				int laenge = Portal.Angebotsverarbeitung().KEINEKAPAZITAET;
 				Date von = Portal.Angebotsverarbeitung().KEINEDATEN;
 				Date bis = Portal.Angebotsverarbeitung().KEINEDATEN;
+				String anbieter = Portal.Angebotsverarbeitung().KEINNAME;
 				boolean datumfail = false;
 				
 				if(!felder[1].getText().equals(""))
 					laenge = Integer.parseInt(felder[1].getText());
+				
+				if(!felder[4].getText().equals(""))
+					anbieter = felder[4].getText();
 				
 				if(!felder[5].getText().equals("  /  /    "))
 					if(Methods.isValidDatestring(felder[5].getText()))
@@ -272,7 +276,7 @@ public class SuchScreen extends JPanel
 					JOptionPane.showMessageDialog(this, "Startdatum liegt nach dem Enddatum!");
 				
 				else if(!datumfail)
-					result = Portal.Angebotsverarbeitung().sucheAngebote(name, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
+					result = Portal.Angebotsverarbeitung().sucheAngebote(name, anbieter, typ, laenge, vonPreis, bisPreis, von, bis, kriterien);
 				else
 					JOptionPane.showMessageDialog(this, "Ungueltiges Datum");
 			}
