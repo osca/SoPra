@@ -10,6 +10,7 @@ import javax.swing.text.PlainDocument;
  *@author Benjamin
  */
 public class MaxTextDocument extends PlainDocument{
+	private static final long serialVersionUID = 8316268063920093876L;
 	int maxLaenge;
 	/**
 	 * Trivialer Konstruktor der Klasse

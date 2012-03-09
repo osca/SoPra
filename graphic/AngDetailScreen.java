@@ -7,8 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,15 +45,7 @@ public class AngDetailScreen extends JPanel {
 	private JPanel sub_b;
 	private JPanel mid;
 	private JPanel down;
-	private JLabel nummer;
-	private JLabel name;
-	private JLabel typ;
-	private JLabel preis;
-	private JLabel kap;
-	private JLabel vondatum;
-	private JLabel bisdatum;
 	private JLabel anbieterlabel;
-	private JLabel angebotwert;
 	private JLabel anbieter_wertung;
 
 	private JTextArea fullinfo;
@@ -121,7 +111,7 @@ public class AngDetailScreen extends JPanel {
 		JLabel[] sub_a_wert = new JLabel[length_a];
 		sub_a_wert[0] = new JLabel("" + angebot.getAngebotsNummer());
 		sub_a_wert[1] = new JLabel(angebot.getName());
-		sub_a_wert[2] = new JLabel(angebot.convertTypToName(angebot.getTyp()));
+		sub_a_wert[2] = new JLabel(Angebot.convertTypToName(angebot.getTyp()));
 		sub_a_wert[3] = new JLabel("" + f.format(angebot.getPreis()));
 		sub_a_wert[4] = new JLabel("" + angebot.getKapazitaet());
 		sub_a_wert[5] = new JLabel(formatter.format(angebot.getStartdatum()));
