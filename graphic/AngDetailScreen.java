@@ -32,7 +32,14 @@ import angebote.Kommentar;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
-
+/**
+ * AngDetailScreen
+ * 
+ * Haendelt das Screen zum Anzeigen der Details eines Angebots
+ * und zeigt alle Informationen des Angebots an
+ * @author Rudolf, Benjamin, Denis,
+ *
+ */
 @SuppressWarnings("serial")
 public class AngDetailScreen extends JPanel {
 	private JPanel up;
@@ -67,7 +74,17 @@ public class AngDetailScreen extends JPanel {
 	final Anbieter anbieter;
 
 	final MainFrame frame;
-
+/**
+ * Konstruktor zu AngDetailScreen
+ * Der erste Teil des Konstruktors ist trivial. Im zweiten Teil des Konstruktors
+ * erkennt dieser, welcher Benutzertyp eingelogt ist, und setzt dementspechend 
+ * die Buttons im unteren Teil des Panels. Wenn ein Kunde eingelogt ist dieser das Angebot
+ * kommentieren oder auch buchen, wobei bei diesen beiden Funktionen jeweils ein Dialog
+ * auftaucht und man in diesen das Kommentar, bzw die Daten der Buchung eingeben kann.
+ * Die restlichen Button-Events sind trivial.
+ * @param mainframe Das MainFrame, auf welcher das Screen eingebunden wird
+ * @param a Das Angebot,zu welchem die Details ANgezeigt werden
+ */
 	public AngDetailScreen(final MainFrame mainframe, final Angebot a) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		DecimalFormat f = new DecimalFormat("#0.00");

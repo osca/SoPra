@@ -33,7 +33,7 @@ import buchungen.Buchung;
  * 
  * Haendelt die Detailsansicht der Buchung und zeigt alle wichtigen 
  * Informationen der Buchung an
- * @author Rudi, Benni, Denis , Dennis
+ * @author Rudolf, Benjamin, Denis , Dennis
  *
  */
 @SuppressWarnings("serial")
@@ -52,15 +52,15 @@ public class BuchDetailScreen extends JPanel {
 
 	private MainFrame frame;
 /**
- * Konstruktor zum BuchDetailScreen
- * Der erste Teil des Konstruktors ist trivial. Im zweiten Teil werden erkennnt 
+ * Konstruktor zu BuchDetailScreen
+ * Der erste Teil des Konstruktors ist trivial. Im zweiten Teil erkennnt 
  * der Konstruktor, welcher Benutzertyp eingelogt ist und setzt dementspechend die Buttons
  * im unteren Teil des Panels. Wenn ein Kunde eingelogt ist, kann dieser durch das Waehlen
  * des Kommentieren-Buttons ein Dialog-Fenster aufrufen, in welchem das Kommentar eingegeben
  * werden kann.
- * @param mainframe Die MainFrame, auf welcher das Screen eingebunden wird
+ * @param mainframe Das MainFrame, auf welcher das Screen eingebunden wird
  * @param buchungsbutton Buchungsbutton, welches zu refreshen dient
- * @param buchung Die Buchung, zu welcher die Details ANgezeigt werden
+ * @param buchung Die Buchung, zu welcher die Details gezeigt werden
  */
 	
 	public BuchDetailScreen(final MainFrame mainframe,
