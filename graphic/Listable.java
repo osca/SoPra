@@ -1,5 +1,8 @@
 package graphic;
-
+/**
+ * Das Interface Listable bildet eine einheitliche Schnittstelle
+ * graphisch listbare Komponenten
+ */
 public interface  Listable {
 	
 	public static final int ANGEBOT = 50,

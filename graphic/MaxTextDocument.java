@@ -3,10 +3,18 @@ package graphic;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-
+/**
+ *MaxTextDocument
+ *
+ *Die Klasse regelt die maximale Länge von Strings (wenn benoetigt).
+ *@author Benjamin
+ */
 public class MaxTextDocument extends PlainDocument{
 	int maxLaenge;
-	
+	/**
+	 * Trivialer Konstruktor der Klasse
+	 * @param max
+	 */
 	public MaxTextDocument(int max) {
 		maxLaenge = max;
 	}

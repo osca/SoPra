@@ -9,55 +9,28 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 /**
  * 
- * @author Rudi
+ * @author Rudolf
  *
  */
 
 public class Methods {
 	
+
 	/**
-	 * Eine Methode zum Ausgeben von einem Array aus Daten,
-	 * welche zwischen strat und end liegen und eine Taktung haben.
-	 * @param start Start-Datum
-	 * @param end End-Datum
-	 * @param interval Taktung der Daten im Array
-	 * @return Array mit Daten zwischen Start und End in einer Taktung
+	 * Diese Methode parst Strings zu Date im dd/MM/yyyy-Format.
+	 * @param s String welches die zu parsende Eingabe representiert.
+	 * @return x Das Date im dd/MM/yyyy-Format.
 	 * @throws ParseException
 	 */
-	public static Date[] dater(String start, String end, int  interval) throws ParseException{
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		Date s = 	df.parse(start);
-		Date e =    df.parse(end);
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(s);
-		
-		ArrayList<Date> temp = new ArrayList<Date>();
-		while(s.before(e)){
-			temp.add(s);
-			calendar.add(Calendar.DAY_OF_MONTH, interval);
-			Date a = calendar.getTime();
-			s=df.parse(df.format(a));
-		}
-		Date[] d= new Date[temp.size()];
-		for (int i=0;i<d.length;i++){
-			d[i]=temp.get(i);
-		}
-		return d;
-	}
-	
-	public static boolean checkDate(Date s, Date e){
-		if(s.before(e)){
-			return true;
-		}
-		else return false;
-	}
-	
 	public static Date stringToDate(String s) throws ParseException{
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date x=df.parse(s);
 		return x;
 	}
-	
+	/**
+	 * Diese Methode gibt das Date, welches dem heutigen Datum um Null Uhr entspricht.
+	 * @return Das heutige Datum Null-Uhr
+	 */
 	public static Date getHeuteNullUhr() {
 		Date heute = new Date();
 		Calendar cal = new GregorianCalendar();
@@ -68,7 +41,12 @@ public class Methods {
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
 	}
-	
+	/**
+	 * Die Methode ueberprueft, ob ein String-Date ein gueltiges datum im 
+	 * dd/MM/yyyy-Format ist.
+	 * @param date String-Date im dd/MM/yyyy-Format.
+	 * @return boolean ob das Datum gueltig ist
+	 */
 	public static boolean isValidDatestring(String date) {
 		String[] datearr = date.split("/");
 		
