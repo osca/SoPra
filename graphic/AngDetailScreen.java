@@ -149,7 +149,7 @@ public class AngDetailScreen extends JPanel {
 		JPanel button_panel = new JPanel(new FlowLayout());
 		switch (Portal.Accountverwaltung().getLoggedIn().getTyp()) {
 		case Account.NONE:
-			nullAcc = new JLabel(MainFrame.MSG_LOGIN_FEHLT);
+			nullAcc = new JLabel("Sie muessen sich einlogen um weitere Aktionen durchfuehren zu koennen");
 			button_panel.add(nullAcc);
 			break;
 		case Account.KUNDE:
@@ -300,15 +300,15 @@ public class AngDetailScreen extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (JOptionPane.showConfirmDialog(up.getParent(),
-							MainFrame.QSN_ANGEBOT_MELDEN, "Angebot melden",
+							"Sind Sie sicher, dass sie dieses Angebot Melden moechten?", "Angebot melden",
 							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 						Account account = Portal.Accountverwaltung()
 								.getLoggedIn();
 						Portal.Nachrichtenverwaltung()
 								.sendeMeldungAnAlleBetreiber(
 										account,
-										MainFrame.MSG_BESCHWERDE,
-										MainFrame.MSG_ANGEBOT_GEMELDET + "\n"
+										"Beschwerde",
+										"Ein Kunde hat ein Angebot gemeldet!" + "\n"
 												+ "Anbieter: "
 												+ anbieter.getName() + "\n"
 												+ "Kunde: " + account.getName()
@@ -317,8 +317,8 @@ public class AngDetailScreen extends JPanel {
 						Portal.Nachrichtenverwaltung().sendeNachricht(
 								account,
 								anbieter,
-								MainFrame.MSG_BESCHWERDE,
-								MainFrame.MSG_ANGEBOT_GEMELDET + "\n"
+								"Beschwerde",
+								"Ein Kunde hat ein Angebot gemeldet!" + "\n"
 										+ "Anbieter: " + anbieter.getName()
 										+ "\n" + "Kunde: " + account.getName()
 										+ "\n" + "Angebot: "
