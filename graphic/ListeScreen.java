@@ -15,12 +15,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
+/**
+ * ListeScreen wird genutzt um alle Listable-Klassen als Liste darstellen, wobei ein Element die Details anzeigen kann.
+ * @author Rudolf, delikat
+ *
+ * @param <T>	T ist ein generischer Typ, welcher sicher stellt, dass alle Listable-Klassen dargestellt werden können.
+ */
 public class ListeScreen <T extends Listable> extends JPanel {
 	
 	private static final long serialVersionUID = 1813896135878948672L;
 	static JScrollPane lscroll;
 	static JPanel sPanel;
 	
+	/**
+	 * Konstruktor, welche alle Layouts und Elemente initialisiert.
+	 * @param mainframe		Das Hauptfenster, auf dem die Liste eingefügt wird.
+	 * @param list			Die Liste, welche dargestellt wird.
+	 */
 	@SuppressWarnings("unchecked")
 	public ListeScreen(final MainFrame mainframe, final ArrayList<T> list){
 		
