@@ -32,6 +32,11 @@ import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 
 
+/**
+ *  SuchScreen wird auf dem Hauptfenster dargestellt um eine Suche zu unterstützen.
+ * @author delikat, Rudi
+ *
+ */
 @SuppressWarnings("serial")
 public class SuchScreen extends JPanel
 {	
@@ -51,6 +56,9 @@ public class SuchScreen extends JPanel
 	private JFormattedTextField[] felder;
 	private ArrayList<Angebot> result;
 	
+	/**
+	 * Konstruktor. Initialisiert alle Attribute und stellt sie anschliessend dar.
+	 */
 	public SuchScreen()
 	{
 		
@@ -153,6 +161,9 @@ public class SuchScreen extends JPanel
 		this.add(buttonPanel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Ermöglich das dynamische hinzufügen von GUI-Elementen abhänging vom voher gewählten Angebots-Typen.
+	 */
 	public void addScreen()
 	{
 		newScreen = new JPanel(new BorderLayout());
@@ -195,6 +206,9 @@ public class SuchScreen extends JPanel
 		}
 	}
 	
+	/**
+	 * Liest alle nötigen Informationen aus den GUI-Elementen aus.
+	 */
 	private void readContent()
 	{
 		try
@@ -268,6 +282,9 @@ public class SuchScreen extends JPanel
 		}
 	}
 	
+	/**
+	 * Initialisiert die GUI-Elemente für den Typ "Hoteluebernachtung".
+	 */
 	private void type1() 
 	{
 		labelList.add(new JLabel("Land:"));
@@ -314,12 +331,19 @@ public class SuchScreen extends JPanel
 		boxList.add(comboKlima);
 		boxList.add(comboVerpflegung);
 	}
+	/**
+	 * Initialisiert die GUI-Elemente für den Typ "Autovermietung".
+	 */
 	private void type2()
 	{
 		labelList.add(new JLabel("Land:"));
 		labelList.add(new JLabel("Ort:"));
 		setComboBox();
 	}
+	
+	/**
+	 * Initialisiert die GUI-Elemente für den Typ "Hoteluebernachtung".
+	 */
 	private void type3()
 	{
 		labelList.add(new JLabel("Land:"));
@@ -335,6 +359,10 @@ public class SuchScreen extends JPanel
 			comboBier.addItem(Bierpreis.wertebereich[i]);
 		boxList.add(comboBier);
 	}
+	
+	/**
+	 * Initialisiert die GUI-Elemente für den Typ "Ausflug".
+	 */
 	private void type4()
 	{
 		labelList.add(new JLabel("Startland:"));
@@ -360,6 +388,10 @@ public class SuchScreen extends JPanel
 			comboBier.addItem(Bierpreis.wertebereich[i]);
 		boxList.add(comboBier);
 	}
+	
+	/**
+	 * Initialisiert die GUI-Elemente für den Typ "Flug".
+	 */
 	private void setComboBox()
 	{
 		final JComboBox land = new JComboBox();
@@ -381,6 +413,11 @@ public class SuchScreen extends JPanel
 		boxList.add(ort);
 	}
 	
+	/**
+	 * Sorgt fuer das neue Einlesen der Orte aus einer Datei, nachdem das Land gewechselt wurde.
+	 * @param ort
+	 * @param land
+	 */
 	public void repaintOrt(JComboBox ort, JComboBox land)
 	{		
 		if(!land.getSelectedItem().equals("")) {
