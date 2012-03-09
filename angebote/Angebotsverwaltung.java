@@ -210,18 +210,18 @@ public class Angebotsverwaltung {
 	}
 	
 	/**
-	 * Loescht ein Angebot eines Anbieters.
+	 * Loescht ein Angebot eines Anbieters inklusive aller Buchungen
 	 * 
 	 * @param angebot Das zu loeschende Angebot
+	 * @pre Buchungen duerfen nicht offen sein
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException {
 		ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(angebot);
 		
 		// Erstmal checken, ob offene Buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
-		for(int i = 0; i < buchungen.size(); i++) {
-			if (buchungen.get(i).getBestaetigt() == Bestaetigung.JA && buchungen.get(i).getBis().after(new Date())) 
-				throw new LoeschenNichtMoeglichException("Es existieren noch zu erfuellende Buchungen auf dem Angebot.");
-		}
+		for(int i = 0; i < buchungen.size(); i++) 
+			assert !(buchungen.get(i).getBestaetigt() == Bestaetigung.JA) && !(buchungen.get(i).getBis().after(new Date())) :
+				"Es existieren noch zu erfuellende Buchungen auf dem Angebot.";
 		
 		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
 		for(int i = 0; i < buchungen.size(); i++) 

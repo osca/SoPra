@@ -230,6 +230,7 @@ public class Accountverwaltung {
 				Anbieter anbieteracc = (Anbieter) acc;
 				ArrayList<Angebot> zuLoeschendeAngebote = Portal
 						.Angebotsverwaltung().getAngebote(anbieteracc);
+				System.out.println(zuLoeschendeAngebote.size());
 	
 				// Gibt es noch offene Buchungen Schleife
 				for (Angebot a : zuLoeschendeAngebote) {
@@ -245,19 +246,11 @@ public class Accountverwaltung {
 					}
 				}
 	
-				// Angebote und deren Buchungen loeschen
-				Buchungsverwaltung buchungsVerwaltung = Portal.Buchungsverwaltung();
+				// Angebote loeschen
 				Angebotsverwaltung angebotsVerwaltung = Portal.Angebotsverwaltung();
 	
-				for (Angebot a : zuLoeschendeAngebote) {
-					ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(a);
-	
-					for (Buchung b : buchungen) {
-						buchungsVerwaltung.delBuchung(b);
-					}
-	
-					angebotsVerwaltung.delAngebot(a);
-				}
+				for (Angebot a : zuLoeschendeAngebote) 	
+					angebotsVerwaltung.delAngebot(a);		//Buchungen werden mitgeloescht
 				break;
 			}
 	

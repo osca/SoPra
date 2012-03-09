@@ -60,7 +60,7 @@ public class Anbieter extends Account {
 	 * @param angebot Angebot
 	 */
 	public void delAngebot(Angebot angebot) {
-		angebote.remove(angebot.getAngebotsNummer());
+		angebote.remove((Integer) angebot.getAngebotsNummer());
 	}
 	
 	/**
