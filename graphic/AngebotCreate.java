@@ -34,7 +34,11 @@ import angebote.kriterien.Sterne;
 import angebote.kriterien.Verpflegungsart;
 import angebote.typen.Angebot;
 import buchungen.InvalidDateException;
-
+/**
+ * AngebotCreate
+ * Dies Klasse haendlet das Ersttelen der Angebote
+ * @author Rudolf, Benjamin, Dennis, Denis
+ */
 @SuppressWarnings("serial")
 public class AngebotCreate<FormattedTextField> extends JPanel implements ActionListener {
 	private JPanel up;
@@ -55,9 +59,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JFormattedTextField bis;
 	private JLabel anbieter;
 
-	// Kriterien
-	// private JTextField ort;
-	// private JTextField ortz;
 	private JComboBox klima;
 	private JComboBox sterne;
 	private JComboBox verpflegung;
@@ -72,14 +73,22 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 	private JComboBox ort;
 	private JComboBox landz;
 	private JComboBox ortz;
-
 	private Anbieter anb;
-
+	
+	/**
+	 * Der Konstruktor ist trivial.
+	 * @param a Der Anbieter, welcher das Angebot erstellt
+	 * @throws ParseException Eine Exception beim Parsen des Datums
+	 */
 	public AngebotCreate(Anbieter a) throws ParseException {
 		anb = a;
 		init(anb);
 	}
-
+	/**
+	 * 
+	 * @param a
+	 * @throws ParseException Eine Exception beim Parsen des Datums
+	 */
 	private void init(Anbieter a) throws ParseException {
 
 		setLayout(new BorderLayout(5, 5));
