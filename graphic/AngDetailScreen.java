@@ -58,78 +58,65 @@ public class AngDetailScreen extends JPanel {
 	private JButton loeschen = new JButton("Loeschen");
 	private JButton hide;
 	private JButton kontaktieren = new JButton("Kontaktieren");
-	//private JButton editsave = new JButton("Aenderungen Speichern");
+	// private JButton editsave = new JButton("Aenderungen Speichern");
 	protected Date q;
 	protected Date u;
 	final Angebot angebot;
 	final Anbieter anbieter;
-	
+
 	final MainFrame frame;
 
 	public AngDetailScreen(final MainFrame mainframe, Angebot a) {
-			
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DecimalFormat f = new DecimalFormat("#0.00");
+
 		frame = mainframe;
-		
+
 		angebot = a;
 		anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
-		String preis_str = "" + a.getPreis();
-		String kap_str = "" + a.getKapazitaet();
+
 		hide = new JButton();
-		if(angebot.isAuffindbar()){
+		if (angebot.isAuffindbar()) {
 			hide.setText("Angebot verstecken");
-		}
-		else if(angebot.isAuffindbar()==false){
+		} else if (angebot.isAuffindbar() == false) {
 			hide.setText("Angebot zeigen");
 		}
-		
 
 		this.setLayout(new BorderLayout());
 		up = new JPanel(new GridLayout(0, 2));
 		mid = new JPanel(new GridLayout(0, 1));
 		down = new JPanel(new BorderLayout());
 
-		nummer = new JLabel(""+angebot.getAngebotsNummer());
-		name = new JLabel(angebot.getName());
-		typ = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		vondatum = new JLabel(formatter.format(angebot.getStartdatum()));
-		bisdatum = new JLabel(formatter.format(angebot.getEnddatum()));
-		DecimalFormat f = new DecimalFormat("#0.00"); 
-		angebotwert = new JLabel(""+f.format(angebot.getWertung()));
-		anbieterlabel = new JLabel(anbieter.getName());
-		anbieter_wertung = new JLabel(f.format(anbieter.getWertung()));
-		preis = new JLabel(preis_str);
-		kap = new JLabel(kap_str);
-
 		sub_a = new JPanel(new GridLayout(8, 2));
-		JLabel nummer_l = new JLabel("Angbeotsnummer:");
-		sub_a.add(nummer_l);
-		sub_a.add(nummer);
-		JLabel name_l = new JLabel("Name:");
-		sub_a.add(name_l);
-		sub_a.add(name);
-		JLabel typ_label = new JLabel("Typ:");
-		sub_a.add(typ_label);
-		sub_a.add(typ);
-		JLabel preis_label = new JLabel("Preis:");
-		sub_a.add(preis_label);
-		sub_a.add(preis);
-		JLabel kap_label = new JLabel("Kapazitaet:");
-		sub_a.add(kap_label);
-		sub_a.add(kap);
-		JLabel vd_label = new JLabel("Startdatum:");
-		sub_a.add(vd_label);
-		sub_a.add(vondatum);
-		JLabel bd_label = new JLabel("Enddatum:");
-		sub_a.add(bd_label);
-		sub_a.add(bisdatum);
-		JLabel angebotwert_label = new JLabel("Wertung:");
-		sub_a.add(angebotwert_label);
-		sub_a.add(angebotwert);
+		int length_a = 8;
+		JLabel[] sub_a_label = new JLabel[length_a];
+		sub_a_label[0] = new JLabel("Angebotsnummer:");
+		sub_a_label[1] = new JLabel("Name:");
+		sub_a_label[2] = new JLabel("Typ:");
+		sub_a_label[3] = new JLabel("Preis:");
+		sub_a_label[4] = new JLabel("Kapazitaet:");
+		sub_a_label[5] = new JLabel("Startdatum:");
+		sub_a_label[6] = new JLabel("Enddatum:");
+		sub_a_label[7] = new JLabel("Angebotswertung:");
+
+		JLabel[] sub_a_wert = new JLabel[length_a];
+		sub_a_wert[0] = new JLabel("" + angebot.getAngebotsNummer());
+		sub_a_wert[1] = new JLabel(angebot.getName());
+		sub_a_wert[2] = new JLabel(angebot.convertTypToName(angebot.getTyp()));
+		sub_a_wert[3] = new JLabel("" + f.format(angebot.getPreis()));
+		sub_a_wert[4] = new JLabel("" + angebot.getKapazitaet());
+		sub_a_wert[5] = new JLabel(formatter.format(angebot.getStartdatum()));
+		sub_a_wert[6] = new JLabel(formatter.format(angebot.getEnddatum()));
+		sub_a_wert[7] = new JLabel("" + f.format(angebot.getWertung()));
+
+		for (int i = 0; i < length_a; i++) {
+			sub_a.add(sub_a_label[i]);
+			sub_a.add(sub_a_wert[i]);
+		}
+
 		sub_b = new JPanel(new GridLayout(0, 2));
 		JPanel sub_1 = new JPanel(new GridLayout(8, 1));
 		final JPanel sub_2 = new JPanel(new GridLayout(8, 1));
-		// String k[] =angebot.getErlaubteKriterien();
 		ArrayList<Kriterium> w = angebot.getKriterien();
 		for (int i = 0; i < w.size(); i++) {
 			JLabel krit = new JLabel(w.get(i).getName());
@@ -139,16 +126,18 @@ public class AngDetailScreen extends JPanel {
 		}
 		JLabel anbieter_label = new JLabel("Anbieter:");
 		sub_1.add(anbieter_label);
+		anbieterlabel = new JLabel(""+anbieter.getName());
 		sub_2.add(anbieterlabel);
 		JLabel anb_wert_label = new JLabel("Gesamtwertung des Anbieters:");
 		sub_1.add(anb_wert_label);
+		anbieter_wertung= new JLabel(""+f.format(anbieter.getWertung()));
 		sub_2.add(anbieter_wertung);
 		sub_b.add(sub_1);
 		sub_b.add(sub_2);
-		
+
 		up.add(sub_a);
 		up.add(sub_b);
-		
+
 		fullinfo = new JTextArea(angebot.getFullInfo());
 		fullinfo.setLineWrap(true);
 		fullinfo.setWrapStyleWord(true);
@@ -189,13 +178,8 @@ public class AngDetailScreen extends JPanel {
 				hide.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
 						MainFrame.BUTTONHEIGHT));
 				button_panel.add(hide);
-//				down.add(editsave);
-//				editsave.disable();
-//				editsave.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
-//						MainFrame.BUTTONHEIGHT));
-			}
 
-		//	down.add(hide);
+			}
 
 			if (Portal.Accountverwaltung().getLoggedIn().getName()
 					.equals(angebot.getAnbieterName()))
@@ -217,10 +201,10 @@ public class AngDetailScreen extends JPanel {
 			break;
 
 		}
-		down.add(button_panel,BorderLayout.CENTER);
+		down.add(button_panel, BorderLayout.CENTER);
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2,
 				Color.LIGHT_GRAY));
-		// ///// veraendert
+
 		this.add(BorderLayout.NORTH, up);
 		this.add(BorderLayout.CENTER, mid);
 		JPanel down_haupt = new JPanel(new BorderLayout(5, 5));
@@ -231,23 +215,30 @@ public class AngDetailScreen extends JPanel {
 		down_haupt.add(BorderLayout.CENTER, down_kom);
 		this.add(BorderLayout.SOUTH, down_haupt);
 
-		// ///////////////
-
 		buchen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					JLabel label = new JLabel("Geben Sie den Zeitraum im Format dd/MM/yyyy an:");
+					JLabel label = new JLabel(
+							"Geben Sie den Zeitraum im Format dd/MM/yyyy an:");
 					JLabel fromLabel = new JLabel("Von:");
 					JLabel toLabel = new JLabel("Bis:");
-					JFormattedTextField fromField = new JFormattedTextField(new MaskFormatter("##/##/####"));
-					JFormattedTextField toField = new JFormattedTextField(new MaskFormatter("##/##/####"));
+					JFormattedTextField fromField = new JFormattedTextField(
+							new MaskFormatter("##/##/####"));
+					JFormattedTextField toField = new JFormattedTextField(
+							new MaskFormatter("##/##/####"));
 
-					if (JOptionPane.showConfirmDialog(null, new Object[] {label, fromLabel, fromField, toLabel, toField }, "Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-						if (fromField.getText().equals("  /  /    ") || toField.getText().equals("  /  /    ")
-								|| !Methods.isValidDatestring(fromField.getText()) || !Methods.isValidDatestring(toField.getText()))
-							throw new IllegalArgumentException("Zeitraum nicht gueltig");
+					if (JOptionPane.showConfirmDialog(null, new Object[] {
+							label, fromLabel, fromField, toLabel, toField },
+							"Login", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+						if (fromField.getText().equals("  /  /    ")
+								|| toField.getText().equals("  /  /    ")
+								|| !Methods.isValidDatestring(fromField
+										.getText())
+								|| !Methods.isValidDatestring(toField.getText()))
+							throw new IllegalArgumentException(
+									"Zeitraum nicht gueltig");
 
 						SimpleDateFormat to = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -256,37 +247,51 @@ public class AngDetailScreen extends JPanel {
 						Date heute = Methods.getHeuteNullUhr();
 
 						if (fromDate.before(heute) || toDate.before(heute)) {
-							throw new InvalidDateException("Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
+							throw new InvalidDateException(
+									"Ihr Anfangs- oder Enddatum liegt vor dem heutigem Datum.");
 						} else if (fromDate.after(toDate)) {
-							throw new InvalidDateException("Ihr Enddatum liegt vor dem Startdatum");
+							throw new InvalidDateException(
+									"Ihr Enddatum liegt vor dem Startdatum");
 						} else if (fromDate.before(angebot.getStartdatum())) {
-							throw new InvalidDateException("Ihr Anfangsdatum liegt vor Beginn des Angebots");
+							throw new InvalidDateException(
+									"Ihr Anfangsdatum liegt vor Beginn des Angebots");
 						} else if (toDate.after(angebot.getEnddatum())) {
-							throw new InvalidDateException("Ihr Enddatum liegt nach Ende des Angebots");
+							throw new InvalidDateException(
+									"Ihr Enddatum liegt nach Ende des Angebots");
 						}
 
-						DialogScreen dialog = new DialogScreen(frame,"Buchen", DialogScreen.OK_CANCEL_OPTION) {
+						DialogScreen dialog = new DialogScreen(frame, "Buchen",
+								DialogScreen.OK_CANCEL_OPTION) {
 							@Override
 							public void onOK() {
 								try {
-									Portal.Buchungsverwaltung().createBuchung((Kunde) Portal.Accountverwaltung().getLoggedIn(), angebot, fromDate, toDate);
+									Portal.Buchungsverwaltung().createBuchung(
+											(Kunde) Portal.Accountverwaltung()
+													.getLoggedIn(), angebot,
+											fromDate, toDate);
 								} catch (Exception e) {
-									JOptionPane.showMessageDialog(up.getParent(), e.getMessage());
+									JOptionPane.showMessageDialog(
+											up.getParent(), e.getMessage());
 								}
 							}
-							
+
 						};
-						
-						DecimalFormat f2 = new DecimalFormat("#0.00"); 
+
+						DecimalFormat f2 = new DecimalFormat("#0.00");
 						String bewertung = f2.format(anbieter.getWertung());
-						
+
 						dialog.setEditable(false);
-						dialog.addOnPanel(new JLabel("AGB des Anbieters: " + anbieterlabel.getText()), DialogScreen.LABEL_LEFT);
-						dialog.addOnPanel(new JLabel("Bewertung: " + bewertung), DialogScreen.LABEL_RIGHT);
+						dialog.addOnPanel(new JLabel("AGB des Anbieters: "
+								+ anbieterlabel.getText()),
+								DialogScreen.LABEL_LEFT);
+						dialog.addOnPanel(
+								new JLabel("Bewertung: " + bewertung),
+								DialogScreen.LABEL_RIGHT);
 						dialog.setContent(anbieter.getAgb());
 					}
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(up.getParent(), e.getMessage());
+					JOptionPane.showMessageDialog(up.getParent(),
+							e.getMessage());
 				}
 			}
 		});
@@ -324,12 +329,13 @@ public class AngDetailScreen extends JPanel {
 				}
 			}
 		});
-		
+
 		kommentieren.addActionListener(new ActionListener() {
 			int bewertung = Kommentar.KEINEWERTUNG;
-			boolean gebucht = false; // dirty, aber so geht es
-			boolean kommentiert = false; // dirty, aber so geht es
-			JComboBox bewertungCombo = new JComboBox(new String[] {"Auswahl", "1", "2", "3", "4", "5" });
+			boolean gebucht = false;
+			boolean kommentiert = false;
+			JComboBox bewertungCombo = new JComboBox(new String[] { "Auswahl",
+					"1", "2", "3", "4", "5" });
 
 			JLabel kundeLabel = new JLabel();
 			JLabel bewertungLabel = new JLabel("Bewertung:");
@@ -339,35 +345,42 @@ public class AngDetailScreen extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Kunde loggedin = (Kunde) Portal.Accountverwaltung().getLoggedIn();
+				Kunde loggedin = (Kunde) Portal.Accountverwaltung()
+						.getLoggedIn();
 
-				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn().getName());
+				kundeLabel.setText(Portal.Accountverwaltung().getLoggedIn()
+						.getName());
 
-				dialog = new DialogScreen(frame,"Kommentieren", DialogScreen.OK_CANCEL_OPTION)
-				{
+				dialog = new DialogScreen(frame, "Kommentieren",
+						DialogScreen.OK_CANCEL_OPTION) {
 					@Override
-					public void onOK()
-					{
+					public void onOK() {
 						if (dialog.getContent().length() <= 0) {
-							JOptionPane.showMessageDialog(dialog, "Sie muessen einen Kommentar eingeben.");
+							JOptionPane.showMessageDialog(dialog,
+									"Sie muessen einen Kommentar eingeben.");
 							return;
-						}
-						else if (gebucht && !kommentiert) {
+						} else if (gebucht && !kommentiert) {
 							if (bewertungCombo.getSelectedIndex() == 0) {
-								JOptionPane.showMessageDialog(dialog, "Sie muessen eine Bewertung auswaehlen.");
+								JOptionPane
+										.showMessageDialog(dialog,
+												"Sie muessen eine Bewertung auswaehlen.");
 								return;
 							}
 						}
 
 						bewertung = bewertungCombo.getSelectedIndex();
-						
-						// bewertung == 0 wird niemals auftreten, weil es oben abgefangen wird!!
-						if(bewertung == 0)
+
+						// bewertung == 0 wird niemals auftreten, weil es oben
+						// abgefangen wird!!
+						if (bewertung == 0)
 							bewertung = Kommentar.KEINEWERTUNG;
-						
-						kommi = new Kommentar(Portal.Accountverwaltung().getLoggedIn().getName(), dialog.getContent(), bewertung);
-						Portal.Angebotsverwaltung().addKommentar(angebot, kommi);
-						
+
+						kommi = new Kommentar(Portal.Accountverwaltung()
+								.getLoggedIn().getName(), dialog.getContent(),
+								bewertung);
+						Portal.Angebotsverwaltung()
+								.addKommentar(angebot, kommi);
+
 						kl.init(angebot);
 						kl.validate();
 						kl.repaint();
@@ -376,10 +389,15 @@ public class AngDetailScreen extends JPanel {
 				};
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);
 
-				// die Moeglichkeit zum bewerten wird nur angezeigt, wenn ein Kunde die Reise gebucht hat und noch nie kommentiert = nicht bewertet.
-				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot, loggedin);
-				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(angebot, loggedin); // kommentiert => bewertung bereits erfolgt
-				
+				// die Moeglichkeit zum bewerten wird nur angezeigt, wenn ein
+				// Kunde die Reise gebucht hat und noch nie kommentiert = nicht
+				// bewertet.
+				gebucht = Portal.Buchungsverwaltung().isBookedByKunde(angebot,
+						loggedin);
+				kommentiert = Portal.Angebotsverwaltung().isCommentedByKunde(
+						angebot, loggedin); // kommentiert => bewertung bereits
+											// erfolgt
+
 				if (gebucht && !kommentiert) {
 					bewertungCombo.setToolTipText("Je hoeher, desto besser.");
 					dialog.addOnPanel(bewertungLabel, DialogScreen.LABEL_RIGHT);
@@ -391,24 +409,29 @@ public class AngDetailScreen extends JPanel {
 		loeschen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try
-				{
-					if(JOptionPane.showConfirmDialog(up.getParent(), "Sind Sie sicher, dass Sie das Angebot loeschen moechten?","Loeschen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-					{
+				try {
+					if (JOptionPane.showConfirmDialog(
+							up.getParent(),
+							"Sind Sie sicher, dass Sie das Angebot loeschen moechten?",
+							"Loeschen", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 						Portal.Angebotsverwaltung().delAngebot(angebot);
-						JOptionPane.showMessageDialog(up.getParent(),"Angebot erfolgreich geloescht");
+						JOptionPane.showMessageDialog(up.getParent(),
+								"Angebot erfolgreich geloescht");
 						if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
-							Portal.Nachrichtenverwaltung().sendeNachricht(
-									Portal.Accountverwaltung().getLoggedIn(),
-									anbieter, "Angebot wurde Geloescht",
-									"Ihr Angebot wurde vom Betreiber geloescht!",
-									angebot);
+							Portal.Nachrichtenverwaltung()
+									.sendeNachricht(
+											Portal.Accountverwaltung()
+													.getLoggedIn(),
+											anbieter,
+											"Angebot wurde Geloescht",
+											"Ihr Angebot wurde vom Betreiber geloescht!",
+											angebot);
 						removeAll();
 						repaint();
 					}
-				} 
-				catch (Exception e) {
-					JOptionPane.showMessageDialog(up.getParent(),e.getMessage()+". Das Angebot wurde versteckt.");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(up.getParent(),
+							e.getMessage() + ". Das Angebot wurde versteckt.");
 					Portal.Angebotsverwaltung().setAuffindbar(angebot, false);
 				}
 			}
@@ -417,36 +440,24 @@ public class AngDetailScreen extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				try {
-//					repaint(sub_a, vondatum);
-//					repaint(sub_a, bisdatum);
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
+				if (angebot.isAuffindbar()) {
+					try {
+						Portal.Angebotsverwaltung().setAuffindbar(angebot,
+								false);
+						hide.setText("Angebot anzeigen");
+					} catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(),
+								"Angebot Erstellung", JOptionPane.OK_OPTION);
+					}
 
-//				fullinfo.setEditable(true);
-//				editsave.setEnabled(true);
-				if(angebot.isAuffindbar()){
-					try{
-						Portal.Angebotsverwaltung().setAuffindbar(angebot, false);
-					hide.setText("Angebot anzeigen");
-					}
-					catch(IllegalArgumentException e){
-						JOptionPane.showMessageDialog(null,
-								e.getMessage(), "Angebot Erstellung",
-								JOptionPane.OK_OPTION);
-					}
-					
-				}
-				else if(angebot.isAuffindbar()==false){
-					try{
-						Portal.Angebotsverwaltung().setAuffindbar(angebot,true);
-					hide.setText("Angebot verstecken");
-					}
-					catch(IllegalArgumentException e){
-						JOptionPane.showMessageDialog(null,
-								e.getMessage(), "Angebot Erstellung",
-								JOptionPane.OK_OPTION);
+				} else if (angebot.isAuffindbar() == false) {
+					try {
+						Portal.Angebotsverwaltung()
+								.setAuffindbar(angebot, true);
+						hide.setText("Angebot verstecken");
+					} catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(),
+								"Angebot Erstellung", JOptionPane.OK_OPTION);
 					}
 				}
 
@@ -456,10 +467,14 @@ public class AngDetailScreen extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					DialogScreen dialog = new DialogScreen(frame, "Kontaktieren",DialogScreen.OK_CANCEL_OPTION) {
+					DialogScreen dialog = new DialogScreen(frame,
+							"Kontaktieren", DialogScreen.OK_CANCEL_OPTION) {
 						@Override
 						public void onOK() {
-							Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(),anbieter, "Kontaktaufnahme", getContent(),angebot);
+							Portal.Nachrichtenverwaltung().sendeNachricht(
+									Portal.Accountverwaltung().getLoggedIn(),
+									anbieter, "Kontaktaufnahme", getContent(),
+									angebot);
 						}
 					};
 					dialog.addOnPanel(new JLabel(Portal.Accountverwaltung()
@@ -469,68 +484,7 @@ public class AngDetailScreen extends JPanel {
 				}
 			}
 		});
-//		editsave.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				fullinfo.setEditable(false);
-//				String[] k = Angebotsverwaltung
-//						.angebotNameToErlaubteKriterien(typ.getText());
-//				for (int i = 0; i < sub_2.getComponentCount(); i++) {
-//					Component c = sub_2.getComponent(i);
-//					if (c instanceof JLabel) {
-//						k[i] = ((JLabel) c).getText();
-//					}
-//				}
-//				q = null;
-//				u = null;
-//				double result = 0;
-//				result = Double.parseDouble(preis.getText());
-//
-//				try {
-//					q = Methods.stringToDate(vondatum.getText());
-//					u = Methods.stringToDate(bisdatum.getText());
-//				} catch (ParseException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				try {
-//					Portal.Angebotsverwaltung()
-//							.createAngebot(
-//									(Anbieter) Portal.Accountverwaltung()
-//											.getLoggedIn(), name.getText(),
-//									fullinfo.getText(),
-//									Angebot.convertNameToTyp(typ.getText()),
-//									result, Integer.parseInt(kap.getText()), q,
-//									u, k);
-//				} catch (NumberFormatException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (InvalidDateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//			}
-//			
-//		});
+
 	}
 
-//	public void repaint(JPanel panel, Component datum) throws ParseException {
-//		Component[] comps = panel.getComponents();
-//		int pos = -1;
-//		for (int i = 0; i < comps.length; i++) {
-//			if (comps[i].equals(datum))
-//				pos = i;
-//		}
-//
-//		panel.remove(datum);
-//		JFormattedTextField von = new JFormattedTextField(new MaskFormatter(
-//				"##/##/####"));
-//		datum = von;
-//		panel.add(datum, null, pos);
-//
-//		panel.revalidate();
-//		panel.repaint();
-//	}
 }
