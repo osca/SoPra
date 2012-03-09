@@ -213,14 +213,6 @@ public class AngDetailScreen extends JPanel {
 		down_haupt.add(BorderLayout.NORTH, down);
 		JPanel down_kom = new JPanel();
 		final KommentarListe kl = new KommentarListe(a);
-		kl.addPropertyChangeListener(new PropertyChangeListener(){
-
-			@Override
-			public void propertyChange(PropertyChangeEvent e) {
-				
-			}
-			
-		});
 		down_kom.add(kl);
 		down_haupt.add(BorderLayout.CENTER, down_kom);
 		this.add(BorderLayout.SOUTH, down_haupt);
