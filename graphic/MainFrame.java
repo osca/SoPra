@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -91,6 +93,16 @@ public class MainFrame extends JFrame
 	    this.setLocation(x/8, y/8);
 		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
 		
+		// oberflaeche aendern
+		try
+		{
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch(Exception e)
+		{
+			//e.printStackTrace();
+		}
+		
 		//windowlistener
 		
 		this.addWindowListener(new WindowAdapter() 
@@ -115,15 +127,9 @@ public class MainFrame extends JFrame
         			JOptionPane.showMessageDialog(frame, "Dafuer haben Sie keine Berechtigung");
         		}
             }
-			
-			@Override
-			public void windowIconified(WindowEvent e)
-			{
-				setExtendedState(JFrame.MAXIMIZED_BOTH);
-			};
         });
 		
-		//////////
+		////////// border und bild
 
 		Border border = BorderFactory.createMatteBorder(0, 2, 0, 2, Color.LIGHT_GRAY);
 		
@@ -265,17 +271,6 @@ public class MainFrame extends JFrame
 		this.pack();
 		this.setVisible(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-
-		// oberflaeche aendern
-		try
-		{
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		}
-		catch(Exception e)
-		{
-			//e.printStackTrace();
-		}
 	}
 
 	
@@ -506,12 +501,12 @@ public class MainFrame extends JFrame
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 					JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
 				}
-				else
+				else // ansonsten, also anbieter
 				{
-					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText()))
+					if(!Portal.Accountverwaltung().isFreeEmail(emailField.getText())) // probier ob email schon vergeben (muss hier gemacht werden, weil sonst falsche reihenfolge des exceptiohandlings)
 						throw new AlreadyInUseException("Die E-Mail-Adresse wird bereits verwendet!");
 					
-					
+					// agb laden mit filechooser, dafuer ein button
 					JButton fcb = new JButton("AGB laden");
 					fcb.setPreferredSize(new Dimension(new Dimension(DialogScreen.BUTTONWIDTH, DialogScreen.BUTTONHEIGHT)));
 					final JFileChooser fc = new JFileChooser();
@@ -525,9 +520,11 @@ public class MainFrame extends JFrame
 					});
 					fc.setAcceptAllFileFilterUsed(false);
 					fc.setMultiSelectionEnabled(false);
-					JButton[] button_array = new JButton[1];
-					button_array[0]=fcb;	
-					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen",button_array, DialogScreen.OK_CANCEL_OPTION)
+					
+					// agb werden mit dem DialogScreen dargestellt
+					
+					
+					final DialogScreen dialog = new DialogScreen(this, "Allgemeine Geschaeftsbedingungen", new JButton[]{fcb}, DialogScreen.OK_CANCEL_OPTION)
 					{
 						@Override
 						public void onOK()
@@ -543,7 +540,6 @@ public class MainFrame extends JFrame
 								JOptionPane.showMessageDialog(this, e.getMessage());
 							}
 						}
-						
 						@Override
 						public void onCancel()
 						{
@@ -551,7 +547,9 @@ public class MainFrame extends JFrame
 						}
 					};
 					dialog.addOnPanel(new JLabel("Bitte geben Sie Ihre allgemeinen Geschaeftsbedingungen an!"), DialogScreen.LABEL_LEFT);
-					button_array[0].addActionListener(new ActionListener()
+					
+					// filechooser soll beim klick auf button erscheinen
+					fcb.addActionListener(new ActionListener()
 					{
 						@Override
 						public void actionPerformed(ActionEvent e) 
@@ -583,6 +581,12 @@ public class MainFrame extends JFrame
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/**
+	 * Wenn ein Kunde angemeldet ist, wird die Liste an eigenen Buchungen angezeigt.
+	 * Wenn ein Anbieter angemeldet ist, wird die Liste an eigenen Angeboten angezeigt.
+	 * Wenn ein Betreiber angemeldet ist, wir die Liste an allen Angeboten angezeigt.
+	 * 
+	 */
 	private void showEigene()
 	{
 		try
@@ -606,12 +610,15 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Zeigt das Suchformular auf dem Hauptbild an.
+	 */
 	private void showSuche()
 	{
 		try
 		{
 			screen.removeAll();
-			screen.add(new SuchScreen()
+			screen.add(new SuchScreen() // das suchformular hat eine buttonfunktion die in hier ueberschrieben wird
 			{
 				@SuppressWarnings({ "unchecked", "rawtypes" })
 				@Override
@@ -638,6 +645,9 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Zeigt die Liste aller Nachrichten des Aktuellen Benutzers auf dem Hauptbild an.
+	 */
 	public void showNachrichten()
 	{
 		try
@@ -654,6 +664,9 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Zeigt alle Topangebot in einer Liste auf dem Hauptbild an.
+	 */
 	private void showTopAngebote()
 	{
 		try
@@ -671,6 +684,9 @@ public class MainFrame extends JFrame
 	}
 	
 	@SuppressWarnings("rawtypes")
+	/**
+	 * Zeige das Erstellungsformular auf dem Hauptbild an.
+	 */
 	private void showErstelle()
 	{
 		try
@@ -687,6 +703,9 @@ public class MainFrame extends JFrame
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/**
+	 * Zeige alle Angebote in einer Liste auf dem Hauptbild an.
+	 */
 	private void showAlleAngebote()
 	{
 		try
@@ -704,6 +723,9 @@ public class MainFrame extends JFrame
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/**
+	 * Zeige alle offene Buchungen des Anbieters an, bzw alle Buchungen aller Kunden als Betreiber
+	 */
 	private void showOffeneBuchungen()
 	{
 		try
@@ -724,6 +746,9 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Loescht den aktuell angemeldeten Account.
+	 */
 	private void showLoeschen()
 	{
 		try
@@ -740,6 +765,9 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Meldet en aktuellen Account aus und setzt die JButtons wieder in die ursprungsvariante an.
+	 */
 	private void logOut() 
 	{
 		try
@@ -769,6 +797,9 @@ public class MainFrame extends JFrame
 		}
 	}
 	
+	/**
+	 * Zeigt einen JOptionPane an, mit dem man einen neuen Betreiber erstellen kann.
+	 */
 	private void addBetreiber()
 	{
 		try
