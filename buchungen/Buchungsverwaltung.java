@@ -206,7 +206,7 @@ public class Buchungsverwaltung {
 	 * @param id Buchungsnummer
 	 * @return Buchung mit der gegebenen Buchungsnummer
 	 */
-	public Buchung getBuchungByBuchungsnummer(int id) {
+	public Buchung getBuchungByBuchungsNummer(int id) {
 		for(Buchung b : getAllBuchungen())
 			if(b.getBuchungsnummer() == id)
 				return b;

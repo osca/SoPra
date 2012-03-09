@@ -271,7 +271,7 @@ public class Nachrichtenverwaltung {
 	 * @param msg Nachricht
 	 * @return Buchungsnummer
 	 */
-	public int getBuchungsnummer(Nachricht msg) {
+	public int getBuchungsNummer(Nachricht msg) {
 		return msg.getBuchungsnummer();
 	}
 	

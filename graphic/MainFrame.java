@@ -345,9 +345,13 @@ public class MainFrame extends JFrame
 					@Override
 					public void onOffer()
 					{
-//						if(account.getTyp() == Account.ANBIETER)//TODO
-//							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()).getb);
-//						else
+						int nummer = Portal.Nachrichtenverwaltung().getBuchungsNummer(nachricht);
+						if(account.getTyp() == Account.ANBIETER)
+							if(nummer != nachricht.KEINE_BUCHUNG)
+								showDetail(Portal.Buchungsverwaltung().getBuchungByBuchungsNummer(nummer));
+							else
+								JOptionPane.showMessageDialog(this, "Keine Buchung gefunden!");
+						else
 							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 					}
 				};
