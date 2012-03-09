@@ -54,11 +54,7 @@ public class BuchDetailScreen extends JPanel
 		
 		frame = mainframe;
 		
-		////////////
-		
-		//JPanel labelPanel = new JPanel(new BorderLayout());
-		
-		north = new JPanel(new BorderLayout());
+		north = new JPanel(new GridLayout(0,2));
 		center = new JPanel(new GridLayout(1,0));
 		south = new JPanel(new GridLayout(1,0));
 		
@@ -98,10 +94,7 @@ public class BuchDetailScreen extends JPanel
 		sub_two_labels[8] = new JLabel(buchung.getKundenName());
 		sub_two_labels[9] = new JLabel(""+f.format(angebot.getPreis()));
 		
-		for(int i=0;i<length_left;i++){
-			sub_one.add(sub_one_labels[i]);
-			sub_two.add(sub_two_labels[i]);
-		}
+
 		
 		JPanel sub_b = new JPanel(new GridLayout(0,2));
 		JPanel sub_1 = new JPanel(new GridLayout(8,1));
@@ -116,43 +109,12 @@ public class BuchDetailScreen extends JPanel
 		
 		
 		
-//		////////////
-//		JPanel left = new JPanel(grid);
-//		final int length = 11;
-//
-//		JLabel[] labels = new JLabel[length];
-//		labels[0] = new JLabel("  Name des Angebots: ");
-//		labels[1] = new JLabel("  Angebotstyp: ");
-//		labels[2] = new JLabel("  Kunde der gebucht: ");
-//		labels[3] = new JLabel("  Beginndatum: ");
-//		labels[4] = new JLabel("  Enddatum: ");
-//		labels[5] = new JLabel("  Status der Buchung: ");
-//		
-//		for(int i=0; i<(labels.length+1)/2; i++)
-//			left.add(labels[i]);
-//		
-//		///////
-//		
-//		JPanel right = new JPanel(grid);
-//		
-//		
-//		labels[6] = new JLabel(angebot.getName());
-//		labels[7] = new JLabel(kunde.getName());
-//		labels[8] = new JLabel(Angebot.convertTypToName(angebot.getTyp()));
-//		labels[9] = new JLabel(formatter.format(angebot.getStartdatum()));
-//		labels[10] = new JLabel(formatter.format(angebot.getStartdatum()));
-//		
+
 		final JLabel status = new JLabel(buchung.getStatus());
 		JLabel status_label = new JLabel("Status:");
 		sub_1.add(status_label);
 		sub_2.add(status);
-		
-//		
-//		for(int i=(length+1)/2; i<labels.length; i++)
-//			right.add(labels[i]);
-//		right.add(status);
-//		
-//		////////////
+	
 		
 		fullinfo = new JTextArea(Portal.Buchungsverwaltung().getReferringAngebot(buchung).getFullInfo());
 		fullinfo.setEditable(false);
@@ -248,7 +210,25 @@ public class BuchDetailScreen extends JPanel
 						}
 						else
 						{
-							if(JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung bestaetigen?","Buchungsanfrage", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+							int confirm = JOptionPane.showConfirmDialog(null, "Wollen Sie die Buchung bestaetigen?","Buchungsanfrage", JOptionPane.YES_NO_OPTION);
+
+									if(confirm == JOptionPane.YES_OPTION)
+									{
+										Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.JA);
+										Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+										Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(buchung.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung bestaetigt!", Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer()));
+										JOptionPane.showMessageDialog(null, "Buchung bestaetigt");
+										buttonRechts.setText("Buchung stornieren");
+									}
+									else if(confirm == JOptionPane.NO_OPTION) {
+										Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.NEIN);
+										Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+										Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(buchung.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer()));
+										JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
+										buttonRechts.setText("Buchung stornieren");
+									}						}
+
+							if(confirm == JOptionPane.YES_OPTION)
 							{
 								Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.JA);
 								Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
@@ -256,7 +236,15 @@ public class BuchDetailScreen extends JPanel
 								JOptionPane.showMessageDialog(null, "Buchung bestaetigt");
 								buttonRechts.setText("Buchung stornieren");
 							}
+							else if(confirm == JOptionPane.NO_OPTION) {
+								Portal.Buchungsverwaltung().setBestaetigt(buchung, Bestaetigung.NEIN);
+								Anbieter an = (Anbieter)Portal.Accountverwaltung().getLoggedIn();
+								Portal.Nachrichtenverwaltung().sendeNachricht(an, Portal.Accountverwaltung().getAccountByName(buchung.getKundenName()), "Buchungsbestaetigung", "Der Anbieter "+an.getName()+" hat Ihre Buchung abgelehnt!", Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer()));
+								JOptionPane.showMessageDialog(null, "Buchung abgelehnt");
+								buttonRechts.setText("Buchung stornieren");
+							}
 						}
+
 						buchungsbutton.setText("Kundenbuchungen "+"("+Portal.Buchungsverwaltung().getAnzahlUnbearbeiteterBuchungen((Anbieter)Portal.Accountverwaltung().getLoggedIn())+")");
 						status.setText(buchung.getStatus());
 
@@ -279,25 +267,24 @@ public class BuchDetailScreen extends JPanel
 		});
 		
 		////////////
-		sub_a.add(sub_1);
-		sub_a.add(sub_2);
-		sub_b.add(sub_one);
-		sub_b.add(sub_two);
-		JPanel temp = new JPanel(new FlowLayout());
+		for(int i=0;i<length_left;i++){
+			sub_one.add(sub_one_labels[i]);
+			sub_two.add(sub_two_labels[i]);
+		}
+		sub_a.add(sub_one);
+		sub_a.add(sub_two);
+		sub_b.add(sub_1);
+		sub_b.add(sub_2);
 
 		north.add(sub_a,BorderLayout.EAST);
 		north.add(sub_b,BorderLayout.CENTER);
-		temp.add(north);
-//		labelPanel.add(north,BorderLayout.WEST);
 		JPanel button_panel = new JPanel(new FlowLayout());
 		button_panel.add(buttonLinks);
 		button_panel.add(buttonRechts);
 		button_panel.add(buttonAngebot);
-//		south.add(buttonRechts);
-//		south.add(buttonAngebot);
 		south.add(button_panel,BorderLayout.CENTER);
 		
-		this.add(temp, BorderLayout.NORTH);
+		this.add(north, BorderLayout.NORTH);
 		this.add(center, BorderLayout.CENTER);
 		this.add(south, BorderLayout.SOUTH);
 	}

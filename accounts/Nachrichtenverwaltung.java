@@ -50,7 +50,7 @@ public class Nachrichtenverwaltung {
 	 * @pre Betreff darf nicht leer oder null sein
 	 * @pre Verweisendes Angebot darf nicht leer sein und muss im System sein
 	 */
-	public void sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot) {
+	public Nachricht sendeNachricht(Account absender, Account empfaenger, String betreff, String text, Angebot angebot) {
 		assert absender != null: "Der Absender ist null";
 		assert Portal.Accountverwaltung().getLoggedIn().equals(absender): "Der Absender ist nicht eingeloggt";
 		assert empfaenger != null: "Der Empfaenger ist null";
@@ -64,6 +64,7 @@ public class Nachrichtenverwaltung {
 			
 		Nachricht msg = new Nachricht(betreff, text, absender, empfaenger, angebot);
 		alleNachrichten.add(msg);
+		return msg;
 	}
 	
 	/**

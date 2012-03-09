@@ -1,7 +1,6 @@
 25. [gui]	Bei Stornierungsanfrage -> Nachricht beim Anbieter benoetigt Button "Zur Buchung" oder direkt "accept" bzw. "decline"
 26. [gui]	Bei Buchungsanfrage -> "Zur Buchung" oder aehnliches...siehe 25...
 59. [gui]	Anbieter muss Buchungen auch ablehnen koennen! -> Ja/Nein/Abbrechen-Buttons bei Statusaendern?
-27: [code]  Angebotsverwaltung hat ein TODO mit Code Cleanen...wird das auskommentierte noch gebraucht?
 			
 Zweitrangig:
 21. [gui]	Fokus auf erstes Textfeld

@@ -10,6 +10,7 @@ import main.Portal;
 import accounts.Anbieter;
 import accounts.Kunde;
 import accounts.LoeschenNichtMoeglichException;
+import accounts.Nachricht;
 import angebote.typen.Angebot;
 
 /**
@@ -65,8 +66,9 @@ public class Buchungsverwaltung {
 		angebot.addBuchung(buchung.getBuchungsnummer());
 		buchungen.add(buchung);
 		
-		Portal.Nachrichtenverwaltung().sendeNachricht(kunde, Portal.Angebotsverwaltung().getAnbieter(angebot), "Neue Buchungsanfrage",
+		Nachricht msg = Portal.Nachrichtenverwaltung().sendeNachricht(kunde, Portal.Angebotsverwaltung().getAnbieter(angebot), "Neue Buchungsanfrage",
 				"Der Kunde moechte Ihr Angebot buchen", angebot);
+		msg.setBuchungsnummer(buchung.getBuchungsnummer());
 		
 		return buchung;
 	}
