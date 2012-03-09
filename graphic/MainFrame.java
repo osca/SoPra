@@ -322,10 +322,17 @@ public class MainFrame extends JFrame
 					@Override
 					public void onAnswer() // neuer DialogScreen als antwortmoeglichkeit
 					{
-						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION){
+						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
+						{
 							@Override
-							public void onOK(){
-								Portal.Nachrichtenverwaltung().sendeNachricht(account, absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));}};
+							public void onOK()
+							{
+								if(getContent().length() != 0)
+									Portal.Nachrichtenverwaltung().sendeNachricht(account, absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
+								else
+									JOptionPane.showMessageDialog(frame, "Sie muessen eine Nachricht eingeben!");
+							}
+						};
 						dialog.addOnPanel(new JLabel(account.getName()), DialogScreen.LABEL_LEFT);
 					}
 					@Override
