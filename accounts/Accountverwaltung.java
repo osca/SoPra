@@ -237,7 +237,7 @@ public class Accountverwaltung {
 						ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(a);
 	
 						for (Buchung b : buchungen) {
-							if (!b.getBis().before(heute) && (Bestaetigung.JA == b.getBestaetigt()))
+							if (!b.getBis().before(heute) && (Bestaetigung.JA.equals(b.getBestaetigt())))
 								throw new LoeschenNichtMoeglichException(
 										"Sie haben noch offene Buchungen");
 						}
@@ -259,7 +259,7 @@ public class Accountverwaltung {
 	
 				// Hat der Kunde noch anstehende bestaetigte Buchungen?
 				for (Buchung b : kundenbuchungen) {
-					if (b.getBestaetigt() == Bestaetigung.JA
+					if (b.getBestaetigt().equals(Bestaetigung.JA)
 							&& !b.getBis().before(heute)) {
 						throw new LoeschenNichtMoeglichException(
 								"Sie haben noch anstehende bestaetigte Buchungen");

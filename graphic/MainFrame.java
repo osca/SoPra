@@ -756,6 +756,7 @@ public class MainFrame extends JFrame
 			if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
 			{
 				Portal.Accountverwaltung().delAccount(account);
+				JOptionPane.showMessageDialog(this, "Das Loeschen ihres Accounts war erfolgreich!");
 				logOut();
 			}
 		}
