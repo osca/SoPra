@@ -235,7 +235,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			} else if (preis.getText() != null || !preis.getText().isEmpty()) {
 				result = Double.parseDouble(preis.getText().replace(",", "."));
 			}  
-			if (land.getSelectedItem().equals("")) {
+			if (land != null) {
 				JOptionPane.showMessageDialog(this, 
 						"Sie muessen ein Land auswaehlen", 
 						"Angebot erstellen", JOptionPane.OK_OPTION);

@@ -53,7 +53,7 @@ public class MainFrame extends JFrame
 	protected static final String MSG_AGB_ERKLAERUNG = "Erklaerung der AGB des Anbieters: ";
 	protected static final String MSG_GESAMMT_BEWERUNG = "Gesammtberwertung dieses Anbieters: ";
 	protected static final String MSG_SAVE_ERROR = "Fehler beim speichern der Dateien";											// 351
-	protected static final String MSG_SEARCH_KEINE = "Es wurden keine Ergebnisse gefunden";
+//	protected static final String MSG_SEARCH_KEINE = 
 	
 	protected static final String QSN_ANGEBOT_MELDEN	= "Sind Sie sicher, dass sie dieses Angebot Melden moechten?";
 	protected static final String QSN_BUCHEN = "Moechten Sie das Angebot wirklich Buchen?";
@@ -348,11 +348,8 @@ public class MainFrame extends JFrame
 					{
 						int nummer = Portal.Nachrichtenverwaltung().getBuchungsNummer(nachricht);
 						if(account.getTyp() == Account.ANBIETER)
-							if(nummer != nachricht.KEINE_BUCHUNG)
-							{
-								this.setOfferButtonName("Zur Buchung");
+							if(nummer != Nachricht.KEINE_BUCHUNG)
 								showDetail(Portal.Buchungsverwaltung().getBuchungByBuchungsNummer(nummer));
-							}
 							else
 								JOptionPane.showMessageDialog(this, "Keine Buchung gefunden!");
 						else
@@ -378,6 +375,9 @@ public class MainFrame extends JFrame
 				dialog.setContent(nachricht.getText());
 				nachricht.setGelesen(true);
 				nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+				
+				if(account.getTyp() == Account.ANBIETER)
+					dialog.setOfferButtonName("Zur Buchung");
 				
 				this.validate();
 				this.repaint();
@@ -605,7 +605,7 @@ public class MainFrame extends JFrame
 						scroll.repaint();
 					}
 					else
-						JOptionPane.showMessageDialog(this, MSG_SEARCH_KEINE);
+						JOptionPane.showMessageDialog(this, "Es wurden keine Ergebnisse gefunden");
 				}
 			});
 			scroll.setViewportView(screen);
@@ -707,31 +707,10 @@ public class MainFrame extends JFrame
 	{
 		try
 		{
-			switch(account.getTyp())
+			if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
 			{
-				case Account.KUNDE:
-					if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
-					{
-						Portal.Accountverwaltung().delAccount(account);
-						logOut();
-					}
-				break;
-				
-				case Account.ANBIETER:
-					if(JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
-					{
-						Portal.Accountverwaltung().delAccount(account);
-						logOut();
-					}
-				break;
-					
-				case Account.BETREIBER:	
-					if (JOptionPane.showConfirmDialog(this, "Moechten Sie den Account wirklich loeschen?", "Loeschen?", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) 
-					{
-						Portal.Accountverwaltung().delAccount(account);
-						logOut();
-					}
-				break;
+				Portal.Accountverwaltung().delAccount(account);
+				logOut();
 			}
 		}
 		catch(Exception e)
@@ -782,10 +761,7 @@ public class MainFrame extends JFrame
 			final JPasswordField passwordField = new JPasswordField();
 			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField},"Betreiber hinzufuegen",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-			{//TODO
 				Portal.Accountverwaltung().addBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
-				//Portal.Accountverwaltung().createBetreiber(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
-			}
 		}
 		catch(Exception e)
 		{
@@ -799,8 +775,6 @@ public class MainFrame extends JFrame
 		try{
 			Datenhaltung.saveAllData();
 			System.exit(0);
-		}catch(IOException ioe){
-			//TODO maybe something?
-		}
+		}catch(Exception ioe){}
 	}
 }
