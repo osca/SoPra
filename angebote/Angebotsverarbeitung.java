@@ -71,7 +71,7 @@ public class Angebotsverarbeitung {
 				if(a.getKapazitaet() >= kapazitaet || kapazitaet == KEINEKAPAZITAET) 
 					treffer++;
 				
-				if((a.getPreis() > vonPreis && a.getPreis() < bisPreis) || (vonPreis == KEINPREIS && bisPreis == KEINPREIS)) 
+				if((a.getPreis() >= vonPreis && a.getPreis() <= bisPreis) || (vonPreis == KEINPREIS && bisPreis == KEINPREIS)) 
 					treffer++;
 				
 				if(von == KEINEDATEN) 
