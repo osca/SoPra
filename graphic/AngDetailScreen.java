@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class AngDetailScreen extends JPanel {
 
 	final MainFrame frame;
 
-	public AngDetailScreen(final MainFrame mainframe, Angebot a) {
+	public AngDetailScreen(final MainFrame mainframe, final Angebot a) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		DecimalFormat f = new DecimalFormat("#0.00");
 
@@ -211,6 +213,14 @@ public class AngDetailScreen extends JPanel {
 		down_haupt.add(BorderLayout.NORTH, down);
 		JPanel down_kom = new JPanel();
 		final KommentarListe kl = new KommentarListe(a);
+		kl.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				
+			}
+			
+		});
 		down_kom.add(kl);
 		down_haupt.add(BorderLayout.CENTER, down_kom);
 		this.add(BorderLayout.SOUTH, down_haupt);
@@ -366,6 +376,7 @@ public class AngDetailScreen extends JPanel {
 												"Sie muessen eine Bewertung auswaehlen.");
 								return;
 							}
+
 						}
 
 						bewertung = bewertungCombo.getSelectedIndex();
@@ -381,14 +392,8 @@ public class AngDetailScreen extends JPanel {
 						Portal.Angebotsverwaltung()
 								.addKommentar(angebot, kommi);
 						
-						kl.init(angebot);
-						kl.validate();
-						kl.repaint();
-						this.validate();
-						this.repaint();
-						frame.validate();
-						frame.repaint();
-						kommentieren.setEnabled(false);
+						
+						frame.showDetail(angebot);
 					}
 				};
 				dialog.addOnPanel(kundeLabel, DialogScreen.LABEL_LEFT);

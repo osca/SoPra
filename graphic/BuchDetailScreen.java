@@ -22,7 +22,6 @@ import javax.swing.border.Border;
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
-import accounts.Nachricht;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
@@ -160,10 +159,19 @@ public class BuchDetailScreen extends JPanel {
 			buttonRechts.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					if (JOptionPane.showConfirmDialog(fullinfo.getParent(),"Wollen Sie wirklich eine Stornierungsanfrage senden?","Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) 
-					{
-						Nachricht nachricht = Portal.Nachrichtenverwaltung().sendeNachricht(Portal.Accountverwaltung().getLoggedIn(),Portal.Angebotsverwaltung().getAnbieter(Portal.Buchungsverwaltung().getReferringAngebot(buchung)),"Stornierunsganfrage","Der Kunde moechte seine Buchung stornieren",Portal.Buchungsverwaltung().getReferringAngebot(buchung));
-						nachricht.setBuchungsNummer(buchung.getBuchungsNummer());
+					if (JOptionPane.showConfirmDialog(
+							fullinfo.getParent(),
+							"Wollen Sie wirklich eine Stornierungsanfrage senden?",
+							"Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+						Portal.Nachrichtenverwaltung().sendeNachricht(
+								Portal.Accountverwaltung().getLoggedIn(),
+								Portal.Angebotsverwaltung().getAnbieter(
+										Portal.Buchungsverwaltung()
+												.getReferringAngebot(buchung)),
+								"Stornierunsganfrage",
+								"Der Kunde moechte seine Buchung stornieren",
+								Portal.Buchungsverwaltung()
+										.getReferringAngebot(buchung));
 						buchung.setStornierungsAnfrage(true);
 						JOptionPane.showMessageDialog(fullinfo.getParent(),
 								"Ihre Stornierungsanfrage wurde gesendet");
