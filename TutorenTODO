@@ -1,16 +1,16 @@
 Still TODO Entwurfsdiagramm
-- Priorisierung
-- Paketdiagramm überarbeiten
-- Auflistung der Daten genauer machen
-- Abwägung des Projektentwurfs mehr schreiben
-- Klassenmodel
-- Angebot --> Anzahl umbenennen zu nextID
-- Verwaltungsklassendiagramm Pfeile ausfüllen
-- Verwaltungsklassen ausführlicher beschreiben
+done	- Priorisierung
+done	- Paketdiagramm überarbeiten
+? - Auflistung der Daten genauer machen
+? - Abwägung des Projektentwurfs mehr schreiben
+done	- Klassenmodel
+done	- Angebot --> Anzahl umbenennen zu nextID
+done	- Verwaltungsklassendiagramm Pfeile ausfüllen
+? - Verwaltungsklassen ausführlicher beschreiben
 
-- Testdaten ins Programm bei Abgabe
+WIP	- Testdaten ins Programm bei Abgabe
 - JUnittests, Assertions
-- Mehr Javadoc
-- Pflichtenheft mit abgeben
-- Benutzerhandbuch
+done	- Mehr Javadoc
+done	- Pflichtenheft mit abgeben
+WIP	- Benutzerhandbuch
 

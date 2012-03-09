@@ -235,6 +235,21 @@ public class Buchungsverwaltung {
 	}
 	
 	/**
+	 * Setzt eine Buchung Bestaetigt (enum)
+	 * 
+	 * @param buchung		zu bestaetigenede Buchung.
+	 * @param bestaetigt	Art der Bestaetigung.
+	 * 
+	 * @pre Die Buchung darf nicht null sein und muss im System sein
+	 */
+	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
+		assert buchung != null: "Die Buchung ist null";
+		assert buchungen.contains(buchung): "Die Buchung ist im System vorhanden";
+		
+		buchung.setBestaetigt(bestaetigt);
+	}
+
+	/**
 	 * Gibt den Kunden zu einer Buchung aus
 	 * 
 	 * @param buchung Buchung
@@ -255,21 +270,6 @@ public class Buchungsverwaltung {
 	 */
 	public Angebot getReferringAngebot(Buchung buchung){
 		return Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
-	}
-	
-	/**
-	 * Setzt eine Buchung Bestaetigt (enum)
-	 * 
-	 * @param buchung		zu bestaetigenede Buchung.
-	 * @param bestaetigt	Art der Bestaetigung.
-	 * 
-	 * @pre Die Buchung darf nicht null sein und muss im System sein
-	 */
-	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
-		assert buchung != null: "Die Buchung ist null";
-		assert buchungen.contains(buchung): "Die Buchung ist im System vorhanden";
-		
-		buchung.setBestaetigt(bestaetigt);
 	}
 	
 	/**

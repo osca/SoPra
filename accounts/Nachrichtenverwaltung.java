@@ -127,6 +127,32 @@ public class Nachrichtenverwaltung {
 	}
 
 	/**
+	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder
+	 * -ausgang hat
+	 * 
+	 * @param acc Spezielles Accountobjekt
+	 *            
+	 * @pre Uebergebener Account darf nicht null sein und muss im System existieren
+	 */
+	public void delAllNachrichten(Account acc) {
+		assert acc != null: "Account ist null";
+		assert Portal.Accountverwaltung().getLoggedIn().equals(acc): "Der Account ist nicht eingeloggt";
+		
+		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da
+		// Elemente nachrutschen
+		int n = alleNachrichten.size();
+		for (int i = 0; i < n; i++) {
+			Nachricht current = alleNachrichten.get(i);
+			if (current.getAbsender().equals(acc.getName())
+					|| current.getEmpfaenger().equals(acc.getName())) {
+				delNachricht(current);
+				i--; // Liste rueckt auf
+				n--; // Liste verkuerzt sich
+			}
+		}
+	}
+
+	/**
 	 * Loescht alle Nachrichten, die auf das spezifizierte Angebot verweisen
 	 * 
 	 * @param ang Angebot dessen Verweise hinfaellig sind
@@ -191,32 +217,6 @@ public class Nachrichtenverwaltung {
 		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
 		
 		return Portal.Accountverwaltung().getAccountByName(msg.getEmpfaenger());
-	}
-
-	/**
-	 * Loescht alle Nachrichten, die der spezifizierte Account in Postein- oder
-	 * -ausgang hat
-	 * 
-	 * @param acc Spezielles Accountobjekt
-	 *            
-	 * @pre Uebergebener Account darf nicht null sein und muss im System existieren
-	 */
-	public void delAllNachrichten(Account acc) {
-		assert acc != null: "Account ist null";
-		assert Portal.Accountverwaltung().getLoggedIn().equals(acc): "Der Account ist nicht eingeloggt";
-		
-		// Mit For-Each-Schleife funktioniert Loeschen nicht wie gewünscht, da
-		// Elemente nachrutschen
-		int n = alleNachrichten.size();
-		for (int i = 0; i < n; i++) {
-			Nachricht current = alleNachrichten.get(i);
-			if (current.getAbsender().equals(acc.getName())
-					|| current.getEmpfaenger().equals(acc.getName())) {
-				delNachricht(current);
-				i--; // Liste rueckt auf
-				n--; // Liste verkuerzt sich
-			}
-		}
 	}
 
 	/**
