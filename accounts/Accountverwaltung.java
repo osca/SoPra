@@ -230,7 +230,6 @@ public class Accountverwaltung {
 				Anbieter anbieteracc = (Anbieter) acc;
 				ArrayList<Angebot> zuLoeschendeAngebote = Portal
 						.Angebotsverwaltung().getAngebote(anbieteracc);
-				System.out.println(zuLoeschendeAngebote.size());
 	
 				// Gibt es noch offene Buchungen Schleife
 				for (Angebot a : zuLoeschendeAngebote) {
