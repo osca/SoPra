@@ -39,6 +39,8 @@ public class DialogScreen extends JDialog
 	private JPanel rightPanel;
 	
 	private MainFrame mainFrame;
+	private JButton answer;
+	private JButton offer;
 	
 	public DialogScreen(MainFrame frame, String title)
 	{
@@ -80,7 +82,7 @@ public class DialogScreen extends JDialog
 		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
 		
 		JPanel main = new JPanel(new BorderLayout());
-		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*3, MainFrame.BUTTONHEIGHT*10));
+		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*4, MainFrame.BUTTONHEIGHT*10));
 		
 		Border border = BorderFactory.createMatteBorder(4, 4, 4, 4, Color.LIGHT_GRAY);
 		
@@ -102,10 +104,6 @@ public class DialogScreen extends JDialog
 		starPanel.add(rightPanel);
 		area = new JTextArea();
 		JPanel buttons = new JPanel();
-		
-		if(but != null)
-			for(JButton b: but)
-				buttons.add(b);
 		
 		if(flag != NAN_OPTION)
 		{
@@ -137,7 +135,7 @@ public class DialogScreen extends JDialog
 	    }
 	    if(flag == OK_CANCEL_ANSWER_OPTION || flag == OK_CANCEL_ANSWER_OPTION || flag == OK_OFFER_ANSWER_OPTION)
 	    {
-	    	JButton answer = new JButton("Antworten");
+	    	answer = new JButton("Antworten");
 	    	answer.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		    buttons.add(answer);
 		    answer.addActionListener(new ActionListener() 
@@ -151,7 +149,7 @@ public class DialogScreen extends JDialog
 	    }
 	    if(flag == OK_OFFER_OPTION || flag == OK_OFFER_CANCEL_OPTION || flag == OK_OFFER_ANSWER_OPTION)
 	    {
-	    	JButton offer = new JButton("Zum Angebot");
+	    	offer = new JButton("Zum Angebot");
 	    	offer.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 		    buttons.add(offer);
 		    offer.addActionListener(new ActionListener() 
@@ -164,6 +162,9 @@ public class DialogScreen extends JDialog
 		    });
 	    }
 	    
+	    if(but != null)
+			for(JButton b: but)
+				buttons.add(b);
 		
 	    ////
 	    
@@ -214,6 +215,17 @@ public class DialogScreen extends JDialog
 		else if(flag == LABEL_RIGHT)
 			rightPanel.add(component);
 		this.repaint();
+	}
+	
+	public void setAnswerButtonName(String name)
+	{
+		if(answer != null)
+			answer.setText(name);
+	}
+	public void setOfferButtonName(String name)
+	{
+		if(offer != null)
+			offer.setText(name);
 	}
 	
 	public void onOK()

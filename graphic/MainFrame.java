@@ -43,6 +43,7 @@ public class MainFrame extends JFrame
 {
 	public static final int BUTTONWIDTH = 180;
 	public static final int BUTTONHEIGHT = 38;
+	public static final int TEXTFIELDLENGTH = 30;
 
 	protected static final String MSG_LOGIN_FEHLT = "Sie muessen sich einlogen um weitere Aktionen durchfuehren zu koennen";
 	protected static final String MSG_LOGIN_FEHLERHALFT = "Der Account wurde nicht gefunden oder das Passwort ist falsch";		// 283
@@ -348,7 +349,10 @@ public class MainFrame extends JFrame
 						int nummer = Portal.Nachrichtenverwaltung().getBuchungsNummer(nachricht);
 						if(account.getTyp() == Account.ANBIETER)
 							if(nummer != nachricht.KEINE_BUCHUNG)
+							{
+								this.setOfferButtonName("Zur Buchung");
 								showDetail(Portal.Buchungsverwaltung().getBuchungByBuchungsNummer(nummer));
+							}
 							else
 								JOptionPane.showMessageDialog(this, "Keine Buchung gefunden!");
 						else
