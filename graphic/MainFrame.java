@@ -3,7 +3,8 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Event;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -25,7 +26,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
 
@@ -122,18 +122,6 @@ public class MainFrame extends JFrame
 				setExtendedState(JFrame.MAXIMIZED_BOTH);
 			};
         });
-		
-		// oberflaeche aendern
-		
-		try
-		{
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		}
-		catch(Exception e)
-		{
-			//e.printStackTrace();
-		}
-		
 		
 		//////////
 
@@ -276,8 +264,18 @@ public class MainFrame extends JFrame
 		
 		this.pack();
 		this.setVisible(true);
-		this.setResizable(false);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+
+		// oberflaeche aendern
+		try
+		{
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch(Exception e)
+		{
+			//e.printStackTrace();
+		}
 	}
 
 	
@@ -398,15 +396,15 @@ public class MainFrame extends JFrame
 	
 	/**
 	 *  Zeigt den LoginScreen als JOptionPane.
-	 *  Sofern nicht gerade Angemeldet, 
 	 * 
 	 */
 	private void showLogin() 
 	{
 		try
 		{
-			if(!logged)
+			if(!logged) // nur wenn eingelogged
 			{
+				// alles was auf das JOptionPane kommt, was ausgefuellt werden muss
 				JLabel nameLabel = new JLabel("Name");
 				JTextField nameField = new JTextField();
 				JLabel passwordLabel = new JLabel("Passwort");
@@ -414,19 +412,22 @@ public class MainFrame extends JFrame
 				JLabel label = new JLabel("Bitte geben Sie die Anmeldeinformationen an");
 		
 				if(JOptionPane.showConfirmDialog(this,new Object[]{label, nameLabel, nameField, passwordLabel, passwordField},"Login",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-				{
+				{// bei OK:
+					
 					account = Portal.Accountverwaltung().logIn(nameField.getText(), new String(passwordField.getPassword()));
 					
+					// aendere die gestalt des mainframes
 					eigeneButton.setEnabled(true);
 					nachrichtButton.setEnabled(true);
 					registerButton.setEnabled(false);
-					
-					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
-					
-					loginButton.setText("Logout");
 					loeschenButton.setEnabled(true);
 					
+					nachrichtButton.setText("Nachricht"+" ("+Portal.Nachrichtenverwaltung().getAnzahlUngelesenerNachrichten(account)+")");
+					loginButton.setText("Logout");
+					
 					JOptionPane.showMessageDialog(this, "Erfolgreich angemeldet");
+					
+					// jenachdem wer angemeldet ist, andere ansicht:
 					
 					if(account.getTyp() == Account.KUNDE)
 					{
@@ -455,16 +456,16 @@ public class MainFrame extends JFrame
 						betreiberButton.setVisible(true);
 					}
 					
+					// finish:
+					
 					showTopAngebote();
 					this.setTitle("Eingeloggt als: "+account.getName());
 					this.repaint();
 					logged = true;
 				}
 			}
-			else
-			{
+			else // ansonsten ruf die methode logout auf
 				logOut();
-			}
 		}
 		catch(Exception e)
 		{
@@ -472,10 +473,16 @@ public class MainFrame extends JFrame
 		}
 	}
 
+	/**
+	 * Zeigt das Registrierungsfenster als JOptionPane an.
+	 * 
+	 */
 	private void showRegister()
 	{
 		try
 		{
+			// alle elemente die auf das JOptionPane kommen
+			
 			JLabel label = new JLabel("Bitte geben Sie die Registrierinformationen an");
 			JLabel nameLabel = new JLabel("Name");
 			final JTextField nameField = new JTextField();
@@ -487,9 +494,14 @@ public class MainFrame extends JFrame
 			JLabel choice = new JLabel("Waehlen sie bitte Ihren Accounttypen");
 			JComboBox drop = new JComboBox(new String[]{"Kunde","Anbieter"});
 			
+			// //
+			
 			if(JOptionPane.showConfirmDialog(this,new Object[]{label,nameLabel,nameField,emailLabel,emailField,passwordLabel,passwordField,choice,drop},"Registrierung",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 			{
-				if(drop.getSelectedIndex() == 0)
+				
+				// nach bestaetigung des JOptionPanes:
+				
+				if(drop.getSelectedIndex() == 0) // wenn kunde gewaehlt wurde, erstelle neue :
 				{
 					Portal.Accountverwaltung().createKunde(emailField.getText(), nameField.getText(), new String(passwordField.getPassword()));
 					JOptionPane.showMessageDialog(this, "Registrierung war Erfolgreich");
