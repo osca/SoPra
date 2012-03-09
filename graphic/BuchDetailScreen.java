@@ -55,9 +55,7 @@ public class BuchDetailScreen extends JPanel {
  * Konstruktor zu BuchDetailScreen
  * Der erste Teil des Konstruktors ist trivial. Im zweiten Teil erkennnt 
  * der Konstruktor, welcher Benutzertyp eingelogt ist und setzt dementspechend die Buttons
- * im unteren Teil des Panels. Wenn ein Kunde eingelogt ist, kann dieser durch das Waehlen
- * des Kommentieren-Buttons ein Dialog-Fenster aufrufen, in welchem das Kommentar eingegeben
- * werden kann.
+ * im unteren Teil des Panels. 
  * @param mainframe Das MainFrame, auf welcher das Screen eingebunden wird
  * @param buchungsbutton Buchungsbutton, welches zu refreshen dient
  * @param buchung Die Buchung, zu welcher die Details gezeigt werden
