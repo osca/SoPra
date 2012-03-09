@@ -3,6 +3,7 @@ package graphic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -41,11 +42,17 @@ import buchungen.Buchung;
 
 @SuppressWarnings("serial")
 
+/**
+ * Hauptoberflaeche von der aus die Screens gesteuert werden
+ * 
+ * @author Neumann
+ *
+ */
 public class MainFrame extends JFrame
 {
 	public static final int BUTTONWIDTH = 180;
 	public static final int BUTTONHEIGHT = 38;
-	public static final int TEXTFIELDLENGTH = 30;
+	public static final int TEXTFIELDLENGTH = 42;
 	
 	private JButton loginButton;
 	private JButton registerButton;
@@ -71,12 +78,26 @@ public class MainFrame extends JFrame
 	private MainFrame frame = this; //quick'n'dirty, wird genutzt um den dialogscreen die 
 	private String agbFromFile;
 
+	/**
+	 * Der Konstruktor erstellt das Hauptbild mit den Buttons, ihren Funktionen und erstellt die unterteilten Screens
+	 */
 	public MainFrame()
 	{
+		// JFrame einstellungen
+		
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (d.width - getSize().width/2);
+	    int y = (d.height - getSize().height/2);
+	    this.setLocation(x/8, y/8);
+		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
+		
+		//windowlistener
+		
 		this.addWindowListener(new WindowAdapter() 
         { 
+			@Override
             public void windowClosing(WindowEvent evt) 
             {
         		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
@@ -93,15 +114,18 @@ public class MainFrame extends JFrame
         		}
         		else
         		{
-        			JOptionPane.showMessageDialog(frame, "Dafür haben Sie keine Berechtigung");
+        			JOptionPane.showMessageDialog(frame, "Dafuer haben Sie keine Berechtigung");
         		}
             }
+			
+			@Override
+			public void windowIconified(WindowEvent e)
+			{
+				setExtendedState(JFrame.MAXIMIZED_BOTH);
+			};
         });
-	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (d.width - getSize().width/2);
-	    int y = (d.height - getSize().height/2);
-	    this.setLocation(x/8, y/8);
-		this.setPreferredSize(new Dimension(x*2/3, y*2/3));
+		
+		// oberflaeche aendern
 		
 		try
 		{
@@ -112,9 +136,6 @@ public class MainFrame extends JFrame
 			//e.printStackTrace();
 		}
 		
-		/////////
-		
-		account = new Default();
 		
 		//////////
 
@@ -304,8 +325,12 @@ public class MainFrame extends JFrame
 		
 		this.pack();
 		this.setVisible(true);
+		this.setResizable(false);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
+	
+	
 	public <T extends Listable> void showDetail(T obj) 
 	{
 		try

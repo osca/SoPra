@@ -163,8 +163,12 @@ public class BuchDetailScreen extends JPanel {
 					if (JOptionPane.showConfirmDialog(
 							fullinfo.getParent(),
 							"Wollen Sie wirklich eine Stornierungsanfrage senden?",
+<<<<<<< HEAD
 							"Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
+=======
+							"Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+>>>>>>> 5c18fc167fe548bc6c0cf8029e70c229dc2245a3
 						Portal.Nachrichtenverwaltung().sendeNachricht(
 								Portal.Accountverwaltung().getLoggedIn(),
 								Portal.Angebotsverwaltung().getAnbieter(
@@ -173,8 +177,12 @@ public class BuchDetailScreen extends JPanel {
 								"Stornierunsganfrage",
 								"Der Kunde moechte seine Buchung stornieren",
 								Portal.Buchungsverwaltung()
+<<<<<<< HEAD
 										.getReferringAngebot(buchung));
 
+=======
+										.getReferringAngebot(buchung));
+>>>>>>> 5c18fc167fe548bc6c0cf8029e70c229dc2245a3
 						Nachricht nachricht = Portal
 								.Nachrichtenverwaltung()
 								.sendeNachricht(
@@ -189,8 +197,12 @@ public class BuchDetailScreen extends JPanel {
 										"Der Kunde moechte seine Buchung stornieren",
 										Portal.Buchungsverwaltung()
 												.getReferringAngebot(buchung));
+<<<<<<< HEAD
 						nachricht.setBuchungsNummer(buchung.getBuchungsNummer());
 
+=======
+						nachricht.setBuchungsNummer(buchung.getBuchungsNummer());
+>>>>>>> 5c18fc167fe548bc6c0cf8029e70c229dc2245a3
 						buchung.setStornierungsAnfrage(true);
 						JOptionPane.showMessageDialog(fullinfo.getParent(),
 								"Ihre Stornierungsanfrage wurde gesendet");
