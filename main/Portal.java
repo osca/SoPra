@@ -56,7 +56,9 @@ public class Portal {
 	 * Stellt den in den Argumenten uebgergebenen Zustand des Systems wieder her
 	 * @param accv Accountverwaltung mit Benutzerlisten
 	 * @param angebotsverwaltung 
+	 * @param angebotsAnzahl Gesamtzahl der Angebote
 	 * @param buchv Buchungsverwaltung mit Buchungslisten
+	 * @param angebotsAnzahl Gesamtzahl der Buchungen
 	 * @param nachv Nachrichtenverwaltung mit Nachrichtenlisten
 	 */
 	public static void recover(Accountverwaltung accv, Angebotsverwaltung angvw, int angebotsAnzahl, 
