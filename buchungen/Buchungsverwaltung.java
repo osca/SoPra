@@ -63,12 +63,12 @@ public class Buchungsverwaltung {
 		buchung.setVon(von);
 		
 		kunde.addBuchung(buchung);
-		angebot.addBuchung(buchung.getBuchungsnummer());
+		angebot.addBuchung(buchung.getBuchungsNummer());
 		buchungen.add(buchung);
 		
 		Nachricht msg = Portal.Nachrichtenverwaltung().sendeNachricht(kunde, Portal.Angebotsverwaltung().getAnbieter(angebot), "Neue Buchungsanfrage",
 				"Der Kunde moechte Ihr Angebot buchen", angebot);
-		msg.setBuchungsnummer(buchung.getBuchungsnummer());
+		msg.setBuchungsNummer(buchung.getBuchungsNummer());
 		
 		return buchung;
 	}
@@ -85,7 +85,7 @@ public class Buchungsverwaltung {
 		assert buchungen.contains(b): "Die Buchung ist im System vorhanden";
 		
 		getKunde(b).delBuchung(b);
-		getReferringAngebot(b).delBuchung(b.getBuchungsnummer());
+		getReferringAngebot(b).delBuchung(b.getBuchungsNummer());
 		buchungen.remove(b);
 		
 		int anz = Buchung.getAnzahl();
@@ -129,7 +129,7 @@ public class Buchungsverwaltung {
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
 		for(Buchung b : buchungen)
-			if(kunde.getBuchungsNummern().contains(b.getBuchungsnummer()))
+			if(kunde.getBuchungsNummern().contains(b.getBuchungsNummer()))
 				reslist.add(b);
 		
 		Collections.reverse(reslist);
@@ -210,7 +210,7 @@ public class Buchungsverwaltung {
 	 */
 	public Buchung getBuchungByBuchungsNummer(int id) {
 		for(Buchung b : getAllBuchungen())
-			if(b.getBuchungsnummer() == id)
+			if(b.getBuchungsNummer() == id)
 				return b;
 		return null;
 	}
@@ -242,7 +242,7 @@ public class Buchungsverwaltung {
 	 */
 	public Kunde getKunde(Buchung buchung){
 		for (Buchung b : buchungen)
-			if(b.getBuchungsnummer() == buchung.getBuchungsnummer())
+			if(b.getBuchungsNummer() == buchung.getBuchungsNummer())
 				return (Kunde) Portal.Accountverwaltung().getAccountByName(buchung.getKundenName());
 		return null;
 	}

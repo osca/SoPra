@@ -71,7 +71,7 @@ public class Buchung implements Listable {
 	 * 
 	 * @return Buchungsnummer fuer diese Buchung
 	 */
-	public int getBuchungsnummer() {
+	public int getBuchungsNummer() {
 		return buchungsNummer;
 	}
 

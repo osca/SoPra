@@ -136,7 +136,7 @@ public class Nachricht implements Listable {
 	 * 
 	 * @return Buchungsnummer
 	 */
-	public int getBuchungsnummer() {
+	public int getBuchungsNummer() {
 		return buchungsnummer;
 	}
 	
@@ -145,7 +145,7 @@ public class Nachricht implements Listable {
 	 * 
 	 * @param bnummer Buchungsnummer
 	 */
-	public void setBuchungsnummer(int bnummer) {
+	public void setBuchungsNummer(int bnummer) {
 		buchungsnummer = bnummer;
 	}
 	
