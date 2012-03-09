@@ -22,6 +22,7 @@ import javax.swing.border.Border;
 import main.Portal;
 import accounts.Account;
 import accounts.Anbieter;
+import accounts.Nachricht;
 import angebote.kriterien.Kriterium;
 import angebote.typen.Angebot;
 import buchungen.Bestaetigung;
@@ -163,7 +164,6 @@ public class BuchDetailScreen extends JPanel {
 							fullinfo.getParent(),
 							"Wollen Sie wirklich eine Stornierungsanfrage senden?",
 							"Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-<<<<<<< HEAD
 						Portal.Nachrichtenverwaltung().sendeNachricht(
 								Portal.Accountverwaltung().getLoggedIn(),
 								Portal.Angebotsverwaltung().getAnbieter(
@@ -173,7 +173,6 @@ public class BuchDetailScreen extends JPanel {
 								"Der Kunde moechte seine Buchung stornieren",
 								Portal.Buchungsverwaltung()
 										.getReferringAngebot(buchung));
-=======
 						Nachricht nachricht = Portal
 								.Nachrichtenverwaltung()
 								.sendeNachricht(
@@ -189,7 +188,6 @@ public class BuchDetailScreen extends JPanel {
 										Portal.Buchungsverwaltung()
 												.getReferringAngebot(buchung));
 						nachricht.setBuchungsNummer(buchung.getBuchungsNummer());
->>>>>>> 0fa9679d34e90cb6ec88be032e03cc5707f524bb
 						buchung.setStornierungsAnfrage(true);
 						JOptionPane.showMessageDialog(fullinfo.getParent(),
 								"Ihre Stornierungsanfrage wurde gesendet");
