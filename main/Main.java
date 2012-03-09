@@ -11,5 +11,4 @@ public class Main {
 		graphic.MainFrame frame = new graphic.MainFrame();
 		frame.setVisible(true);
 	}
-
 }

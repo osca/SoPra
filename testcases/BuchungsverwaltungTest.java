@@ -67,7 +67,8 @@ public class BuchungsverwaltungTest {
 		//Set und Get Bestaetigung einer Buchung
 		bv.setBestaetigt(b3, Bestaetigung.JA);
 		
-		Assert.assertEquals(Bestaetigung.JA, bv.getBuchungen(kunde1).get(2).getBestaetigt());
+		//Assert.assertEquals(Bestaetigung.JA, bv.getBuchungen(kunde1).get(0).getBestaetigt()); So war es vorher, aber es wurde bv1.getBestaetigt() aufgerufen; edit: benjamin
+		Assert.assertEquals(Bestaetigung.JA, bv.getBestaetigt(b3));
 
 		//Loesche Buchung
 		bv.delBuchung(b3);
