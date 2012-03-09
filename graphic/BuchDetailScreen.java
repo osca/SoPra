@@ -43,33 +43,35 @@ public class BuchDetailScreen extends JPanel {
 
 	private MainFrame frame;
 
-	public BuchDetailScreen(final MainFrame mainframe, final JButton buchungsbutton, final Buchung buchung)
-	{
-		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY);
-		grid = new GridLayout(0,1);
+	public BuchDetailScreen(final MainFrame mainframe,
+			final JButton buchungsbutton, final Buchung buchung) {
+		Border border = BorderFactory.createMatteBorder(2, 2, 2, 2,
+				Color.LIGHT_GRAY);
+		grid = new GridLayout(0, 1);
 		grid.setHgap(4);
 		this.setLayout(new BorderLayout());
 		this.setBorder(border);
-		
+
 		frame = mainframe;
-		
-		north = new JPanel(new GridLayout(0,2));
-		center = new JPanel(new GridLayout(1,0));
-		south = new JPanel(new GridLayout(1,0));
-		
+
+		north = new JPanel(new GridLayout(0, 2));
+		center = new JPanel(new GridLayout(1, 0));
+		south = new JPanel(new GridLayout(1, 0));
+
 		north.setBorder(border);
 		center.setBorder(border);
-		
-		Angebot angebot = Portal.Angebotsverwaltung().getAngebotByNummer(buchung.getAngebotsNummer());
+
+		Angebot angebot = Portal.Angebotsverwaltung().getAngebotByNummer(
+				buchung.getAngebotsNummer());
 		Anbieter anbieter = Portal.Angebotsverwaltung().getAnbieter(angebot);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		DecimalFormat f = new DecimalFormat("#0.00"); 
-		
-		JPanel sub_a = new JPanel(new GridLayout(0,2));
-		JPanel sub_one = new JPanel(new GridLayout(10,1));
-		JPanel sub_two = new JPanel(new GridLayout(10,1));
+		DecimalFormat f = new DecimalFormat("#0.00");
+
+		JPanel sub_a = new JPanel(new GridLayout(0, 2));
+		JPanel sub_one = new JPanel(new GridLayout(10, 1));
+		JPanel sub_two = new JPanel(new GridLayout(10, 1));
 		int length_left = 10;
-		JLabel [] sub_one_labels = new JLabel[length_left];
+		JLabel[] sub_one_labels = new JLabel[length_left];
 		sub_one_labels[0] = new JLabel("Angebotsnummer:");
 		sub_one_labels[1] = new JLabel("Angebotsname:");
 		sub_one_labels[2] = new JLabel("Angebotswertung:");
@@ -80,24 +82,23 @@ public class BuchDetailScreen extends JPanel {
 		sub_one_labels[7] = new JLabel("Startdatum der Buchung:");
 		sub_one_labels[8] = new JLabel("Gebucht von:");
 		sub_one_labels[9] = new JLabel("Preis");
-		
-		JLabel [] sub_two_labels = new JLabel[length_left];
-		sub_two_labels[0] = new JLabel(""+angebot.getAngebotsNummer());
+
+		JLabel[] sub_two_labels = new JLabel[length_left];
+		sub_two_labels[0] = new JLabel("" + angebot.getAngebotsNummer());
 		sub_two_labels[1] = new JLabel(angebot.getName());
-		sub_two_labels[2] = new JLabel(""+f.format(angebot.getWertung()));
+		sub_two_labels[2] = new JLabel("" + f.format(angebot.getWertung()));
 		sub_two_labels[3] = new JLabel(anbieter.getName());
-		sub_two_labels[4] = new JLabel(""+f.format(anbieter.getWertung()));
-		sub_two_labels[5] = new JLabel("" + Angebot.convertTypToName(angebot.getTyp()));
+		sub_two_labels[4] = new JLabel("" + f.format(anbieter.getWertung()));
+		sub_two_labels[5] = new JLabel(""
+				+ Angebot.convertTypToName(angebot.getTyp()));
 		sub_two_labels[6] = new JLabel(formatter.format(buchung.getVon()));
 		sub_two_labels[7] = new JLabel(formatter.format(buchung.getBis()));
 		sub_two_labels[8] = new JLabel(buchung.getKundenName());
-		sub_two_labels[9] = new JLabel(""+f.format(angebot.getPreis()));
-		
+		sub_two_labels[9] = new JLabel("" + f.format(angebot.getPreis()));
 
-		
-		JPanel sub_b = new JPanel(new GridLayout(0,2));
-		JPanel sub_1 = new JPanel(new GridLayout(8,1));
-		JPanel sub_2 = new JPanel(new GridLayout(8,1));
+		JPanel sub_b = new JPanel(new GridLayout(0, 2));
+		JPanel sub_1 = new JPanel(new GridLayout(8, 1));
+		JPanel sub_2 = new JPanel(new GridLayout(8, 1));
 		ArrayList<Kriterium> w = angebot.getKriterien();
 		for (int i = 0; i < w.size(); i++) {
 			JLabel krit = new JLabel(w.get(i).getName());
@@ -105,30 +106,29 @@ public class BuchDetailScreen extends JPanel {
 			JLabel krit1 = new JLabel(w.get(i).getWert());
 			sub_2.add(krit1);
 		}
-		
-		
-		
 
 		final JLabel status = new JLabel(buchung.getStatus());
 		JLabel status_label = new JLabel("Status:");
 		sub_1.add(status_label);
 		sub_2.add(status);
-	
-		
-		fullinfo = new JTextArea(Portal.Buchungsverwaltung().getReferringAngebot(buchung).getFullInfo());
+
+		fullinfo = new JTextArea(Portal.Buchungsverwaltung()
+				.getReferringAngebot(buchung).getFullInfo());
 		fullinfo.setEditable(false);
 		fullinfo.setLineWrap(true);
 		fullinfo.setWrapStyleWord(true);
 		fullinfo.setBackground(Color.LIGHT_GRAY);
 		center.add(fullinfo);
-		
+
 		buttonLinks = new JButton();
 		buttonRechts = new JButton();
 		buttonAngebot = new JButton("Zum Angebot");
-		buttonLinks.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
-		buttonRechts.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
-		buttonAngebot.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
-		 	
+		buttonLinks.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+				MainFrame.BUTTONHEIGHT));
+		buttonRechts.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+				MainFrame.BUTTONHEIGHT));
+		buttonAngebot.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH,
+				MainFrame.BUTTONHEIGHT));
 
 		if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.KUNDE) {
 			buttonLinks.setText("Aenderungsanfrage");
@@ -163,6 +163,7 @@ public class BuchDetailScreen extends JPanel {
 							fullinfo.getParent(),
 							"Wollen Sie wirklich eine Stornierungsanfrage senden?",
 							"Sicher?", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+<<<<<<< HEAD
 						Portal.Nachrichtenverwaltung().sendeNachricht(
 								Portal.Accountverwaltung().getLoggedIn(),
 								Portal.Angebotsverwaltung().getAnbieter(
@@ -172,6 +173,23 @@ public class BuchDetailScreen extends JPanel {
 								"Der Kunde moechte seine Buchung stornieren",
 								Portal.Buchungsverwaltung()
 										.getReferringAngebot(buchung));
+=======
+						Nachricht nachricht = Portal
+								.Nachrichtenverwaltung()
+								.sendeNachricht(
+										Portal.Accountverwaltung()
+												.getLoggedIn(),
+										Portal.Angebotsverwaltung()
+												.getAnbieter(
+														Portal.Buchungsverwaltung()
+																.getReferringAngebot(
+																		buchung)),
+										"Stornierunsganfrage",
+										"Der Kunde moechte seine Buchung stornieren",
+										Portal.Buchungsverwaltung()
+												.getReferringAngebot(buchung));
+						nachricht.setBuchungsNummer(buchung.getBuchungsNummer());
+>>>>>>> 0fa9679d34e90cb6ec88be032e03cc5707f524bb
 						buchung.setStornierungsAnfrage(true);
 						JOptionPane.showMessageDialog(fullinfo.getParent(),
 								"Ihre Stornierungsanfrage wurde gesendet");
@@ -240,10 +258,11 @@ public class BuchDetailScreen extends JPanel {
 													"Es liegt keine Stornierungsanfrage vor");
 							}
 						} else {
-							if (JOptionPane.showConfirmDialog(null,
+							int confirm = JOptionPane.showConfirmDialog(null,
 									"Wollen Sie die Buchung bestaetigen?",
 									"Buchungsanfrage",
-									JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+									JOptionPane.YES_NO_OPTION);
+							if (confirm == JOptionPane.YES_OPTION) {
 								Portal.Buchungsverwaltung().setBestaetigt(
 										buchung, Bestaetigung.JA);
 								Anbieter an = (Anbieter) Portal
@@ -264,6 +283,27 @@ public class BuchDetailScreen extends JPanel {
 								JOptionPane.showMessageDialog(null,
 										"Buchung bestaetigt");
 								buttonRechts.setText("Buchung stornieren");
+							}
+							else if (confirm == JOptionPane.NO_OPTION) {
+								Portal.Buchungsverwaltung().setBestaetigt(
+										buchung, Bestaetigung.NEIN);
+								Anbieter an = (Anbieter) Portal
+										.Accountverwaltung().getLoggedIn();
+								Portal.Nachrichtenverwaltung()
+										.sendeNachricht(
+												an,
+												Portal.Accountverwaltung()
+														.getAccountByName(
+																buchung.getKundenName()),
+												"Buchungsbestaetigung",
+												"Der Anbieter "
+														+ an.getName()
+														+ " hat Ihre Buchung abgelehnt!",
+												Portal.Angebotsverwaltung()
+														.getAngebotByNummer(
+																buchung.getAngebotsNummer()));
+								JOptionPane.showMessageDialog(null,
+										"Buchung abgelehnt");
 							}
 						}
 						buchungsbutton.setText("Kundenbuchungen "
@@ -290,7 +330,7 @@ public class BuchDetailScreen extends JPanel {
 			}
 		});
 
-		for(int i=0;i<length_left;i++){
+		for (int i = 0; i < length_left; i++) {
 			sub_one.add(sub_one_labels[i]);
 			sub_two.add(sub_two_labels[i]);
 		}
@@ -299,14 +339,14 @@ public class BuchDetailScreen extends JPanel {
 		sub_b.add(sub_1);
 		sub_b.add(sub_2);
 
-		north.add(sub_a,BorderLayout.EAST);
-		north.add(sub_b,BorderLayout.CENTER);
+		north.add(sub_a, BorderLayout.EAST);
+		north.add(sub_b, BorderLayout.CENTER);
 		JPanel button_panel = new JPanel(new FlowLayout());
 		button_panel.add(buttonLinks);
 		button_panel.add(buttonRechts);
 		button_panel.add(buttonAngebot);
-		south.add(button_panel,BorderLayout.CENTER);
-		
+		south.add(button_panel, BorderLayout.CENTER);
+
 		this.add(north, BorderLayout.NORTH);
 		this.add(center, BorderLayout.CENTER);
 		this.add(south, BorderLayout.SOUTH);

@@ -1,4 +1,5 @@
 package graphic;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,7 +34,7 @@ import angebote.typen.Angebot;
 
 @SuppressWarnings("serial")
 public class SuchScreen extends JPanel
-{
+{	
 	private final static Object[] TYPLIST = new Object[]{"Typ","Hoteluebernachtung","Autovermietung","Ausflug","Flug"};
 	
 	private JComboBox types;
@@ -106,11 +107,13 @@ public class SuchScreen extends JPanel
 		try 
 		{
 			felder = new JFormattedTextField[7];	//entspricht dem labelarray
-			felder[0] = new JFormattedTextField(); 
+			felder[0] = new JFormattedTextField();
+			felder[0].setDocument(new MaxTextDocument(MainFrame.TEXTFIELDLENGTH));
 			felder[1] = new JFormattedTextField(new NumberFormatter());
 			felder[2] = new JFormattedTextField(new DecimalFormat("#*0.00"));
 			felder[3] = new JFormattedTextField(new DecimalFormat("#*0.00"));
 			felder[4] = new JFormattedTextField();
+			felder[4].setDocument(new MaxTextDocument(MainFrame.TEXTFIELDLENGTH));
 			felder[5] = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			felder[6] = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			

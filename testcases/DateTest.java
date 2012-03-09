@@ -30,7 +30,5 @@ public class DateTest {
 					end = "05/01/2024";
 		Date daten[]	= graphic.Methods.dater(start, end, 4);
 		Assert.assertEquals(4, daten.length);
-		for(Date d : daten)
-			System.out.println(df.format(d));
 	}
 }

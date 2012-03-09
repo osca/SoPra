@@ -7,8 +7,9 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -39,24 +40,12 @@ import angebote.typen.Angebot;
 import buchungen.Buchung;
 
 @SuppressWarnings("serial")
+
 public class MainFrame extends JFrame
 {
 	public static final int BUTTONWIDTH = 180;
 	public static final int BUTTONHEIGHT = 38;
 	public static final int TEXTFIELDLENGTH = 30;
-
-	protected static final String MSG_LOGIN_FEHLT = "Sie muessen sich einlogen um weitere Aktionen durchfuehren zu koennen";
-	protected static final String MSG_LOGIN_FEHLERHALFT = "Der Account wurde nicht gefunden oder das Passwort ist falsch";		// 283
-	protected static final String MSG_REG_EXISTIERT = "Die Benutzerinformationen sind bereits vergeben.";						// 392
-	protected static final String MSG_BESCHWERDE = "Beschwerde";
-	protected static final String MSG_ANGEBOT_GEMELDET = "Ein Kunde hat ein Angebot gemeldet!";
-	protected static final String MSG_AGB_ERKLAERUNG = "Erklaerung der AGB des Anbieters: ";
-	protected static final String MSG_GESAMMT_BEWERUNG = "Gesammtberwertung dieses Anbieters: ";
-	protected static final String MSG_SAVE_ERROR = "Fehler beim speichern der Dateien";											// 351
-//	protected static final String MSG_SEARCH_KEINE = 
-	
-	protected static final String QSN_ANGEBOT_MELDEN	= "Sind Sie sicher, dass sie dieses Angebot Melden moechten?";
-	protected static final String QSN_BUCHEN = "Moechten Sie das Angebot wirklich Buchen?";
 	
 	private JButton loginButton;
 	private JButton registerButton;
@@ -79,13 +68,35 @@ public class MainFrame extends JFrame
 	
 	private boolean logged = false;
 	
-	private MainFrame frame = this; //quick'n'dirty  nur voruebergehend
+	private MainFrame frame = this; //quick'n'dirty, wird genutzt um den dialogscreen die 
 	private String agbFromFile;
 
 	public MainFrame()
 	{
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() 
+        { 
+            public void windowClosing(WindowEvent evt) 
+            {
+        		if(Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.BETREIBER)
+        		{
+        			try
+        			{
+	        			Portal.Accountverwaltung().logOut();
+	        			System.exit(0);
+        			}
+        			catch(Exception e)
+        			{
+        				JOptionPane.showMessageDialog(frame, e.getMessage());
+        			}
+        		}
+        		else
+        		{
+        			JOptionPane.showMessageDialog(frame, "Dafür haben Sie keine Berechtigung");
+        		}
+            }
+        });
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (d.width - getSize().width/2);
 	    int y = (d.height - getSize().height/2);
@@ -767,14 +778,5 @@ public class MainFrame extends JFrame
 		{
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-	}
-
-	/////////////////////////
-	
-	public void dispose(){
-		try{
-			Datenhaltung.saveAllData();
-			System.exit(0);
-		}catch(Exception ioe){}
 	}
 }
