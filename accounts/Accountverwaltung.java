@@ -206,7 +206,7 @@ public class Accountverwaltung {
 	 * @pre Es muss ein Betreiber eingeloggt sein
 	 */
 	public void setAccountGesperrt(Account acc, Gesperrt pgesperrt) {
-		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		assert loggedIn.getTyp()==Account.BETREIBER : "Es ist kein Betreiber eingeloggt";
 
 		acc.setGesperrt(pgesperrt);
 	}
@@ -412,7 +412,7 @@ public class Accountverwaltung {
 	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public Betreiber addBetreiber(String email, String name, String password) throws Exception {
-		assert betreiber.contains(loggedIn):"Es ist kein Betreiber eingeloggt";
+		assert loggedIn.getTyp()==Account.BETREIBER :"Es ist kein Betreiber eingeloggt";
 		
 		if(!isFreeName(name))
 			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
@@ -430,7 +430,7 @@ public class Accountverwaltung {
 	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public ArrayList<Anbieter> getUnbearbeiteteAnbieter() throws Exception {
-		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		assert loggedIn.getTyp()==Account.BETREIBER : "Es ist kein Betreiber eingeloggt";
 		
 		ArrayList<Anbieter> result = new ArrayList<Anbieter>();
 		
@@ -450,7 +450,7 @@ public class Accountverwaltung {
 	 * @pre Ein Betreiber muss eingeloggt sein
 	 */
 	public ArrayList<Account> getGesperrteAccounts() {
-		assert betreiber.contains(loggedIn): "Es ist kein Betreiber eingeloggt";
+		assert loggedIn.getTyp()==Account.BETREIBER : "Es ist kein Betreiber eingeloggt";
 		
 		ArrayList<Account> result = new ArrayList<Account>();
 		

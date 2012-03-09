@@ -54,10 +54,18 @@ public class Nachrichtenverwaltung {
 		assert absender != null: "Der Absender ist null";
 		assert Portal.Accountverwaltung().getLoggedIn().equals(absender): "Der Absender ist nicht eingeloggt";
 		assert empfaenger != null: "Der Empfaenger ist null";
-		assert Portal.Accountverwaltung().getAccounts().contains(empfaenger): "Der Empfaenger ist nicht im System";
+		boolean found = false;
+		for(Account acc : Portal.Accountverwaltung().getAccounts())
+			if(acc.getName().equals(empfaenger.getName()))
+				found = true;
+		assert found: "Der Empfaenger ist nicht im System";
 		assert !betreff.equals("") || betreff != null: "Der Betreff wurde nicht gesetzt";
 		assert angebot != null: "Das Angebot ist null";
-		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot ist nicht im System";
+		found = false;
+		for(Angebot ang : Portal.Angebotsverwaltung().getAllAngebote())
+			if(ang.getAngebotsNummer() == angebot.getAngebotsNummer())
+				found = true;
+		assert found : "Das Angebot ist nicht im System";
 		
 		if(text.equals(""))
 			throw new IllegalArgumentException("Es wurde kein Text eingegeben");
@@ -121,7 +129,11 @@ public class Nachrichtenverwaltung {
 	 * @pre Die Nachricht existiert
 	 */
 	public void delNachricht(Nachricht msg) {
-		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht";
+		boolean found = false;
+		for(Nachricht n : alleNachrichten)
+			if(n.getId() == msg.getId())
+				found = true;
+		assert found : "Die Nachricht existiert nicht";
 		
 		alleNachrichten.remove(msg);
 	}
@@ -160,8 +172,12 @@ public class Nachrichtenverwaltung {
 	 * @pre Das Angebot darf nicht null sein und muss im System sein
 	 */
 	public void delAllNachrichten(Angebot ang) {
-		assert ang != null: "Das Angebot ist null";
-		assert Portal.Angebotsverwaltung().getAllAngebote().contains(ang): "Das Angebot existiert nicht im System";
+		assert ang != null: "Das Angebot ist null";		
+		boolean found = false;
+		for(Angebot a : Portal.Angebotsverwaltung().getAllAngebote())
+			if(a.getAngebotsNummer() == ang.getAngebotsNummer())
+				found = true;
+		assert found : "Das Angebot ist nicht im System";
 		
 		int n = alleNachrichten.size();
 		for (int i = 0; i < n; i++) { // For-Each-Schleife funktioniert nicht
@@ -184,7 +200,11 @@ public class Nachrichtenverwaltung {
 	 */
 	public Angebot getReferringAngebot(Nachricht msg) {
 		assert msg != null: "Nachricht ist null";
-		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		boolean found = false;
+		for(Nachricht n : alleNachrichten)
+			if(n.getId() == msg.getId())
+				found = true;
+		assert found : "Die Nachricht existiert nicht";
 		
 		return Portal.Angebotsverwaltung().getAngebotByNummer(msg.getAngebotsNummer());
 	}
@@ -199,7 +219,11 @@ public class Nachrichtenverwaltung {
 	 */
 	public Account getAbsender(Nachricht msg) {
 		assert msg != null: "Nachricht ist null";
-		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		boolean found = false;
+		for(Nachricht n : alleNachrichten)
+			if(n.getId() == msg.getId())
+				found = true;
+		assert found : "Die Nachricht existiert nicht";
 		
 		return Portal.Accountverwaltung().getAccountByName(msg.getAbsender());
 	}
@@ -214,7 +238,11 @@ public class Nachrichtenverwaltung {
 	 */
 	public Account getEmpfaenger(Nachricht msg) {
 		assert msg != null: "Nachricht ist null";
-		assert alleNachrichten.contains(msg): "Die Nachricht existiert nicht im System";
+		boolean found = false;
+		for(Nachricht n : alleNachrichten)
+			if(n.getId() == msg.getId())
+				found = true;
+		assert found : "Die Nachricht existiert nicht";
 		
 		return Portal.Accountverwaltung().getAccountByName(msg.getEmpfaenger());
 	}
@@ -241,8 +269,15 @@ public class Nachrichtenverwaltung {
 	 */
 	public int getAnzahlUngelesenerNachrichten(Account acc) {
 		assert acc != null: "Account ist null";
-		assert (acc.getTyp()==Account.BETREIBER || Portal.Accountverwaltung().getAccounts().contains(acc))
-				: "Der Account existiert nicht im System";
+		boolean found = false;
+		if(acc.getTyp()==Account.BETREIBER )
+			found = true;
+		else{
+			for(Account a : Portal.Accountverwaltung().getAccounts())
+				if(a.getName().equals(acc.getName()))
+					found = true;
+		}
+		assert found : "Der Account existiert nicht im System";
 		
 		int result = 0;
 		for (Nachricht n : alleNachrichten) {
@@ -296,7 +331,11 @@ public class Nachrichtenverwaltung {
 	 */
 	public boolean isGelesen(Nachricht n) {
 		assert n != null: "Die Nachricht ist null";
-		assert alleNachrichten.contains(n): "Die Nachricht exisitert nicht im System";
+		boolean found = false;
+		for(Nachricht msg : alleNachrichten)
+			if(n.getId() == msg.getId())
+				found = true;
+		assert found : "Die Nachricht existiert nicht";
 		
 		return n.isGelesen();
 	}

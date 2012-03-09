@@ -63,10 +63,12 @@ public class DatenhaltungTest {
 		av.addKommentar(ang2, new Kommentar(kunde2.getName(), "Ganz doll dreckig!", 3));
 		av.addKommentar(ang3, new Kommentar(kunde1.getName(), "Echt mies!", 1));
 		av.addKommentar(ang3, new Kommentar(kunde2.getName(), "Ganz doll dreckig!", 1));
-	
+		
+		Portal.Accountverwaltung().logIn("HansWurst", "xyzabc");
 		bv.createBuchung(kunde1, ang1, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang2, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde1, ang3, new Date(1430609911421L), new Date(1430610011421L));
+		Portal.Accountverwaltung().logIn("Dieter", "abcdef");
 		bv.createBuchung(kunde2, ang2, new Date(1430609911421L), new Date(1430610011421L));
 		bv.createBuchung(kunde2, ang3, new Date(1430609911421L), new Date(1430610011421L));
 		Datenhaltung.saveAllData();
@@ -80,7 +82,7 @@ public class DatenhaltungTest {
 		Anbieter anb1 = (Anbieter) accv.getAccountByName("TUI");
 		ArrayList<Angebot> pa = av.getAngebote(anb1);
 		Angebot ang3 = pa.get(0);
-		
+
 		Kunde kunde1 = (Kunde) accv.getAccountByName("HansWurst");
 		
 		//Set und Get Bestaetigung einer Buchung

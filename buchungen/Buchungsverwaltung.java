@@ -53,7 +53,11 @@ public class Buchungsverwaltung {
 		assert kunde != null: "Der Kunde ist null";
 		assert Portal.Accountverwaltung().getLoggedIn().equals(kunde): "Der Kunde der bucht ist nicht eingeloggt";
 		assert angebot != null: "Das Angebot ist null";
-		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot existiert nicht im System";
+		boolean found = false;
+		for(Angebot ang : Portal.Angebotsverwaltung().getAllAngebote())
+			if(ang.getAngebotsNummer() == angebot.getAngebotsNummer() )
+				found = true;
+		assert found: "Das Angebot existiert nicht im System";
 		assert !bis.before(von): "Das Enddatum liegt vor dem Startdatum";
 		assert !von.before(Methods.getHeuteNullUhr()): "Das Startdatum ist vor dem heutigen Datum";
 		
@@ -82,7 +86,11 @@ public class Buchungsverwaltung {
 	 */
 	public void delBuchung(Buchung b) throws LoeschenNichtMoeglichException {
 		assert b != null: "Die Buchung ist null";
-		assert buchungen.contains(b): "Die Buchung ist im System vorhanden";
+		boolean found = false;
+		for(Buchung buchung: buchungen)
+			if(b.getBuchungsNummer() == buchung.getBuchungsNummer())
+				found = true;
+		assert found: "Die Buchung ist nicht im System vorhanden";
 		
 		getKunde(b).delBuchung(b);
 		getReferringAngebot(b).delBuchung(b.getBuchungsNummer());
@@ -103,7 +111,11 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Angebot angebot) {
 		assert angebot != null: "Das Angebot ist null";
-		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot ist nicht im System vorhanden";
+		boolean found = false;
+		for(Angebot ang : Portal.Angebotsverwaltung().getAllAngebote())
+			if(ang.getAngebotsNummer() == angebot.getAngebotsNummer())
+				found = true;
+		assert found: "Das Angebot ist nicht im System vorhanden";
 		
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
@@ -125,7 +137,11 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Kunde kunde) {
 		assert kunde != null: "Der Kunde ist null";
-		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
+		boolean found = false;
+		for(Kunde k : Portal.Accountverwaltung().getKunden())
+			if(k.getName().equals(kunde.getName()))
+				found = true;
+		assert found: "Der Kunde ist nicht im System";
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
 		for(Buchung b : buchungen)
@@ -146,7 +162,11 @@ public class Buchungsverwaltung {
 	 */
 	public ArrayList<Buchung> getBuchungen(Anbieter anbieter) {
 		assert anbieter != null: "Der Anbieter ist null";
-		assert Portal.Accountverwaltung().getAnbieter().contains(anbieter): "Der Anbieter ist nicht im System";
+		boolean found = false;
+		for(Anbieter anb : Portal.Accountverwaltung().getAnbieter())
+			if(anb.getName().equals(anbieter.getName()))
+				found = true;
+		assert found: "Der Anbieter ist nicht im System";
 		
 		ArrayList<Buchung> reslist = new ArrayList<Buchung>();
 		
@@ -170,7 +190,11 @@ public class Buchungsverwaltung {
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Anbieter anbieter) {
 		assert anbieter != null: "Der Anbieter ist null";
-		assert Portal.Accountverwaltung().getAnbieter().contains(anbieter): "Der Anbieter ist nicht im System";
+		boolean found = false;
+		for(Anbieter anb : Portal.Accountverwaltung().getAnbieter())
+			if(anb.getName().equals(anbieter.getName()))
+				found = true;
+		assert found: "Der Anbieter ist nicht im System";
 		
 		int r = 0;
 		
@@ -191,7 +215,11 @@ public class Buchungsverwaltung {
 	 */
 	public int getAnzahlUnbearbeiteterBuchungen(Kunde kunde){
 		assert kunde != null: "Der Kunde ist null";
-		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
+		boolean found = false;
+		for(Kunde k : Portal.Accountverwaltung().getKunden())
+			if(k.getName().equals(kunde.getName()))
+				found = true;
+		assert found: "Der Kunde ist nicht im System";
 		
 		int r = 0;
 		
@@ -244,6 +272,11 @@ public class Buchungsverwaltung {
 	 */
 	public void setBestaetigt(Buchung buchung, Bestaetigung bestaetigt) {
 		assert buchung != null: "Die Buchung ist null";
+		boolean found = false;
+		for(Buchung b : getAllBuchungen())
+			if(b.getBuchungsNummer() == b.getBuchungsNummer())
+				found = true;
+		assert found: "Die Buchung ist nicht im System";
 		assert buchungen.contains(buchung): "Die Buchung ist im System vorhanden";
 		
 		buchung.setBestaetigt(bestaetigt);
@@ -284,9 +317,17 @@ public class Buchungsverwaltung {
 	 */
 	public boolean isBookedByKunde(Angebot angebot, Kunde kunde) {
 		assert angebot != null: "Das Angebot ist null";
-		assert Portal.Angebotsverwaltung().getAllAngebote().contains(angebot): "Das Angebot existiert nicht im System";
+		boolean found = false;
+		for(Angebot ang : Portal.Angebotsverwaltung().getAllAngebote())
+			if(ang.getAngebotsNummer() == angebot.getAngebotsNummer())
+				found = true;
+		assert found: "Das Angebot existiert nicht im System";
 		assert kunde != null: "Der Kunde ist null";
-		assert Portal.Accountverwaltung().getKunden().contains(kunde): "Der Kunde ist nicht im System";
+		found = false;
+		for(Kunde k : Portal.Accountverwaltung().getKunden())
+			if(k.getName().equals(kunde.getName()))
+				found = true;
+		assert found: "Der Kunde ist nicht im System";
 		
 		for(Buchung b:getBuchungen(angebot)) {
 			if(b.getKundenName().equals(kunde.getName()) && b.getBestaetigt().equals(Bestaetigung.JA))
