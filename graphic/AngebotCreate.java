@@ -88,6 +88,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 
 		// Name+Label
 		name = new JTextField();
+		name.setDocument(new MaxTextDocument(MainFrame.TEXTFIELDLENGTH));
 		JLabel name_label = new JLabel("Name:");
 		sub_a.add(name_label);
 		name.setToolTipText("Bitte Namen eingeben");
@@ -124,6 +125,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		NumberFormat nformat = NumberFormat.getIntegerInstance();
 		nformat.setGroupingUsed(false);
 		kap = new JFormattedTextField(nformat);
+		kap.setDocument(new MaxTextDocument(MainFrame.TEXTFIELDLENGTH));
 		sub_a.add(kap);
 
 		// Startdatum+Label
