@@ -33,16 +33,15 @@ public class Datenhaltung {
 
 	private final static String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
-	private Datenhaltung() {}
-
 	private static XStream xs= initXStream();
+
+	//keine instanzierung
+	private Datenhaltung() {}
 
 	/**
 	 * Speichert alle Accounts in spezifische XML-Dateien aufgespalten nach
 	 * Benutzertyp
 	 * 
-	 * @param av
-	 *            Angebotsverwaltungsobjekt
 	 * @throws IOException
 	 *             Fehler beim Schreiben
 	 */
@@ -105,6 +104,11 @@ public class Datenhaltung {
 		f.close();
 	}
 	
+	/**
+	 * speichert alle Angebote aus der Angebotsverwaltung
+	 * 
+	 * @throws IOException
+	 */
 	public static void saveAllOffers() throws IOException {
 		if (offFile.exists())
 			offFile.delete();
@@ -119,6 +123,12 @@ public class Datenhaltung {
 		f.close();
 	}
 
+	/**
+	 * Speichert alle relevante Daten in XML-Dateien
+	 * 
+	 * @throws IOException
+	 * 			falls Fehler beim Schreiben auftreten
+	 */
 
 	public static void saveAllData() throws IOException {
 		saveAllAccounts();
@@ -126,6 +136,7 @@ public class Datenhaltung {
 		saveAllOffers();
 		saveAllMessages();
 	}
+	
 	/**
 	 * Laedt persistierte Daten aus XML-Files falls vorhanden und regelt die
 	 * uebernahme dieser Daten in der Portal-Klasse
@@ -164,11 +175,10 @@ public class Datenhaltung {
 	}
 
 	/**
-	 * Liest ein NICHT-XML-File ein und gibt die einzelnen Zeilen als
-	 * String-Array aus
+	 * Liest ein NICHT-XML-File ein und gibt die einzelnen Zeilen als String-Array aus
 	 * 
-	 * @param laenderFile
-	 * @return
+	 * @param f Referenzdatei
+	 * @return alle Zeilen der Datei als Array
 	 */
 	public static String[] getStringArrayFromFile(File f) {
 		ArrayList<String> reslist = new ArrayList<String>();
@@ -203,8 +213,10 @@ public class Datenhaltung {
 	}
 
 	/**
-	 * erzeugt ein XStream-Objekt mit systemabhaengigem Encoding und erzeugt 
-	 * @return
+	 * erzeugt ein XStream-Objekt mit systemabhaengigem Encoding und 
+	 * legt ggf. den Default-Betreiber an
+	 * @see createDefaultBetreiber
+	 * @return XStream Objekt
 	 */
 	private static XStream initXStream() {
 		File d = new File(path);
@@ -221,8 +233,8 @@ public class Datenhaltung {
 	
 	/**
 	 * Erstellt den ersten Betreiber im vorgegebenen Verzeichnis  mit dem uebergebenen XStream-Objekt
+	 * --> Administrator mit Passwort 12345
 	 * @param dir das Ziel-Verzeichnis
-	 * @param x XStream-Objekt mit dem gespeichert wird
 	 * @pre betreiberFile darf nicht existieren
 	 */
 	private static void createDefaultBetreiber(File dir){
