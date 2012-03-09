@@ -45,8 +45,6 @@ import buchungen.Buchung;
 /**
  * Hauptoberflaeche von der aus die Screens gesteuert werden
  * 
- * @author Neumann
- *
  */
 public class MainFrame extends JFrame
 {
@@ -66,7 +64,7 @@ public class MainFrame extends JFrame
 	private JButton offeneButton;
 	private JButton loeschenButton;
 	
-	private Account account;
+	private Account account = new Default();
 	private JPanel screen;
 	private JScrollPane scroll;
 	
@@ -141,7 +139,8 @@ public class MainFrame extends JFrame
 
 		Border border = BorderFactory.createMatteBorder(0, 2, 0, 2, Color.LIGHT_GRAY);
 		
-		///////////
+		/////////// alle panels die auf dem frame liegen, sowie die scrollpane
+		
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBorder(border);
 		this.add(headerPanel, BorderLayout.NORTH);
@@ -168,7 +167,7 @@ public class MainFrame extends JFrame
 		JPanel homeButtonPanel = new JPanel();
 		headerPanel.add(homeButtonPanel, BorderLayout.WEST);
 		
-		////////////////
+		//////////////// alle buttons die auf dem frame liegen
 
 		JButton homeButton = new JButton(new ImageIcon("house_unpressed.png"));
 
@@ -220,106 +219,58 @@ public class MainFrame extends JFrame
 		buttonPanel.add(loeschenButton);
 		registerPanel.add(registerButton);
 
-		// /////////	
+		// /////////	alle buttonactionlistener
 		
-		homeButton.addActionListener(new ActionListener()
-		{
+		homeButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showTopAngebote();
-			}
-		});
-		topButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showTopAngebote();}});
+		topButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showTopAngebote();
-			}
-		});
-		loginButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showTopAngebote();}});
+		loginButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showLogin();
-			}
-		});
-		registerButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showLogin();}});
+		registerButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showRegister();
-			}
-		});
-		eigeneButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showRegister();}});
+		eigeneButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent argR0) 
-			{
-				showEigene();
-			}
-		});
-		sucheButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent argR0) {
+				showEigene();}});
+		sucheButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showSuche();
-			}
-		});
-		nachrichtButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showSuche();}});
+		nachrichtButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showNachrichten();
-			}
-		});
-		alleButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showNachrichten();}});
+		alleButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showAlleAngebote();
-			}
-		});
-		erstelleButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showAlleAngebote();}});
+		erstelleButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showErstelle();
-			}
-		});
-		betreiberButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showErstelle();}});
+		betreiberButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				addBetreiber();
-			}
-		});
-		offeneButton.addActionListener(new ActionListener()
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				addBetreiber();}});
+		offeneButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				showOffeneBuchungen();
-			}
-		});
-		loeschenButton.addActionListener(new ActionListener() 
-		{
+			public void actionPerformed(ActionEvent arg0) {
+				showOffeneBuchungen();}});
+		loeschenButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				showLoeschen();
-			}
-		});
+			public void actionPerformed(ActionEvent arg0){
+				showLoeschen();}});
 		
-		////////////////
+		//////////////// finish
 		
 		showTopAngebote();
 		
@@ -330,7 +281,16 @@ public class MainFrame extends JFrame
 	}
 
 	
-	
+	/**
+	 * Diese Methode zeigt das uebergebene Listable im MainScreen an. Dabei kann es sich um ein Angebot, eine Buchung, einen Account oder eine Nachricht handeln.
+	 * 
+	 * @param obj
+	 * @see Listable
+	 * @see Angebot
+	 * @see Buchung
+	 * @see Nachricht
+	 * @see Account
+	 */
 	public <T extends Listable> void showDetail(T obj) 
 	{
 		try
@@ -338,49 +298,49 @@ public class MainFrame extends JFrame
 			if(obj.getListableTyp() == Listable.ANGEBOT)
 			{
 				screen.removeAll();
-				screen.add(new AngDetailScreen(this, (Angebot)obj));
+				screen.add(new AngDetailScreen(this, (Angebot)obj)); // zeige die details des angebots an
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
 			else if(obj.getListableTyp() == Buchung.BUCHUNG)
 			{
 				screen.removeAll();
-				screen.add(new BuchDetailScreen(this,offeneButton,(Buchung)obj));
+				screen.add(new BuchDetailScreen(this,offeneButton,(Buchung)obj)); // zeige die details der buchung an
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
 			else if(obj.getListableTyp() == Account.ACCOUNT)
 			{
 				screen.removeAll();
-				screen.add(new AccountScreen((Account)obj, eigeneButton));
+				screen.add(new AccountScreen((Account)obj, eigeneButton)); // zeige die details des accounts an
 				scroll.setViewportView(screen);
 				scroll.repaint();
 			}
 			else
 			{
+				
+				/////// die nachricht wird als DialogScreen angezeigt. wenn es sich um den anbieter handelt, wird statt dem angebot die buchung gezeigt
+				
 				final Nachricht nachricht = (Nachricht)obj;
 				final Account absender = Portal.Accountverwaltung().getAccountByName(nachricht.getAbsender());
-
 				JButton del = new JButton("Nachricht loeschen");
+				
+				// hauptdialogscreen der die nachricht enthaelt
 				
 				final DialogScreen dialog = new DialogScreen(this, nachricht.getBetreff(), new JButton[]{del},DialogScreen.OK_OFFER_ANSWER_OPTION)
 				{
+					// ueberschreibe die buttons auf dem dialog
 					@Override
-					public void onAnswer()
+					public void onAnswer() // neuer DialogScreen als antwortmoeglichkeit
 					{
-						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION)
-						{
+						DialogScreen dialog = new DialogScreen(frame, "Kontaktieren", DialogScreen.OK_CANCEL_OPTION){
 							@Override
-							public void onOK()
-							{
-								Portal.Nachrichtenverwaltung().sendeNachricht(account, absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
-							}
-						};
+							public void onOK(){
+								Portal.Nachrichtenverwaltung().sendeNachricht(account, absender, "RE: "+nachricht.getBetreff(),getContent(), Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));}};
 						dialog.addOnPanel(new JLabel(account.getName()), DialogScreen.LABEL_LEFT);
 					}
-					
 					@Override
-					public void onOffer()
+					public void onOffer() // zeige buchung, wenn anbieter, sonst zeige angebot
 					{
 						int nummer = Portal.Nachrichtenverwaltung().getBuchungsNummer(nachricht);
 						if(account.getTyp() == Account.ANBIETER)
@@ -392,8 +352,10 @@ public class MainFrame extends JFrame
 							showDetail(Portal.Angebotsverwaltung().getAngebotByNummer(nachricht.getAngebotsNummer()));
 					}
 				};
-				del.addActionListener(new ActionListener()
-				{
+				
+				// der loeschbutton bekommt auch eine funktion - das loeschen!
+				
+				del.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent arg0)
 					{
@@ -404,8 +366,10 @@ public class MainFrame extends JFrame
 							showNachrichten();
 							dialog.close();
 						}
-					}
-				});
+					}});
+				
+				///// resteinstellungen fuer den DialogScreen und den JButton
+				
 				dialog.setEditable(false);
 				dialog.addOnPanel(new JLabel("Absender: "+nachricht.getAbsender()), DialogScreen.LABEL_LEFT);
 				dialog.setContent(nachricht.getText());
@@ -414,6 +378,8 @@ public class MainFrame extends JFrame
 				
 				if(account.getTyp() == Account.ANBIETER)
 					dialog.setOfferButtonName("Zur Buchung");
+				
+				// repaint
 				
 				this.validate();
 				this.repaint();
@@ -426,8 +392,15 @@ public class MainFrame extends JFrame
 		}
 	}
 
-	/////////////////////////
+	/////////////////////////////////
+	///////////////////////// alle Screen-Show-Methoden
+	/////////////////////////////////
 	
+	/**
+	 *  Zeigt den LoginScreen als JOptionPane.
+	 *  Sofern nicht gerade Angemeldet, 
+	 * 
+	 */
 	private void showLogin() 
 	{
 		try
