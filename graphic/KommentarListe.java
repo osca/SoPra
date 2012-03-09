@@ -15,15 +15,31 @@ import javax.swing.JTextArea;
 import angebote.Kommentar;
 import angebote.typen.Angebot;
 
+/**
+ * KommentarListe
+ * 
+ * Haendelt die Kommentarlisten unterhalb der Angebotdetails
+ *
+ * @author Rudi, Benni, Denis
+ */
 @SuppressWarnings("serial")
 public class KommentarListe extends JPanel {
-
+	
+	/**
+	 * Trivialer Konstruktor
+	 * @param a Angebot zu welchem die Kommentarliste erstellt wird
+	 */
 	public KommentarListe(Angebot a) {
 		setLayout(new BorderLayout());
 
 		init(a);
 	}
 	
+	/**
+	 * Die Methode ruft alle Kommentare eines Angebots auf und erstellt
+	 * daraus ein Panel mit einer Liste aller Kommentare
+	 * @param a Angebot zu welchem die Kommentarliste erstellt wird
+	 */
 	public void init(Angebot a) {
 		JPanel elementPanel = new JPanel();
 		elementPanel.setLayout(new BoxLayout(elementPanel, BoxLayout.Y_AXIS));
