@@ -128,7 +128,7 @@ public class BuchDetailScreen extends JPanel {
 		buttonLinks.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 		buttonRechts.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 		buttonAngebot.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
-		
+		 	
 
 		if (Portal.Accountverwaltung().getLoggedIn().getTyp() == Account.KUNDE) {
 			buttonLinks.setText("Aenderungsanfrage");
