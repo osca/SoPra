@@ -159,10 +159,10 @@ public class AngebotTest {
 		Buchung buchungAusflug = Portal.Buchungsverwaltung().createBuchung(kunde, ausflug, new Date(78943216748967489L), new Date(78943316748967489L));
 		
 		Assert.assertEquals(Portal.Angebotsverwaltung().getAnbieter(flug) .getName(), anb.getName());
-		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
-				Portal.Buchungsverwaltung().getBuchungen(kunde).get(0).getBuchungsnummer());
-		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsnummer(), 
-				buchungAusflug.getBuchungsnummer());
+		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsNummer(), 
+				Portal.Buchungsverwaltung().getBuchungen(kunde).get(0).getBuchungsNummer());
+		Assert.assertEquals(Portal.Buchungsverwaltung().getBuchungen(ausflug).get(0).getBuchungsNummer(), 
+				buchungAusflug.getBuchungsNummer());
 		ArrayList<Angebot> alleAngebote = Portal.Angebotsverwaltung().getAllAngebote();
 		for(Angebot angeb : Portal.Angebotsverwaltung().getAngebote(anb))
 			Assert.assertTrue(alleAngebote.contains(angeb));
