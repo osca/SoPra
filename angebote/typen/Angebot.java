@@ -86,7 +86,6 @@ public abstract class Angebot implements Listable, Comparable<Angebot> {
 		return result/kommentare.size();
 	}
 	
-	//TODO Gewichtungen muessen ggf spaeter noch angepasst werden
 	/**
 	 * Vergleicht diese Buchung mit einer weiteren ueber drei unterschiedliche Gewichtungen:
 	 * 	- Kapazitaetenanzahl multipliziert mit der Angebotslaenge

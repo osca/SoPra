@@ -213,15 +213,24 @@ public class SuchScreen extends JPanel
 	{
 		try
 		{
+			double vonPreis = Portal.Angebotsverarbeitung().KEINPREIS;
+			double bisPreis = Portal.Angebotsverarbeitung().KEINPREIS;
+			
+			if(!felder[2].getText().equals(""))
+				vonPreis = Double.parseDouble(felder[2].getText().replace(",", "."));
+			
+			if(!felder[3].getText().equals(""))
+				bisPreis = Double.parseDouble(felder[3].getText().replace(",", "."));
+			
 			if(types.getSelectedIndex() == 0)
 				JOptionPane.showMessageDialog(this, "Sie muessen einen Angebotstypen waehlen");
 			
-			else if((!felder[2].getText().equals("") && Double.parseDouble(felder[2].getText()) < 0)
-					|| (!felder[3].getText().equals("") && (Double.parseDouble(felder[3].getText()) < 0)))
+			else if((!felder[2].getText().equals("") && vonPreis < 0)
+					|| (!felder[3].getText().equals("") && bisPreis < 0))
 				JOptionPane.showMessageDialog(this, "Es gibt keinen negativen Preis");
 			
 			else if((!felder[2].getText().equals("") && !felder[3].getText().equals(""))
-					&& !(Double.parseDouble(felder[2].getText()) <= Double.parseDouble(felder[3].getText())))
+					&& !(vonPreis <= bisPreis))
 					JOptionPane.showMessageDialog(this, "Der Startpreis ist groesser als der Endpreis");
 			
 			else {
@@ -238,20 +247,12 @@ public class SuchScreen extends JPanel
 				
 				String name = felder[0].getText();
 				int laenge = Portal.Angebotsverarbeitung().KEINEKAPAZITAET;
-				double vonPreis = Portal.Angebotsverarbeitung().KEINPREIS;
-				double bisPreis = Portal.Angebotsverarbeitung().KEINPREIS;
 				Date von = Portal.Angebotsverarbeitung().KEINEDATEN;
 				Date bis = Portal.Angebotsverarbeitung().KEINEDATEN;
 				boolean datumfail = false;
 				
 				if(!felder[1].getText().equals(""))
 					laenge = Integer.parseInt(felder[1].getText());
-
-				if(!felder[2].getText().equals(""))
-					vonPreis = Double.parseDouble(felder[2].getText().replace(",", "."));
-				
-				if(!felder[3].getText().equals(""))
-					bisPreis = Double.parseDouble(felder[3].getText().replace(",", "."));
 				
 				if(!felder[5].getText().equals("  /  /    "))
 					if(Methods.isValidDatestring(felder[5].getText()))
