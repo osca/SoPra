@@ -32,7 +32,7 @@ public class Kunde extends Account {
 	 * @param entry Buchung
 	 */
 	public void addBuchung(Buchung entry) {
-		buchungen.add(entry.getBuchungsnummer());
+		buchungen.add(entry.getBuchungsNummer());
 	}
 	
 	/**
@@ -42,9 +42,9 @@ public class Kunde extends Account {
 	 * @throws LoeschenNichtMoeglichException Buchung ist null oder wurde nicht gefunden
 	 */
 	public void delBuchung(Buchung entry) throws LoeschenNichtMoeglichException {
-		if(entry == null || !(buchungen.contains(entry.getBuchungsnummer())))
+		if(entry == null || !(buchungen.contains(entry.getBuchungsNummer())))
 			throw new LoeschenNichtMoeglichException("Buchung null oder nicht gefunden!");
-		buchungen.remove((Integer) entry.getBuchungsnummer());
+		buchungen.remove((Integer) entry.getBuchungsNummer());
 	}
 	
 	

@@ -273,7 +273,7 @@ public class Nachrichtenverwaltung {
 	 * @return Buchungsnummer
 	 */
 	public int getBuchungsNummer(Nachricht msg) {
-		return msg.getBuchungsnummer();
+		return msg.getBuchungsNummer();
 	}
 	
 	/**
@@ -283,7 +283,7 @@ public class Nachrichtenverwaltung {
 	 * @return Buchungsnummer
 	 */
 	public void setBuchungsnummer(Nachricht msg, int buchungsnummer) {
-		msg.setBuchungsnummer(buchungsnummer);
+		msg.setBuchungsNummer(buchungsnummer);
 	}
 	
 	/**
