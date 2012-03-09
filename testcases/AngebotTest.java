@@ -137,7 +137,7 @@ public class AngebotTest {
 		Assert.assertEquals(ang4, av.getAngebote(anbieter2).get(0));
 		
 		//Suche Angebot
-		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", Angebot.AUSFLUG, 1, 0.00, 200.00, heute, heute, new String[]{"Germany","Munster","Guenstig"});
+		ArrayList<Angebot> suche = ava.sucheAngebote("Klettern", "", Angebot.AUSFLUG, 1, 0.00, 200.00, heute, heute, new String[]{"Germany","Munster","Guenstig"});
 		Assert.assertEquals(ang4, suche.get(0));
 		
 		//Typconverter
