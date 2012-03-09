@@ -21,6 +21,7 @@ import javax.swing.border.Border;
 @SuppressWarnings("serial")
 public class DialogScreen extends JDialog 
 {
+	// die flags werden uebergeben, damit DialogScreen weiss, welche er darstellen soll
 	public final static int NAN_OPTION = 300;
 	public final static int OK_OPTION = 23;
 	public final static int OK_CANCEL_OPTION = 40;
@@ -42,30 +43,62 @@ public class DialogScreen extends JDialog
 	private JButton answer;
 	private JButton offer;
 	
+	/**
+	 * Konstruktor der nur einen Titel erwartet.
+	 * Es muss ein Fenster uebergeben werden, damit der DialogScreen in den Vordergrund gesetzt wird.
+	 * 
+	 * @param frame MainFrame
+	 * @param title Titel des Fensters
+	 */
 	public DialogScreen(MainFrame frame, String title)
 	{
 		super();
 		init(frame, title, null, OK_OPTION);
 	}
 	
+	/**
+	 * Es wird, zusaetzlich zu den Parametern wie bei dem obrigen Konstruktor, noch eine Flag mitgegeben.
+	 * Die Flags zeigen an, welche vordefinierten JButton auf dem DialogScreen gesetzt werden.
+	 * 
+	 * @param frame MainFrame
+	 * @param title Titel des Fensters
+	 * @param flag Flag zum setzen
+	 */
 	public DialogScreen(MainFrame frame, String title, int flag)
 	{
 		super();
 		init(frame, title, null, flag);
 	}
 	
+	/**
+	 * Es kann, statt der Flag, ein JButton-Array mitgegeben werden, welches auf der DialogScreen gesetzt wird.
+	 * 
+	 * @param frame MainFrame
+	 * @param title Titel des Fensters
+	 * @param buttons Array an JButtons
+	 */
 	public DialogScreen(MainFrame frame, String title, JButton[] buttons)
 	{
 		super();
 		init(frame, title, buttons, NAN_OPTION);
 	}
 	
+	/**
+	 * Eine Zusammenfassung der obrigen Konstruktoren.
+	 * 
+	 * @param frame MainFrame
+	 * @param title Titel des Fensteres
+	 * @param buttons Array an JButtons
+	 * @param flag Flags zum setzen
+	 */
 	public DialogScreen(MainFrame frame, String title, JButton[] buttons, int flag)
 	{
 		super();
 		init(frame, title, buttons, flag);
 	}
 	
+
+	// baut den DialogScreen auf
 	private void init(MainFrame frame, String title, JButton[] but ,int flag) 
 	{
 		this.setTitle(title);
@@ -76,10 +109,12 @@ public class DialogScreen extends JDialog
             	close();
             }
         });
+		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
+		
+		////
+		
 		mainFrame = frame;
 		mainFrame.setEnabled(false);
-		
-		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
 		
 		JPanel main = new JPanel(new BorderLayout());
 		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*4, MainFrame.BUTTONHEIGHT*10));
@@ -104,6 +139,9 @@ public class DialogScreen extends JDialog
 		starPanel.add(rightPanel);
 		area = new JTextArea();
 		JPanel buttons = new JPanel();
+		
+		// die abarbeitung der flags.
+		// die flags geben an, welche buttons gesetzt werden
 		
 		if(flag != NAN_OPTION)
 		{
@@ -162,6 +200,7 @@ public class DialogScreen extends JDialog
 		    });
 	    }
 	    
+	    // alle buttons, wenn buttonarray vorhanden
 	    if(but != null)
 			for(JButton b: but)
 				buttons.add(b);
@@ -186,28 +225,53 @@ public class DialogScreen extends JDialog
 		this.setAlwaysOnTop(true);
 	}
 	
+	/**
+	 * Schlieﬂt den DialogScreen und setzt die MainFrame wieder frei.
+	 */
 	public void close()
 	{
 		mainFrame.setEnabled(true);
 		this.dispose();
 	}
 	
+	/**
+	 * Setzt den Inhalt des JTextAreaFields, das auf dem DialogScreens liegt.
+	 * 
+	 * @param t Der Text als String
+	 */
 	public void setContent(String t)
 	{
 		area.setText(t);
 		this.repaint();
 	}
 	
+	/**
+	 * Gibt den Inhalt des JTextAreaFields aus.
+	 * 
+	 * @return Text als String
+	 */
 	public String getContent()
 	{
 		return area.getText();
 	}
 	
+	/**
+	 * Setzt das JTextAreaFields, jenachdem was fuer ein boolischer Operator uebergeben wurde.
+	 * 
+	 * @param b 
+	 */
 	public void setEditable(boolean b)
 	{
 		area.setEditable(b);
 	}
 	
+	/**
+	 * Setzt ein Component auf die Position die als Flag uebergeben wurde.
+	 * FLAG_LEFT oder FLAG_RIGHT.
+	 * 
+	 * @param component Das Component zum setzen
+	 * @param flag Die Flag
+	 */
 	public void addOnPanel(Component component, int flag)
 	{
 		if(flag == LABEL_LEFT)
@@ -217,26 +281,45 @@ public class DialogScreen extends JDialog
 		this.repaint();
 	}
 	
+	/**
+	 * Setzt den Namen des "Antworten"-Buttons
+	 * 
+	 * @param name Der neue Name als String
+	 */
 	public void setAnswerButtonName(String name)
 	{
 		if(answer != null)
 			answer.setText(name);
 	}
+	/**
+	 * Setzt den Namen des "Angebots"-Buttons
+	 * 
+	 * @param name Der neue Name als String
+	 */
 	public void setOfferButtonName(String name)
 	{
 		if(offer != null)
 			offer.setText(name);
 	}
 	
+	/**
+	 * Wird beim klicken des OK-Buttons aufgerufen.
+	 */
 	public void onOK()
 	{}
-	
+	/**
+	 * Wird beim klicken des OK-Buttons aufgerufen.
+	 */	
 	public void onCancel()
 	{}
-	
+	/**
+	 * Wird beim klicken des OK-Buttons aufgerufen.
+	 */	
 	public void onAnswer()
 	{}
-	
+	/**
+	 * Wird beim klicken des OK-Buttons aufgerufen.
+	 */	
 	public void onOffer()
 	{}
 }
