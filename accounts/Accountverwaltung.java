@@ -415,9 +415,9 @@ public class Accountverwaltung {
 	public Betreiber addBetreiber(String email, String name, String password) throws Exception {
 		assert betreiber.contains(loggedIn):"Es ist kein Betreiber eingeloggt";
 		
-		if(!isFreeEmail(name))
+		if(!isFreeName(name))
 			throw new IllegalArgumentException("Bitte waehlen Sie einen Namen mit mehr als 2 Zeichen");
-		if(!isFreeName(email)) 
+		if(!isFreeEmail(email)) 
 			throw new IllegalArgumentException("Die gewuenschte E-Mail-Adresse ist von keiner gueltigen Form");
 		return createBetreiber(email,name,password);
 	}
