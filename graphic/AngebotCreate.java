@@ -85,8 +85,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		init(anb);
 	}
 	/**
-	 * 
-	 * @param a
+	 * Diese Methode baut die GUI des Screen komplett auf,
+	 * ist aber trivial.
+	 * @param a Der Anbieter, welcher das Angebot erstellt
 	 * @throws ParseException Eine Exception beim Parsen des Datums
 	 */
 	private void init(Anbieter a) throws ParseException {
@@ -203,6 +204,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		add(BorderLayout.CENTER, down);
 		setVisible(true);
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {		
@@ -314,14 +316,18 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			try {
 				init(anb);
 			} catch (ParseException e1) {
-				//e1.printStackTrace();
+				
 			}
 			beschreibung.setText("Bitte geben Sie hier eine Beschreibung ein");
 			addScreen();
 
 		}
 	}
-
+	/**
+	 * Diese Methode regelt den dynamischen Aufbau des Kriterien-Panels,
+	 * sodass bei verschiedenen Typen der Anbeiter auch  dementsprechende 
+	 * Krieterien zur Auswahl hat.
+	 */
 	public void addScreen() {
 		sub_one.removeAll();
 		sub_two.removeAll();
@@ -340,7 +346,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_one.add(land_label);
 			JLabel s_ort_label = new JLabel("Ort:");
 			sub_one.add(s_ort_label);
-			//land = new JComboBox(Land.wertebereich);
+	
 			land.addActionListener(new ActionListener() {
 
 				@Override
@@ -349,7 +355,7 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				}
 
 			});
-			//ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
+
 			sub_two.add(land);
 			sub_two.add(ort);
 
@@ -381,14 +387,12 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_one.add(land_label);
 			JLabel s_ort_label = new JLabel("Ort:");
 			sub_one.add(s_ort_label);
-			//land = new JComboBox(Land.wertebereich);
 			land.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					repaintOrt();
 				}
 			});
-			//ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
 			sub_two.add(land);
 			sub_two.add(ort);
 			@SuppressWarnings("unused")
@@ -401,8 +405,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			sub_one.add(land_label);
 			JLabel s_ort_label = new JLabel("Ort:");
 			sub_one.add(s_ort_label);
-			//land = new JComboBox(Land.wertebereich);
-			//ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
 			sub_two.add(land);
 			land.addActionListener(new ActionListener() {
 
@@ -426,7 +428,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			JLabel s_ort_label = new JLabel("Startort:");
 			sub_one.add(s_land_label);
 			sub_one.add(s_ort_label);
-			//land = new JComboBox(Land.wertebereich);
 			land.addActionListener(new ActionListener() {
 
 				@Override
@@ -435,7 +436,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				}
 
 			});
-			//ort = new JComboBox(((Land.getOrte((String) land.getSelectedItem()))));
 			sub_two.add(land);
 			sub_two.add(ort);
 
@@ -445,7 +445,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 			JLabel z_ort_label = new JLabel("Zielort:");
 			sub_one.add(z_land_label);
 			sub_one.add(z_ort_label);
-			//landz = new JComboBox(Land.wertebereich);
 			landz = new JComboBox();
 			landz.addItem("");
 			for(String s: Land.wertebereich)
@@ -478,7 +477,6 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 				}
 
 			});
-			//ortz = new JComboBox(((Land.getOrte((String) landz.getSelectedItem()))));
 			ortz = new JComboBox();
 			ortz.addItem("");
 			sub_two.add(landz);
@@ -507,7 +505,9 @@ public class AngebotCreate<FormattedTextField> extends JPanel implements ActionL
 		this.validate();
 		this.repaint();
 	}
-
+	/**
+	 * Sorgt fuer das neue Einlesen der Orte aus einer Datei, nachdem das Land gewechselt wurde.
+	 */
 	public void repaintOrt() {
 		Component[] comps = sub_two.getComponents();
 		int pos = -1;
