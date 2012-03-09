@@ -215,8 +215,6 @@ public class Angebotsverwaltung {
 	 * @param angebot Das zu loeschende Angebot
 	 */
 	public void delAngebot(Angebot angebot) throws LoeschenNichtMoeglichException {
-		//TODO: CODE CLEANEN!!!
-//		ArrayList<Kommentar> kommentare = angebot.getKommentare();
 		ArrayList<Buchung> buchungen = Portal.Buchungsverwaltung().getBuchungen(angebot);
 		
 		// Erstmal checken, ob offene Buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
@@ -225,16 +223,9 @@ public class Angebotsverwaltung {
 				throw new LoeschenNichtMoeglichException("Es existieren noch zu erfuellende Buchungen auf dem Angebot.");
 		}
 		
-		
-		// Loeschen ist erlaubt, wir entfernen die Kommentare aus dem Angebot
-//		for(int i = 0; i < kommentare.size(); i++) {
-//			angebot.delKommentar(kommentare.get(i));
-//		}
-		
 		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
-		for(int i = 0; i < buchungen.size(); i++) {
+		for(int i = 0; i < buchungen.size(); i++) 
 			Portal.Buchungsverwaltung().delBuchung(buchungen.get(i));
-		}
 		Portal.Nachrichtenverwaltung().delAllNachrichten(angebot);
 		// zugriff auf Nachrichten is nicht moeglich
 		// das loeschen in den Dateien uebernimmt XStream durch das Streamen der Entititaetsklassen
