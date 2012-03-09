@@ -21,11 +21,21 @@ import accounts.Anbieter;
 import accounts.Gesperrt;
 import accounts.Kunde;
 
+/**
+ * AccountScreen wird als Panel genutzt um die Details eines Accounts anzuzeigen.
+ * @author delikat
+ *
+ */
 @SuppressWarnings("serial")
 public class AccountScreen extends JPanel
 {
 	private JLabel[] labels;
 	
+	/**
+	 * 
+	 * @param account			Der Account, dessen Details gelesen werden.
+	 * @param referringButton	unwichtig.
+	 */
 	public AccountScreen(final Account account, final JButton referringButton)
 	{
 		this.setLayout(new BorderLayout());

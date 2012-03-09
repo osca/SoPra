@@ -1,7 +1,7 @@
 package accounts;
 
 /**
- * LoginException
+ * LoginException wird ausgelöst, wenn das eingegebene Password oder Name nicht existiert/richtig ist.
  * 
  * @author osca
  */

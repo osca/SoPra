@@ -10,7 +10,7 @@ import angebote.typen.Angebot;
  * Anbieter - erbt von Account
  * 
  * @author stephan
- * @edit R
+ * @edit Rudolf
  */
 public class Anbieter extends Account {
 	

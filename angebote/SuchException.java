@@ -1,7 +1,7 @@
 package angebote;
 
 /**
- * SuchException
+ * SuchException wird ausgeloest, wenn ein Fehler bei der Suche von Angeboten auftritt.
  * 
  * @author osca
  */

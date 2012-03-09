@@ -1,7 +1,7 @@
 package buchungen;
 
 /**
- * InvalidDateException
+ * InvalidDateException wird ausgeloest, wenn das Date "abgelaufen ist".
  * 
  * @author osca
  */

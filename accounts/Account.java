@@ -103,7 +103,7 @@ public abstract class Account implements Listable{
 	/**Setzt den Account auf gesperrt bzw. nicht gesperrt
 	 * @param gesperrt : true - sperrt account, false - entsperrt Account
 	 */
-	void setGesperrt(Gesperrt gesperrt) {		//package
+	void setGesperrt(Gesperrt gesperrt) {		// sichtbarkeit package
 		this.gesperrt = gesperrt;
 	}
 	

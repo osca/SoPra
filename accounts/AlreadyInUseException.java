@@ -1,7 +1,7 @@
 package accounts;
 
 /**
- * AlreadyInUseException
+ * AlreadyInUseException wird ausgeloest, wenn ein Account bereits registriert ist.
  * 
  * @author osca
  */

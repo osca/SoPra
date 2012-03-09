@@ -1,7 +1,7 @@
 package accounts;
 
 /**
- * LoeschenNichtMoeglichException
+ * LoeschenNichtMoeglichException wird ausgelöst, wenn eine Account nicht gelöscht werden kann.
  * 
  * @author osca
  */
