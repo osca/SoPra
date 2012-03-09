@@ -220,7 +220,7 @@ public class Angebotsverwaltung {
 		
 		// Erstmal checken, ob offene Buchungen vorhanden sind. Loeschen geht an dieser Stelle noch nicht, da wir erst wissen muessen, ob loeschen erlaubt ist.
 		for(int i = 0; i < buchungen.size(); i++) 
-			assert !(buchungen.get(i).getBestaetigt() == Bestaetigung.JA) && !(buchungen.get(i).getBis().after(new Date())) :
+			assert !(buchungen.get(i).getBestaetigt() == Bestaetigung.JA && buchungen.get(i).getBis().before(Methods.getHeuteNullUhr())) :
 				"Es existieren noch zu erfuellende Buchungen auf dem Angebot.";
 		
 		// Loeschen ist erlaubt, wir entfernen die Buchungen aus dem Angebot
