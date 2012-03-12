@@ -261,9 +261,8 @@ public class MainFrame extends JFrame
 				showLoeschen();}});
 		
 		//////////////// finish
-		
-		showTopAngebote();
-		
+
+		this.showTopAngebote();
 		this.pack();
 		this.setVisible(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -670,7 +669,7 @@ public class MainFrame extends JFrame
 	/**
 	 * Zeigt alle Topangebot in einer Liste auf dem Hauptbild an.
 	 */
-	private void showTopAngebote()
+	public void showTopAngebote()
 	{
 		try
 		{
