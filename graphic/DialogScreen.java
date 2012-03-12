@@ -18,9 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-@SuppressWarnings("serial")
 public class DialogScreen extends JDialog 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5238367297212978670L;
 	// die flags werden uebergeben, damit DialogScreen weiss, welche er darstellen soll
 	public final static int NAN_OPTION = 300;
 	public final static int OK_OPTION = 23;
@@ -109,12 +112,14 @@ public class DialogScreen extends JDialog
             	close();
             }
         });
-		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
+		
 		
 		////
 		
 		mainFrame = frame;
 		mainFrame.setEnabled(false);
+		
+		this.setLocation(mainFrame.getX()+(mainFrame.getWidth()/4), mainFrame.getY()+(mainFrame.getHeight()/4));
 		
 		JPanel main = new JPanel(new BorderLayout());
 		main.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH*4, MainFrame.BUTTONHEIGHT*10));

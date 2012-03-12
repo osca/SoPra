@@ -40,6 +40,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		this.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		
 		JPanel elementPanel = new JPanel(new GridLayout(0,1));
+		
 		final Class<T> cls;
 		if(list.size()>0)
 			cls = (Class<T>) list.get(0).getClass();
@@ -48,8 +49,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 		for (int i=0;i<list.size();i++){
 			final int j = i;
 			final JPanel eventPanel = new JPanel();
-			eventPanel.setLayout(new BoxLayout(eventPanel,BoxLayout.X_AXIS));
-			final JPanel event_two=new JPanel(new GridLayout(1,3));
+			eventPanel.setLayout(new GridLayout(1,0));
 			eventPanel.addMouseListener(new MouseListener(){
 
 				@Override
@@ -59,6 +59,7 @@ public class ListeScreen <T extends Listable> extends JPanel {
 				public void mouseEntered(MouseEvent e) 
 				{
 					eventPanel.setBackground(Color.white);
+					eventPanel.getParent().repaint();
 				}
 
 				@Override
@@ -80,16 +81,14 @@ public class ListeScreen <T extends Listable> extends JPanel {
 			
 			JLabel name = new JLabel(list.get(i).getIdentifier());
 			name.setText("        " +list.get(i).getIdentifier());
-			JPanel name_p = new JPanel(new GridLayout(1,2));
-			name_p.add(name,BorderLayout.CENTER);
-			event_two.add(name_p,BorderLayout.WEST);
 			JLabel info = new JLabel(list.get(i).getAdditionalInfo());
-			event_two.add(info, BorderLayout.CENTER);
 			JLabel status = new JLabel(list.get(i).getStatus());
-			event_two.add(status,BorderLayout.EAST);
-			eventPanel.add(event_two);
+			eventPanel.add(name);
+			eventPanel.add(info);
+			eventPanel.add(status);
 			eventPanel.setPreferredSize(new Dimension(MainFrame.BUTTONWIDTH, MainFrame.BUTTONHEIGHT));
 			eventPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+			this.add(eventPanel);
 			elementPanel.add(eventPanel);
 		}
 		
